@@ -5,6 +5,7 @@ import ChatLayout from "./components/layouts/ChatLayout";
 import ChattingPage from "./routes/chat/ChattingPage";
 import NotFoundPage from "./routes/error/NotFoundPage";
 import NoSidebarLayout from "./components/layouts/NoSidebarLayout";
+import Redirect from "./components/modal/Redirect";
 
 const routers = [
   {
@@ -26,6 +27,10 @@ const routers = [
         element: <ChattingPage />,
       },
     ],
+  },
+  {
+    path: "/kakao/login",
+    element: <Redirect />,
   },
 
   // 404 처리

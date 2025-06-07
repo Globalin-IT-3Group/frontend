@@ -17,7 +17,9 @@ const Redirect = () => {
 
     if (code) {
       axios
-        .post(`${import.meta.env.VITE_BASE_URI}/auth`, { code: code })
+        .post(`${import.meta.env.VITE_BASE_URI}/kakao/user/auth`, {
+          code: code,
+        })
         // 백엔드 로그인 API에 POST 요청 보냄
         // payload(서버에 전달되는 실질적인 데이터)로 코드 전달
 
@@ -39,11 +41,7 @@ const Redirect = () => {
     }
   }, [location, navigate]);
 
-  return (
-    <div>
-      <Loading />
-    </div>
-  );
+  return <p>ㅋㅋ</p>;
 };
 
 export default Redirect;
