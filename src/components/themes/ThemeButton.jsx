@@ -1,4 +1,3 @@
-// ThemeButton.jsx (네브바용 버전)
 import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { LuSun, LuMoon } from "react-icons/lu";
