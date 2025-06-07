@@ -1,4 +1,11 @@
 export default function LoginModal({ onClose }) {
+  const restApiKey = import.meta.env.VITE_REST_API_KEY;
+  const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${restApiKey}&redirect_uri=${redirect_uri}`;
+  const handleLogin = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
@@ -51,10 +58,9 @@ export default function LoginModal({ onClose }) {
           </div>
         </div>
 
-        <a
-          href="#"
-          className="bg-white rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] m-4 mt-6 p-4 text-center
-             flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+        <button
+          onClick={handleLogin}
+          className="bg-white w-[540px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] m-4 mt-6 p-4 text-center flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200"
         >
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg"
@@ -64,7 +70,7 @@ export default function LoginModal({ onClose }) {
           <span className="text-[#676767] text-sm">
             카카오로 회원가입 / 로그인
           </span>
-        </a>
+        </button>
       </div>
     </div>
   );
