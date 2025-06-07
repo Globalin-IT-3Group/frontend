@@ -1,4 +1,3 @@
-// LoginModal.jsx
 export default function LoginModal({ onClose }) {
   return (
     <div
