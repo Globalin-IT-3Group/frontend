@@ -1,6 +1,5 @@
-import { useState } from "react";
-import ThemeButton from "../themes/ThemeButton";
-import LoginButton from "../themes/LoginButton";
+import ThemeButton from "../buttons/ThemeButton";
+import LoginButton from "../buttons/LoginButton";
 
 export default function Navbar() {
   return (
@@ -9,8 +8,8 @@ export default function Navbar() {
         className="flex justify-between items-center px-6 py-4 bg-white
                 dark:bg-zinc-800
                 dark:shadow-[0_2px_4px_-1px_rgba(255,255,255,0.3)]
-                transition-shadow duration-300
-                shadow-md z-10 relative"
+                shadow-md z-10 relative
+                transition-all duration-300"
       >
         <h1
           style={{ fontFamily: '"Nico Moji", sans-serif' }}

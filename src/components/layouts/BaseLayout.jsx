@@ -30,9 +30,9 @@ export default function BaseLayout({ children, SidebarComponent }) {
               {sidebarOpen && (
                 <button
                   onClick={() => setSidebarOpen(false)}
-                  className="absolute top-8 right-1 transform -translate-y-1/2 bg-white dark:bg-zinc-700 px-1 py-2 shadow"
+                  className="absolute top-8 right-1 transform -translate-y-1/2 bg-white dark:bg-zinc-800 px-1 py-2 shadow hover:bg-zinc-200 dark:hover:bg-zinc-600"
                 >
-                  <FiChevronsLeft className="text-xl" />
+                  <FiChevronsLeft className="text-xl dark:text-white" />
                 </button>
               )}
 
@@ -56,21 +56,21 @@ export default function BaseLayout({ children, SidebarComponent }) {
                     window.addEventListener("mousemove", handleMouseMove);
                     window.addEventListener("mouseup", handleMouseUp);
                   }}
-                  className="absolute right-0 top-0 h-full w-1 cursor-col-resize bg-zinc-300 dark:bg-zinc-700"
+                  className="absolute right-0 top-0 h-full w-1 cursor-col-resize bg-zinc-300 dark:bg-zinc-800"
                 />
               )}
             </div>
           </div>
 
           {/* 메인 콘텐츠 */}
-          <div className="flex-1 overflow-y-auto relative bg-white dark:bg-zinc-800">
+          <div className="flex-1 overflow-y-auto relative bg-white dark:bg-zinc-800 transition-all duration-300">
             {/* 열기 버튼 */}
             {!sidebarOpen && (
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="absolute top-8 left-7 transform -translate-y-1/2 -translate-x-full bg-white dark:bg-zinc-700 px-1 py-2 shadow z-50"
+                className="absolute top-8 left-7 transform -translate-y-1/2 -translate-x-full bg-white dark:bg-zinc-800 px-1 py-2 shadow z-50 hover:bg-zinc-200 dark:hover:bg-zinc-600"
               >
-                <FiChevronsRight className="text-xl" />
+                <FiChevronsRight className="text-xl dark:text-white" />
               </button>
             )}
             <div className="p-4">{children}</div>
