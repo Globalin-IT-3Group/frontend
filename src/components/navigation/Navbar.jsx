@@ -11,12 +11,12 @@ export default function Navbar() {
                 shadow-md z-10 relative
                 transition-all duration-300"
       >
-        <h1
+        <p
           style={{ fontFamily: '"Nico Moji", sans-serif' }}
-          className="text-3xl font-bold text-zinc-800 dark:text-white"
+          className="text-4xl font-bold text-zinc-800 dark:text-white"
         >
           コツコツ
-        </h1>
+        </p>
 
         <div className="flex gap-4">
           <ThemeButton />
