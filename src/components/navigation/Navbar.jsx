@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ThemeButton from "../themes/ThemeButton";
 import LoginModal from "../modal/LoginModal";
 
