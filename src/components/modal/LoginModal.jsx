@@ -16,12 +16,17 @@ export default function LoginModal({ onClose }) {
       <div className="bg-white rounded-4xl w-[650px] h-[770px] p-10 shadow-md relative">
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-[#676767] text-xl border border-gray-400 text-gray-400 rounded-4xl px-2 hover:border-gray-500 hover:text-gray-500 transition-all duration-100"
+          className="absolute top-4 right-4 text-[#676767] text-2xl text-gray-400 rounded-4xl px-2 hover:text-gray-500 transition-all duration-100"
         >
           ×
         </button>
 
-        <h2 className="text-md font-md ml-4 mt-16 mb-2">コツコツ</h2>
+        <h2
+          style={{ fontFamily: '"Nico Moji", sans-serif' }}
+          className="text-lg font-md ml-5 mt-16 mb-2"
+        >
+          コツコツ
+        </h2>
         <h1 className="text-4xl font-bold ml-4 mb-8">로그인</h1>
 
         <div className="bg-white rounded-3xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-10 m-4 space-y-6">

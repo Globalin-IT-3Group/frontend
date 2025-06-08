@@ -6,6 +6,7 @@ import ChattingPage from "./routes/chat/ChattingPage";
 import NotFoundPage from "./routes/error/NotFoundPage";
 import NoSidebarLayout from "./components/layouts/NoSidebarLayout";
 import Redirect from "./components/modal/Redirect";
+import MyInfoPage from "./routes/main/MyInfoPage";
 
 const routers = [
   {
@@ -28,6 +29,17 @@ const routers = [
       },
     ],
   },
+  {
+    path: "/my-info",
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <MyInfoPage />,
+      },
+    ],
+  },
+
   {
     path: "/kakao/login",
     element: <Redirect />,

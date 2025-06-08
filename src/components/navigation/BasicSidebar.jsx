@@ -6,6 +6,11 @@ function BasicSidebar() {
       {/* space-y-3 -> li 간격 조정 */}
       <ul className="space-y-3">
         <li className="text-xl">내 문서</li>
+        <li>
+          <Link to="/my-info" className="block text-xl flex">
+            <p className="hover:text-blue-500 transition-colors">내 정보</p>
+          </Link>
+        </li>
         <li className="text-xl">뭐뭐</li>
         <li className="text-xl">몰라몰라</li>
         <li>
