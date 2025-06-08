@@ -1,9 +1,8 @@
 import { useState } from "react";
 import ThemeButton from "../themes/ThemeButton";
-import LoginModal from "../modal/LoginModal";
+import LoginButton from "../themes/LoginButton";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
       <nav
@@ -13,19 +12,16 @@ export default function Navbar() {
                 transition-shadow duration-300
                 shadow-md z-10 relative"
       >
-        <h1 className="text-lg font-bold text-zinc-800 dark:text-white">
+        <h1
+          style={{ fontFamily: '"Nico Moji", sans-serif' }}
+          className="text-3xl font-bold text-zinc-800 dark:text-white"
+        >
           コツコツ
         </h1>
 
         <div className="flex gap-4">
           <ThemeButton />
-          <button
-            onClick={() => setIsOpen(true)}
-            className="p-2 bg-white shadow-sm text-gray-400 border border-gray-400 rounded-xl"
-          >
-            로그인
-          </button>
-          {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
+          <LoginButton />
         </div>
       </nav>
     </div>
