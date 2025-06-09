@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/reducers/authSlice";
 
 //useLocation() : 현재 URL에서 쿼리스트링(?code=...) 가져오기
 //useNavigate(): 페이지 이동을 위한 훅
@@ -10,6 +12,7 @@ import axios from "axios";
 const Redirect = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // redux dispatch 준비비
 
   useEffect(() => {
     const code = new URLSearchParams(location.search).get("code");
@@ -34,7 +37,7 @@ const Redirect = () => {
           const user = Response.data; //응답 데이터를 user에 저장
           console.log(user);
 
-          // dispatch(setUser(user)); => Redux 액션으로 로그인 상태 저장장
+          dispatch(setUser(user)); // => Redux 액션으로 로그인 상태 저장
           navigate("/"); // 최종적으로 메인 페이지로 리다이렉션
         })
 
@@ -45,9 +48,9 @@ const Redirect = () => {
     } else {
       console.error("인가 코드가 URL에 없습니다"); //쿼리스트링에 code가 없는 경우
     }
-  }, [location, navigate]);
+  }, [location, navigate, dispatch]);
 
-  return <p>ㅋㅋ</p>;
+  return <p>로그인 때리는 중!!!</p>;
 };
 
 export default Redirect;
