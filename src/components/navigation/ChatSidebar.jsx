@@ -16,7 +16,7 @@ function ChatSidebar() {
   };
 
   return (
-    <div className="h-full p-4 dark:text-white overflow-y-auto w-64 border-r border-gray-300">
+    <div className="h-full p-4 dark:text-white overflow-y-auto border-r border-gray-300">
       <h2 className="text-xl font-bold mb-4">💬 채팅방</h2>
       <ChatRoomList rooms={rooms} onClickRoom={handleRoomClick} />
     </div>
