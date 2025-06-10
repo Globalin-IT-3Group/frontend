@@ -1,7 +1,17 @@
+import { useLocation } from "react-router-dom";
+import ChatRoom from "../../components/chat/room/ChatRoom";
+
 export default function ChattingPage() {
-  return (
-    <div className="min-h-screen bg-white dark:bg-zinc-800 text-black dark:text-white p-8">
-      <p className="text-2xl">채팅 페이지임다아아아</p>
+  const query = new URLSearchParams(useLocation().search);
+  const roomId = Number(query.get("roomId"));
+  const { state } = useLocation();
+  const otherUser = state?.otherUser;
+
+  return roomId ? (
+    <ChatRoom roomId={roomId} otherUser={otherUser} />
+  ) : (
+    <div className="flex justify-center items-center w-full h-full text-gray-500">
+      채팅방을 선택해주세요.
     </div>
   );
 }

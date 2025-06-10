@@ -1,10 +1,10 @@
 import BaseLayout from "./BaseLayout";
-import CommunitySidebar from "../navigation/CommunitySidebar";
+import ChatSidebar from "../navigation/ChatSidebar";
 import { Outlet } from "react-router-dom";
 
 function ChatLayout() {
   return (
-    <BaseLayout SidebarComponent={CommunitySidebar}>
+    <BaseLayout SidebarComponent={ChatSidebar}>
       <Outlet />
     </BaseLayout>
   );
