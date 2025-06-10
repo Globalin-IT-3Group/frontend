@@ -1,6 +1,6 @@
 export default function JoinDate() {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-8">
       <label className="w-[180px] text-xl font-bold">가입 일시</label>
       <input
         type="text"

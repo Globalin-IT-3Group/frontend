@@ -5,8 +5,11 @@ import ChatLayout from "./components/layouts/ChatLayout";
 import ChattingPage from "./routes/chat/ChattingPage";
 import NotFoundPage from "./routes/error/NotFoundPage";
 import NoSidebarLayout from "./components/layouts/NoSidebarLayout";
-import Redirect from "./components/modal/Redirect";
-import MyInfoPage from "./routes/main/MyInfoPage";
+import Redirect from "./components/Login/Redirect";
+import MyInfoPage from "./components/MyInfo/MyInfoPage";
+import FindEmailPage from "./components/findAccount/FindEmailPage";
+import FindPasswordPage from "./components/findAccount/FindPasswordPage";
+import JoinPage from "./components/Join/JoinPage";
 
 const routers = [
   {
@@ -43,6 +46,16 @@ const routers = [
   {
     path: "/kakao/login",
     element: <Redirect />,
+  },
+
+  {
+    path: "/",
+    element: <NoSidebarLayout />,
+    children: [
+      { path: "find/email", element: <FindEmailPage /> },
+      { path: "find/password", element: <FindPasswordPage /> },
+      { path: "join", element: <JoinPage /> },
+    ],
   },
 
   // 404 처리

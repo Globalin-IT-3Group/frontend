@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LoginModal from "../modal/LoginModal";
+import LoginModal from "../Login/LoginModal";
 
 export default function LoginButton() {
   const [isOpen, setIsOpen] = useState(false);

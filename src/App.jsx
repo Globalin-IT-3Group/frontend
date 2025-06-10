@@ -1,11 +1,16 @@
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import MainRouter from "./main-router";
+import ThemeProvider from "./contexts/ThemeContext";
 
 function App() {
   return (
     // <Provider store={store}>
-    <RouterProvider router={MainRouter} />
+
+    <ThemeProvider>
+      <RouterProvider router={MainRouter} />
+    </ThemeProvider>
+
     // {/* </Provider> */}
   );
 }

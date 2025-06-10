@@ -36,13 +36,13 @@ export default function StatusMessage() {
           />
           <button
             onClick={handleSave}
-            className="text-sm px-3 py-1 rounded-md bg-[#5500ff] text-white hover:bg-[#4600D1] transition-all duration-100"
+            className="text-sm px-3 py-1 rounded-md bg-[#003CFF] text-white hover:bg-[#0536D7] transition-all duration-100"
           >
             변경
           </button>
           <button
             onClick={handleCancel}
-            className="text-sm px-3 py-1 rounded-md bg-gray-300 text-gray-800 hover:bg-gray-400"
+            className="text-sm px-3 py-1 rounded-md bg-white text-gray-400 border border-gray-400 hover:bg-gray-200"
           >
             취소
           </button>

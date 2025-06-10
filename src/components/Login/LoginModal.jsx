@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 export default function LoginModal({ onClose }) {
   const restApiKey = import.meta.env.VITE_REST_API_KEY;
   const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
@@ -5,6 +7,8 @@ export default function LoginModal({ onClose }) {
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
+
+  const navigate = useNavigate();
 
   return (
     <div
@@ -51,15 +55,31 @@ export default function LoginModal({ onClose }) {
             />
           </div>
           <div className="flex justify-center">
-            <button className="w-[250px] py-3 bg-[#5500ff] text-white font-bold rounded-2xl hover:bg-[#4600D1] active:scale-95 transition-all duration-100">
+            <button className="w-[250px] py-3 bg-[#003CFF] text-white font-bold rounded-2xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90">
               로그인
             </button>
           </div>
 
           <div className="text-center text-sm text-[#676767]">
-            <a href="#">아이디 비밀번호 찾기</a>
+            <button
+              onClick={() => {
+                onClose();
+                navigate("/find/email");
+              }}
+              className="hover:text-black transition"
+            >
+              이메일 비밀번호 찾기
+            </button>
             <span className="mx-2">|</span>
-            <a href="#">회원가입</a>
+            <button
+              onClick={() => {
+                onClose();
+                navigate("/join");
+              }}
+              className="hover:text-black transition"
+            >
+              회원가입
+            </button>
           </div>
         </div>
 

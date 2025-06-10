@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         nicomoji: ["Nico Moji", "sans-serif"],
+        pretendard: ["Pretendard", "sans-serif"],
       },
     },
   },

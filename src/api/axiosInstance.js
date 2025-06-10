@@ -2,8 +2,10 @@ import axios from "axios";
 // import store from "../store";
 // import { openLoginModal } from "../store/reducers/auth";
 
+const BASE_URL = import.meta.env.VITE_BASE_URI || "http://localhost:8080";
+
 export default class BaseApi {
-  constructor(url) {
+  constructor(url = BASE_URL) {
     axios.defaults.withCredentials = true;
 
     this.fetcher = axios.create({

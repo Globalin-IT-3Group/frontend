@@ -1,5 +1,6 @@
 import ThemeButton from "../buttons/ThemeButton";
 import LoginButton from "../buttons/LoginButton";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -11,12 +12,13 @@ export default function Navbar() {
                 shadow-md z-10 relative
                 transition-all duration-300"
       >
-        <p
+        <Link
+          to="/"
           style={{ fontFamily: '"Nico Moji", sans-serif' }}
-          className="text-4xl font-bold text-zinc-800 dark:text-white"
+          className="text-4xl text-[#003CFF] font-bold dark:text-white"
         >
           コツコツ
-        </p>
+        </Link>
 
         <div className="flex gap-4">
           <ThemeButton />
