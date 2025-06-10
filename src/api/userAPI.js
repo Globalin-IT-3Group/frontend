@@ -41,6 +41,11 @@ class UserApi extends BaseApi {
     const res = await this.fetcher.post("/user/find-password", data);
     return res.data;
   }
+
+  async test() {
+    const res = await this.fetcher.get("/user/test");
+    return res.data;
+  }
 }
 
 export default new UserApi();
