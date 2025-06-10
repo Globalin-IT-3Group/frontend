@@ -55,7 +55,7 @@ export default function LoginModal({ onClose }) {
             />
           </div>
           <div className="flex justify-center">
-            <button className="w-[250px] py-3 bg-[#003CFF] text-white font-bold rounded-2xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90">
+            <button className="w-[220px] py-3 bg-[g#003CFF] text-white font-bold rounded-3xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90 mt-6">
               로그인
             </button>
           </div>

@@ -8,6 +8,7 @@ import NoSidebarLayout from "./components/layouts/NoSidebarLayout";
 import Redirect from "./components/Login/Redirect";
 import MyInfoPage from "./components/MyInfo/MyInfoPage";
 import FindEmailPage from "./components/findAccount/FindEmailPage";
+import FindEmailSuccess from "./components/findAccount/FindEmaillSuccess";
 import FindPasswordPage from "./components/findAccount/FindPasswordPage";
 import JoinPage from "./components/Join/JoinPage";
 
@@ -54,6 +55,7 @@ const routers = [
     children: [
       { path: "find/email", element: <FindEmailPage /> },
       { path: "find/password", element: <FindPasswordPage /> },
+      { path: "find/email/success", element: <FindEmailSuccess /> },
       { path: "join", element: <JoinPage /> },
     ],
   },

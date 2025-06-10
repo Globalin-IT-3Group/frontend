@@ -8,7 +8,7 @@ export default function FindEmailPage() {
   const [phone1, setPhone1] = useState("010");
   const [phone2, setPhone2] = useState("");
   const [phone3, setPhone3] = useState("");
-  const [question, setQuestion] = useState("나의 보물 제1호는?");
+  const [question, setQuestion] = useState("나의 보물 1호는?");
   const [answer, setAnswer] = useState("");
 
   const handleFindEmail = () => {
@@ -116,7 +116,10 @@ export default function FindEmailPage() {
                 className="w-full px-4 py-3 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl"
               />
             </div>
-            <button className="w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10">
+            <button
+              onClick={handleFindEmail}
+              className="w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10"
+            >
               이메일 찾기
             </button>
           </div>
