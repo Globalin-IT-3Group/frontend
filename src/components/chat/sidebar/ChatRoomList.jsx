@@ -10,7 +10,7 @@ function ChatRoomList() {
   }, []);
 
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-3 w-60 flex flex-col">
       {rooms.map((room) => (
         <ChatRoomItem key={room.roomId} room={room} />
       ))}
