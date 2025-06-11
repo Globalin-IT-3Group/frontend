@@ -20,8 +20,10 @@ const routers = [
         index: true,
         element: <MainPage />,
       },
+      { path: "my-info", element: <MyInfoPage /> },
     ],
   },
+
   {
     path: "/chat",
     element: <ChatLayout />,
@@ -29,16 +31,6 @@ const routers = [
       {
         index: true,
         element: <ChattingPage />,
-      },
-    ],
-  },
-  {
-    path: "/my-info",
-    element: <MainLayout />,
-    children: [
-      {
-        index: true,
-        element: <MyInfoPage />,
       },
     ],
   },
@@ -54,7 +46,7 @@ const routers = [
   },
 
   {
-    path: "/",
+    path: "/auth",
     element: <NoSidebarLayout />,
     children: [
       { path: "find", element: <Navigate to="/find/email" replace /> },

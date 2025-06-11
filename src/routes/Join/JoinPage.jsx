@@ -46,7 +46,7 @@ export default function JoinPage() {
       imageUrl: "/fail.svg",
       imageWidth: 180,
       imageHeight: 180,
-
+ 
       showCancelButton: true,
       confirmButtonColor: "#003CFF",
       cancelButtonColor: "#D9D9D9",
