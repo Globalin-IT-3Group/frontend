@@ -88,7 +88,7 @@ export default function JoinPage() {
       return;
     }
 
-    const phone = phone1 + phone2 + phone3;
+    const phoneNumber = phone1 + phone2 + phone3;
 
     const userData = {
       email,

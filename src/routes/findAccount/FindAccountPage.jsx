@@ -30,7 +30,6 @@ export default function FindAccountPage() {
           </Link>
         </div>
 
-        {/* 폼 */}
         {isEmail ? <FindEmailForm /> : <FindPasswordForm />}
       </div>
     </div>
