@@ -20,7 +20,7 @@ export default function MyInfoPage() {
           <StatusMessage />
           <div className="w-[1100px] h-px bg-gray-200 mt-20 flex items-center" />
 
-          <form className="w-full max-w-[700px] mx-auto mt-10 p-8 space-y-10">
+          <form className="w-full max-w-[780px] mx-auto mt-10 p-8 space-y-10">
             <Email />
             <Password />
             <Nickname />
