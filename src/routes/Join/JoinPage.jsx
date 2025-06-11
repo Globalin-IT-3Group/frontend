@@ -7,6 +7,8 @@ export default function JoinPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordMatchMessage, setPasswordMatchMessage] = useState("");
+  const [isPasswordMatch, setIsPasswordMatch] = useState(null);
   const [nickname, setNickname] = useState("");
   const [phone1, setPhone1] = useState("010");
   const [phone2, setPhone2] = useState("");
@@ -126,7 +128,7 @@ export default function JoinPage() {
           <h2 className="text-3xl font-bold flex justify-center mt-14">
             회원가입
           </h2>
-          <div className="w-full max-w-[900px] mx-auto">
+          <div className="w-full max-w-[1000px] mx-auto">
             <div className="h-px bg-gray-200 mt-16" />
             <p className="text-sm text-gray-500 text-right mt-4">
               *는 필수 입력 항목
@@ -144,7 +146,9 @@ export default function JoinPage() {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  }}
                 className="border border-gray-300 px-3 py-2 rounded-xl w-full"
                 placeholder="example@email.com"
               />
@@ -153,10 +157,27 @@ export default function JoinPage() {
               <label className="font-bold text-lg">
                 비밀번호 <span className="text-red-500">*</span>
               </label>
-              <input
+                <input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setPassword(value);
+
+                  if (!value && !confirmPassword) {
+                    setPasswordMatchMessage("");
+                    setIsPasswordMatch(null);
+                  } else if (!value || !confirmPassword) {
+                    setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
+                    setIsPasswordMatch(false);
+                  } else if (value !== confirmPassword) {
+                    setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
+                    setIsPasswordMatch(false);
+                  } else {
+                    setPasswordMatchMessage("비밀번호가 일치합니다.");
+                    setIsPasswordMatch(true);
+                  }
+                }}
                 className="border border-gray-300 px-3 py-2 rounded-xl w-full"
                 placeholder="********"
               />
@@ -165,13 +186,43 @@ export default function JoinPage() {
               <label className="font-bold text-lg">
                 비밀번호 확인 <span className="text-red-500">*</span>
               </label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="border border-gray-300 px-3 py-2 rounded-xl w-full"
-                placeholder="********"
-              />
+
+              <div className="relative w-full">
+                 <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setConfirmPassword(value);
+
+                      if (!password && !value) {
+                        setPasswordMatchMessage("");
+                        setIsPasswordMatch(null);
+                      } else if (!password || !value) {
+                        setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
+                        setIsPasswordMatch(false);
+                      } else if (value !== password) {
+                        setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
+                        setIsPasswordMatch(false);
+                      } else {
+                        setPasswordMatchMessage("비밀번호가 일치합니다.");
+                        setIsPasswordMatch(true);
+                      }
+                    }}
+                    className="border border-gray-300 px-3 py-2 rounded-xl w-full"
+                    placeholder="********"
+                  />
+
+              {passwordMatchMessage && (
+                  <div
+                    className={`absolute top-1/2 left-full ml-3 -translate-y-1/2 text-sm whitespace-nowrap ${
+                      isPasswordMatch ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    {passwordMatchMessage}
+                  </div>
+                )}
+              </div>
               <div></div>
 
               <label className="font-bold text-lg">
