@@ -36,10 +36,10 @@ export default function JoinPage() {
     });
   };
 
-  const JoinFailAlert = () => {
+  const JoinFailAlert = (message) => {
     Swal.fire({
       title: "회원가입 실패",
-      text: "다시 시도해주세요",
+      text: `${message} 다시 시도해주세요.`,
 
       imageUrl: "/fail.svg",
       imageWidth: 180,
@@ -88,7 +88,7 @@ export default function JoinPage() {
       return;
     }
 
-    const phone = phone1 + phone2 + phone3;
+    const phoneNumber = phone1 + phone2 + phone3;
 
     const userData = {
       email,
@@ -104,7 +104,7 @@ export default function JoinPage() {
       JoinSuccessAlert();
       console.log(result);
     } catch (error) {
-      JoinFailAlert();
+      JoinFailAlert(error.response.data.message);
       console.error(error);
       // // error.response에 백엔드 응답이 들어있음
       // if (
