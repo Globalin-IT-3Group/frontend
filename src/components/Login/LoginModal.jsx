@@ -1,15 +1,20 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import userAPI from "../../api/userAPI";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/reducers/authSlice";
 
 export default function LoginModal({ onClose }) {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
   const restApiKey = import.meta.env.VITE_REST_API_KEY;
   const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${restApiKey}&redirect_uri=${redirect_uri}`;
-  const handleLogin = () => {
-    window.location.href = KAKAO_AUTH_URL;
-  };
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const LoginSuccess = () => {
     Swal.fire({
@@ -23,9 +28,45 @@ export default function LoginModal({ onClose }) {
       showCancelButton: false,
       confirmButtonColor: "#003CFF",
       cancelButtonColor: "#D9D9D9",
-      confirmButtonText: "닫기",
-      cancelButtonText: "취소",
+      confirmButtonText: "메인 페이지",
     });
+  };
+
+  const LoginFail = (message) => {
+    Swal.fire({
+      title: "로그인 실패!",
+      text: message,
+
+      imageUrl: "/fail.svg",
+      imageWidth: 180,
+      imageHeight: 180,
+
+      showCancelButton: false,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "닫기",
+    });
+  };
+
+  const handleKakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
+
+  const handleLogin = async () => {
+    const loginData = {
+      email,
+      password,
+    };
+
+    try {
+      const user = await userAPI.login(loginData);
+      console.log("일반 로그인 성공!", user);
+
+      dispatch(setUser(user));
+      LoginSuccess();
+    } catch (error) {
+      LoginFail(error.response.data.message);
+    }
   };
 
   return (
@@ -58,6 +99,8 @@ export default function LoginModal({ onClose }) {
             </label>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="이메일을 입력해 주세요"
               className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl"
             />
@@ -68,13 +111,15 @@ export default function LoginModal({ onClose }) {
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호를 입력해 주세요"
               className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl"
             />
           </div>
           <div className="flex justify-center">
             <button
-              onClick={LoginSuccess}
+              onClick={handleLogin}
               className="w-[220px] py-3 bg-[#003CFF] text-white font-bold rounded-3xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90 mt-6"
             >
               로그인
@@ -105,7 +150,7 @@ export default function LoginModal({ onClose }) {
         </div>
 
         <button
-          onClick={handleLogin}
+          onClick={handleKakaoLogin}
           className="bg-white w-[540px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] m-4 mt-6 p-4 text-center flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200"
         >
           <img
