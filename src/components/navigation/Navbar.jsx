@@ -1,6 +1,6 @@
 import ThemeButton from "../buttons/ThemeButton";
 import LoginButton from "../buttons/LoginButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileAvatar from "./ProfileAvatar";
 import ProfileDropdown from "./ProfileDropdown";
@@ -9,10 +9,12 @@ import { logout } from "../../store/reducers/authSlice";
 export default function Navbar() {
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // 로그아웃 함수
   const handleLogout = () => {
     dispatch(logout(user));
+    navigate("/");
   };
 
   return (

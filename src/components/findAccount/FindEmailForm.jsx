@@ -12,73 +12,69 @@ export default function FindEmailForm() {
   const navigate = useNavigate();
 
   const FindEmailSuccessAlert = (email) => {
-      Swal.fire({
-        title: "이메일 찾기 성공!",
-        text: `회원님의 이메일은 ${email}입니다`,
-  
-        imageUrl: "/success.svg",
-        imageWidth: 180,
-        imageHeight: 180,
-  
-        showCancelButton: false,
-        confirmButtonColor: "#003CFF",
-        cancelButtonColor: "#D9D9D9",
-        confirmButtonText: "로그인",
-        cancelButtonText: "메인 페이지",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate("/login");
-        }
-      });
-    };
-  
-    const FindEmailFailAlert = () => {
-      Swal.fire({
-        title: "이메일 찾기 실패",
-        text: "다시 시도해주세요",
-  
-        imageUrl: "/fail.svg",
-        imageWidth: 180,
-        imageHeight: 180,
-  
-        showCancelButton: true,
-        confirmButtonColor: "#003CFF",
-        cancelButtonColor: "#D9D9D9",
-        confirmButtonText: "다시 시도",
-        cancelButtonText: "메인 페이지",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate("/find/email");
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          navigate("/");
-        }
-      });
-    };
+    Swal.fire({
+      title: "이메일 찾기 성공!",
+      text: `회원님의 이메일은 ${email}입니다`,
 
+      imageUrl: "/success.svg",
+      imageWidth: 180,
+      imageHeight: 180,
+
+      showCancelButton: false,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "로그인",
+      cancelButtonText: "메인 페이지",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/login");
+      }
+    });
+  };
+
+  const FindEmailFailAlert = (message) => {
+    Swal.fire({
+      title: "이메일 찾기 실패",
+      text: `${message} 다시 시도해주세요!`,
+
+      imageUrl: "/fail.svg",
+      imageWidth: 180,
+      imageHeight: 180,
+
+      showCancelButton: true,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "다시 시도",
+      cancelButtonText: "메인 페이지",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/find/email");
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        navigate("/");
+      }
+    });
+  };
 
   const handleFindEmail = async () => {
     const phoneNumber = phone1 + phone2 + phone3;
-    
+
     const userData = {
       phoneNumber,
       question,
       answer,
+    };
+
+    try {
+      const result = await userAPI.findEmail(userData);
+      FindEmailSuccessAlert(result.data);
+    } catch (error) {
+      console.error(error);
+      FindEmailFailAlert(error.response.data.message);
     }
- 
-
-  try{
-    const result = await userAPI.findEmail(userData);
-    FindEmailSuccessAlert(result.data);
-  } catch(error){
-    console.error(error);
-    FindEmailFailAlert();
-  }
-
-   };
+  };
 
   return (
     <div className="w-[600px] mt-10 mx-auto space-y-12">
-      
       <div>
         <label className="block text-md text-[#676767] font-bold mb-2">
           휴대폰 번호
@@ -111,7 +107,6 @@ export default function FindEmailForm() {
         </div>
       </div>
 
-
       <div>
         <label className="block text-md text-[#676767] font-bold mb-2">
           계정 복구 질문
@@ -142,7 +137,6 @@ export default function FindEmailForm() {
           className="w-full px-4 py-3 border border-[#CBCBCB] rounded-xl"
         />
       </div>
-
 
       <button
         onClick={handleFindEmail}

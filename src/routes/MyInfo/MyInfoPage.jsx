@@ -1,6 +1,5 @@
 import Email from "../../components/MyInfo/Email";
 import Password from "../../components/MyInfo/Password";
-import CheckPassword from "../../components/MyInfo/CheckPassword";
 import ProfileImage from "../../components/MyInfo/ProfileImage";
 import StatusMessage from "../../components/MyInfo/StatusMessage";
 import Nickname from "../../components/MyInfo/Nickname";
@@ -24,7 +23,6 @@ export default function MyInfoPage() {
           <form className="w-full max-w-[700px] mx-auto mt-10 p-8 space-y-10">
             <Email />
             <Password />
-            <CheckPassword />
             <Nickname />
             <PhoneNumber />
             <AccountRecoveryQuestion />
