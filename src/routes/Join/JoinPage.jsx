@@ -202,13 +202,23 @@ export default function JoinPage() {
                   <option>019</option>
                 </select>
                 <input
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={4}
                   value={phone2}
-                  onChange={(e) => setPhone2(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, "");
+                    setPhone2(value);}}
                   className="border border-gray-300 px-2 py-1 rounded-xl w-24"
                 />
                 <input
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={4}
                   value={phone3}
-                  onChange={(e) => setPhone3(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, "");
+                    setPhone3(value);}}
                   className="border border-gray-300 px-2 py-1 rounded-xl w-24"
                 />
               </div>
