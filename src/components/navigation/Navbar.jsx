@@ -1,19 +1,22 @@
 import ThemeButton from "../buttons/ThemeButton";
 import LoginButton from "../buttons/LoginButton";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import ProfileAvatar from "./ProfileAvatar";
+import ProfileDropdown from "./ProfileDropdown";
+import { logout } from "../../store/reducers/authSlice";
 
 export default function Navbar() {
   const user = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  // 로그아웃 함수
+  const handleLogout = () => {
+    dispatch(logout(user));
+  };
 
   return (
-    <nav
-      className="flex justify-between items-center px-6 py-4 bg-white
-                dark:bg-zinc-800
-                dark:shadow-[0_2px_4px_-1px_rgba(255,255,255,0.3)]
-                shadow-md z-10 relative
-                transition-all duration-300"
-    >
+    <nav className="flex justify-between items-center px-6 py-4 bg-white dark:bg-zinc-800 dark:shadow-[0_2px_4px_-1px_rgba(255,255,255,0.3)] shadow-md z-10 relative transition-all duration-300">
       <Link
         to="/"
         style={{ fontFamily: '"Nico Moji", sans-serif' }}
@@ -21,30 +24,61 @@ export default function Navbar() {
       >
         コツコツ
       </Link>
-
       <div className="flex gap-4">
         <ThemeButton />
         {user.isLoggedIn ? (
-          <div className="flex items-center justify-center h-full">
-            <div
-              className="
-      w-10 h-10 rounded-full p-1
-      bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500
-      flex items-center justify-center
-    "
-            >
-              <div className="bg-white w-8 h-8 rounded-full flex items-center justify-center">
-                <img
-                  src={
-                    user.profileImage ||
-                    "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
-                  }
-                  alt="profile"
-                  className="w-7 h-7 object-cover rounded-full"
-                />
-              </div>
-            </div>
-          </div>
+          <ProfileDropdown
+            avatar={
+              <ProfileAvatar
+                src={
+                  user.profileImage ||
+                  "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
+                }
+                className="cursor-pointer"
+              />
+            }
+          >
+            {(closeMenu) => (
+              <>
+                <div className=" flex flex-col items-center px-4 pt-2 pb-3 border-b border-gray-200 dark:border-zinc-800">
+                  <img
+                    src={
+                      user.profileImage ||
+                      "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
+                    }
+                    alt="profile"
+                    className="w-16 h-16 object-cover rounded-full mb-2"
+                  />
+                  <span className="font-semibold text-gray-900 dark:text-white">
+                    {user.nickname || "닉네임"}
+                  </span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {user.email || "이메일"}
+                  </span>
+                </div>
+                {/* 하단 버튼 영역 - 수평 정렬 */}
+                <div className="flex justify-around px-2 pt-2">
+                  <Link
+                    to="/my-info"
+                    className="px-4 py-2 rounded-md text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium transition"
+                    onClick={closeMenu}
+                  >
+                    내 정보
+                  </Link>
+                  {/* <div className="border-r border-gray-200 dark:border-zinc-800" /> */}
+                  <button
+                    onClick={() => {
+                      closeMenu();
+                      handleLogout();
+                    }}
+                    className="px-4 py-2 rounded-md text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium transition"
+                  >
+                    로그아웃
+                  </button>
+                </div>
+              </>
+            )}
+          </ProfileDropdown>
         ) : (
           <LoginButton />
         )}
