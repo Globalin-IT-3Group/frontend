@@ -1,14 +1,22 @@
 import { FiEdit2 } from "react-icons/fi";
 import { useState } from "react";
+import userAPI from "../../api/userAPI";
 
-export default function StatusMessage() {
+export default function StatusMessage({ initialMessage }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [message, setMessage] = useState("今日も頑張りましょう！");
+  const [message, setMessage] = useState(
+    initialMessage || "まだメッセージがありません！"
+  );
   const [tempMessage, setTempMessage] = useState(message);
 
-  const handleSave = () => {
-    setMessage(tempMessage);
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      await userAPI.updateProfileMessage(tempMessage); // ✅ API 호출
+      setMessage(tempMessage);
+      setIsEditing(false);
+    } catch (err) {
+      alert(err.response.data.message);
+    }
   };
 
   const handleCancel = () => {
@@ -16,15 +24,8 @@ export default function StatusMessage() {
     setIsEditing(false);
   };
 
-  const handleBlur = () => setIsEditing(false);
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      setIsEditing(false);
-    }
-  };
-
   return (
-    <div className="relative bg-white border border-gray-300 rounded-xl px-4 py-2 text-center shadow-[0_0_4px_rgba(0,0,0,0.1)] mt-6 flex items-center justify-center gap-2">
+    <div className="relative bg-white border border-gray-300 rounded-xl px-4 py-2 text-center shadow-[0_0_4px_rgba(0,0,0,0.1)] mt-6 flex items-center justify-center gap-2 w-[500px]">
       {isEditing ? (
         <>
           <input
@@ -49,7 +50,7 @@ export default function StatusMessage() {
         </>
       ) : (
         <>
-          <p className="text-gray-700 text-lg flex-1">{message}</p>
+          <p className="text-gray-700 text-lg flex-1 break-words">{message}</p>
           <button
             type="button"
             onClick={() => setIsEditing(true)}
