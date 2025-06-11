@@ -68,7 +68,7 @@ export default function FindEmailForm() {
 
   try{
     const result = await userAPI.findEmail(userData);
-    FindEmailSuccessAlert(result.email);
+    FindEmailSuccessAlert(result.data);
   } catch(error){
     console.error(error);
     FindEmailFailAlert();
