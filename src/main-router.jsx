@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "./components/layouts/MainLayout";
 import MainPage from "./routes/main/MainPage";
 import ChatLayout from "./components/layouts/ChatLayout";
@@ -6,11 +6,10 @@ import ChattingPage from "./routes/chat/ChattingPage";
 import NotFoundPage from "./routes/error/NotFoundPage";
 import NoSidebarLayout from "./components/layouts/NoSidebarLayout";
 import Redirect from "./components/Login/Redirect";
-import MyInfoPage from "./components/MyInfo/MyInfoPage";
-import FindEmailPage from "./components/findAccount/FindEmailPage";
-import FindEmailSuccess from "./components/findAccount/FindEmaillSuccess";
-import FindPasswordPage from "./components/findAccount/FindPasswordPage";
-import JoinPage from "./components/Join/JoinPage";
+import MyInfoPage from "./routes/MyInfo/MyInfoPage";
+import JoinPage from "./routes/Join/JoinPage";
+import LoginPage from "./routes/Login/LoginPage";
+import FindAccountPage from "./routes/findAccount/FindAccountPage";
 
 const routers = [
   {
@@ -50,12 +49,17 @@ const routers = [
   },
 
   {
+    path: "/login",
+    element: <LoginPage />,
+  },
+
+  {
     path: "/",
     element: <NoSidebarLayout />,
     children: [
-      { path: "find/email", element: <FindEmailPage /> },
-      { path: "find/password", element: <FindPasswordPage /> },
-      { path: "find/email/success", element: <FindEmailSuccess /> },
+      { path: "find", element: <Navigate to="/find/email" replace /> },
+      { path: "find/email", element: <FindAccountPage /> },
+      { path: "find/password", element: <FindAccountPage /> },
       { path: "join", element: <JoinPage /> },
     ],
   },

@@ -1,14 +1,13 @@
-import Email from "./Email";
-import Name from "./Name";
-import Password from "./Password";
-import CheckPassword from "./CheckPassword";
-import ProfileImage from "./ProfileImage";
-import StatusMessage from "./StatusMessage";
-import Nickname from "./Nickname";
-import PhoneNumber from "./PhoneNumber";
-import AccountRecoveryQuestion from "./AccountRecoveryQuestion";
-import AccountRecoveryAnswer from "./AccountRecoveryAnswer";
-import JoinDate from "./JoinDate";
+import Email from "../../components/MyInfo/Email";
+import Password from "../../components/MyInfo/Password";
+import CheckPassword from "../../components/MyInfo/CheckPassword";
+import ProfileImage from "../../components/MyInfo/ProfileImage";
+import StatusMessage from "../../components/MyInfo/StatusMessage";
+import Nickname from "../../components/MyInfo/Nickname";
+import PhoneNumber from "../../components/MyInfo/PhoneNumber";
+import AccountRecoveryQuestion from "../../components/MyInfo/AccountRecoveryQuestion";
+import AccountRecoveryAnswer from "../../components/MyInfo/AccountRecoveryAnswer";
+import JoinDate from "../../components/MyInfo/JoinDate";
 
 export default function MyInfoPage() {
   return (
@@ -26,7 +25,6 @@ export default function MyInfoPage() {
             <Email />
             <Password />
             <CheckPassword />
-            <Name />
             <Nickname />
             <PhoneNumber />
             <AccountRecoveryQuestion />

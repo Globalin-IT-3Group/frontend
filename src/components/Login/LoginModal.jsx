@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function LoginModal({ onClose }) {
   const restApiKey = import.meta.env.VITE_REST_API_KEY;
@@ -9,6 +10,23 @@ export default function LoginModal({ onClose }) {
   };
 
   const navigate = useNavigate();
+
+  const LoginSuccess = () => {
+    Swal.fire({
+      title: "로그인 성공!",
+      text: "오늘도 열심히 공부해요!",
+
+      imageUrl: "/success.svg",
+      imageWidth: 180,
+      imageHeight: 180,
+
+      showCancelButton: false,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "닫기",
+      cancelButtonText: "취소",
+    });
+  };
 
   return (
     <div
@@ -55,7 +73,10 @@ export default function LoginModal({ onClose }) {
             />
           </div>
           <div className="flex justify-center">
-            <button className="w-[220px] py-3 bg-[g#003CFF] text-white font-bold rounded-3xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90 mt-6">
+            <button
+              onClick={LoginSuccess}
+              className="w-[220px] py-3 bg-[#003CFF] text-white font-bold rounded-3xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90 mt-6"
+            >
               로그인
             </button>
           </div>
