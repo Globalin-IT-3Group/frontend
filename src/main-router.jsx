@@ -20,6 +20,10 @@ const routers = [
         index: true,
         element: <MainPage />,
       },
+      {
+        path: "my-info",
+        element: <MyInfoPage />,
+      },
     ],
   },
   {
@@ -33,45 +37,36 @@ const routers = [
     ],
   },
   {
-    path: "/my-info",
-    element: <MainLayout />,
-    children: [
-      {
-        index: true,
-        element: <MyInfoPage />,
-      },
-    ],
-  },
-
-  {
     path: "/kakao/login",
     element: <Redirect />,
   },
-
   {
     path: "/login",
     element: <LoginPage />,
   },
-
   {
-    path: "/",
+    path: "/find",
     element: <NoSidebarLayout />,
     children: [
-      { path: "find", element: <Navigate to="/find/email" replace /> },
-      { path: "find/email", element: <FindAccountPage /> },
-      { path: "find/password", element: <FindAccountPage /> },
-      { path: "join", element: <JoinPage /> },
+      { index: true, element: <Navigate to="/find/email" replace /> },
+      { path: "email", element: <FindAccountPage /> },
+      { path: "password", element: <FindAccountPage /> },
     ],
   },
-
-  // 404 처리
+  {
+    path: "/join",
+    element: <NoSidebarLayout />,
+    children: [{ index: true, element: <JoinPage /> }],
+  },
   {
     path: "*",
-    element: (
-      <NoSidebarLayout>
-        <NotFoundPage />
-      </NoSidebarLayout>
-    ),
+    element: <NoSidebarLayout />,
+    children: [
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
+    ],
   },
 ];
 
