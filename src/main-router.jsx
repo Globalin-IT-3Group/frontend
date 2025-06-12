@@ -10,6 +10,7 @@ import MyInfoPage from "./routes/MyInfo/MyInfoPage";
 import JoinPage from "./routes/Join/JoinPage";
 import LoginPage from "./routes/Login/LoginPage";
 import FindAccountPage from "./routes/findAccount/FindAccountPage";
+import StudyRecruitPage from "./routes/StudyRecruit/StudyRecruitPage";
 
 const routers = [
   {
@@ -52,6 +53,11 @@ const routers = [
       { path: "email", element: <FindAccountPage /> },
       { path: "password", element: <FindAccountPage /> },
     ],
+  },
+  {
+    path: "/study",
+    element: <MainLayout />,
+    children: [{ path: "recruit", element: <StudyRecruitPage /> }],
   },
   {
     path: "/join",
