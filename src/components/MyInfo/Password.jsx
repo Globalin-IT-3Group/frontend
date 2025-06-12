@@ -43,41 +43,43 @@ export default function Password() {
       </div>
 
       {/* 비밀번호 확인 */}
-      <div className="flex items-center gap-8">
-        <label className="w-[180px] text-xl font-bold">비밀번호 확인</label>
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => {
-            const value = e.target.value;
-            setConfirmPassword(value);
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-8">
+          <label className="w-[180px] text-xl font-bold">비밀번호 확인</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => {
+              const value = e.target.value;
+              setConfirmPassword(value);
 
-            if (!password && !value) {
-              setPasswordMatchMessage("");
-              setIsPasswordMatch(null);
-            } else if (!password || !value) {
-              setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
-              setIsPasswordMatch(false);
-            } else if (value !== password) {
-              setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
-              setIsPasswordMatch(false);
-            } else {
-              setPasswordMatchMessage("비밀번호가 일치합니다.");
-              setIsPasswordMatch(true);
-            }
-          }}
-          className="flex px-4 py-2 text-lg border border-gray-300 rounded-xl w-68"
-          defaultValue="********"
-        />
-        {passwordMatchMessage && (
-          <div
-            className={`flex whitespace-nowrap ${
-              isPasswordMatch ? "text-green-500" : "text-red-500"
-            }`}
-          >
-            {passwordMatchMessage}
-          </div>
-        )}
+              if (!password && !value) {
+                setPasswordMatchMessage("");
+                setIsPasswordMatch(null);
+              } else if (!password || !value) {
+                setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
+                setIsPasswordMatch(false);
+              } else if (value !== password) {
+                setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
+                setIsPasswordMatch(false);
+              } else {
+                setPasswordMatchMessage("비밀번호가 일치합니다.");
+                setIsPasswordMatch(true);
+              }
+            }}
+            className="flex px-4 py-2 text-lg border border-gray-300 rounded-xl w-68"
+            defaultValue="********"
+          />
+          {passwordMatchMessage && (
+            <div
+              className={`flex whitespace-nowrap ${
+                isPasswordMatch ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {passwordMatchMessage}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
