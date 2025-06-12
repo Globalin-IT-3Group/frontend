@@ -1,6 +1,7 @@
 import { useState } from "react";
 import userAPI from "../../api/userAPI";
 import Swal from "sweetalert2";
+import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function JoinPage() {
@@ -9,6 +10,8 @@ export default function JoinPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatchMessage, setPasswordMatchMessage] = useState("");
   const [isPasswordMatch, setIsPasswordMatch] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [nickname, setNickname] = useState("");
   const [phone1, setPhone1] = useState("010");
   const [phone2, setPhone2] = useState("");
@@ -143,12 +146,13 @@ export default function JoinPage() {
               <label className="font-bold text-lg">
                 이메일 <span className="text-red-500">*</span>
               </label>
+
               <input
                 type="email"
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  }}
+                }}
                 className="border border-gray-300 px-3 py-2 rounded-xl w-full"
                 placeholder="example@email.com"
               />
@@ -157,63 +161,80 @@ export default function JoinPage() {
               <label className="font-bold text-lg">
                 비밀번호 <span className="text-red-500">*</span>
               </label>
+              <div className="relative">
                 <input
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setPassword(value);
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setPassword(value);
 
-                  if (!value && !confirmPassword) {
-                    setPasswordMatchMessage("");
-                    setIsPasswordMatch(null);
-                  } else if (!value || !confirmPassword) {
-                    setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
-                    setIsPasswordMatch(false);
-                  } else if (value !== confirmPassword) {
-                    setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
-                    setIsPasswordMatch(false);
-                  } else {
-                    setPasswordMatchMessage("비밀번호가 일치합니다.");
-                    setIsPasswordMatch(true);
-                  }
-                }}
-                className="border border-gray-300 px-3 py-2 rounded-xl w-full"
-                placeholder="********"
-              />
+                    if (!value && !confirmPassword) {
+                      setPasswordMatchMessage("");
+                      setIsPasswordMatch(null);
+                    } else if (
+                      !value ||
+                      !confirmPassword ||
+                      value !== confirmPassword
+                    ) {
+                      setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
+                      setIsPasswordMatch(false);
+                    } else {
+                      setPasswordMatchMessage("비밀번호가 일치합니다.");
+                      setIsPasswordMatch(true);
+                    }
+                  }}
+                  className="border border-gray-300 px-3 py-2 rounded-xl w-full"
+                  placeholder="********"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
               <div></div>
 
               <label className="font-bold text-lg">
                 비밀번호 확인 <span className="text-red-500">*</span>
               </label>
 
-              <div className="relative w-full">
-                 <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      setConfirmPassword(value);
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setConfirmPassword(value);
 
-                      if (!password && !value) {
-                        setPasswordMatchMessage("");
-                        setIsPasswordMatch(null);
-                      } else if (!password || !value) {
-                        setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
-                        setIsPasswordMatch(false);
-                      } else if (value !== password) {
-                        setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
-                        setIsPasswordMatch(false);
-                      } else {
-                        setPasswordMatchMessage("비밀번호가 일치합니다.");
-                        setIsPasswordMatch(true);
-                      }
-                    }}
-                    className="border border-gray-300 px-3 py-2 rounded-xl w-full"
-                    placeholder="********"
-                  />
-
-              {passwordMatchMessage && (
+                    if (!password && !value) {
+                      setPasswordMatchMessage("");
+                      setIsPasswordMatch(null);
+                    } else if (!password || !value || value !== password) {
+                      setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
+                      setIsPasswordMatch(false);
+                    } else {
+                      setPasswordMatchMessage("비밀번호가 일치합니다.");
+                      setIsPasswordMatch(true);
+                    }
+                  }}
+                  className="border border-gray-300 px-3 py-2 rounded-xl w-full"
+                  placeholder="********"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff size={18} />
+                  ) : (
+                    <Eye size={18} />
+                  )}
+                </button>
+                {passwordMatchMessage && (
                   <div
                     className={`absolute top-1/2 left-full ml-3 -translate-y-1/2 text-sm whitespace-nowrap ${
                       isPasswordMatch ? "text-green-500" : "text-red-500"
@@ -259,7 +280,8 @@ export default function JoinPage() {
                   value={phone2}
                   onChange={(e) => {
                     const value = e.target.value.replace(/\D/g, "");
-                    setPhone2(value);}}
+                    setPhone2(value);
+                  }}
                   className="border border-gray-300 px-2 py-1 rounded-xl w-24"
                 />
                 <input
@@ -269,7 +291,8 @@ export default function JoinPage() {
                   value={phone3}
                   onChange={(e) => {
                     const value = e.target.value.replace(/\D/g, "");
-                    setPhone3(value);}}
+                    setPhone3(value);
+                  }}
                   className="border border-gray-300 px-2 py-1 rounded-xl w-24"
                 />
               </div>
