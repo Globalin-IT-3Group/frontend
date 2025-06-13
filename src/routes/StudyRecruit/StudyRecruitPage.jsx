@@ -1,11 +1,13 @@
 import RecruitBoxContainer from "../../components/StudyRecruit/RecruitBoxContainer";
 import StudyRecruitAPI from "../../api/studyRecruit";
 import { useState, useEffect } from "react";
+import StudyRecruitModal from "../../components/StudyRecruit/StudyRecruitModal";
 
 import StudydRecruitBar from "../../components/StudyRecruit/StudyRecruitBar";
 
 export default function StudyRecruitPage() {
   const [studyRoomList, setStudyRoomList] = useState([]);
+  const [showRecruitModal, setShowRecruitModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +16,6 @@ export default function StudyRecruitPage() {
         category: "일본어",
         tag: "회화",
       });
-      console.log("받은 데이터", data);
       setStudyRoomList(data);
     };
 
@@ -37,10 +38,14 @@ export default function StudyRecruitPage() {
               leader={study.leader.nickname}
               createdAt={study.createdAt}
               userCount={`${study.userCount}/4 모집 완료`}
+              onClick={() => setShowRecruitModal(true)}
             />
           ))}
         </div>
       </div>
+      {showRecruitModal && (
+        <StudyRecruitModal onClose={() => setShowRecruitModal(false)} />
+      )}
     </div>
   );
 }

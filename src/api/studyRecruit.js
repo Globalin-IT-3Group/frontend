@@ -10,6 +10,10 @@ class StudyRecruitAPI extends BaseApi {
     // const res = await this.fetcher.get(`/study-recruit?category=${params.category}&tag=${params.tag}`);
     // return res.data;
 
+    //클릭시 모달 나오면서(배경 명암 처리)
+    //신청, 닫기 버튼 => 신청 버튼 클릭시 신청 폼 모달로 이동(이전 모달 닫는 로직 필요)
+    //
+
     return Promise.resolve([
       {
         id: 1,
