@@ -26,6 +26,11 @@ function BasicSidebar() {
             <p className="hover:text-blue-500 transition-colors">💬 채팅</p>
           </Link>
         </li>
+        <li>
+          <Link to="/word" className="block text-xl flex">
+            <p className="hover:text-blue-500 transition-colors">📕 단어장</p>
+          </Link>
+        </li>
       </ul>
     </div>
   );

@@ -11,6 +11,7 @@ import JoinPage from "./routes/Join/JoinPage";
 import LoginPage from "./routes/Login/LoginPage";
 import FindAccountPage from "./routes/findAccount/FindAccountPage";
 import StudyRecruitPage from "./routes/StudyRecruit/StudyRecruitPage";
+import WordPage from "./routes/word/WordPage";
 
 const routers = [
   {
@@ -63,6 +64,11 @@ const routers = [
     path: "/join",
     element: <NoSidebarLayout />,
     children: [{ index: true, element: <JoinPage /> }],
+  },
+  {
+    path: "/word",
+    element: <MainLayout />,
+    children: [{ index: true, element: <WordPage /> }],
   },
   {
     path: "*",

@@ -1,8 +1,6 @@
 import { FiEdit2 } from "react-icons/fi";
 import { useState } from "react";
 import userAPI from "../../api/userAPI";
-import { updateProfileMessage } from "../../store/reducers/authSlice";
-import { useDispatch } from "react-redux";
 
 export default function StatusMessage({ initialMessage }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -10,13 +8,11 @@ export default function StatusMessage({ initialMessage }) {
     initialMessage || "まだメッセージがありません！"
   );
   const [tempMessage, setTempMessage] = useState(message);
-  const dispatch = useDispatch();
 
   const handleSave = async () => {
     try {
       await userAPI.updateProfileMessage(tempMessage); // ✅ API 호출
       setMessage(tempMessage);
-      dispatch(updateProfileMessage(tempMessage));
       setIsEditing(false);
     } catch (err) {
       alert(err.response.data.message);
