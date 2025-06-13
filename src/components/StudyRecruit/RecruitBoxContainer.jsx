@@ -19,29 +19,27 @@ export default function RecruitBoxContainer({
 
   return (
     <div
-      className={`bg-white rounded-4xl w-full min-w-0 p-4 shadow-[0_0_4px_rgba(0,0,0,0.1)] flex flex-col min-h-[420px] sm:min-h-[440px] lg:min-h-[460px] ${className}`}
+      className={`bg-white rounded-4xl w-full min-w-0 shadow-[0_0_4px_rgba(0,0,0,0.1)] flex flex-col min-h-[420px] sm:min-h-[440px] lg:min-h-[460px] transition-transform duration-300 hover:-translate-y-2 hover:shadow-[0_0_6px_rgba(0,0,0,0.1)] ${className}`}
     >
-      <div className="flex flex-col justify-between h-full">
+      {image && (
+        <img
+          src={image}
+          alt={roomName}
+          className="rounded-t-4xl w-full h-[200px] object-cover object-top"
+        />
+      )}
+
+      <div className="flex flex-col justify-between h-full p-6">
         <div>
-          {image && (
-            <img
-              src={image}
-              alt={roomName}
-              className="rounded-t-4xl w-full h-[200px] object-cover object-top"
-            />
-          )}
-          <div className="p-4">
-            <h2 className="text-xl font-bold mb-2 break-words">{roomName}</h2>
-            <p className="text-md text-gray-600 break-words line-clamp-2">
-              {studyExplain}
-            </p>
-          </div>
+          <h2 className="text-xl font-bold mb-2 break-words">{roomName}</h2>
+          <p className="text-md text-gray-600 break-words line-clamp-2">
+            {studyExplain}
+          </p>
         </div>
 
         <div>
           <div className="border-t border-gray-100 my-4" />
-
-          <div className="flex flex-wrap items-center justify-between px-4 pb-4 gap-y-1">
+          <div className="flex flex-wrap items-center justify-between gap-y-1">
             <div className="flex items-center">
               {profileImage && (
                 <img

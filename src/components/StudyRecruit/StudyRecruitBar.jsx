@@ -1,14 +1,14 @@
-import { HashtagIcon } from "@heroicons/react/24/outline";
+import { HashtagIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { LuClock } from "react-icons/lu";
 import { HiTrendingUp } from "react-icons/hi";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
 import { LuMailCheck } from "react-icons/lu";
+import { useState, useEffect, useRef } from "react";
 
 export default function StudydRecruitBar() {
   const [showSearch, setShowSearch] = useState(false);
   const [showHashtag, setShowHashtag] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("New");
 
   const hashtags = [
     "#JLPT",
@@ -20,37 +20,73 @@ export default function StudydRecruitBar() {
     "#비즈니스일본어",
   ];
 
+  const searchBoxRef = useRef(null);
+  const hashtagRef = useRef(null);
+
   const toggleTag = (tag) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchBoxRef.current && !searchBoxRef.current.contains(e.target)) {
+        setShowSearch(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (hashtagRef.current && !hashtagRef.current.contains(e.target)) {
+        setShowHashtag(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <div className="bg-white w-full h-auto p-8 flex flex-col overflow-hidden">
       <div className="flex items-center justify-between">
-        {/* 왼쪽 필터 메뉴 */}
         <div className="flex space-x-8 ml-4">
-          {[
-            { label: "New", icon: LuClock },
-            { label: "Most View", icon: HiTrendingUp },
-            { label: "My Request", icon: LuMailCheck },
-          ].map(({ label, icon: Icon }) => (
-            <div
-              key={label}
-              className="relative group flex items-center gap-x-2 text-gray-500 hover:text-black cursor-pointer transition-all duration-300 transform hover:-translate-y-1"
-            >
-              <Icon className="w-5 h-5" />
-              <span className="text-md relative whitespace-nowrap after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-[#003CFF] after:transition-all after:duration-300 group-hover:after:left-0 group-hover:after:w-full">
-                {label}
-              </span>
-            </div>
-          ))}
+          {["New", "Most View", "My Request"].map((label) => {
+            const isActive = activeFilter === label;
+            return (
+              <div
+                key={label}
+                onClick={() => setActiveFilter(label)}
+                className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
+                  isActive
+                    ? "text-black -translate-y-1"
+                    : "text-gray-500 hover:text-black hover:-translate-y-1"
+                }`}
+              >
+                {label === "New" && <LuClock className="w-5 h-5" />}
+                {label === "Most View" && <HiTrendingUp className="w-5 h-5" />}
+                {label === "My Request" && <LuMailCheck className="w-5 h-5" />}
+
+                <span
+                  className={`text-md relative whitespace-nowrap after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-[#003CFF] after:transition-all after:duration-300 ${
+                    isActive
+                      ? "after:left-0 after:w-full"
+                      : "group-hover:after:left-0 group-hover:after:w-full after:w-0"
+                  }`}
+                >
+                  {label}
+                </span>
+              </div>
+            );
+          })}
         </div>
 
-        {/* 오른쪽 검색 + 해시태그 */}
-        <div className="flex items-center justify-end gap-4 w-full max-w-3xl relative">
-          {/* 검색창 */}
+        <div
+          ref={searchBoxRef}
+          className="flex items-center justify-end gap-4 w-full max-w-3xl relative"
+        >
           <input
             type="text"
             placeholder="스터디 그룹명을 검색하세요"
@@ -61,7 +97,6 @@ export default function StudydRecruitBar() {
             }`}
           />
 
-          {/* 검색 아이콘 */}
           <MagnifyingGlassIcon
             className="w-6 h-6 text-gray-500 hover:text-black cursor-pointer transition-all duration-300"
             onClick={() => {
@@ -70,9 +105,9 @@ export default function StudydRecruitBar() {
             }}
           />
 
-          <div className="relative">
+          <div className="relative" ref={hashtagRef}>
             <HashtagIcon
-              className="w-6 h-6 text-gray-500 hover:text-black cursor-pointer transition-all duration-300"
+              className="w-6 h-6 mr-4 text-gray-500 hover:text-black cursor-pointer transition-all duration-300"
               onClick={() => {
                 setShowHashtag((prev) => !prev);
                 setShowSearch(false);
@@ -80,15 +115,14 @@ export default function StudydRecruitBar() {
             />
 
             <div
-              className={`
-                fixed top-[250px] right-[100px] bg-white border border-gray-300 rounded-2xl shadow p-4 z-50
+              className={`absolute top-1/2 right-full -translate-y-1/2 mr-2
+                bg-white border border-gray-300 rounded-2xl shadow p-4 z-50
                 transition-all duration-300 ease-in-out transform origin-right
                 ${
                   showHashtag
                     ? "scale-x-100 opacity-100 visible"
                     : "scale-x-0 opacity-0 invisible"
-                }
-              `}
+                }`}
             >
               <div className="inline-block whitespace-nowrap">
                 {hashtags.map((tag) => {
@@ -108,11 +142,6 @@ export default function StudydRecruitBar() {
                   );
                 })}
               </div>
-              {selectedTags.length > 0 && (
-                <div className="text-gray-500 pt-2 text-sm">
-                  선택됨: {selectedTags.join(", ")}
-                </div>
-              )}
             </div>
           </div>
         </div>

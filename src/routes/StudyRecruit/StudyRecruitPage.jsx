@@ -2,7 +2,7 @@ import RecruitBoxContainer from "../../components/StudyRecruit/RecruitBoxContain
 import StudyRecruitAPI from "../../api/studyRecruit";
 import { useState, useEffect } from "react";
 
-import StudydRecruitBar from "./StudyRecruitBar";
+import StudydRecruitBar from "../../components/StudyRecruit/StudyRecruitBar";
 
 export default function StudyRecruitPage() {
   const [studyRoomList, setStudyRoomList] = useState([]);
@@ -26,7 +26,7 @@ export default function StudyRecruitPage() {
       <h1 className="text-4xl font-bold mx-auto mt-14 mb-10">스터디 구인</h1>
       <StudydRecruitBar />
       <div className="relative h-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 h-full pr-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 h-full pr-2">
           {studyRoomList.map((study) => (
             <RecruitBoxContainer
               key={study.id}
