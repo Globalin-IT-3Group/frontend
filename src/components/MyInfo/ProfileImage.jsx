@@ -1,11 +1,15 @@
 import { FiCamera } from "react-icons/fi";
 import { useRef, useState, useEffect } from "react";
 import ImageAPI from "../../api/imageAPI";
+import { updateProfileImage } from "../../store/reducers/authSlice";
+import { useDispatch } from "react-redux";
 
 export default function ProfileImage({ src }) {
   const fileInputRef = useRef(null);
   const defaultImage =
     "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg";
+
+  const dispatch = useDispatch();
 
   // src가 null이거나 빈 값이면 defaultImage
   const initial = src ? src : defaultImage;
@@ -30,6 +34,7 @@ export default function ProfileImage({ src }) {
       try {
         const res = await ImageAPI.uploadPRofileImage(base64);
         setImageSrc(res.image); // 서버에서 온(저장된) BASE64로 갱신
+        dispatch(updateProfileImage(res.image));
       } catch (error) {
         alert("이미지 업로드 실패!");
         console.error(error);

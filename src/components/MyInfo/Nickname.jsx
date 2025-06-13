@@ -1,11 +1,14 @@
 import { useState } from "react";
 import userAPI from "../../api/userAPI";
+import { updateNickname } from "../../store/reducers/authSlice";
+import { useDispatch } from "react-redux";
 
 export default function Nickname({ nickname }) {
   const [inputValue, setInputValue] = useState(nickname || "");
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   // 닉네임 변경
   const handleUpdate = async () => {
@@ -19,6 +22,7 @@ export default function Nickname({ nickname }) {
       await userAPI.updateNickname(inputValue);
       setMessage("닉네임이 성공적으로 변경되었습니다!");
       setIsSuccess(true);
+      dispatch(updateNickname(inputValue));
     } catch (error) {
       const msg =
         error?.response?.data?.message || "닉네임 변경에 실패했습니다.";

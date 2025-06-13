@@ -30,8 +30,15 @@ const authSlice = createSlice({
       state.signupType = "";
       state.isLoggedIn = false;
     },
+    updateProfileImage: (state, action) => {
+      state.profileImage = action.payload;
+    },
+    updateNickname: (state, action) => {
+      state.nickname = action.payload;
+    },
   },
 });
 
-export const { setUser, logout } = authSlice.actions;
+export const { setUser, logout, updateNickname, updateProfileImage } =
+  authSlice.actions;
 export default authSlice.reducer;
