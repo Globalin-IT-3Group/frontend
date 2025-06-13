@@ -5,7 +5,8 @@ class StudyRecruitAPI extends BaseApi {
     super();
   }
 
-  async getStudyRecruitByCategory(params: {category, tag}) {
+  async getStudyRecruitByCategory(params) {
+    const { category, tag } = params;
     // const res = await this.fetcher.get(`/study-recruit?category=${params.category}&tag=${params.tag}`);
     // return res.data;
 
@@ -14,8 +15,9 @@ class StudyRecruitAPI extends BaseApi {
         id: 1,
         studyRoomId: 3,
         title: "일본어 공부할 사람 구해요!",
-        explain:
-          "회사원분들만 모집하고 있습니다! 현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라",
+        studyExplain:
+          "회사원분들만 모집하고 있습니다! 현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라 현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라",
+        userCount: 2,
         viewCount: 0,
         isOpen: true,
         createdAt: "2025-06-12T12:10:00Z",
@@ -30,8 +32,9 @@ class StudyRecruitAPI extends BaseApi {
         id: 2,
         studyRoomId: 4,
         title: "일본 취뽀하고 싶은 사람 모여라!",
-        explain:
-          "회사원분들만 모집하고 있습니다! 현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라",
+        studyExplain:
+          "회사원분들만 모집하고 있습니다! 현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라 현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라",
+        userCount: 3,
         viewCount: 1,
         isOpen: true,
         createdAt: "2025-06-12T13:10:00Z",
@@ -46,8 +49,9 @@ class StudyRecruitAPI extends BaseApi {
         id: 3,
         studyRoomId: 8,
         title: "회화 위주 스터디임다다",
-        explain:
-          "현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라",
+        studyExplain:
+          "현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라 현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라 ",
+        userCount: 1,
         viewCount: 0,
         isOpen: true,
         createdAt: "2025-06-12T14:10:00Z",
@@ -62,8 +66,9 @@ class StudyRecruitAPI extends BaseApi {
         id: 4,
         studyRoomId: 9,
         title: "드루와와",
-        explain:
-          "현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라",
+        studyExplain:
+          "현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라 현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라현재, 저희 스터디는요 이러이러 하구요 이래이래 저래저래 얄라얄라",
+        userCount: 3,
         viewCount: 0,
         isOpen: true,
         createdAt: "2025-06-12T15:10:00Z",
@@ -77,3 +82,5 @@ class StudyRecruitAPI extends BaseApi {
     ]);
   }
 }
+
+export default StudyRecruitAPI;
