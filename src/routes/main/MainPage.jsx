@@ -42,21 +42,6 @@ export default function MainPage() {
           {/* 뉴스 포스팅 카드 >> 미구현 */}
           <div className="w-full aspect-[7/2] bg-white dark:bg-zinc-700 rounded-4xl shadow p-6">
             <p className="font-semibold text-lg">今日のニュース🔥</p>
-            {loading && <p className="text-gray-500 mt-2">読み込み中...</p>}
-            {!loading && articles.length === 0 && (
-            <p className="text-gray-500 mt-2">ニュースが見つかりません。</p>
-            )}
-            {!loading && articles.map((a, i) => (
-            <a
-              key={i}
-              href={a.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block mt-2 text-blue-600 dark:text-blue-400 hover:underline"
-              >
-              {a.title}
-            </a>
-              ))}
           </div>
         </div>
 
