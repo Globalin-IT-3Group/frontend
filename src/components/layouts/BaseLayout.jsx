@@ -37,7 +37,7 @@ export default function BaseLayout({ children, SidebarComponent }) {
               width: sidebarOpen ? sidebarWidth : 0,
               minWidth: sidebarOpen ? "150px" : "0px",
             }}
-            className="bg-zinc-100 dark:bg-zinc-900 relative transition-all duration-300 overflow-visible"
+            className="bg-gradient-to-b from-white to-zinc-100  dark:bg-zinc-900 relative transition-all duration-300 overflow-visible"
           >
             <div className="h-full">
               {SidebarComponent && <SidebarComponent />}
@@ -45,7 +45,7 @@ export default function BaseLayout({ children, SidebarComponent }) {
               {(sidebarOpen || sidebarClosing) && (
                 <button
                   onClick={() => setSidebarOpen(false)}
-                  className="absolute top-4 right-0 z-50 bg-white dark:bg-zinc-800 px-1 py-2 shadow hover:bg-zinc-200 dark:hover:bg-zinc-600"
+                  className="absolute top-4 right-[-24px] z-50 bg-white dark:bg-zinc-800 px-1 py-2 shadow hover:bg-zinc-200 dark:hover:bg-zinc-600"
                 >
                   <FiChevronsLeft className="text-xl dark:text-white" />
                 </button>
@@ -70,7 +70,7 @@ export default function BaseLayout({ children, SidebarComponent }) {
                     window.addEventListener("mousemove", handleMouseMove);
                     window.addEventListener("mouseup", handleMouseUp);
                   }}
-                  className="absolute right-0 top-0 h-full w-1 cursor-col-resize bg-zinc-300 dark:bg-zinc-800"
+                  className="absolute right-0 top-0 h-full w-1 cursor-col-resize shadow-md bg-white dark:bg-zinc-800"
                 />
               )}
             </div>
