@@ -73,7 +73,7 @@ export default function Navbar() {
                       closeMenu();
                       handleLogout();
                     }}
-                    className="px-4 py-2 rounded-md text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium transition"
+                    className="px-4 py-2 rounded-md text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium transition cursor-pointer"
                   >
                     로그아웃
                   </button>

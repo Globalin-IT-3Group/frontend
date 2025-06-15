@@ -30,10 +30,13 @@
     "react-markdown": "^10.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.1",
+    "react-slick": "^0.30.3",
     "redux-persist": "^6.0.0",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",
+    "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.22.0",
+    "tailwind-scrollbar": "^4.0.2",
     "tailwind-scrollbar-hide": "^4.0.0"
   },
   "devDependencies": {

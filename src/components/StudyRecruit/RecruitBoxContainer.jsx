@@ -8,6 +8,7 @@ export default function RecruitBoxContainer({
   viewCount,
   userCount,
   className = "",
+  onClick,
 }) {
   const formatDateToLocalString = (dateString) => {
     const date = new Date(dateString);
@@ -19,7 +20,8 @@ export default function RecruitBoxContainer({
 
   return (
     <div
-      className={`bg-white rounded-4xl w-full min-w-0 shadow-[0_0_4px_rgba(0,0,0,0.1)] flex flex-col min-h-[420px] sm:min-h-[440px] lg:min-h-[460px] transition-transform duration-300 hover:-translate-y-2 hover:shadow-[0_0_6px_rgba(0,0,0,0.1)] ${className}`}
+      onClick={onClick}
+      className={`cursor-pointer bg-white rounded-4xl w-full min-w-0 shadow-[0_0_4px_rgba(0,0,0,0.1)] flex flex-col min-h-[420px] sm:min-h-[440px] lg:min-h-[460px] transition-transform duration-300 hover:-translate-y-2 hover:shadow-[0_0_6px_rgba(0,0,0,0.1)] ${className}`}
     >
       {image && (
         <img

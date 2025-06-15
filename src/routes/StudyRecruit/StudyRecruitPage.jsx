@@ -2,12 +2,14 @@ import RecruitBoxContainer from "../../components/StudyRecruit/RecruitBoxContain
 import StudyRecruitAPI from "../../api/studyRecruit";
 import { useState, useEffect } from "react";
 import StudyRecruitModal from "../../components/StudyRecruit/StudyRecruitModal";
-
 import StudydRecruitBar from "../../components/StudyRecruit/StudyRecruitBar";
+import StudyRequestFormModal from "../../components/StudyRecruit/StudyRequestFormModal";
 
 export default function StudyRecruitPage() {
   const [studyRoomList, setStudyRoomList] = useState([]);
   const [showRecruitModal, setShowRecruitModal] = useState(false);
+  const [selectedModal, setSelecetedModal] = useState(null);
+  const [showRequestFormModal, setShowRequestFormModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +23,20 @@ export default function StudyRecruitPage() {
 
     fetchData();
   }, []);
+
+  const handleOpenRecruitModal = (study) => {
+    setSelecetedModal(study);
+    setShowRecruitModal(true);
+  };
+
+  const handleOpenRequestFormModal = () => {
+    setShowRecruitModal(false);
+    setShowRequestFormModal(true);
+  };
+
+  const handleCloseRequestFormModal = () => {
+    setShowRequestFormModal(false);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -38,13 +54,32 @@ export default function StudyRecruitPage() {
               leader={study.leader.nickname}
               createdAt={study.createdAt}
               userCount={`${study.userCount}/4 모집 완료`}
-              onClick={() => setShowRecruitModal(true)}
+              onClick={() => handleOpenRecruitModal(study)}
             />
           ))}
         </div>
       </div>
-      {showRecruitModal && (
-        <StudyRecruitModal onClose={() => setShowRecruitModal(false)} />
+
+      {showRecruitModal && selectedModal && (
+        <StudyRecruitModal
+          image="/6.jpg"
+          roomName={selectedModal.title}
+          studyExplain={selectedModal.studyExplain}
+          profileImage={selectedModal.leader.profileImage}
+          leader={selectedModal.leader.nickname}
+          createdAt={selectedModal.createdAt}
+          userCount={`${selectedModal.userCount}/4 모집 완료`}
+          viewCount={selectedModal.viewCount}
+          onClose={() => setShowRecruitModal(false)}
+          onRequestFormOpen={handleOpenRequestFormModal}
+        />
+      )}
+
+      {showRequestFormModal && selectedModal && (
+        <StudyRequestFormModal
+          roomName={selectedModal.title}
+          onClose={handleCloseRequestFormModal}
+        />
       )}
     </div>
   );

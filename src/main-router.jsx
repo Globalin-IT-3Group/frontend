@@ -15,6 +15,7 @@ import WordPage from "./routes/word/WordPage";
 import CommunityPage from "./routes/community/CommunityPage";
 import BoardForm from "./routes/community/BoardForm";
 import BoardDetailPage from "./routes/community/BoardDetailPage";
+import StudyRequestFormModal from "./components/StudyRecruit/StudyRequestFormModal";
 
 const routers = [
   {
