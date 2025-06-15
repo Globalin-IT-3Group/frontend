@@ -26,7 +26,7 @@ export default function BoardForm() {
       <div className="w-full max-w-6xl bg-white rounded-2xl flex flex-col gap-8 p-0">
         <div className="flex w-full h-[600px] px-8 gap-6">
           {/* 왼쪽: 제목 + 에디터 */}
-          <div className="w-1/2 h-full flex flex-col shadow-xl">
+          <div className="w-1/2 h-full flex flex-col">
             {/* 제목 */}
             <input
               type="text"
@@ -58,10 +58,7 @@ export default function BoardForm() {
               <div className="text-3xl font-bold mb-4 break-words">{title}</div>
             )}
             {/* 마크다운 프리뷰 (줄바꿈 지원) */}
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm, remarkBreaks]}
-              className="prose prose-lg max-w-none"
-            >
+            <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
               {content}
             </ReactMarkdown>
           </div>
@@ -69,7 +66,7 @@ export default function BoardForm() {
         {/* 작성 버튼 */}
         <div className="flex justify-end px-8 mb-8">
           <button className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition">
-            게시하기
+            게시
           </button>
         </div>
       </div>
