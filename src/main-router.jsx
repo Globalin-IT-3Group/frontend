@@ -12,6 +12,9 @@ import LoginPage from "./routes/Login/LoginPage";
 import FindAccountPage from "./routes/findAccount/FindAccountPage";
 import StudyRecruitPage from "./routes/StudyRecruit/StudyRecruitPage";
 import WordPage from "./routes/word/WordPage";
+import CommunityPage from "./routes/community/CommunityPage";
+import BoardForm from "./routes/community/BoardForm";
+import BoardDetailPage from "./routes/community/BoardDetailPage";
 
 const routers = [
   {
@@ -69,6 +72,16 @@ const routers = [
     path: "/word",
     element: <MainLayout />,
     children: [{ index: true, element: <WordPage /> }],
+  },
+  {
+    path: "/community",
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <CommunityPage /> },
+      { path: ":id", element: <BoardDetailPage /> }, // ← 상세 페이지 라우팅 추가!
+      // 글쓰기 폼
+      { path: "new", element: <BoardForm /> },
+    ],
   },
   {
     path: "*",
