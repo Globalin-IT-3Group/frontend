@@ -49,7 +49,7 @@ export default function Nickname({ nickname }) {
         />
       </div>
       <button
-        className="min-w-[72px] px-4 py-3 bg-[#003CFF] text-white rounded-2xl font-bold hover:bg-[#0536D7] transition disabled:bg-gray-300 disabled:cursor-not-allowed"
+        className="min-w-[72px] px-4 py-3 bg-[#003CFF] text-white rounded-2xl font-bold hover:bg-[#0536D7] transition disabled:bg-gray-300 disabled:cursor-not-allowed cursor-pointer"
         onClick={handleUpdate}
         disabled={loading || inputValue.trim() === ""}
       >

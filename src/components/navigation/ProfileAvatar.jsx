@@ -12,7 +12,7 @@ export default function ProfileAvatar({
     <div
       className={`w-${size} h-${size} rounded-full p-1
         bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500
-        flex items-center justify-center transition duration-250 hover:scale-120 hover:via-blue-500`}
+        flex items-center justify-center transition duration-250 hover:scale-120 hover:via-blue-500 cursor-pointer`}
       style={style}
       onClick={onClick}
     >

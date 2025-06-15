@@ -7,14 +7,6 @@ function BasicSidebar() {
         <li className="text-xl">내 문서</li>
         <li>
           <Link
-            to="/my-info"
-            className="block text-xl flex hover:text-blue-500 transition-colors"
-          >
-            내 정보
-          </Link>
-        </li>
-        <li>
-          <Link
             to="/study/recruit"
             className="block text-xl flex hover:text-blue-500 transition-colors"
           >

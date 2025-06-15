@@ -1,167 +1,126 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import userAPI from "../../api/userAPI";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../store/reducers/authSlice";
+import { useRef, useEffect, useState } from "react";
+import { Eye } from "lucide-react";
 
-export default function StudyRecruitModal({ onClose }) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
-  const restApiKey = import.meta.env.VITE_REST_API_KEY;
-  const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${restApiKey}&redirect_uri=${redirect_uri}`;
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const LoginSuccess = () => {
-    Swal.fire({
-      title: "로그인 성공!",
-      text: "오늘도 열심히 공부해요!",
-
-      imageUrl: "/success.svg",
-      imageWidth: 180,
-      imageHeight: 180,
-
-      showCancelButton: false,
-      confirmButtonColor: "#003CFF",
-      cancelButtonColor: "#D9D9D9",
-      confirmButtonText: "메인 페이지",
-    });
+export default function StudyRecruitModal({
+  roomName,
+  studyExplain,
+  profileImage,
+  leader,
+  createdAt,
+  viewCount,
+  userCount,
+  onClose,
+  onRequestFormOpen,
+}) {
+  const formatDateToLocalString = (dateString) => {
+    const date = new Date(dateString);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    return `${yyyy}/${mm}/${dd}`;
   };
 
-  const LoginFail = (message) => {
-    Swal.fire({
-      title: "로그인 실패!",
-      text: message,
+  const scrollRef = useRef(null);
+  const [scrollPercent, setScrollPercent] = useState(0);
 
-      imageUrl: "/fail.svg",
-      imageWidth: 180,
-      imageHeight: 180,
-
-      showCancelButton: false,
-      confirmButtonColor: "#003CFF",
-      cancelButtonColor: "#D9D9D9",
-      confirmButtonText: "닫기",
-    });
-  };
-
-  const handleKakaoLogin = () => {
-    window.location.href = KAKAO_AUTH_URL;
-  };
-
-  const handleLogin = async () => {
-    const loginData = {
-      email,
-      password,
+  useEffect(() => {
+    const el = scrollRef.current;
+    const handleScroll = () => {
+      const percent =
+        (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+      setScrollPercent(percent);
     };
-
-    try {
-      const user = await userAPI.login(loginData);
-      console.log("일반 로그인 성공!", user);
-
-      dispatch(setUser(user));
-      LoginSuccess();
-    } catch (error) {
-      LoginFail(error.response.data.message);
+    if (el) {
+      el.addEventListener("scroll", handleScroll);
     }
-  };
+    return () => {
+      if (el) el.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div className="bg-white rounded-4xl w-[650px] h-[770px] p-10 shadow-md relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-[#676767] text-2xl text-gray-400 rounded-4xl px-2 hover:text-gray-500 transition-all duration-100"
-        >
-          ×
-        </button>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="relative bg-gradient-to-b from-blue-100 to-white w-[700px] h-[600px] overflow-hidden rounded-4xl">
+        <div className="relative z-10 flex flex-col items-center mx-auto p-6">
+          <div className="flex justify-center w-full">
+            <div className="flex flex-col items-center w-full rounded-3xl p-4 space-y-3">
+              <h2 className="text-2xl font-bold break-words  text-center text-[#0033CF]">
+                {roomName}
+              </h2>
 
-        <h2
-          style={{ fontFamily: '"Nico Moji", sans-serif' }}
-          className="text-lg font-md ml-5 mt-16 mb-2"
-        >
-          コツコツ
-        </h2>
-        <h1 className="text-4xl font-bold ml-4 mb-8">로그인</h1>
+              <div className="flex items-center space-x-2">
+                {profileImage && (
+                  <img
+                    src={profileImage}
+                    alt={leader}
+                    className="bg-black rounded-full w-6 h-6 object-cover"
+                  />
+                )}
+                <p className="text-sm text-gray-500">{leader}</p>
+              </div>
 
-        <div className="bg-white rounded-3xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-10 m-4 space-y-6">
-          <div>
-            <label className="block text-md text-[#676767] font-bold mb-2">
-              이메일 아이디
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="이메일을 입력해 주세요"
-              className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl"
-            />
+              <div className="flex items-center justify-between w-full">
+                <div className="flex space-x-4">
+                  <span className="text-xs text-gray-500 break-words">
+                    {formatDateToLocalString(createdAt)} 작성
+                  </span>
+                  <span className="text-xs text-gray-500 font-semibold break-words">
+                    {userCount}
+                  </span>
+                  <span className="flex gap-1 items-center text-xs text-gray-500 break-words">
+                    <Eye size={11} className="relative bottom-[2px]" />
+                    {viewCount}
+                  </span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="bg-white border-[#0033CF] text-xs text-[#0033CF] rounded-2xl px-2 py-1 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+                    #회화
+                  </span>
+                  <span className="bg-white border-[#0033CF] text-xs text-[#0033CF] rounded-2xl px-2 py-1 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+                    #자격증
+                  </span>
+                  <span className="bg-white border-[#0033CF] text-xs text-[#0033CF] rounded-2xl px-2 py-1 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+                    #비즈니스일본어
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <label className="block text-md text-[#676767] font-bold mb-2">
-              비밀번호
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="비밀번호를 입력해 주세요"
-              className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl"
-            />
-          </div>
-          <div className="flex justify-center">
-            <button
-              onClick={handleLogin}
-              className="w-[220px] py-3 bg-[#003CFF] text-white font-bold rounded-3xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90 mt-6"
+
+          <div className="w-[650px] h-[300px] bg-white flex flex-col mb-2 mt-1 rounded-2xl p-8 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+            <div
+              className="overflow-y-auto pr-2 scrollbar-hide"
+              ref={scrollRef}
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              로그인
+              <p className="text-sm text-gray-600 break-words whitespace-pre-line">
+                {studyExplain}
+              </p>
+            </div>
+          </div>
+
+          <div className="relative w-[650px] h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              className="absolute top-0 left-0 h-2 bg-[#003CFF] transition-all duration-200"
+              style={{ width: `${scrollPercent}%` }}
+            ></div>
+          </div>
+
+          <div className="flex justify-center gap-x-4 mt-4">
+            <button
+              onClick={onRequestFormOpen}
+              className="bg-[#003CFF] px-6 py-2 rounded-3xl text-md text-white font-bold hover:bg-[#0536D7] transition-all duration-200 cursor-pointer"
+            >
+              참여 신청
             </button>
-          </div>
-
-          <div className="text-center text-sm text-[#676767]">
             <button
-              onClick={() => {
-                onClose();
-                navigate("/find/email");
-              }}
-              className="hover:text-black transition"
+              onClick={onClose}
+              className="bg-white border border-gray-400 text-gray-400 px-8 py-2 rounded-3xl text-md font-bold hover:bg-gray-100 transition-all duration-200 cursor-pointer"
             >
-              이메일 비밀번호 찾기
-            </button>
-            <span className="mx-2">|</span>
-            <button
-              onClick={() => {
-                onClose();
-                navigate("/join");
-              }}
-              className="hover:text-black transition"
-            >
-              회원가입
+              취소
             </button>
           </div>
         </div>
-
-        <button
-          onClick={handleKakaoLogin}
-          className="bg-white w-[540px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] m-4 mt-6 p-4 text-center flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg"
-            alt="Kakao"
-            className="w-7 h-7 mr-2 rounded-xl"
-          />
-          <span className="text-[#676767] text-sm">
-            카카오로 회원가입 / 로그인
-          </span>
-        </button>
       </div>
     </div>
   );

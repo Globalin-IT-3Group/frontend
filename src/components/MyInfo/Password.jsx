@@ -94,7 +94,7 @@ export default function Password({ initPassword }) {
           </div>
         </div>
         <button
-          className="min-w-[72px] px-4 py-3 bg-[#003CFF] text-white rounded-2xl font-bold hover:bg-[#0536D7] transition"
+          className="min-w-[72px] px-4 py-3 bg-[#003CFF] text-white rounded-2xl font-bold hover:bg-[#0536D7] transition cursor-pointer"
           onClick={handlePasswordUpdate}
           disabled={!isPasswordMatch || loading}
         >

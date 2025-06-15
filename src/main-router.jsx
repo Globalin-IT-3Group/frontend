@@ -12,6 +12,7 @@ import LoginPage from "./routes/Login/LoginPage";
 import FindAccountPage from "./routes/findAccount/FindAccountPage";
 import StudyRecruitPage from "./routes/StudyRecruit/StudyRecruitPage";
 import WordPage from "./routes/word/WordPage";
+import StudyRequestFormModal from "./components/StudyRecruit/StudyRequestFormModal";
 
 const routers = [
   {
