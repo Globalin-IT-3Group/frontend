@@ -4,10 +4,14 @@ import { getCommands } from "@uiw/react-md-editor/commands-cn";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
+import BoardApi from "../../api/boardAPI";
+import { useNavigate } from "react-router-dom";
 
 export default function BoardForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const navigate = useNavigate();
 
   const commands = getCommands().filter((cmd) =>
     [
@@ -21,10 +25,35 @@ export default function BoardForm() {
     ].includes(cmd.name)
   );
 
+  // 게시글 저장
+  const handleBoardSave = async () => {
+    if (!title.trim() || !content.trim()) {
+      alert("제목과 내용을 모두 입력하세요.");
+      return;
+    }
+
+    BoardApi.createBoard({ title, content })
+      .then(() => {
+        alert("글 등록!");
+        navigate("/community");
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("글 등록 실패 ㅋㅋ");
+      });
+  };
+
+  // 뒤로 가기 버튼 동작 (필요에 따라 수정)
+  const handleBack = () => navigate(-1);
+
   return (
-    <div className="w-full h-full flex flex-col items-center py-6">
+    <div className="w-full h-full flex flex-col items-center py-2">
       <div className="w-full max-w-6xl bg-white rounded-2xl flex flex-col gap-8 p-0">
-        <div className="flex w-full h-[600px] px-8 gap-6">
+        {/* 커뮤니티 글 작성 타이틀 */}
+        <div className="w-full flex justify-center items-center py-8 border-b">
+          <h1 className="text-3xl font-bold text-gray-800">커뮤니티 글 작성</h1>
+        </div>
+        <div className="flex w-full h-[560px] px-8 gap-6">
           {/* 왼쪽: 제목 + 에디터 */}
           <div className="w-1/2 h-full flex flex-col">
             {/* 제목 */}
@@ -33,14 +62,14 @@ export default function BoardForm() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="제목을 입력하세요"
-              className="w-full text-3xl font-bold border-none outline-none bg-transparent mb-6 placeholder-gray-400"
+              className="w-full text-2xl font-bold border-none outline-none bg-transparent my-3 placeholder-gray-400"
             />
             {/* 에디터 */}
             <div className="flex-1 flex flex-col">
               <MDEditor
                 value={content}
                 onChange={setContent}
-                height={540}
+                height={504}
                 preview="edit"
                 commands={commands}
                 extraCommands={[]}
@@ -58,14 +87,38 @@ export default function BoardForm() {
               <div className="text-3xl font-bold mb-4 break-words">{title}</div>
             )}
             {/* 마크다운 프리뷰 (줄바꿈 지원) */}
-            <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm, remarkBreaks]}
+              components={{
+                h1: (props) => (
+                  <h1 className="text-3xl font-bold my-4" {...props} />
+                ),
+                h2: (props) => (
+                  <h2 className="text-2xl font-semibold my-3" {...props} />
+                ),
+                ul: (props) => (
+                  <ul className="list-disc ml-6 mb-2" {...props} />
+                ),
+                li: (props) => <li className="mb-1" {...props} />,
+                p: (props) => <p className="mb-2" {...props} />,
+              }}
+            >
               {content}
             </ReactMarkdown>
           </div>
         </div>
-        {/* 작성 버튼 */}
-        <div className="flex justify-end px-8 mb-8">
-          <button className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition">
+        {/* 버튼 영역 */}
+        <div className="flex justify-end px-8 mb-8 gap-4">
+          <button
+            className="bg-gray-300 text-gray-700 px-6 py-2 rounded-xl shadow hover:bg-gray-400 transition"
+            onClick={handleBack}
+          >
+            뒤로
+          </button>
+          <button
+            onClick={handleBoardSave}
+            className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition"
+          >
             게시
           </button>
         </div>

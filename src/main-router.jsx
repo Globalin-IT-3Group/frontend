@@ -79,9 +79,9 @@ const routers = [
     element: <MainLayout />,
     children: [
       { index: true, element: <CommunityPage /> },
-      { path: ":id", element: <BoardDetailPage /> }, // ← 상세 페이지 라우팅 추가!
+      { path: ":boardId", element: <BoardDetailPage /> }, // ← 상세 페이지 라우팅 추가!
       // 글쓰기 폼
-      { path: "new", element: <BoardForm /> },
+      { path: "write", element: <BoardForm /> },
     ],
   },
   {

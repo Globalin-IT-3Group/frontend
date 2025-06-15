@@ -1,5 +1,6 @@
 import axios from "axios";
-// import store from "../store";
+import { store } from "../store";
+import { logout } from "../store/reducers/authSlice";
 // import { openLoginModal } from "../store/reducers/auth";
 
 const backendURL = import.meta.env.VITE_BASE_URI;
@@ -23,6 +24,7 @@ export default class BaseApi {
         if (error.response && error.response.status === 401) {
           // 401 인증 실패 시 로그인 모달 열기
           //   store.dispatch(openLoginModal());
+          store.dispatch(logout());
         }
         return Promise.reject(error);
       }

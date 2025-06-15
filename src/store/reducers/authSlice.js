@@ -18,7 +18,10 @@ const authSlice = createSlice({
       state.id = id;
       state.email = email;
       state.nickname = nickname;
-      state.profileImage = profileImage;
+      state.profileImage =
+        profileImage && profileImage !== ""
+          ? profileImage
+          : "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg";
       state.signupType = signupType;
       state.isLoggedIn = true;
     },

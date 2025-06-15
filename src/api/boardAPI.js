@@ -36,6 +36,14 @@ class BoardApi extends BaseApi {
     const res = await this.fetcher.delete(`/board/${id}`);
     return res.data;
   }
+
+  // 내가 쓴 게시글 목록 조회
+  async getMyBoards({ page = 0, size = 10, sort = "createdAt,desc" }) {
+    const res = await this.fetcher.get("/board/my", {
+      params: { page, size, sort },
+    });
+    return res.data; // Page<Board>
+  }
 }
 
 export default new BoardApi();
