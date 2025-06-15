@@ -37,7 +37,7 @@ export default function BaseLayout({ children, SidebarComponent }) {
               width: sidebarOpen ? sidebarWidth : 0,
               minWidth: sidebarOpen ? "150px" : "0px",
             }}
-            className="bg-gradient-to-b from-white to-zinc-100  dark:bg-zinc-900 relative transition-all duration-300 overflow-visible"
+            className="bg-gradient-to-b from-white to-zinc-100 dark:bg-zinc-900 relative transition-all duration-300 overflow-visible"
           >
             <div className="h-full">
               {SidebarComponent && <SidebarComponent />}
@@ -45,7 +45,7 @@ export default function BaseLayout({ children, SidebarComponent }) {
               {(sidebarOpen || sidebarClosing) && (
                 <button
                   onClick={() => setSidebarOpen(false)}
-                  className="absolute top-4 right-[-24px] z-50 bg-white dark:bg-zinc-800 px-1 py-2 shadow hover:bg-zinc-200 dark:hover:bg-zinc-600"
+                  className="absolute top-4 right-[-24px] z-1 bg-white dark:bg-zinc-800 px-1 py-2 shadow hover:bg-zinc-200 dark:hover:bg-zinc-600"
                 >
                   <FiChevronsLeft className="text-xl dark:text-white" />
                 </button>
@@ -82,7 +82,7 @@ export default function BaseLayout({ children, SidebarComponent }) {
             {sidebarFullyClosed && (
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="fixed top-22 left-0 bg-white dark:bg-zinc-800 px-1 py-2 shadow z-50 hover:bg-zinc-200 dark:hover:bg-zinc-600"
+                className="fixed top-22 left-0 bg-white dark:bg-zinc-800 px-1 py-2 shadow z-1 hover:bg-zinc-200 dark:hover:bg-zinc-600"
               >
                 <FiChevronsRight className="text-xl dark:text-white" />
               </button>

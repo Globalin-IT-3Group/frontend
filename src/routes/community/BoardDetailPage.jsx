@@ -5,6 +5,9 @@ import { LuEye } from "react-icons/lu";
 import { HiArrowLeft } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 import ProfileModal from "../../components/common/ProfileModal";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 
 export default function BoardDetailPage() {
   const { boardId } = useParams();
@@ -28,7 +31,7 @@ export default function BoardDetailPage() {
   const user = board.user;
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center bg-gray-50 py-10">
+    <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
       <div className="w-full max-w-3xl bg-white rounded-2xl shadow-xl p-8">
         {/* 상단 바: 뒤로가기(왼쪽), 수정(오른쪽) */}
         <div className="flex items-center justify-between mb-6">
@@ -61,12 +64,47 @@ export default function BoardDetailPage() {
         <div className="text-sm text-gray-400 mb-3">
           {new Date(board.createdAt).toLocaleDateString("ko-KR")}
         </div>
-        {/* 본문 */}
-        <div className="text-xl text-gray-800 whitespace-pre-wrap min-h-[200px] mb-8">
-          {board.content}
+        {/* 본문 (마크다운, 반드시 div에 className="prose ...") */}
+        <div className="prose prose-lg max-w-none font-serif text-gray-800 min-h-[200px] mb-8">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm, remarkBreaks]}
+            components={{
+              h1: (props) => (
+                <h1 className="text-3xl font-bold my-4" {...props} />
+              ),
+              h2: (props) => (
+                <h2 className="text-2xl font-semibold my-3" {...props} />
+              ),
+              ul: (props) => <ul className="list-disc ml-6 mb-2" {...props} />,
+              li: (props) => <li className="mb-1" {...props} />,
+              p: (props) => <p className="mb-2" {...props} />,
+              a: (props) => (
+                <a
+                  {...props}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline"
+                />
+              ),
+              code: (props) => (
+                <code
+                  className="inline bg-zinc-200 text-pink-600 px-1 py-0.5 rounded font-mono text-base"
+                  {...props}
+                />
+              ),
+              pre: (props) => (
+                <pre
+                  className="bg-zinc-200 rounded p-5 my-5 font-mono text-base leading-relaxed overflow-x-auto"
+                  {...props}
+                />
+              ),
+            }}
+          >
+            {board.content}
+          </ReactMarkdown>
         </div>
         {/* 프로필/닉네임/조회수 */}
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 pt-4">
           <img
             src={
               user?.profileImage ||
@@ -88,11 +126,12 @@ export default function BoardDetailPage() {
           </div>
         </div>
       </div>
+      {/* 프로필 모달 */}
       <ProfileModal
         open={profileOpen}
         onClose={() => setProfileOpen(false)}
         user={user}
-        onAddFriend={() => alert("친구 추가 기능 준비중!")}
+        myId={userId}
       />
     </div>
   );

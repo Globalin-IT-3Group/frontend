@@ -11,10 +11,17 @@ class FriendApi extends BaseApi {
     return res.data;
   }
 
-  // 친구 요청 또는 취소 (isFriend: true/false 반환)
+  // 친구 상태 단건 조회
+  async getFriendRelation(targetUserId) {
+    const res = await this.fetcher.get(`/friend/status/${targetUserId}`);
+    return res.data?.data || null;
+  }
+
+  // 친구 요청/취소
   async requestOrCancelFriend(addresseeId) {
+    // POST /friend/request { addresseeId }
     const res = await this.fetcher.post("/friend/request", { addresseeId });
-    return res.data;
+    return res.data.data; // true(요청됨) | false(취소됨)
   }
 
   // 내가 보낸 친구 요청 목록

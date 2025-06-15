@@ -9,7 +9,7 @@ function PrevArrow({ onClick }) {
   return (
     <button
       onClick={onClick}
-      className="absolute left-[24px] top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
+      className="absolute left-[24px] top-1/2 -translate-y-1/2 z-1 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
     >
       <FiChevronLeft className="text-black dark:text-white" />
     </button>
@@ -20,21 +20,38 @@ function NextArrow({ onClick }) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-[24px] top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
+      className="absolute right-[24px] top-1/2 -translate-y-1/2 z-1 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
     >
       <FiChevronRight className="text-black dark:text-white" />
     </button>
   );
 }
 
-
 export default function MyStudySlider() {
   const navigate = useNavigate();
 
   const slides = [
-    { id: 1, type: "study", name: "스터디1", imageUrl: "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg" },
-    { id: 2, type: "study", name: "스터디2", imageUrl: "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg" },
-    { id: 3, type: "study", name: "스터디3", imageUrl: "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg" },
+    {
+      id: 1,
+      type: "study",
+      name: "스터디1",
+      imageUrl:
+        "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg",
+    },
+    {
+      id: 2,
+      type: "study",
+      name: "스터디2",
+      imageUrl:
+        "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg",
+    },
+    {
+      id: 3,
+      type: "study",
+      name: "스터디3",
+      imageUrl:
+        "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg",
+    },
     { id: 4, type: "add" },
   ];
 
@@ -63,7 +80,8 @@ export default function MyStudySlider() {
               <div
                 className={`mx-auto md:aspect-[3/3] max-w-[200px] rounded-4xl overflow-hidden flex items-center justify-center transition-all duration-300
                   ${isCenter ? "scale-100 opacity-100" : "scale-90 opacity-60"}
-                `}>
+                `}
+              >
                 {slide.type === "study" ? (
                   <img
                     src={slide.imageUrl}

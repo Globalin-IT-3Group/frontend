@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { LuEye } from "react-icons/lu";
 import ProfileModal from "../../components/common/ProfileModal";
 
 export default function Board({ board, onClick }) {
   const [profileOpen, setProfileOpen] = useState(false);
+  const myId = useSelector((state) => state.auth.id);
 
   const formatDate = (dateString) =>
     new Date(dateString).toLocaleDateString("ko-KR", {
@@ -18,6 +20,11 @@ export default function Board({ board, onClick }) {
       : board.content;
 
   const user = board.user;
+
+  const handleProfileClick = (e) => {
+    e.stopPropagation();
+    setProfileOpen(true);
+  };
 
   return (
     <>
@@ -48,17 +55,11 @@ export default function Board({ board, onClick }) {
               }
               alt="profile"
               className="w-7 h-7 rounded-full object-cover cursor-pointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                setProfileOpen(true);
-              }}
+              onClick={handleProfileClick}
             />
             <span
               className="text-sm text-gray-500 cursor-pointer hover:underline"
-              onClick={(e) => {
-                e.stopPropagation();
-                setProfileOpen(true);
-              }}
+              onClick={handleProfileClick}
             >
               {user?.nickname || "알 수 없음"}
             </span>
@@ -73,7 +74,7 @@ export default function Board({ board, onClick }) {
         open={profileOpen}
         onClose={() => setProfileOpen(false)}
         user={user}
-        onAddFriend={() => alert("친구 추가 기능 준비중!")}
+        myId={myId}
       />
     </>
   );

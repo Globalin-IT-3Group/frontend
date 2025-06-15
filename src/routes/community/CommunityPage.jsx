@@ -59,7 +59,7 @@ export default function CommunityPage() {
   }, [activeTab, page, size]);
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center py-6">
+    <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-8">
         {/* 상단 탭 필터 */}
         <div className="flex items-center mb-8">
@@ -102,11 +102,12 @@ export default function CommunityPage() {
                 border border-blue-600 bg-white text-blue-600
                 shadow-sm hover:bg-blue-600 hover:text-white hover:shadow
                 transition
-                "
+              "
               onClick={() => navigate("/community/write")}
             >
               <HiOutlinePencilSquare className="w-5 h-5" />
-              글쓰기
+              {/* 글쓰기 텍스트는 md(768px) 이상에서만 노출 */}
+              <span className="hidden md:inline">글쓰기</span>
             </button>
           </div>
         </div>

@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import MDEditor from "@uiw/react-md-editor";
-import { getCommands } from "@uiw/react-md-editor/commands-cn";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import BoardApi from "../../api/boardAPI";
-import { useNavigate } from "react-router-dom";
+import { getCommands } from "@uiw/react-md-editor/commands-cn";
 
 export default function BoardForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const editId = searchParams.get("edit"); // boardId
 
   const commands = getCommands().filter((cmd) =>
     [
@@ -25,25 +28,46 @@ export default function BoardForm() {
     ].includes(cmd.name)
   );
 
-  // 게시글 저장
+  // 1. edit 모드일 때 기존 데이터 불러오기
+  useEffect(() => {
+    if (editId) {
+      setLoading(true);
+      BoardApi.getBoardDetail(editId)
+        .then((data) => {
+          setTitle(data.title);
+          setContent(data.content);
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [editId]);
+
+  // 2. 저장 로직 분기
   const handleBoardSave = async () => {
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 모두 입력하세요.");
       return;
     }
 
-    BoardApi.createBoard({ title, content })
-      .then(() => {
+    setLoading(true);
+
+    try {
+      if (editId) {
+        // 수정 모드
+        await BoardApi.updateBoard(editId, { title, content });
+        alert("글 수정 완료!");
+      } else {
+        // 작성 모드
+        await BoardApi.createBoard({ title, content });
         alert("글 등록!");
-        navigate("/community");
-      })
-      .catch((error) => {
-        console.error(error);
-        alert("글 등록 실패 ㅋㅋ");
-      });
+      }
+      navigate("/community");
+    } catch (error) {
+      alert("저장 실패!");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // 뒤로 가기 버튼 동작 (필요에 따라 수정)
   const handleBack = () => navigate(-1);
 
   return (
@@ -51,20 +75,21 @@ export default function BoardForm() {
       <div className="w-full max-w-6xl bg-white rounded-2xl flex flex-col gap-8 p-0">
         {/* 커뮤니티 글 작성 타이틀 */}
         <div className="w-full flex justify-center items-center py-8 border-b">
-          <h1 className="text-3xl font-bold text-gray-800">커뮤니티 글 작성</h1>
+          <h1 className="text-3xl font-bold text-gray-800">
+            {editId ? "커뮤니티 글 수정" : "커뮤니티 글 작성"}
+          </h1>
         </div>
         <div className="flex w-full h-[560px] px-8 gap-6">
           {/* 왼쪽: 제목 + 에디터 */}
           <div className="w-1/2 h-full flex flex-col">
-            {/* 제목 */}
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="제목을 입력하세요"
               className="w-full text-2xl font-bold border-none outline-none bg-transparent my-3 placeholder-gray-400"
+              disabled={loading}
             />
-            {/* 에디터 */}
             <div className="flex-1 flex flex-col">
               <MDEditor
                 value={content}
@@ -77,16 +102,15 @@ export default function BoardForm() {
                   placeholder: "여기에 내용을 작성하세요...",
                   className: "bg-transparent min-h-[400px] text-base",
                 }}
+                disabled={loading}
               />
             </div>
           </div>
           {/* 오른쪽: 프리뷰 */}
           <div className="w-1/2 h-full shadow-xl overflow-y-auto bg-gray-100 p-6">
-            {/* 제목 */}
             {title && (
               <div className="text-3xl font-bold mb-4 break-words">{title}</div>
             )}
-            {/* 마크다운 프리뷰 (줄바꿈 지원) */}
             <ReactMarkdown
               remarkPlugins={[remarkGfm, remarkBreaks]}
               components={{
@@ -101,6 +125,26 @@ export default function BoardForm() {
                 ),
                 li: (props) => <li className="mb-1" {...props} />,
                 p: (props) => <p className="mb-2" {...props} />,
+                a: (props) => (
+                  <a
+                    {...props}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline"
+                  />
+                ),
+                code: (props) => (
+                  <code
+                    className="inline bg-zinc-200 text-pink-600 px-1 py-0.5 rounded font-mono text-base"
+                    {...props}
+                  />
+                ),
+                pre: (props) => (
+                  <pre
+                    className="bg-zinc-200 rounded p-5 my-5 font-mono text-base leading-relaxed overflow-x-auto"
+                    {...props}
+                  />
+                ),
               }}
             >
               {content}
@@ -112,14 +156,16 @@ export default function BoardForm() {
           <button
             className="bg-gray-300 text-gray-700 px-6 py-2 rounded-xl shadow hover:bg-gray-400 transition"
             onClick={handleBack}
+            disabled={loading}
           >
             뒤로
           </button>
           <button
             onClick={handleBoardSave}
             className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition"
+            disabled={loading}
           >
-            게시
+            {editId ? "수정" : "게시"}
           </button>
         </div>
       </div>
