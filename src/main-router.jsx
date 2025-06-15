@@ -16,6 +16,7 @@ import CommunityPage from "./routes/community/CommunityPage";
 import BoardForm from "./routes/community/BoardForm";
 import BoardDetailPage from "./routes/community/BoardDetailPage";
 import StudyRequestFormModal from "./components/StudyRecruit/StudyRequestFormModal";
+import MyStudyRoomPage from "./routes/MyStudyRoom/MyStudyRoomPage";
 
 const routers = [
   {
@@ -62,7 +63,10 @@ const routers = [
   {
     path: "/study",
     element: <MainLayout />,
-    children: [{ path: "recruit", element: <StudyRecruitPage /> }],
+    children: [
+      { path: "recruit", element: <StudyRecruitPage /> },
+      { path: "mystudyroom", element: <MyStudyRoomPage /> },
+    ],
   },
   {
     path: "/join",

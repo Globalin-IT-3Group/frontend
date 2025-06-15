@@ -28,7 +28,7 @@ export default function PhoneNumber({ phoneNumber }) {
 
   return (
     <div className="flex items-center gap-8">
-      <label className="w-[193px] text-lg font-bold">전화번호</label>
+      <label className="w-[193px] text-xl font-bold">전화번호</label>
       <div className="flex items-center gap-2 flex-1">
         <span className="text-lg font-semibold">+82</span>
         <input

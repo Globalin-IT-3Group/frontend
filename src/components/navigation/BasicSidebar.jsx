@@ -4,7 +4,14 @@ function BasicSidebar() {
   return (
     <div className="h-full p-4 dark:text-white">
       <ul className="p-4 space-y-5">
-        <li className="text-xl">내 문서</li>
+        <li>
+          <Link
+            to="/study/mystudyroom"
+            className="block text-xl flex hover:text-blue-500 transition-colors"
+          >
+            내 스터디방
+          </Link>
+        </li>
         <li>
           <Link
             to="/study/recruit"

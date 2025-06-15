@@ -40,7 +40,7 @@ export default function StudyRecruitPage() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mx-auto mt-14 mb-10">스터디 구인</h1>
+      <h1 className="text-4xl font-bold mx-auto mt-10 mb-10">스터디 구인</h1>
       <StudydRecruitBar />
       <div className="relative h-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 h-full pr-2">
