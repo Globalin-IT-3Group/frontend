@@ -17,6 +17,7 @@ import BoardForm from "./routes/community/BoardForm";
 import BoardDetailPage from "./routes/community/BoardDetailPage";
 import StudyRequestFormModal from "./components/StudyRecruit/StudyRequestFormModal";
 import MyStudyRoomPage from "./routes/MyStudyRoom/MyStudyRoomPage";
+import InquiryPage from "./routes/inquiry/InquiryPage";
 
 const routers = [
   {
@@ -30,6 +31,10 @@ const routers = [
       {
         path: "my-info",
         element: <MyInfoPage />,
+      },
+      {
+        path: "inquiry",
+        element: <InquiryPage />,
       },
     ],
   },
