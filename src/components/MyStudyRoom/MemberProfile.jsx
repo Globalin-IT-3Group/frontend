@@ -1,8 +1,8 @@
 export default function MemberProfile() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex w-[400px] h-[120px] bg-blue-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
-        <div className="flex items-center justify-center p-4 gap-4">
+      <div className="flex w-[450px] h-[120px] bg-blue-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
+        <div className="w-1/2 flex items-center justify-center p-4 gap-4">
           <img
             src="/6.jpg"
             alt="leader"
@@ -11,7 +11,7 @@ export default function MemberProfile() {
           <p className="font-bold text-lg">leader</p>
         </div>
       </div>
-      <div className="flex items-center justify-center gap-x-10 w-[400px] h-[120px] bg-gray-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
+      <div className="flex items-center justify-center gap-x-10 w-[450px] h-[120px] bg-gray-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
         <div className="flex flex-col items-center">
           <img
             src="/6.jpg"
