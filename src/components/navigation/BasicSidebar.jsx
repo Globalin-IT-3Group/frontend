@@ -56,7 +56,7 @@ function BasicSidebar() {
             <label className="cursor-pointer inline-flex items-center justify-center bg-white rounded-full p-3 text-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] hover:text-white hover:bg-gradient-to-bl from-blue-200 to-blue-400 transition-all duration-300">
               <FaUserFriends size={25} className="text-blue-400" />
             </label>
-            <p className="text-sm font-bold">친구 확인</p>
+            <p className="text-sm font-bold">친구</p>
           </Link>
         </li>
       </ul>
