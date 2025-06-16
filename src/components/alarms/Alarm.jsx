@@ -3,7 +3,6 @@ import { MdExpandMore } from "react-icons/md";
 
 export default function Alarm({ alarm, onRead }) {
   const isUnread = alarm.read === false;
-  console.log(alarm);
 
   return (
     <Accordion
@@ -31,11 +30,9 @@ export default function Alarm({ alarm, onRead }) {
       <AccordionDetails className="bg-gray-50 rounded-b-2xl">
         {alarm.type === "FRIEND" && alarm.sender && (
           <div className="flex items-center gap-2">
-            {/* isUnread가 true면 빨간 점! */}
             <b>{alarm.sender.nickname}</b>님이 친구 요청을 보냈습니다!
           </div>
         )}
-        {/* 다른 타입 분기 */}
       </AccordionDetails>
     </Accordion>
   );

@@ -46,9 +46,9 @@ export default function AlarmPage() {
   if (loading) return <KotsuKotsuLoader />;
 
   return (
-    <div className="p-5 max-w-2xl mx-auto">
-      <div className="flex items-center gap-2 mb-8 text-2xl font-bold">
-        <FaBell className="text-yellow-500 w-7 h-7" />
+    <div className="mt-8 px-6 py-4 max-w-4xl mx-auto bg-white rounded-2xl shadow-xl">
+      <div className="flex items-center gap-2 mb-12 text-3xl font-bold justify-center">
+        <FaBell className="text-yellow-500 w-8 h-8" />
         <span>알람 페이지</span>
       </div>
       {/* 탭 */}

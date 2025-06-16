@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import friendAPI from "../../api/friendAPI"; // 실제 경로 맞게
 import { AiOutlineClose } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import ChatRoomApi from "../../api/chatRoomAPI";
+import { useSelector } from "react-redux";
 
 const TAB_LIST = [
   { label: "친구 목록", key: "friend" },
@@ -12,6 +15,9 @@ export default function FriendListModal({ open, onClose }) {
   const [activeTab, setActiveTab] = useState(TAB_LIST[0].key);
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const userId = useSelector((state) => state.auth.id);
+  const navigate = useNavigate();
 
   // 탭에 따라 API 호출
   useEffect(() => {
@@ -27,6 +33,19 @@ export default function FriendListModal({ open, onClose }) {
     }
     fetcher.then(setList).finally(() => setLoading(false));
   }, [open, activeTab]);
+
+  const handleChat = async (otherUser) => {
+    const res = await ChatRoomApi.getOrCreateSingleRoom({
+      requesterId: userId, // 내 ID
+      targetId: otherUser.id, // 친구 ID
+    });
+
+    console.log(res);
+
+    navigate(`/chat?roomId=${res.id}`, {
+      state: { otherUser },
+    });
+  };
 
   // 친구 삭제
   const handleDelete = async (userId) => {
@@ -107,12 +126,20 @@ export default function FriendListModal({ open, onClose }) {
                     </div>
                   </div>
                   {activeTab === "friend" && (
-                    <button
-                      className="px-3 py-1 bg-red-100 text-red-600 rounded-xl hover:bg-red-200"
-                      onClick={() => handleDelete(user.id)}
-                    >
-                      절교
-                    </button>
+                    <>
+                      <button
+                        className="px-3 py-1 bg-blue-500 text-white rounded-xl hover:bg-blue-600 mr-2"
+                        onClick={() => handleChat(user)}
+                      >
+                        채팅
+                      </button>
+                      <button
+                        className="px-3 py-1 bg-red-100 text-red-600 rounded-xl hover:bg-red-200"
+                        onClick={() => handleDelete(user.id)}
+                      >
+                        절교
+                      </button>
+                    </>
                   )}
                   {activeTab === "received" && (
                     <button

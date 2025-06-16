@@ -5,6 +5,14 @@ class ChatRoomApi extends BaseApi {
     super();
   }
 
+  async getOrCreateSingleRoom({ requesterId, targetId }) {
+    const res = await this.fetcher.post("/chat-room", {
+      requesterId,
+      targetId,
+    });
+    return res.data;
+  }
+
   // ✅ 모든 채팅방 요약 정보 가져오기 (더미 데이터 반환)
   async getAllSummaries() {
     // const res = await this.fetcher.get("/chat-room/summary/all");

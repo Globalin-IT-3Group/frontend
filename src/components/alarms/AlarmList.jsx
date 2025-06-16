@@ -1,15 +1,19 @@
 import NotificationApi from "../../api/notificationAPI";
 import Alarm from "./Alarm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function AlarmList({ alarms: initialAlarms }) {
   // 로컬에서 읽음 즉시 반영(UX용)
   const [alarms, setAlarms] = useState(initialAlarms);
 
+  useEffect(() => {
+    setAlarms(initialAlarms);
+  }, [initialAlarms]);
+
   const handleRead = async (notificationId) => {
     NotificationApi.markAsRead(notificationId);
     setAlarms((prev) =>
-      prev.map((a) => (a.id === notificationId ? { ...a, isRead: true } : a))
+      prev.map((a) => (a.id === notificationId ? { ...a, read: true } : a))
     );
   };
 
