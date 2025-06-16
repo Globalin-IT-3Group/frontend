@@ -17,6 +17,10 @@ import BoardForm from "./routes/community/BoardForm";
 import BoardDetailPage from "./routes/community/BoardDetailPage";
 import StudyRequestFormModal from "./components/StudyRecruit/StudyRequestFormModal";
 import MyStudyRoomPage from "./routes/MyStudyRoom/MyStudyRoomPage";
+import MyNoteList from "./routes/MyNote/MyNoteList";
+import MyNoteDetail from "./routes/MyNote/MyNoteDetail";
+import MyNoteForm from "./routes/MyNote/MyNoteForm";
+import MyNoteEdit from "./routes/MyNote/MyNoteEdit";
 
 const routers = [
   {
@@ -41,6 +45,16 @@ const routers = [
         index: true,
         element: <ChattingPage />,
       },
+    ],
+  },
+    {
+    path: "/note",
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <MyNoteList /> },
+      { path: "new", element: <MyNoteForm mode="create" />},
+      { path: ":id", element: <MyNoteDetail />},
+      { path: ":id/edit", element: <MyNoteEdit />},
     ],
   },
   {
