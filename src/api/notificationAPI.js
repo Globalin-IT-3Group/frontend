@@ -5,10 +5,16 @@ class NotificationApi extends BaseApi {
     super();
   }
 
-  // 전체 알림 조회
-  async getAllNotifications() {
-    const res = await this.fetcher.get("/notification/");
-    return res.data;
+  // 페이지네이션 기반 전체 알림 조회
+  async getNotificationsPage({
+    page = 0,
+    size = 10,
+    sort = "createdAt,desc",
+  } = {}) {
+    const res = await this.fetcher.get(
+      `/notification/page?page=${page}&size=${size}&sort=${sort}`
+    );
+    return res.data; // content, totalPages, totalElements 등 포함!
   }
 
   // 특정 알림 삭제

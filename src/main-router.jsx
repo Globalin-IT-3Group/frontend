@@ -22,6 +22,7 @@ import MyNoteList from "./routes/MyNote/MyNoteList";
 import MyNoteDetail from "./routes/MyNote/MyNoteDetail";
 import MyNoteForm from "./routes/MyNote/MyNoteForm";
 import MyNoteEdit from "./routes/MyNote/MyNoteEdit";
+import AlarmPage from "./routes/alarm/AlarmPage";
 
 const routers = [
   {
@@ -106,6 +107,11 @@ const routers = [
       // 글쓰기 폼
       { path: "write", element: <BoardForm /> },
     ],
+  },
+  {
+    path: "/alarm",
+    element: <MainLayout />,
+    children: [{ index: true, element: <AlarmPage /> }],
   },
   {
     path: "*",

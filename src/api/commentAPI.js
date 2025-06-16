@@ -7,10 +7,9 @@ class CommentApi extends BaseApi {
 
   // 댓글 저장
   async createComment({ userId, boardId, content }) {
-    // content는 JSON 문자열 or 그냥 문자열로 보낼 수 있음
     const res = await this.fetcher.post(
       `/comment?userId=${userId}&boardId=${boardId}`,
-      content, // 그냥 텍스트로 보내면 됨
+      content,
       { headers: { "Content-Type": "text/plain" } }
     );
     return res.data;
@@ -31,6 +30,12 @@ class CommentApi extends BaseApi {
     const res = await this.fetcher.delete(
       `/comment/${commentId}?userId=${userId}`
     );
+    return res.data;
+  }
+
+  // **댓글 목록 조회 추가!!**
+  async getCommentsByBoardId(boardId) {
+    const res = await this.fetcher.get(`/comment/list?boardId=${boardId}`);
     return res.data;
   }
 }

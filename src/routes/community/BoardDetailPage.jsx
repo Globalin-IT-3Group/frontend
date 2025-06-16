@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import BoardApi from "../../api/boardAPI";
 import { LuEye } from "react-icons/lu";
-import { HiArrowLeft } from "react-icons/hi2";
+import { HiArrowLeft, HiOutlinePencilSquare } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 import ProfileModal from "../../components/common/ProfileModal";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
+import CommentInput from "../../components/community/CommentInput";
+import CommentList from "../../components/community/CommentList";
 
 export default function BoardDetailPage() {
   const { boardId } = useParams();
@@ -15,6 +17,8 @@ export default function BoardDetailPage() {
   const [board, setBoard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
+  // 댓글 새로고침용 state
+  const [commentReload, setCommentReload] = useState(0);
 
   const userId = useSelector((state) => state.auth.id);
 
@@ -54,7 +58,7 @@ export default function BoardDetailPage() {
               "
               onClick={() => navigate(`/community/write?edit=${board.id}`)}
             >
-              수정
+              <HiOutlinePencilSquare className="w-4 h-6" />
             </button>
           )}
         </div>
@@ -124,6 +128,21 @@ export default function BoardDetailPage() {
             <LuEye className="w-4 h-4" />
             <span>{board.viewCount}</span>
           </div>
+        </div>
+        {/* ===== 댓글 영역 ===== */}
+        <div className="border-t pt-7 mt-8">
+          <div className="font-bold text-lg mb-2 text-gray-400">댓글</div>
+          <CommentInput
+            boardId={board.id}
+            userId={userId}
+            onCommentPosted={() => setCommentReload((c) => c + 1)}
+          />
+          <CommentList
+            boardId={board.id}
+            userId={userId}
+            reloadKey={commentReload}
+            onReload={() => setCommentReload((c) => c + 1)}
+          />
         </div>
       </div>
       {/* 프로필 모달 */}

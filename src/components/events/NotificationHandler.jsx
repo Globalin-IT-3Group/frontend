@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 export default function NotificationHandler() {
   useEffect(() => {
+    console.log("🔔 NotificationHandler 마운트됨!");
     sseApi.subscribe(
       (event) => {
         const data = JSON.parse(event.data);
