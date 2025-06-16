@@ -25,13 +25,13 @@ class FriendApi extends BaseApi {
   }
 
   // 내가 보낸 친구 요청 목록
-  async getMyRequests() {
+  async getRequestedFriends() {
     const res = await this.fetcher.get("/friend/my-request");
     return res.data;
   }
 
   // 내가 받은 친구 요청 목록
-  async getMyPendingRequests() {
+  async getReceivedRequests() {
     const res = await this.fetcher.get("/friend/my-accept");
     return res.data;
   }

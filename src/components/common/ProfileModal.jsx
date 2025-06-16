@@ -99,7 +99,7 @@ export default function ProfileModal({ open, onClose, user, myId }) {
           onClick={handleCancelRequest}
           disabled={loading}
         >
-          요청 중 (취소)
+          친구 요청 중 (취소)
         </button>
       );
     } else if (status === "PENDING" && iAmAddressee) {

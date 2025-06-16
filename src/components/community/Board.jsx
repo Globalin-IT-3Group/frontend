@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { LuEye } from "react-icons/lu";
+import { FaRegCommentDots } from "react-icons/fa6";
 import ProfileModal from "../../components/common/ProfileModal";
 
 export default function Board({ board, onClick }) {
@@ -64,9 +65,15 @@ export default function Board({ board, onClick }) {
               {user?.nickname || "알 수 없음"}
             </span>
           </div>
-          <div className="flex items-center gap-1 text-gray-500 text-xs">
-            <LuEye className="w-4 h-4" />
-            <span>{board.viewCount}</span>
+          <div className="flex items-center gap-3 text-gray-500 text-xs">
+            <div className="flex items-center gap-1">
+              <LuEye className="w-4 h-4" />
+              <span>{board.viewCount}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <FaRegCommentDots className="w-4 h-4" />
+              <span>{board.commentCount}</span>
+            </div>
           </div>
         </div>
       </li>

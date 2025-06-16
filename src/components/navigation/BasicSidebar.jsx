@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUserFriends } from "react-icons/fa";
+import FriendListModal from "./../modals/FriendListModal";
 
 function BasicSidebar() {
+  const [friendModalOpen, setFriendModalOpen] = useState(false);
+
   return (
     <div className="h-full p-4 dark:text-white">
       <ul className="grid grid-cols-2 gap-x-4 gap-y-8 p-4">
@@ -52,13 +56,23 @@ function BasicSidebar() {
           </Link>
         </li>
         <li className="flex flex-col items-center gap-3">
-          <Link to="/community" className="flex flex-col items-center gap-3">
+          {/* 친구 아이콘 → 버튼으로 */}
+          <button
+            type="button"
+            className="flex flex-col items-center gap-3 focus:outline-none"
+            onClick={() => setFriendModalOpen(true)}
+          >
             <label className="cursor-pointer inline-flex items-center justify-center bg-white rounded-full p-3 text-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] hover:text-white hover:bg-gradient-to-bl from-blue-200 to-blue-400 transition-all duration-300">
               <FaUserFriends size={25} className="text-blue-400" />
             </label>
-            <p className="text-sm font-bold">친구 확인</p>
-          </Link>
+            <p className="text-sm font-bold">친구</p>
+          </button>
         </li>
+        {/* 친구 모달 */}
+        <FriendListModal
+          open={friendModalOpen}
+          onClose={() => setFriendModalOpen(false)}
+        />
       </ul>
     </div>
   );

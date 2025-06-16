@@ -7,6 +7,7 @@ import { BsPostcard } from "react-icons/bs";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import BoardList from "../../components/community/BoardList";
+import KotsuKotsuLoader from "../../components/loadings/KotsuKotsuLoader";
 
 const TAB_LIST = [
   {
@@ -32,9 +33,11 @@ export default function CommunityPage() {
   const [page, setPage] = useState(0);
   const [size] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
+    setLoading(true);
     let fetchPromise;
     if (activeTab.label === "My Post") {
       fetchPromise = BoardApi.getMyBoards({ page, size });
@@ -43,20 +46,28 @@ export default function CommunityPage() {
       fetchPromise = BoardApi.getBoards({ page, size, sort: sortParam });
     }
 
-    fetchPromise.then((data) => {
-      // Page<Board> 구조라면 content와 totalPages 등 분리
-      if (Array.isArray(data)) {
-        setBoards(data);
-        setTotalPages(1);
-      } else if (data && Array.isArray(data.content)) {
-        setBoards(data.content);
-        setTotalPages(data.totalPages || 1);
-      } else {
-        setBoards([]);
-        setTotalPages(1);
-      }
-    });
+    fetchPromise
+      .then((data) => {
+        console.log(data);
+
+        // Page<Board> 구조라면 content와 totalPages 등 분리
+        if (Array.isArray(data)) {
+          setBoards(data);
+          setTotalPages(1);
+        } else if (data && Array.isArray(data.content)) {
+          setBoards(data.content);
+          setTotalPages(data.totalPages || 1);
+        } else {
+          setBoards([]);
+          setTotalPages(1);
+        }
+      })
+      .finally(() => setLoading(false));
   }, [activeTab, page, size]);
+
+  if (loading) {
+    return <KotsuKotsuLoader />;
+  }
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">

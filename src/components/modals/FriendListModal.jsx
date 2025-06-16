@@ -1,0 +1,141 @@
+import { useEffect, useState } from "react";
+import friendAPI from "../../api/friendAPI"; // 실제 경로 맞게
+import { AiOutlineClose } from "react-icons/ai";
+
+const TAB_LIST = [
+  { label: "친구 목록", key: "friend" },
+  { label: "받은 요청", key: "received" },
+  { label: "요청 중", key: "pending" },
+];
+
+export default function FriendListModal({ open, onClose }) {
+  const [activeTab, setActiveTab] = useState(TAB_LIST[0].key);
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // 탭에 따라 API 호출
+  useEffect(() => {
+    if (!open) return;
+    setLoading(true);
+    let fetcher;
+    if (activeTab === "friend") {
+      fetcher = friendAPI.getFriends();
+    } else if (activeTab === "received") {
+      fetcher = friendAPI.getReceivedRequests();
+    } else if (activeTab === "pending") {
+      fetcher = friendAPI.getRequestedFriends();
+    }
+    fetcher.then(setList).finally(() => setLoading(false));
+  }, [open, activeTab]);
+
+  // 친구 삭제
+  const handleDelete = async (userId) => {
+    if (!window.confirm("정말 친구를 삭제하시겠습니까?")) return;
+    await friendAPI.deleteFriend(userId);
+    setList(list.filter((u) => u.id !== userId));
+  };
+
+  // 요청 수락
+  const handleAccept = async (requesterId) => {
+    await friendAPI.acceptFriendRequest(requesterId);
+    setList(list.filter((u) => u.id !== requesterId));
+  };
+
+  // 요청 취소
+  const handleCancel = async (addresseeId) => {
+    await friendAPI.cancelRequest(addresseeId);
+    setList(list.filter((u) => u.id !== addresseeId));
+  };
+
+  if (!open) return null;
+
+  return (
+    <div
+      className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"
+          onClick={onClose}
+        >
+          <AiOutlineClose size={22} />
+        </button>
+        {/* 탭 */}
+        <div className="flex gap-4 mb-6">
+          {TAB_LIST.map((tab) => (
+            <button
+              key={tab.key}
+              className={`py-2 px-4 font-bold rounded-xl ${
+                activeTab === tab.key
+                  ? "bg-blue-100 text-blue-700"
+                  : "bg-gray-100 text-gray-500"
+              }`}
+              onClick={() => setActiveTab(tab.key)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        {/* 리스트 */}
+        <div className="min-h-[320px]">
+          {loading ? (
+            <div className="text-center py-10">불러오는 중...</div>
+          ) : list.length === 0 ? (
+            <div className="text-center py-10 text-gray-400">
+              데이터가 없습니다.
+            </div>
+          ) : (
+            <ul className="space-y-4">
+              {list.map((user) => (
+                <li key={user.id} className="flex items-center gap-4">
+                  <img
+                    src={
+                      user.profileImage ||
+                      "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
+                    }
+                    className="w-10 h-10 rounded-full object-cover"
+                    alt="프로필"
+                  />
+                  <div className="flex-1">
+                    <div className="font-bold">{user.nickname}</div>
+                    <div className="text-xs text-gray-500">
+                      {user.profileMessage || "상태 메시지 없음"}
+                    </div>
+                  </div>
+                  {activeTab === "friend" && (
+                    <button
+                      className="px-3 py-1 bg-red-100 text-red-600 rounded-xl hover:bg-red-200"
+                      onClick={() => handleDelete(user.id)}
+                    >
+                      절교
+                    </button>
+                  )}
+                  {activeTab === "received" && (
+                    <button
+                      className="px-3 py-1 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+                      onClick={() => handleAccept(user.id)}
+                    >
+                      수락
+                    </button>
+                  )}
+                  {activeTab === "pending" && (
+                    <button
+                      className="px-3 py-1 bg-gray-300 text-gray-700 rounded-xl hover:bg-gray-400"
+                      onClick={() => handleCancel(user.id)}
+                    >
+                      요청 취소
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
