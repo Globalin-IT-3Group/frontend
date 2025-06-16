@@ -15,13 +15,13 @@ import WordPage from "./routes/word/WordPage";
 import CommunityPage from "./routes/community/CommunityPage";
 import BoardForm from "./routes/community/BoardForm";
 import BoardDetailPage from "./routes/community/BoardDetailPage";
-import StudyRequestFormModal from "./components/StudyRecruit/StudyRequestFormModal";
 import MyStudyRoomPage from "./routes/MyStudyRoom/MyStudyRoomPage";
 import InquiryPage from "./routes/inquiry/InquiryPage";
 import MyNoteList from "./routes/MyNote/MyNoteList";
 import MyNoteDetail from "./routes/MyNote/MyNoteDetail";
 import MyNoteForm from "./routes/MyNote/MyNoteForm";
 import MyNoteEdit from "./routes/MyNote/MyNoteEdit";
+import StudyRoomListModal from "./components/MyStudyRoom/StudyRoomListModal";
 
 const routers = [
   {
@@ -85,6 +85,7 @@ const routers = [
     children: [
       { path: "recruit", element: <StudyRecruitPage /> },
       { path: "mystudyroom", element: <MyStudyRoomPage /> },
+      { path: "mystudyroomList", element: <StudyRoomListModal /> },
     ],
   },
   {
