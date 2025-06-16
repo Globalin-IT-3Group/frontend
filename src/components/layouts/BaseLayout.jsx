@@ -45,7 +45,7 @@ export default function BaseLayout({ children, SidebarComponent }) {
               {(sidebarOpen || sidebarClosing) && (
                 <button
                   onClick={() => setSidebarOpen(false)}
-                  className="absolute top-4 right-[-24px] z-1 bg-white dark:bg-zinc-800 px-1 py-2 shadow hover:bg-zinc-200 dark:hover:bg-zinc-600"
+                  className="cursor-pointer absolute top-4 right-[-24px] z-1 bg-white dark:bg-zinc-800 px-1 py-2 shadow hover:bg-zinc-200 dark:hover:bg-zinc-600"
                 >
                   <FiChevronsLeft className="text-xl dark:text-white" />
                 </button>
@@ -82,7 +82,7 @@ export default function BaseLayout({ children, SidebarComponent }) {
             {sidebarFullyClosed && (
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="fixed top-22 left-0 bg-white dark:bg-zinc-800 px-1 py-2 shadow z-1 hover:bg-zinc-200 dark:hover:bg-zinc-600"
+                className="cursor-pointer fixed top-22 left-0 bg-white dark:bg-zinc-800 px-1 py-2 shadow z-1 hover:bg-zinc-200 dark:hover:bg-zinc-600"
               >
                 <FiChevronsRight className="text-xl dark:text-white" />
               </button>

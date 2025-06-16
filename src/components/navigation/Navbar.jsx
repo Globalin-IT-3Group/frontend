@@ -1,5 +1,6 @@
 import ThemeButton from "../buttons/ThemeButton";
 import LoginButton from "../buttons/LoginButton";
+import AlarmButton from "../buttons/AlarmButton";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileAvatar from "./ProfileAvatar";
@@ -27,6 +28,7 @@ export default function Navbar() {
         コツコツ
       </Link>
       <div className="flex gap-4">
+        <AlarmButton />
         <ThemeButton />
         {user.isLoggedIn ? (
           <ProfileDropdown
