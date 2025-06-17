@@ -1,12 +1,19 @@
 import { useNavigate } from "react-router-dom";
+import chatRoomApi from "../../../api/chatRoomAPI"; // (import 추가)
 
-export default function ChatRoomItem({ room }) {
+export default function ChatRoomItem({ room, refreshRooms }) {
   const navigate = useNavigate();
   const { roomId, unreadCount, lastMessage, lastMessageAt, otherUser } = room;
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    // ✅ 1. 채팅방 입장 시 백엔드에 읽음 처리 요청
+    await chatRoomApi.markAsRead(roomId); // 이 메서드가 구현되어 있어야 함
+    // ✅ 2. 리스트 새로고침
+    refreshRooms && refreshRooms();
+
+    // ✅ 3. 채팅방 이동
     navigate(`/chat?roomId=${roomId}`, {
-      state: { otherUser }, // 👈 여기서 같이 넘긴다!
+      state: { otherUser }, // 👈 같이 넘긴다!
     });
   };
 
@@ -26,8 +33,11 @@ export default function ChatRoomItem({ room }) {
       <div className="flex-1 overflow-hidden">
         <div className="flex justify-between items-center">
           <span className="font-semibold truncate">{otherUser?.nickname}</span>
+          {/* ✅ 안 읽은 메시지(뱃지) */}
           {unreadCount > 0 && (
-            <span className="text-xs text-red-500 ml-2">● {unreadCount}</span>
+            <span className="ml-2 inline-block w-5 h-5 text-xs rounded-full bg-red-500 text-white text-center leading-5">
+              {unreadCount}
+            </span>
           )}
         </div>
         <div className="text-sm text-gray-500 truncate">

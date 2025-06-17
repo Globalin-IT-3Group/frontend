@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/reducers/authSlice";
+import KotsuKotsuLoader from "../../components/loadings/KotsuKotsuLoader";
 
 //useLocation() : 현재 URL에서 쿼리스트링(?code=...) 가져오기
 //useNavigate(): 페이지 이동을 위한 훅
@@ -12,7 +13,7 @@ import { setUser } from "../../store/reducers/authSlice";
 const Redirect = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // redux dispatch 준비비
+  const dispatch = useDispatch(); // redux dispatch 준비
 
   useEffect(() => {
     const code = new URLSearchParams(location.search).get("code");
@@ -50,7 +51,7 @@ const Redirect = () => {
     }
   }, [location, navigate, dispatch]);
 
-  return <p>로그인 때리는 중!!!</p>;
+  return <KotsuKotsuLoader />;
 };
 
 export default Redirect;
