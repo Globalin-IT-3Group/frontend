@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import MyStudySlider from "../../components/MyStudySlider/MyStudySlider";
+import WordSlider from "../../components/WordSlider/WordSlider";
 import UserApi from "../../api/userAPI";
+
 
 export default function MainPage() {
 
@@ -45,22 +47,9 @@ export default function MainPage() {
           </div>
         </div>
 
-        {/* 우측 카드들 */}
-        <div className="flex flex-col gap-6">
-          <div className="w-full aspect-[5/4] max-w-md mx-auto">
-            <div className="flip-card w-full h-full">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <p className="title">스터디 카드</p>
-                  <p>Hover me</p>
-                </div>
-                <div className="flip-card-back">
-                  <p className="title">설명</p>
-                  <p>뒤에서 보여질 내용</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* 우측 카드들 */}
+          <div className="flex flex-col gap-6">
+            <WordSlider />
 
           <div className="w-full aspect-[7/6] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
 
