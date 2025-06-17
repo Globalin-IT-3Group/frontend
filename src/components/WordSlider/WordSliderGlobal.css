@@ -1,0 +1,21 @@
+.word-slider .swiper-slide {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+.word-slider .swiper-slide:nth-child(1n) { background-color: rgb(175, 194, 255); }
+.word-slider .swiper-slide:nth-child(2n) { background-color: rgb(155, 179, 255); }
+.word-slider .swiper-slide:nth-child(3n) { background-color: rgb(136, 164, 255); }
+.word-slider .swiper-slide:nth-child(4n) { background-color: rgb(116, 149, 255); }
+.word-slider .swiper-slide:nth-child(5n) { background-color: rgb(97, 134, 255); }
+.word-slider .swiper-slide:nth-child(6n) { background-color: rgb(77, 119, 255); }
+.word-slider .swiper-slide:nth-child(7n) { background-color: rgb(57, 104, 255); }
+.word-slider .swiper-slide:nth-child(8n) { background-color: rgb(38, 89, 255); }
+.word-slider .swiper-slide:nth-child(9n) { background-color: rgb(18, 74, 255); }
