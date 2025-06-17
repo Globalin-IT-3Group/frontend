@@ -167,3 +167,11 @@ body {
       calc(-8 * var(--w)) 0 #003cff, calc(-9 * var(--w)) -10px #003cff;
   }
 }
+
+.swiper-pagination-fraction {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  bottom: 10px;
+  font-size: 16px;
+}
