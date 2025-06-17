@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux"; // ← 추가
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import NoteApi from "../../api/noteAPI";
 
@@ -8,9 +9,14 @@ export default function MyNoteList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // ← 로그인 여부 확인
 
   useEffect(() => {
     async function fetchNotes() {
+      if (!isLoggedIn) {
+        setLoading(false); // 로딩 false로 설정 (안 해주면 계속 "로딩 중..."이 뜸)
+        return;
+      }
       try {
         const data = await NoteApi.getNotes();
         setNotes(data);
@@ -22,14 +28,15 @@ export default function MyNoteList() {
       }
     }
     fetchNotes();
-  }, []);
+  }, [isLoggedIn]); // ← 의존성으로 isLoggedIn 추가
 
   if (loading) return <p>로딩 중...</p>;
+  if (!isLoggedIn) return <p className="text-center mt-10">로그인 후 노트를 확인할 수 있습니다.</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <div className="max-w-4xl mx-auto">
-      {/* 상단 글쓰기 버튼 추가 */}
+      {/* 상단 글쓰기 버튼 */}
       <div className="flex justify-end my-4">
         <button
           className="
@@ -42,7 +49,6 @@ export default function MyNoteList() {
           onClick={() => navigate("/note/new")}
         >
           <HiOutlinePencilSquare className="w-5 h-5" />
-          {/* 글쓰기 텍스트는 md(768px) 이상에서만 보임 */}
           <span className="hidden md:inline">글쓰기</span>
         </button>
       </div>
@@ -55,7 +61,10 @@ export default function MyNoteList() {
             className="flex items-center py-4 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
           >
             <img
-              src={note.thumbnailUrl || "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"}
+              src={
+                note.thumbnailUrl ||
+                "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
+              }
               alt="썸네일"
               className="w-24 h-24 object-cover rounded-md flex-shrink-0"
             />
