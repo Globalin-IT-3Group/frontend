@@ -3,6 +3,8 @@ import StudyRoomListContainer from "./StudyRoomListContainer";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
+import Styles from "./StudyRoomListModal.module.css";
+
 import { EffectCoverflow, Pagination } from "swiper/modules";
 
 export default function StudyRoomListModal({ onClose }) {
@@ -46,7 +48,7 @@ export default function StudyRoomListModal({ onClose }) {
             type: "fraction",
           }}
           modules={[EffectCoverflow, Pagination]}
-          className="mySwipe"
+          className={Styles.studyRoomslider}
         >
           <SwiperSlide>
             <StudyRoomListContainer bgColor={getRandomColor()}>
