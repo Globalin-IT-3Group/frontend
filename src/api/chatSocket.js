@@ -1,11 +1,13 @@
 let socket = null;
 
+const backendURL = import.meta.env.VITE_BASE_DOMAIN;
+
 const chatSocket = {
   connect(roomId, userId, onMessage) {
     if (socket) socket.close();
 
     socket = new WebSocket(
-      `ws://localhost:8080/ws/chat?roomId=${roomId}&userId=${userId}`
+      `ws://${backendURL}/ws/chat?roomId=${roomId}&userId=${userId}`
     );
 
     socket.onopen = () => {
