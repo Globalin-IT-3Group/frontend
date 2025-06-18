@@ -4,7 +4,7 @@ import { FaUserFriends } from "react-icons/fa";
 import FriendListModal from "./../modals/FriendListModal";
 import StudyRoomListModal from "../MyStudyRoom/StudyRoomListModal";
 
-function BasicSidebar() {
+function BasicSidebar({ myStudyRooms = [], loading }) {
   const [friendModalOpen, setFriendModalOpen] = useState(false);
   const [studyRoomModalOpen, setStudyRoomModalOpen] = useState(false);
 
@@ -23,7 +23,11 @@ function BasicSidebar() {
           </button>
 
           {studyRoomModalOpen && (
-            <StudyRoomListModal onClose={() => setStudyRoomModalOpen(false)} />
+            <StudyRoomListModal
+              studyRooms={myStudyRooms}
+              loading={loading}
+              onClose={() => setStudyRoomModalOpen(false)}
+            />
           )}
         </li>
         <li className="flex flex-col items-center gap-3">

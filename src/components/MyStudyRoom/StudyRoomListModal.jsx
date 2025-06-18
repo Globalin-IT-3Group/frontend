@@ -6,11 +6,21 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Styles from "./StudyRoomListModal.module.css";
 import { useRef, useEffect } from "react";
-
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import { useSelector } from "react-redux";
 
-export default function StudyRoomListModal({ onClose }) {
+const DEFAULT_IMAGE_URL =
+  "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg";
+
+export default function StudyRoomListModal({
+  studyRooms = [],
+  loading,
+  onClose,
+}) {
   const swiperRef = useRef(null);
+  const user = useSelector((state) => state.auth);
+  const myUserId = user.id;
+
   useEffect(() => {
     const swiperInstance = swiperRef.current?.swiper;
     if (swiperInstance?.pagination) {
@@ -83,42 +93,35 @@ export default function StudyRoomListModal({ onClose }) {
             modules={[EffectCoverflow, Pagination, Navigation]}
             className={Styles.studyRoomslider}
           >
-            <SwiperSlide>
-              <StudyRoomListContainer
-                bgColor={getRandomColor()}
-                label="안녕하세요!"
-                onClose={onClose}
-              >
-                <img src="/pinga1.jpg" />
-              </StudyRoomListContainer>
-            </SwiperSlide>
-            <SwiperSlide>
-              <StudyRoomListContainer
-                bgColor={getRandomColor()}
-                label="코츠코츠 파이팅~"
-                onClose={onClose}
-              >
-                <img src="/pinga2.jpg" />
-              </StudyRoomListContainer>
-            </SwiperSlide>
-            <SwiperSlide>
-              <StudyRoomListContainer
-                bgColor={getRandomColor()}
-                label="들을엉.. 푸데데.."
-                onClose={onClose}
-              >
-                <img src="/pinga3.jpg" />
-              </StudyRoomListContainer>
-            </SwiperSlide>
-            <SwiperSlide>
-              <StudyRoomListContainer
-                bgColor={getRandomColor()}
-                label="슬라이드 끝!"
-                onClose={onClose}
-              >
-                <img src="/pinga4.jpg" />
-              </StudyRoomListContainer>
-            </SwiperSlide>
+            {loading ? (
+              <SwiperSlide>
+                <div className="flex items-center justify-center h-60 text-lg text-gray-400">
+                  불러오는 중...
+                </div>
+              </SwiperSlide>
+            ) : studyRooms.length === 0 ? (
+              <SwiperSlide>
+                <div className="flex items-center justify-center h-60 text-lg text-gray-400">
+                  참여중인 스터디방이 없습니다.
+                </div>
+              </SwiperSlide>
+            ) : (
+              studyRooms.map((room) => (
+                <SwiperSlide key={room.id}>
+                  <StudyRoomListContainer
+                    bgColor={getRandomColor()}
+                    label={room.name}
+                    onClose={onClose}
+                    isLeader={room.leaderId === myUserId}
+                  >
+                    <img
+                      src={room.imageUrl || DEFAULT_IMAGE_URL}
+                      alt={room.name}
+                    />
+                  </StudyRoomListContainer>
+                </SwiperSlide>
+              ))
+            )}
           </Swiper>
           <div className="custom-swiper-button-next absolute top-1/2 right-0 z-50 -translate-y-1/2 cursor-pointer">
             <span className="text-white text-2xl font-bold px-2">▶</span>
