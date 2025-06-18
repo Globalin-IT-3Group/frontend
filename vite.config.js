@@ -6,18 +6,25 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
+    host: "0.0.0.0",
     proxy: {
       // SSE 프록시
       "/sse": {
-        target: "http://localhost:8080",
+        target: "http://192.168.0.10:8080",
         changeOrigin: true,
         ws: false, // SSE는 웹소켓이 아니므로 false
       },
       // WebSocket 프록시
       "/ws": {
-        target: "ws://localhost:8080",
+        target: "ws://192.168.0.10:8080",
         changeOrigin: true,
         ws: true, // WebSocket은 true
+      },
+      "/api": {
+        target: "http://192.168.0.10:8080",
+        changeOrigin: true,
+        ws: false,
+        rewrite: (path) => path.replace(/^\/api/, ""), // ← /api를 떼고 백엔드로!
       },
     },
   },

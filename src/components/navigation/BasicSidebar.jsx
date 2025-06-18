@@ -2,23 +2,29 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUserFriends } from "react-icons/fa";
 import FriendListModal from "./../modals/FriendListModal";
+import StudyRoomListModal from "../MyStudyRoom/StudyRoomListModal";
 
 function BasicSidebar() {
   const [friendModalOpen, setFriendModalOpen] = useState(false);
+  const [studyRoomModalOpen, setStudyRoomModalOpen] = useState(false);
 
   return (
     <div className="h-full p-4 dark:text-white">
       <ul className="grid grid-cols-2 gap-x-4 gap-y-8 p-4">
         <li className="flex flex-col items-center gap-3">
-          <Link
-            to="/study/mystudyroomList"
-            className="flex flex-col items-center gap-3 "
+          <button
+            onClick={() => setStudyRoomModalOpen(true)}
+            className="flex flex-col items-center gap-3 cursor-pointer"
           >
-            <label className="cursor-pointer inline-flex items-center justify-center bg-white rounded-full p-2 text-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] hover:text-white hover:bg-gradient-to-bl from-blue-200 to-blue-400 transition-all duration-300">
+            <div className="inline-flex items-center justify-center bg-white rounded-full p-2 text-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] hover:bg-gradient-to-bl from-blue-200 to-blue-400 transition-all duration-300">
               🏷️
-            </label>
+            </div>
             <p className="text-sm font-bold">내 스터디방</p>
-          </Link>
+          </button>
+
+          {studyRoomModalOpen && (
+            <StudyRoomListModal onClose={() => setStudyRoomModalOpen(false)} />
+          )}
         </li>
         <li className="flex flex-col items-center gap-3">
           <Link to="/note" className="flex flex-col items-center gap-3 ">
