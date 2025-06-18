@@ -6,3 +6,17 @@
 .custom-fraction {
   color: white !important;
 }
+
+.customNext::after,
+.customPrev::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background-color: transparent;
+  transform: translateY(-50%);
+  transition: background-color 0.3s;
+}

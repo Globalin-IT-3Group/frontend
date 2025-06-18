@@ -22,12 +22,11 @@ export default function StudyRoomListModal({ onClose }) {
 
   const getRandomColor = () => {
     const colors = [
-      "bg-gradient-to-b from-blue-200 to-white",
-      "bg-gradient-to-b from-yellow-200 to-white",
-      "bg-gradient-to-b from-pink-200 to-white",
-      "bg-gradient-to-b from-red-200 to-white",
-      "bg-gradient-to-b from-green-200 to-white",
-      "bg-gradient-to-b from-gray-200 to-white",
+      "bg-gradient-to-b from-[#D2FEFF] to-white", //하늘
+      "bg-gradient-to-b from-[#FBF7B8] to-white", //노랑
+      "bg-gradient-to-b from-[#BCECFF] to-white", //파랑
+      "bg-gradient-to-b from-[#FACFD9] to-white", //분홍
+      "bg-gradient-to-b from-[#E4E2F8] to-white", //보라
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   };
@@ -46,14 +45,16 @@ export default function StudyRoomListModal({ onClose }) {
           </div>
           <button
             onClick={onClose}
-            className="top-8 right-8 text-white text-3xl font-bold z-50 hover:text-blue-400 transition-colors duration-200 cursor-pointer"
+            className="top-8 right-8 text-white text-3xl font-bold z-50 hover:text-blue-400 hover:rotate-90 hover:scale-110 transition-all duration-200 cursor-pointer"
           >
             ×
           </button>
         </div>
 
         <div className="flex w-full max-w-[1000px] p-20 overflow-visible relative">
-          <div className="custom-swiper-button-prev absolute top-1/2 left-0 z-50 -translate-y-1/2 cursor-pointer">
+          <div
+            className={`custom-swiper-button-prev absolute top-1/2 left-0 z-50 -translate-y-1/2 cursor-pointer active:scale-110 hover:scale-125 transition-all duration-300  ${Styles.customPrev}`}
+          >
             <span className="text-white text-2xl font-bold px-2">◀</span>
           </div>
           <Swiper
@@ -62,7 +63,7 @@ export default function StudyRoomListModal({ onClose }) {
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={3}
-            spaceBetween={32}
+            spaceBetween={34}
             coverflowEffect={{
               rotate: 20,
               stretch: 0,
@@ -120,7 +121,9 @@ export default function StudyRoomListModal({ onClose }) {
               </StudyRoomListContainer>
             </SwiperSlide>
           </Swiper>
-          <div className="custom-swiper-button-next absolute top-1/2 right-0 z-50 -translate-y-1/2 cursor-pointer">
+          <div
+            className={`custom-swiper-button-next absolute top-1/2 right-0 z-50 -translate-y-1/2 cursor-pointer active:scale-110 hover:scale-125 transition-all duration-300  ${Styles.customNext}`}
+          >
             <span className="text-white text-2xl font-bold px-2">▶</span>
           </div>
         </div>
