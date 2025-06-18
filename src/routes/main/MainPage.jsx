@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import MyStudySlider from "../../components/MyStudySlider/MyStudySlider";
 import WordSlider from "../../components/WordSlider/WordSlider";
 import WordModal from "../../components/WordSlider/WordModal"; // 모달 컴포넌트 import
@@ -27,6 +27,18 @@ export default function MainPage() {
       }
     }
     fetchRooms();
+  }, []);
+
+  const fetchRooms = useCallback(async () => {
+    setLoading(true);
+    try {
+      const rooms = await StudyRoomApi.getStudyRoomList();
+      setMyStudyRooms(rooms);
+    } catch {
+      setMyStudyRooms([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const handleCardClick = (word) => {
@@ -63,7 +75,11 @@ export default function MainPage() {
               <span className="text-gray-400">스터디 목록 불러오는 중...</span>
             </div>
           ) : (
-            <MyStudySlider myStudyRooms={myStudyRooms} myUserId={user.id} />
+            <MyStudySlider
+              myStudyRooms={myStudyRooms}
+              myUserId={user.id}
+              onRefresh={fetchRooms}
+            />
           )}
 
           <div className="w-full aspect-[7/2] bg-white dark:bg-zinc-700 rounded-4xl shadow p-6">
