@@ -3,10 +3,12 @@ import BaseLayout from "./BaseLayout";
 import BasicSidebar from "../navigation/BasicSidebar";
 import { Outlet } from "react-router-dom";
 import StudyRoomApi from "../../api/studyRoomAPI";
+import { useSelector } from "react-redux";
 
 export default function MainLayout() {
   const [myStudyRooms, setMyStudyRooms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = useSelector((state) => state.auth);
 
   // 목록 새로고침 함수 (하위에서 호출 가능)
   const refreshStudyRooms = useCallback(async () => {
@@ -25,8 +27,13 @@ export default function MainLayout() {
   }, []);
 
   useEffect(() => {
-    refreshStudyRooms();
-  }, [refreshStudyRooms]);
+    if (user?.id) {
+      refreshStudyRooms();
+    } else {
+      setMyStudyRooms([]);
+      setLoading(false);
+    }
+  }, [refreshStudyRooms, user?.id]);
 
   return (
     <BaseLayout

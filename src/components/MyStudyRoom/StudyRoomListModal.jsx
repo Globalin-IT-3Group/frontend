@@ -5,9 +5,10 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Styles from "./StudyRoomListModal.module.css";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 import { useSelector } from "react-redux";
+import StudyRoomCreateModal from "../../components/modals/StudyRoomCreateModal";
 
 const DEFAULT_IMAGE_URL =
   "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg";
@@ -20,6 +21,7 @@ export default function StudyRoomListModal({
   const swiperRef = useRef(null);
   const user = useSelector((state) => state.auth);
   const myUserId = user.id;
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const swiperInstance = swiperRef.current?.swiper;
@@ -54,12 +56,6 @@ export default function StudyRoomListModal({
           <div className="text-3xl font-bold text-white mx-auto">
             스터디방을 선택해 주세요!
           </div>
-          <button
-            onClick={onClose}
-            className="top-8 right-8 text-white text-3xl font-bold z-50 hover:text-blue-400 transition-colors duration-200 cursor-pointer"
-          >
-            ✖
-          </button>
         </div>
 
         <div className="flex w-full max-w-[1000px] p-20 overflow-visible relative">
@@ -71,7 +67,7 @@ export default function StudyRoomListModal({
             effect={"coverflow"}
             grabCursor={true}
             centeredSlides={true}
-            slidesPerView={3}
+            slidesPerView={studyRooms.length === 0 ? 1 : 3}
             spaceBetween={32}
             coverflowEffect={{
               rotate: 20,
@@ -101,8 +97,43 @@ export default function StudyRoomListModal({
               </SwiperSlide>
             ) : studyRooms.length === 0 ? (
               <SwiperSlide>
-                <div className="flex items-center justify-center h-60 text-lg text-gray-400">
-                  참여중인 스터디방이 없습니다.
+                <StudyRoomListContainer
+                  bgColor="bg-gradient-to-b from-gray-200 to-white"
+                  label="스터디방 만들기"
+                  onClose={onClose}
+                  isLeader={false}
+                >
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="w-[260px] h-[260px] rounded-2xl text-7xl bg-gray-100 dark:bg-zinc-600 text-gray-400 dark:text-white hover:bg-gray-300 dark:hover:bg-zinc-500 transition flex items-center justify-center shadow-xl"
+                    aria-label="스터디방 생성"
+                  >
+                    +
+                  </button>
+                </StudyRoomListContainer>
+                <div
+                  className="
+    inline-flex items-center justify-center rounded-full 
+    bg-white/10
+    transition-transform duration-200
+    transform scale-90 hover:scale-150
+    group
+  "
+                >
+                  <button
+                    onClick={onClose}
+                    className="
+      w-10 h-10 flex items-center justify-center
+      text-white text-3xl font-bold z-50
+      hover:text-gray-900
+      bg-transparent
+      transition-colors duration-200
+    "
+                    aria-label="닫기"
+                    type="button"
+                  >
+                    ✖
+                  </button>
                 </div>
               </SwiperSlide>
             ) : (
@@ -132,6 +163,14 @@ export default function StudyRoomListModal({
         className="custom-fraction absolute bottom-3 translate-x-1/2 font-bold text-base z-50 pointer-events-none mb-16"
         style={{ color: "white" }}
       ></div>
+      <StudyRoomCreateModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSuccess={() => {
+          setModalOpen(false);
+          // 필요하면 방 목록 새로고침
+        }}
+      />
     </div>
   );
 }
