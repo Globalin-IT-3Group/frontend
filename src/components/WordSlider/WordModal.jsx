@@ -19,33 +19,49 @@ export default function WordModal({ word, onClose }) {
     return colors[index % colors.length];
   };
 
-  return (
-    <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
+return (
+  <div
+    className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center"
+    onClick={(e) => {
+      if (e.target === e.currentTarget) onClose();
+    }}
+  >
+    <div className="flex flex-col justify-center max-w-[1000px] w-full px-20 relative">
+      {/* 닫기 버튼 - 오른쪽 상단 고정 */}
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 text-white text-2xl font-bold hover:text-gray-300 z-50"
+        className="absolute top-0 right-0 text-white text-3xl font-bold hover:text-blue-400 transition-colors duration-200 cursor-pointer"
       >
         ✖
       </button>
 
-      <Swiper
-        effect="cards"
-        grabCursor={true}
-        initialSlide={initialIndex}
-        modules={[EffectCards]}
-        className={styles.mySwiper}
-      >
-        {wordList.map((w, idx) => (
-          <SwiperSlide key={idx}>
-            <div
-              className="w-full h-full flex items-center justify-center text-white text-3xl font-bold rounded-2xl"
-              style={{ backgroundColor: getColor(w) }}
-            >
-              {w}
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {/* 중앙 정렬 텍스트 */}
+      <div className="text-center mb-6 mt-2">
+        <h2 className="text-white text-3xl font-bold">一日の単語！</h2>
+      </div>
+
+      {/* 슬라이더 */}
+      <div className="w-full flex flex-col justify-center h-[498px]">
+        <Swiper
+          effect="cards"
+          grabCursor={true}
+          initialSlide={initialIndex}
+          modules={[EffectCards]}
+          className={styles.mySwiper}
+        >
+          {wordList.map((w, idx) => (
+            <SwiperSlide key={idx}>
+              <div
+                className="w-full h-full flex items-center justify-center text-white text-3xl font-bold rounded-2xl"
+                style={{ backgroundColor: getColor(w) }}
+              >
+                {w}
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
-  );
+  </div>
+);
 }

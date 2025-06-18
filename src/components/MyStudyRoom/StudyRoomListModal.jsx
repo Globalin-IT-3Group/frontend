@@ -58,7 +58,7 @@ export default function StudyRoomListModal({
             onClick={onClose}
             className="top-8 right-8 text-white text-3xl font-bold z-50 hover:text-blue-400 transition-colors duration-200 cursor-pointer"
           >
-            ×
+            ✖
           </button>
         </div>
 
