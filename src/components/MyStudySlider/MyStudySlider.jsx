@@ -11,7 +11,7 @@ function PrevArrow({ onClick }) {
   return (
     <button
       onClick={onClick}
-      className="absolute left-[24px] top-1/2 -translate-y-1/2 z-1 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
+      className="absolute left-[24px] top-1/2 -translate-y-1/2 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
     >
       <FiChevronLeft className="text-black dark:text-white" />
     </button>
@@ -23,14 +23,18 @@ function NextArrow({ onClick }) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-[24px] top-1/2 -translate-y-1/2 z-1 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
+      className="absolute right-[24px] top-1/2 -translate-y-1/2 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
     >
       <FiChevronRight className="text-black dark:text-white" />
     </button>
   );
 }
 
-export default function MyStudySlider({ myStudyRooms = [], myUserId }) {
+export default function MyStudySlider({
+  myStudyRooms = [],
+  myUserId,
+  onRefresh,
+}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -56,7 +60,7 @@ export default function MyStudySlider({ myStudyRooms = [], myUserId }) {
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-700 rounded-4xl shadow p-8 relative max-w-7xl">
+    <div className="bg-white dark:bg-zinc-700 overflow-visible rounded-4xl shadow p-8 relative max-w-7xl">
       <p className="font-semibold mb-14 text-2xl">내 스터디</p>
       <Slider {...settings}>
         {slides.map((slide, idx) => {
@@ -120,7 +124,7 @@ export default function MyStudySlider({ myStudyRooms = [], myUserId }) {
         onClose={() => setModalOpen(false)}
         onSuccess={() => {
           setModalOpen(false);
-          // 목록 새로고침은 필요에 따라 구현
+          if (onRefresh) onRefresh();
         }}
       />
     </div>
