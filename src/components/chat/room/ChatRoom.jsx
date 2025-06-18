@@ -18,7 +18,10 @@ export default function ChatRoom({ roomId, otherUser }) {
     setLoading(true);
     chatMessageApi
       .getMessagesByRoomId(roomId)
-      .then(setInitialMessages)
+      .then((res) => {
+        setInitialMessages(res);
+        console.log("채팅 내역", res);
+      })
       .finally(() => setLoading(false));
   }, [roomId]);
 

@@ -10,21 +10,32 @@ export default function useChatSocket(roomId) {
     if (!roomId || !userId) return;
 
     chatSocket.connect(roomId, userId, (msg) => {
-      // 중복 메시지 방지 로직 추가 (예: sentAt, senderId 기준)
-      setMessages((prev) => {
-        // 중복 여부 확인 (보통 sentAt, senderId를 조합)
-        if (
-          prev.some(
-            (m) =>
-              m.sentAt === msg.sentAt &&
-              m.senderId === msg.senderId &&
-              m.message === msg.message
+      if (msg.messageType === "READ" && msg.userId && msg.lastReadAt) {
+        // 읽음 이벤트라면: 내가 보낸 메시지 && 읽힌 시각 이전 메시지에 isRead를 true로!
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.senderId === userId &&
+            new Date(m.sentAt) <= new Date(msg.lastReadAt)
+              ? { ...m, isRead: true }
+              : m
           )
-        ) {
-          return prev; // 이미 있으면 추가하지 않음
-        }
-        return [...prev, msg];
-      });
+        );
+      } else {
+        // 일반 메시지는 중복 방지 후 추가
+        setMessages((prev) => {
+          if (
+            prev.some(
+              (m) =>
+                m.sentAt === msg.sentAt &&
+                m.senderId === msg.senderId &&
+                m.message === msg.message
+            )
+          ) {
+            return prev;
+          }
+          return [...prev, msg];
+        });
+      }
     });
 
     return () => {
