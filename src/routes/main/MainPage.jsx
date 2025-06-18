@@ -1,53 +1,18 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import MyStudySlider from "../../components/MyStudySlider/MyStudySlider";
 import WordSlider from "../../components/WordSlider/WordSlider";
-import WordModal from "../../components/WordSlider/WordModal"; // 모달 컴포넌트 import
+import WordModal from "../../components/WordSlider/WordModal";
 import { useSelector } from "react-redux";
-import StudyRoomApi from "../../api/studyRoomAPI";
+import { useOutletContext } from "react-router-dom";
 
 export default function MainPage() {
+  // context에서 스터디방 정보, 새로고침 함수 받기
+  const { myStudyRooms, refreshStudyRooms, loading } = useOutletContext();
   const [selectedWord, setSelectedWord] = useState(null);
   const user = useSelector((state) => state.auth);
 
-  // API로 참여중인 스터디 가져오기
-  const [myStudyRooms, setMyStudyRooms] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // 비동기로 스터디방 목록 받아오기
-    async function fetchRooms() {
-      try {
-        const rooms = await StudyRoomApi.getStudyRoomList();
-        setMyStudyRooms(rooms);
-      } catch (e) {
-        // 에러처리 필요시
-        setMyStudyRooms([]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchRooms();
-  }, []);
-
-  const fetchRooms = useCallback(async () => {
-    setLoading(true);
-    try {
-      const rooms = await StudyRoomApi.getStudyRoomList();
-      setMyStudyRooms(rooms);
-    } catch {
-      setMyStudyRooms([]);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  const handleCardClick = (word) => {
-    setSelectedWord(word);
-  };
-
-  const closeModal = () => {
-    setSelectedWord(null);
-  };
+  const handleCardClick = (word) => setSelectedWord(word);
+  const closeModal = () => setSelectedWord(null);
 
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-800 text-black dark:text-white p-4 md:p-10 transition-all duration-300">
@@ -69,7 +34,7 @@ export default function MainPage() {
             </p>
           </div>
 
-          {/* 로딩 중 표시/슬라이더 렌더링 */}
+          {/* 로딩 중/슬라이더 */}
           {loading ? (
             <div className="flex items-center justify-center h-36">
               <span className="text-gray-400">스터디 목록 불러오는 중...</span>
@@ -78,7 +43,7 @@ export default function MainPage() {
             <MyStudySlider
               myStudyRooms={myStudyRooms}
               myUserId={user.id}
-              onRefresh={fetchRooms}
+              onRefresh={refreshStudyRooms}
             />
           )}
 
@@ -86,11 +51,9 @@ export default function MainPage() {
             <p className="font-semibold text-lg">今日のニュース🔥</p>
           </div>
         </div>
-
         {/* 우측 영역 */}
         <div className="flex flex-col gap-6">
           <WordSlider onCardClick={handleCardClick} />
-
           <div className="w-full aspect-[7/6] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
           <div className="w-full aspect-[5/4] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
         </div>

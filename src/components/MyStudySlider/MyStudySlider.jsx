@@ -11,7 +11,7 @@ function PrevArrow({ onClick }) {
   return (
     <button
       onClick={onClick}
-      className="absolute left-[24px] top-1/2 -translate-y-1/2 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
+      className="absolute left-[24px] top-1/2 -translate-y-1/2 z-1 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
     >
       <FiChevronLeft className="text-black dark:text-white" />
     </button>
@@ -23,7 +23,7 @@ function NextArrow({ onClick }) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-[24px] top-1/2 -translate-y-1/2 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
+      className="absolute right-[24px] top-1/2 -translate-y-1/2 z-1 w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition"
     >
       <FiChevronRight className="text-black dark:text-white" />
     </button>
@@ -47,6 +47,8 @@ export default function MyStudySlider({
     })),
     { id: "add", type: "add" },
   ];
+
+  console.log("마잉유저 아이디: ", myUserId);
 
   const settings = {
     centerMode: true,
