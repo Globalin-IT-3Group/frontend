@@ -5,6 +5,8 @@ import WordModal from "../../components/WordSlider/WordModal";
 import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import NewsApi from "../../api/newsAPI";
+import News from "../../components/main/News";
 
 export default function MainPage() {
   // context에서 스터디방 정보, 새로고침 함수 받기
@@ -55,9 +57,7 @@ export default function MainPage() {
             />
           )}
 
-          <div className="w-full aspect-[7/2] bg-white dark:bg-zinc-700 rounded-4xl shadow p-6">
-            <p className="font-semibold text-lg">今日のニュース🔥</p>
-          </div>
+          <News />
         </div>
         {/* 우측 영역 */}
         <div className="flex flex-col gap-6">
