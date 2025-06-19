@@ -4,7 +4,6 @@ export default function InquiryBoardList({
   inquiryList,
   onAdminReply,
   onDelete,
-  currentUser,
 }) {
   if (!inquiryList || inquiryList.length === 0) {
     return (
@@ -13,7 +12,7 @@ export default function InquiryBoardList({
   }
 
   return (
-    <ul className="w-full">
+    <ul className="w-full divide-y divide-gray-300 space-y-3">
       {inquiryList.map((item) => (
         <InquiryBoard
           key={item.id}
@@ -27,7 +26,6 @@ export default function InquiryBoardList({
           isPrivate={item.isPrivate}
           onAdminReply={onAdminReply}
           onDelete={onDelete}
-          currentUser={currentUser}
         />
       ))}
     </ul>

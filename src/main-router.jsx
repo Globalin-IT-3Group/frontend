@@ -44,7 +44,7 @@ const routers = [
       },
     ],
   },
-  { path: "/", element: <LandingPage /> },
+
   {
     path: "/chat",
     element: <ChatLayout />,

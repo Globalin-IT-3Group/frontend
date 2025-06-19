@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MdClose } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 export default function InquiryFormModal({ open, onClose, onSuccess }) {
@@ -12,6 +13,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const nickname = useSelector((state) => state.auth.nickname);
+  const email = useSelector((state) => state.auth.email);
 
   if (!open) return null;
 
@@ -44,6 +46,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
           day: "2-digit",
         }),
         author: nickname || "비회원",
+        authorEmail: email,
         status: "미확인",
         adminReply: null,
         isPrivate: form.isPrivate,
@@ -66,11 +69,11 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
       >
         <button
           type="button"
-          className="absolute right-7 top-6 text-3xl text-zinc-500 hover:text-zinc-800 dark:hover:text-white transition"
+          className="absolute right-7 top-6 text-3xl text-zinc-500 hover:text-zinc-800 dark:hover:text-white transition cursor-pointer"
           onClick={onClose}
           aria-label="닫기"
         >
-          &times;
+          <MdClose size={24} />
         </button>
         <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-2 tracking-tight">
           문의하기

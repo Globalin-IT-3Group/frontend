@@ -111,16 +111,6 @@ export default function JoinPage() {
     } catch (error) {
       JoinFailAlert(error.response.data.message);
       console.error(error);
-      // // error.response에 백엔드 응답이 들어있음
-      // if (
-      //   error.response &&
-      //   error.response.data &&
-      //   error.response.data.message
-      // ) {
-      //   alert(error.response.data.message); // 백엔드 메시지 사용
-      // } else {
-      //   alert("회원가입에 실패했습니다.");
-      //
     }
   };
 

@@ -9,7 +9,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="font-sans">
+    <div>
       {/* 헤더 */}
       <header className="flex justify-between items-center p-6 border-b border-gray-200">
         <div className="text-xl font-bold">
@@ -24,7 +24,7 @@ export default function LandingPage() {
         <nav className="space-x-8 text-sm font-medium">
           <button
             onClick={clickHandle}
-            className="bg-[#003CFF] text-white px-4 py-2 rounded-full text-sm"
+            className="bg-[#003CFF] text-white px-4 py-2 rounded-full text-sm cursor-pointer"
           >
             로그인
           </button>
