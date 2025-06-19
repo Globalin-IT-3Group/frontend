@@ -55,12 +55,6 @@ export default function StudyRoomListModal({
           <div className="text-3xl font-bold text-white mx-auto">
             스터디방을 선택해 주세요!
           </div>
-          <button
-            onClick={onClose}
-            className="top-8 right-8 text-white text-3xl font-bold z-50 hover:text-blue-400 hover:rotate-90 hover:scale-110 transition-all duration-200 cursor-pointer"
-          >
-            ✖
-          </button>
         </div>
 
         <div className="flex w-full max-w-[1000px] p-20 overflow-visible relative">
@@ -75,7 +69,7 @@ export default function StudyRoomListModal({
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={studyRooms.length === 0 ? 1 : 3}
-            spaceBetween={34}
+            spaceBetween={32}
             coverflowEffect={{
               rotate: 20,
               stretch: 0,
@@ -142,12 +136,37 @@ export default function StudyRoomListModal({
           >
             <span className="text-white text-2xl font-bold px-2">▶</span>
           </div>
+          <div
+            className="custom-fraction absolute left-1/2 translate-x-[484px] bottom-[-40px] font-bold text-base z-50 pointer-events-none"
+            style={{ color: "white" }}
+          />
         </div>
+
+        <button
+          onClick={onClose}
+          className="
+            mx-auto mt-8
+            inline-flex items-center justify-center rounded-full
+            w-10 h-10 text-white text-3xl font-bold
+            bg-black/0 hover:bg-white/90
+            transition-all duration-300
+            scale-90 hover:scale-125
+            hover:text-gray-600
+            outline-none
+            "
+          aria-label="닫기"
+          type="button"
+        >
+          ✖
+        </button>
+        {/* <button
+          onClick={onClose}
+          className="top-8 right-8 pt-14 text-white text-3xl font-bold z-50 hover:text-blue-400 hover:rotate-90 hover:scale-110 transition-all duration-200 cursor-pointer"
+        >
+          ✖
+        </button> */}
       </div>
-      <div
-        className="custom-fraction absolute bottom-3 translate-x-1/2 font-bold text-base z-50 pointer-events-none mb-16"
-        style={{ color: "white" }}
-      ></div>
+
       <StudyRoomCreateModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
