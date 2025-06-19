@@ -14,6 +14,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
   const [error, setError] = useState("");
   const nickname = useSelector((state) => state.auth.nickname);
   const email = useSelector((state) => state.auth.email);
+  const profileImage = useSelector((state) => state.auth.profileImage);
 
   if (!open) return null;
 
@@ -47,6 +48,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
         }),
         author: nickname || "비회원",
         authorEmail: email,
+        authorProfileImage: profileImage,
         status: "미확인",
         adminReply: null,
         isPrivate: form.isPrivate,

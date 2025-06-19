@@ -321,14 +321,14 @@ export default function JoinPage() {
               <div className="flex gap-4 mt-12">
                 <button
                   type="submit"
-                  className="bg-[#003CFF] px-8 py-2 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90"
+                  className="bg-[#003CFF] px-8 py-2 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 cursor-pointer"
                 >
                   회원가입
                 </button>
                 <button
                   type="button"
                   onClick={JoinCancel}
-                  className="bg-white border border-gray-400 text-gray-400 px-12 py-2 rounded-3xl text-lg font-bold"
+                  className="bg-white border border-gray-400 text-gray-400 px-12 py-2 rounded-3xl text-lg font-bold cursor-pointer"
                 >
                   취소
                 </button>

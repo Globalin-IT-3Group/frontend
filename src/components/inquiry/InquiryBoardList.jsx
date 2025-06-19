@@ -21,6 +21,8 @@ export default function InquiryBoardList({
           date={item.date}
           content={item.content}
           author={item.author}
+          authorEmail={item.authorEmail}
+          authorProfileImage={item.authorProfileImage}
           status={item.status}
           adminReply={item.adminReply}
           isPrivate={item.isPrivate}

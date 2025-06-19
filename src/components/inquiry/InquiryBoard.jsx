@@ -11,6 +11,7 @@ export default function InquiryBoard({
   content,
   author,
   authorEmail,
+  authorProfileImage,
   status,
   isPrivate,
   adminReply,
@@ -28,9 +29,9 @@ export default function InquiryBoard({
   const isOwner = author === currentNickname;
   const isHidden = isPrivate && !isOwner;
 
-  const profileImage = isOwner
-    ? currentProfileImage
-    : "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg";
+  const profileImage =
+    authorProfileImage ||
+    "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg";
 
   const displayName = isOwner ? currentNickname : author;
 
@@ -102,7 +103,7 @@ export default function InquiryBoard({
         </AccordionSummary>
 
         <AccordionDetails>
-          <div className="w-full px-4 py-4 bg-gray-200 cursor-pointer transition">
+          <div className="w-full px-4 py-4 bg-gray-100 cursor-pointer transition">
             {isHidden ? (
               <div className="text-gray-400 p-4 italic">비밀글입니다.</div>
             ) : (
@@ -116,7 +117,7 @@ export default function InquiryBoard({
                           onDelete(id);
                         }
                       }}
-                      className="text-sm hover:underline cursor-pointer"
+                      className="text-sm hover:underline cursor-pointer text-white bg-[#0033CF] px-2 py-1 rounded-xl"
                     >
                       삭제하기
                     </button>
