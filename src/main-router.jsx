@@ -47,10 +47,6 @@ const routers = [
       },
     ],
   },
-<<<<<<< HEAD
-
-=======
->>>>>>> bd0a04ab618a3dcfac66ff7a50553eacbd47914e
   {
     path: "/chat",
     element: <ChatLayout />,
