@@ -4,6 +4,7 @@ export default function InquiryBoardList({
   inquiryList,
   onAdminReply,
   onDelete,
+  currentUserId,
 }) {
   if (!inquiryList || inquiryList.length === 0) {
     return (
@@ -18,14 +19,15 @@ export default function InquiryBoardList({
           key={item.id}
           id={item.id}
           title={item.title}
-          date={item.date}
           content={item.content}
-          author={item.author}
-          authorEmail={item.authorEmail}
-          authorProfileImage={item.authorProfileImage}
-          status={item.status}
-          adminReply={item.adminReply}
+          date={item.createdAt}
           isPrivate={item.isPrivate}
+          adminReply={item.adminReply}
+          status={item.adminReply ? "답변 완료" : "미확인"}
+          author={item.user.nickname}
+          authorId={item.user.id}
+          authorProfileImage={item.user.profileImage}
+          currentUserId={currentUserId}
           onAdminReply={onAdminReply}
           onDelete={onDelete}
         />

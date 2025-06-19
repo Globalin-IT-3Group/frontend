@@ -1,65 +1,47 @@
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
-import { useSelector } from "react-redux";
+import inquiryAPI from "../../api/inquiryAPI";
 
 export default function InquiryFormModal({ open, onClose, onSuccess }) {
   const [form, setForm] = useState({
-    name: "",
-    author: "",
+    title: "",
     content: "",
-    notice: "",
     isPrivate: false,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const nickname = useSelector((state) => state.auth.nickname);
-  const email = useSelector((state) => state.auth.email);
-  const profileImage = useSelector((state) => state.auth.profileImage);
 
   if (!open) return null;
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!form.name.trim()) {
-      setError("제목을 입력하세요.");
-      return;
-    }
-    if (!form.content.trim()) {
-      setError("문의 내용을 입력하세요.");
-      return;
-    }
+    if (!form.title.trim()) return setError("제목을 입력하세요.");
+    if (!form.content.trim()) return setError("문의 내용을 입력하세요.");
+
     setLoading(true);
     try {
-      const newInquiry = {
-        id: Date.now(),
-        title: form.name,
+      await inquiryAPI.createInquiry({
+        title: form.title,
         content: form.content,
-        date: new Date().toLocaleDateString("ko-KR", {
-          year: "2-digit",
-          month: "2-digit",
-          day: "2-digit",
-        }),
-        author: nickname || "비회원",
-        authorEmail: email,
-        authorProfileImage: profileImage,
-        status: "미확인",
-        adminReply: null,
         isPrivate: form.isPrivate,
-      };
-
-      if (onSuccess) onSuccess(newInquiry);
+      });
+      onSuccess?.(); // 등록 후 목록 새로고침 등
+      setForm({ title: "", content: "", isPrivate: false });
+      onClose?.(); // 모달 닫기
+    } catch {
+      setError("문의 등록에 실패했습니다. 다시 시도해주세요.");
+    } finally {
       setLoading(false);
-      onClose();
-    } catch (err) {
-      setLoading(false);
-      setError("문의 등록에 실패했습니다. 잠시 후 다시 시도하세요.");
     }
   };
 
@@ -77,6 +59,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
         >
           <MdClose size={24} />
         </button>
+
         <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-2 tracking-tight">
           문의하기
         </h2>
@@ -86,8 +69,8 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
             제목 <span className="text-red-500">*</span>
           </label>
           <input
-            name="name"
-            value={form.name}
+            name="title"
+            value={form.title}
             onChange={handleChange}
             className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
             placeholder="제목을 입력하세요"
@@ -95,20 +78,18 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
             maxLength={50}
           />
           <div className="flex items-center gap-2 mt-1">
-            <input
-              type="checkbox"
-              id="isPrivate"
-              name="isPrivate"
-              checked={form.isPrivate}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, isPrivate: e.target.checked }))
-              }
-              className="w-4 h-4 accent-indigo-500"
-            />
             <label
               htmlFor="isPrivate"
-              className="text-sm text-zinc-600 dark:text-zinc-300"
+              className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-300"
             >
+              <input
+                type="checkbox"
+                id="isPrivate"
+                name="isPrivate"
+                checked={form.isPrivate}
+                onChange={handleChange}
+                className="w-4 h-4"
+              />
               비밀글
             </label>
           </div>
@@ -132,6 +113,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
             {error}
           </div>
         )}
+
         <button
           type="submit"
           className="mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
