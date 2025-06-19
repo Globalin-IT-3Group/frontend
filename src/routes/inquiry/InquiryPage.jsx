@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import InquiryBoardList from "../../components/inquiry/InquiryBoardList";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
@@ -8,11 +9,45 @@ export default function InquiryPage() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [showInquiryFormModal, setShowInquiryFormModal] = useState(false);
+  const [inquiryList, setInquiryList] = useState(() => {
+    const saved = localStorage.getItem("inquiryList");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const currentUser = useSelector((state) => state.auth.nickname);
+  const PAGE_SIZE = 5;
+
+  useEffect(() => {
+    localStorage.setItem("inquiryList", JSON.stringify(inquiryList));
+    setTotalPages(Math.ceil(inquiryList.length / PAGE_SIZE));
+  }, [inquiryList]);
+
+  const paginatedList = inquiryList.slice(
+    page * PAGE_SIZE,
+    (page + 1) * PAGE_SIZE
+  );
+
+  const handleInquiry = (newInquiry) => {
+    setInquiryList((prev) => [newInquiry, ...prev]);
+  };
+
+  const handleAdminReply = (id, replyText) => {
+    setInquiryList((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, adminReply: replyText, status: "답변 완료" }
+          : item
+      )
+    );
+  };
+
+  const handleDelete = (id) => {
+    setInquiryList((prev) => prev.filter((item) => item.id !== id));
+  };
 
   return (
     <div className="mt-8 px-6 py-4 max-w-4xl mx-auto bg-white rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
       {/* 상단 제목 */}
-      <div className="flex flex-col gap-2 relative">
+      <div className="flex flex-col gap-2 relative mb-8">
         {/* 가운데 정렬된 제목 */}
         <h1 className="text-3xl font-bold text-center p-4">문의</h1>
 
@@ -29,13 +64,19 @@ export default function InquiryPage() {
       </div>
 
       {/* 본문 리스트 */}
-      <InquiryBoardList />
+      <InquiryBoardList
+        inquiryList={paginatedList}
+        onAdminReply={handleAdminReply}
+        onDelete={handleDelete}
+        currentUser={currentUser}
+      />
+
       <div className="flex justify-center gap-2 mt-8 mb-6">
         <button
           onClick={() => setPage((p) => Math.max(0, p - 1))}
           disabled={page === 0}
           className={`
-                  flex items-center justify-center w-10 h-10 rounded-full
+                  flex items-center justify-center w-10 h-10 rounded-full cursor-pointer
                   ${
                     page === 0
                       ? "bg-gray-200 text-gray-400 cursor-not-allowed"
@@ -53,7 +94,7 @@ export default function InquiryPage() {
           onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
           disabled={page + 1 >= totalPages}
           className={`
-                  flex items-center justify-center w-10 h-10 rounded-full
+                  flex items-center justify-center w-10 h-10 rounded-full cursor-pointer
                   ${
                     page + 1 >= totalPages
                       ? "bg-gray-200 text-gray-400 cursor-not-allowed"
@@ -70,6 +111,7 @@ export default function InquiryPage() {
         <InquiryFormModal
           open={showInquiryFormModal}
           onClose={() => setShowInquiryFormModal(false)}
+          onSuccess={handleInquiry}
         />
       )}
     </div>

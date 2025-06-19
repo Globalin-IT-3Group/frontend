@@ -1,74 +1,60 @@
 import { useState } from "react";
-import StudyRoomApi from "../../api/studyRoomAPI";
+import { useSelector } from "react-redux";
 
 export default function InquiryFormModal({ open, onClose, onSuccess }) {
   const [form, setForm] = useState({
     name: "",
-    rule: "",
+    author: "",
+    content: "",
     notice: "",
     isPrivate: false,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [maxUserError, setMaxUserError] = useState(false);
+  const nickname = useSelector((state) => state.auth.nickname);
 
   if (!open) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "maxUserCount") {
-      let num = Number(value);
-
-      // 2 미만 입력 방지
-      if (num < 2) num = 2;
-      // 4 초과 입력 방지
-      if (num > 4) num = 4;
-
-      // 4면 무조건 안내문구
-      setMaxUserError(num === 4);
-
-      setForm((f) => ({ ...f, maxUserCount: num }));
-      return;
-    }
     setForm((f) => ({ ...f, [name]: value }));
-  };
-
-  const handleTagToggle = (tag) => {
-    setForm((f) =>
-      f.tags.includes(tag)
-        ? { ...f, tags: f.tags.filter((t) => t !== tag) }
-        : { ...f, tags: [...f.tags, tag] }
-    );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
     if (!form.name.trim()) {
-      setError("스터디룸 이름을 입력하세요.");
+      setError("제목을 입력하세요.");
       return;
     }
-    if (form.tags.length === 0) {
-      setError("태그를 하나 이상 선택하세요.");
+    if (!form.content.trim()) {
+      setError("문의 내용을 입력하세요.");
       return;
     }
     setLoading(true);
     try {
-      const payload = {
-        ...form,
-        imageUrl: form.imageUrl?.trim() ? form.imageUrl : DEFAULT_IMAGE_URL,
-        maxUserCount: form.maxUserCount > 4 ? 4 : form.maxUserCount,
+      const newInquiry = {
+        id: Date.now(),
+        title: form.name,
+        content: form.content,
+        date: new Date().toLocaleDateString("ko-KR", {
+          year: "2-digit",
+          month: "2-digit",
+          day: "2-digit",
+        }),
+        author: nickname || "비회원",
+        status: "미확인",
+        adminReply: null,
+        isPrivate: form.isPrivate,
       };
-      await StudyRoomApi.createStudyRoom(payload);
+
+      if (onSuccess) onSuccess(newInquiry);
       setLoading(false);
-      if (onSuccess) onSuccess();
       onClose();
     } catch (err) {
       setLoading(false);
-      setError(
-        err?.response?.data?.message ||
-          "방 생성에 실패했습니다. 잠시 후 다시 시도하세요."
-      );
+      setError("문의 등록에 실패했습니다. 잠시 후 다시 시도하세요.");
     }
   };
 
@@ -122,28 +108,17 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
             </label>
           </div>
         </div>
+
         <div className="flex flex-col gap-2">
           <label className="font-semibold text-zinc-700 dark:text-zinc-200">
-            규칙
+            내용
           </label>
           <textarea
-            name="rule"
-            value={form.rule}
+            name="content"
+            value={form.content}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[56px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
-            placeholder="스터디 규칙을 입력하세요"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="font-semibold text-zinc-700 dark:text-zinc-200">
-            공지사항
-          </label>
-          <textarea
-            name="notice"
-            value={form.notice}
-            onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[48px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
-            placeholder="공지사항 (선택)"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[250px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            placeholder="문의 내용을 입력하세요"
           />
         </div>
 
@@ -154,7 +129,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
         )}
         <button
           type="submit"
-          className="mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed"
+          className="mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
           disabled={loading}
         >
           {loading ? "등록 중..." : "문의하기"}
