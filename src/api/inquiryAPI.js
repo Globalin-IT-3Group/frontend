@@ -29,7 +29,7 @@ class InquiryApi extends BaseApi {
 
   async replyToInquiry({ inquiryId, replyText }) {
     return await this.fetcher.post(`/inquiries/${inquiryId}/reply`, {
-      reply: replyText,
+      adminReply: replyText,
     });
   }
 }

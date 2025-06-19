@@ -3,7 +3,6 @@ import InquiryBoard from "./InquiryBoard";
 export default function InquiryBoardList({
   inquiryList,
   onAdminReply,
-  onDelete,
   currentUserId,
 }) {
   if (!inquiryList || inquiryList.length === 0) {
@@ -29,7 +28,6 @@ export default function InquiryBoardList({
           authorProfileImage={item.user.profileImage}
           currentUserId={currentUserId}
           onAdminReply={onAdminReply}
-          onDelete={onDelete}
         />
       ))}
     </ul>

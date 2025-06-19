@@ -17,7 +17,6 @@ export default function InquiryBoard({
   authorProfileImage,
   currentUserId,
   onAdminReply,
-  onDelete,
 }) {
   const [replyOpen, setReplyOpen] = useState(false);
   const [replyText, setReplyText] = useState("");
@@ -107,21 +106,6 @@ export default function InquiryBoard({
                 <div className="text-md text-gray-600 mb-3 p-3 whitespace-pre-wrap">
                   {content}
                 </div>
-
-                {isOwner && (
-                  <div className="text-right px-3 mb-2">
-                    <button
-                      onClick={() => {
-                        if (window.confirm("정말 삭제하시겠습니까?")) {
-                          onDelete(id);
-                        }
-                      }}
-                      className="text-sm hover:underline cursor-pointer text-white bg-[#0033CF] px-2 py-1 rounded-xl"
-                    >
-                      삭제하기
-                    </button>
-                  </div>
-                )}
 
                 {adminReply && (
                   <div className="border-t border-gray-300 pt-4 mt-4 p-3">
