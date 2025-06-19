@@ -23,10 +23,11 @@ import MyNoteForm from "./routes/MyNote/MyNoteForm";
 import MyNoteEdit from "./routes/MyNote/MyNoteEdit";
 import AlarmPage from "./routes/alarm/AlarmPage";
 import StudyRoomListModal from "./components/MyStudyRoom/StudyRoomListModal";
+import LandingPage from "./routes/landing/LandingPage";
 
 const routers = [
   {
-    path: "/",
+    path: "/main",
     element: <MainLayout />,
     children: [
       {
@@ -43,6 +44,7 @@ const routers = [
       },
     ],
   },
+  { path: "/", element: <LandingPage /> },
   {
     path: "/chat",
     element: <ChatLayout />,
