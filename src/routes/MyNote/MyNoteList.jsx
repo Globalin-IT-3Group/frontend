@@ -31,7 +31,10 @@ export default function MyNoteList() {
   }, [isLoggedIn]); // ← 의존성으로 isLoggedIn 추가
 
   if (loading) return <p>로딩 중...</p>;
-  if (!isLoggedIn) return <p className="text-center mt-10">로그인 후 노트를 확인할 수 있습니다.</p>;
+  if (!isLoggedIn)
+    return (
+      <p className="text-center mt-10">로그인 후 노트를 확인할 수 있습니다.</p>
+    );
   if (error) return <p>{error}</p>;
 
   return (

@@ -93,7 +93,7 @@ function BasicSidebar({ myStudyRooms = [], loading, refreshStudyRooms }) {
           onClose={() => setFriendModalOpen(false)}
         />
         <li className="flex flex-col items-center gap-3">
-          <Link to="/inquiry" className="flex flex-col items-center gap-3">
+          <Link to="/main/inquiry" className="flex flex-col items-center gap-3">
             <label className="cursor-pointer inline-flex items-center justify-center bg-white rounded-full p-2 text-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] hover:text-white hover:bg-gradient-to-bl from-blue-200 to-blue-400 hover:scale-120 transition-all duration-300">
               ❓
             </label>

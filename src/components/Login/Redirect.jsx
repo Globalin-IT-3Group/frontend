@@ -39,7 +39,7 @@ const Redirect = () => {
           console.log(user);
 
           dispatch(setUser(user)); // => Redux 액션으로 로그인 상태 저장
-          navigate("/"); // 최종적으로 메인 페이지로 리다이렉션
+          navigate("/main"); // 최종적으로 메인 페이지로 리다이렉션
         })
 
         .catch((err) => {
