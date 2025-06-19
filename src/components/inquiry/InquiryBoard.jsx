@@ -10,7 +10,6 @@ export default function InquiryBoard({
   date,
   content,
   author,
-  authorEmail,
   authorProfileImage,
   status,
   isPrivate,
@@ -22,9 +21,7 @@ export default function InquiryBoard({
   const [replyText, setReplyText] = useState("");
   const [expanded, setExpanded] = useState(false);
 
-  const currentEmail = useSelector((state) => state.auth.email);
   const currentNickname = useSelector((state) => state.auth.nickname);
-  const currentProfileImage = useSelector((state) => state.auth.profileImage);
 
   const isOwner = author === currentNickname;
   const isHidden = isPrivate && !isOwner;
