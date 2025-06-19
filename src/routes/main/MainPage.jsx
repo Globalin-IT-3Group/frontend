@@ -4,15 +4,22 @@ import WordSlider from "../../components/WordSlider/WordSlider";
 import WordModal from "../../components/WordSlider/WordModal";
 import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function MainPage() {
   // context에서 스터디방 정보, 새로고침 함수 받기
   const { myStudyRooms, refreshStudyRooms, loading } = useOutletContext();
   const [selectedWord, setSelectedWord] = useState(null);
   const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const handleCardClick = (word) => setSelectedWord(word);
   const closeModal = () => setSelectedWord(null);
+
+  const handleStudyRoomClick = (studyRoomId) => {
+    // 상세 페이지로 이동 (id 넘기기)
+    navigate(`/study/mystudyroom/${studyRoomId}`);
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-800 text-black dark:text-white p-4 md:p-10 transition-all duration-300">
@@ -44,6 +51,7 @@ export default function MainPage() {
               myStudyRooms={myStudyRooms}
               myUserId={user.id}
               onRefresh={refreshStudyRooms}
+              onStudyRoomClick={handleStudyRoomClick}
             />
           )}
 

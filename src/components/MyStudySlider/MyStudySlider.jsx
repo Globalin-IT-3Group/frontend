@@ -34,6 +34,7 @@ export default function MyStudySlider({
   myStudyRooms = [],
   myUserId,
   onRefresh,
+  onStudyRoomClick,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -76,6 +77,8 @@ export default function MyStudySlider({
                       isCenter ? "scale-100 opacity-100" : "scale-90 opacity-60"
                     }
                   `}
+                  onClick={() => onStudyRoomClick && onStudyRoomClick(slide.id)}
+                  style={{ cursor: "pointer" }}
                 >
                   <img
                     src={slide.imageUrl}

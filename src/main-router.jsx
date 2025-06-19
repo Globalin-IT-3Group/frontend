@@ -85,7 +85,7 @@ const routers = [
     element: <MainLayout />,
     children: [
       { path: "recruit", element: <StudyRecruitPage /> },
-      { path: "mystudyroom", element: <MyStudyRoomPage /> },
+      { path: "mystudyroom/:id", element: <MyStudyRoomPage /> },
       { path: "mystudyroomList", element: <StudyRoomListModal /> },
     ],
   },
