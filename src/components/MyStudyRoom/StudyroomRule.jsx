@@ -1,4 +1,5 @@
-export default function SturdyroomRule() {
+export default function StudyroomRule({ rule }) {
+  // rule: 규칙 문자열 (줄바꿈, <br> 등 처리 원하면 별도 가공)
   return (
     <div className="w-[500px] h-[255px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
       <div className="flex flex-col p-6">
@@ -8,11 +9,9 @@ export default function SturdyroomRule() {
           </span>
           <span className="text-xl font-bold">스터디방 규칙</span>
         </div>
-        <ul className="flex flex-col gap-3 ml-16">
-          <li>주2회 이상 참여</li>
-          <li>예습 복습 철저히!</li>
-          <li>JLPT 스터디는 매주 화요일만 진행합니다</li>
-        </ul>
+        <div className="ml-16 text-base text-gray-700 whitespace-pre-line">
+          {rule || "아직 규칙이 입력되지 않았어요."}
+        </div>
       </div>
     </div>
   );

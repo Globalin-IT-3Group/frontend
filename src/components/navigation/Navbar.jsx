@@ -15,13 +15,13 @@ export default function Navbar() {
   // 로그아웃 함수
   const handleLogout = () => {
     dispatch(logout(user));
-    navigate("/");
+    navigate("/main");
   };
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 bg-white dark:bg-zinc-800 dark:shadow-[0_2px_4px_-1px_rgba(255,255,255,0.3)] shadow-md z-10 relative transition-all duration-300">
       <Link
-        to="/"
+        to="/main"
         style={{ fontFamily: '"Nico Moji", sans-serif' }}
         className="text-4xl text-[#003CFF] font-bold dark:text-white"
       >
@@ -63,7 +63,7 @@ export default function Navbar() {
                 {/* 하단 버튼 영역 - 수평 정렬 */}
                 <div className="flex justify-around px-2 pt-2">
                   <Link
-                    to="/my-info"
+                    to="/main/my-info"
                     className="px-4 py-2 rounded-md text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-700 font-medium transition"
                     onClick={closeMenu}
                   >

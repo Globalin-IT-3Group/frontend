@@ -17,6 +17,7 @@ export default function StudyRoomListModal({
   studyRooms = [],
   loading,
   onClose,
+  onRefresh,
 }) {
   const swiperRef = useRef(null);
   const user = useSelector((state) => state.auth);
@@ -103,10 +104,11 @@ export default function StudyRoomListModal({
                   label="스터디방 만들기"
                   onClose={onClose}
                   isLeader={false}
+                  isEmpty={true}
                 >
                   <button
                     onClick={() => setModalOpen(true)}
-                    className="w-[260px] h-[260px] rounded-2xl text-7xl bg-gray-100 dark:bg-zinc-600 text-gray-400 dark:text-white hover:bg-gray-300 dark:hover:bg-zinc-500 transition flex items-center justify-center shadow-xl"
+                    className="w-[230px] h-[230px] rounded-2xl text-7xl bg-gray-100 dark:bg-zinc-600 text-gray-400 dark:text-white hover:bg-gray-300 dark:hover:bg-zinc-500 transition flex items-center justify-center shadow-xl"
                     aria-label="스터디방 생성"
                   >
                     +
@@ -121,6 +123,7 @@ export default function StudyRoomListModal({
                     label={room.name}
                     onClose={onClose}
                     isLeader={room.leaderId === myUserId}
+                    id={room.id}
                   >
                     <img
                       src={room.imageUrl || DEFAULT_IMAGE_URL}
@@ -172,7 +175,7 @@ export default function StudyRoomListModal({
         onClose={() => setModalOpen(false)}
         onSuccess={() => {
           setModalOpen(false);
-          // 필요하면 방 목록 새로고침
+          if (onRefresh) onRefresh();
         }}
       />
     </div>

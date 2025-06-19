@@ -24,8 +24,11 @@ import MyNoteEdit from "./routes/MyNote/MyNoteEdit";
 import AlarmPage from "./routes/alarm/AlarmPage";
 import StudyRoomListModal from "./components/MyStudyRoom/StudyRoomListModal";
 import LandingPage from "./routes/landing/LandingPage";
+import StudyNoteDetail from "./routes/MyStudyRoom/StudyNoteDetail";
+import StudyNoteForm from "./routes/MyStudyRoom/StudyNoteForm";
 
 const routers = [
+  { path: "/", element: <LandingPage /> },
   {
     path: "/main",
     element: <MainLayout />,
@@ -44,7 +47,10 @@ const routers = [
       },
     ],
   },
+<<<<<<< HEAD
 
+=======
+>>>>>>> bd0a04ab618a3dcfac66ff7a50553eacbd47914e
   {
     path: "/chat",
     element: <ChatLayout />,
@@ -87,8 +93,20 @@ const routers = [
     element: <MainLayout />,
     children: [
       { path: "recruit", element: <StudyRecruitPage /> },
-      { path: "mystudyroom", element: <MyStudyRoomPage /> },
-      { path: "mystudyroomList", element: <StudyRoomListModal /> },
+      { path: "mystudyroom/:studyRoomId", element: <MyStudyRoomPage /> },
+      {
+        path: "mystudyroom/:studyRoomId/notes/new",
+        element: <StudyNoteForm />,
+      },
+      {
+        path: "mystudyroom/:studyRoomId/notes/:noteId/edit",
+        element: <StudyNoteForm />,
+      },
+      {
+        path: "mystudyroom/:studyRoomId/notes/:noteId",
+        element: <StudyNoteDetail />,
+      },
+      // ...기타
     ],
   },
   {

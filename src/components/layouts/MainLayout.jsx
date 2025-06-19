@@ -38,7 +38,11 @@ export default function MainLayout() {
   return (
     <BaseLayout
       SidebarComponent={() => (
-        <BasicSidebar myStudyRooms={myStudyRooms} loading={loading} />
+        <BasicSidebar
+          myStudyRooms={myStudyRooms}
+          loading={loading}
+          refreshStudyRooms={refreshStudyRooms}
+        />
       )}
     >
       {/* Outlet의 context로 내려줌 */}
