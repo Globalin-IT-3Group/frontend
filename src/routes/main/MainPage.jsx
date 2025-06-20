@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MyStudySlider from "../../components/MyStudySlider/MyStudySlider";
 import WordSlider from "../../components/WordSlider/WordSlider";
 import WordModal from "../../components/WordSlider/WordModal";
@@ -6,14 +6,20 @@ import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NewsApi from "../../api/newsAPI";
+import WordApi from "../../api/wordAPI";
 import News from "../../components/main/News";
 
 export default function MainPage() {
   // context에서 스터디방 정보, 새로고침 함수 받기
   const { myStudyRooms, refreshStudyRooms, loading } = useOutletContext();
   const [selectedWord, setSelectedWord] = useState(null);
+  const [news, setNews] = useState([]);
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    NewsApi.getNews().then(setNews);
+  }, []);
 
   const handleCardClick = (word) => setSelectedWord(word);
   const closeModal = () => setSelectedWord(null);

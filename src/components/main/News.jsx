@@ -1,16 +1,11 @@
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import NewsApi from "../../api/newsAPI";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function News() {
-  const [news, setNews] = useState([]);
+export default function News({ news = [] }) {
   const sliderRef = useRef(null);
-
-  useEffect(() => {
-    NewsApi.getNews().then(setNews);
-  }, []);
 
   // Slick 설정
   const settings = {
@@ -54,14 +49,14 @@ export default function News() {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center justify-center w-full"
               >
-                <div className="w-full aspect-[16/9] min-h-[120px] flex items-center justify-center overflow-hidden rounded-xl shadow mb-5 bg-gray-200">
+                <div className="w-full aspect-[16/9] min-h-auto flex items-center justify-center overflow-hidden shadow mb-3 bg-gray-200">
                   <img
                     src={item.image}
                     alt={item.title}
                     className="w-100% h-100% object-cover object-center"
                   />
                 </div>
-                <div className="font-bold text-xl text-center text-gray-900 dark:text-white line-clamp-2 px-2">
+                <div className="font-bold text-xl text-center text-gray-900 dark:text-white line-clamp-2">
                   {item.title}
                 </div>
               </a>
