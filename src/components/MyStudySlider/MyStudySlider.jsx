@@ -49,8 +49,6 @@ export default function MyStudySlider({
     { id: "add", type: "add" },
   ];
 
-  console.log("마잉유저 아이디: ", myUserId);
-
   const settings = {
     centerMode: true,
     infinite: slides.length > 3,
@@ -63,8 +61,8 @@ export default function MyStudySlider({
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-700 overflow-visible rounded-4xl shadow p-8 relative max-w-7xl">
-      <p className="font-semibold mb-14 text-2xl">내 스터디</p>
+    <div className="bg-white w-full mx-auto dark:bg-zinc-700 overflow-visible rounded-4xl shadow p-8 relative max-w-5xl">
+      <p className="font-semibold mb-14 text-center text-2xl">내 스터디룸</p>
       <Slider {...settings}>
         {slides.map((slide, idx) => {
           const isCenter = idx === currentSlide;
