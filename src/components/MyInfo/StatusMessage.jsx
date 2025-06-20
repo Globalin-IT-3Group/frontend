@@ -37,13 +37,13 @@ export default function StatusMessage({ initialMessage }) {
           />
           <button
             onClick={handleSave}
-            className="text-sm px-3 py-1 rounded-md bg-[#003CFF] text-white hover:bg-[#0536D7] transition-all duration-100"
+            className="text-sm px-3 py-1 rounded-md bg-[#003CFF] text-white hover:bg-[#0536D7] transition-all duration-100 cursor-pointer"
           >
             변경
           </button>
           <button
             onClick={handleCancel}
-            className="text-sm px-3 py-1 rounded-md bg-white text-gray-400 border border-gray-400 hover:bg-gray-200"
+            className="text-sm px-3 py-1 rounded-md bg-white text-gray-400 border border-gray-400 hover:bg-gray-200  transition-all cursor-pointer"
           >
             취소
           </button>
@@ -54,7 +54,7 @@ export default function StatusMessage({ initialMessage }) {
           <button
             type="button"
             onClick={() => setIsEditing(true)}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 transition cursor-pointer"
           >
             <FiEdit2 />
           </button>

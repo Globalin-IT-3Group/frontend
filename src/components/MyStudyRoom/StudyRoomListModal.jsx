@@ -108,7 +108,7 @@ export default function StudyRoomListModal({
                 >
                   <button
                     onClick={() => setModalOpen(true)}
-                    className="w-[230px] h-[230px] rounded-2xl text-7xl bg-gray-100 dark:bg-zinc-600 text-gray-400 dark:text-white hover:bg-gray-300 dark:hover:bg-zinc-500 transition flex items-center justify-center shadow-xl"
+                    className="w-[230px] h-[230px] rounded-2xl text-7xl bg-gray-100 dark:bg-zinc-600 text-gray-400 dark:text-white hover:bg-gray-300 dark:hover:bg-zinc-500 transition flex items-center justify-center shadow-xl cursor-pointer"
                     aria-label="스터디방 생성"
                   >
                     +
@@ -155,7 +155,7 @@ export default function StudyRoomListModal({
             transition-all duration-300
             scale-90 hover:scale-125
             hover:text-gray-600
-            outline-none
+            outline-none cursor-pointer
             "
           aria-label="닫기"
           type="button"

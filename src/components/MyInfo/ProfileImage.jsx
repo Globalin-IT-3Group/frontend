@@ -55,7 +55,7 @@ export default function ProfileImage({ src }) {
       <button
         type="button"
         onClick={() => fileInputRef.current.click()}
-        className="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow hover:bg-gray-100"
+        className="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow hover:bg-gray-100 cursor-pointer"
       >
         <FiCamera className="text-xl" />
       </button>

@@ -8,6 +8,7 @@ import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { SiGoogleclassroom } from "react-icons/si";
 import { GrUserManager } from "react-icons/gr";
 import { FaBell } from "react-icons/fa";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 const ALARM_TABS = [
   { label: "전체", type: null, icon: <PiMailbox /> },
@@ -87,18 +88,38 @@ export default function AlarmPage() {
       <AlarmList alarms={filtered} />
 
       {/* 페이지네이션(옵션) */}
-      <div className="flex gap-2 justify-center mt-5">
-        {Array.from({ length: totalPages }).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setPage(i)}
-            className={`px-3 py-1 rounded ${
-              page === i ? "bg-blue-400 text-white" : "bg-gray-200"
+      <div className="flex justify-center gap-2 mt-8 mb-6">
+        <button
+          onClick={() => setPage((p) => Math.max(0, p - 1))}
+          disabled={page === 0}
+          className={`w-10 h-10 flex items-center justify-center rounded-full
+              ${
+                page === 0
+                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                  : "bg-blue-100 text-blue-700 hover:bg-blue-200 transition"
+              }`}
+          aria-label="이전"
+        >
+          <MdChevronLeft size={24} />
+        </button>
+
+        <span className="flex items-center px-4 font-semibold">
+          {page + 1}/{totalPages}
+        </span>
+
+        <button
+          onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+          disabled={page + 1 >= totalPages}
+          className={`w-10 h-10 flex items-center justify-center rounded-full
+            ${
+              page + 1 >= totalPages
+                ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                : "bg-blue-100 text-blue-700 hover:bg-blue-200 transition"
             }`}
-          >
-            {i + 1}
-          </button>
-        ))}
+          aria-label="다음"
+        >
+          <MdChevronRight size={24} />
+        </button>
       </div>
     </div>
   );
