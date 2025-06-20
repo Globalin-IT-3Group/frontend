@@ -17,8 +17,8 @@ export default function FindEmailForm() {
       text: `회원님의 이메일은 ${email}입니다`,
 
       imageUrl: "/success.svg",
-      imageWidth: 180,
-      imageHeight: 180,
+      imageWidth: 120,
+      imageHeight: 120,
 
       showCancelButton: false,
       confirmButtonColor: "#003CFF",
@@ -37,9 +37,9 @@ export default function FindEmailForm() {
       title: "이메일 찾기 실패",
       text: `${message} 다시 시도해주세요!`,
 
-      imageUrl: "/fail.svg",
-      imageWidth: 180,
-      imageHeight: 180,
+      imageUrl: "/error.svg",
+      imageWidth: 120,
+      imageHeight: 120,
 
       showCancelButton: true,
       confirmButtonColor: "#003CFF",
@@ -140,7 +140,7 @@ export default function FindEmailForm() {
 
       <button
         onClick={handleFindEmail}
-        className="w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10"
+        className="w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10 cursor-pointer"
       >
         이메일 찾기
       </button>

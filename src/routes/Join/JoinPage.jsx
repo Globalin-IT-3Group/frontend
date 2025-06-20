@@ -26,8 +26,8 @@ export default function JoinPage() {
       text: "코츠코츠랑 열심히 공부해요!",
 
       imageUrl: "/success.svg",
-      imageWidth: 180,
-      imageHeight: 180,
+      imageWidth: 120,
+      imageHeight: 120,
 
       showCancelButton: false,
       confirmButtonColor: "#003CFF",
@@ -46,9 +46,9 @@ export default function JoinPage() {
       title: "회원가입 실패",
       text: `${message} 다시 시도해주세요.`,
 
-      imageUrl: "/fail.svg",
-      imageWidth: 180,
-      imageHeight: 180,
+      imageUrl: "/error.svg",
+      imageWidth: 120,
+      imageHeight: 120,
 
       showCancelButton: true,
       confirmButtonColor: "#003CFF",
@@ -69,9 +69,9 @@ export default function JoinPage() {
       title: "회원가입을 취소하시겠습니까?",
       text: "로그인 페이지로 돌아갑니다",
 
-      imageUrl: "/fail.svg",
-      imageWidth: 180,
-      imageHeight: 180,
+      imageUrl: "/question.svg",
+      imageWidth: 150,
+      imageHeight: 150,
 
       showCancelButton: true,
       confirmButtonColor: "#003CFF",

@@ -58,7 +58,7 @@ export default function StudyRoomListModal({
           </div>
         </div>
 
-        <div className="flex w-full max-w-[1000px] p-20 overflow-visible relative">
+        <div className="w-full max-w-[1000px] p-20 overflow-visible relative">
           <div
             className={`custom-swiper-button-prev absolute top-1/2 left-0 z-50 -translate-y-1/2 cursor-pointer active:scale-110 hover:scale-125 transition-all duration-300  ${Styles.customPrev}`}
           >
@@ -69,14 +69,16 @@ export default function StudyRoomListModal({
             effect={"coverflow"}
             grabCursor={true}
             centeredSlides={true}
-            slidesPerView={studyRooms.length === 0 ? 1 : 3}
+            slidesPerView={
+              studyRooms.length <= 1 ? 1 : studyRooms.length === 2 ? 2 : 3
+            }
             spaceBetween={32}
             coverflowEffect={{
               rotate: 20,
               stretch: 0,
               depth: 50,
               modifier: 1,
-              slideShadows: true,
+              slideShadows: false,
             }}
             observer={true}
             observeParents={true}

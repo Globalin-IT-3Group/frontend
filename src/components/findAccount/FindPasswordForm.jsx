@@ -15,8 +15,8 @@ export default function FindPasswordForm() {
       text: `회원님의 비밀번호는는 ${password}입니다`,
 
       imageUrl: "/success.svg",
-      imageWidth: 180,
-      imageHeight: 180,
+      imageWidth: 120,
+      imageHeight: 120,
 
       showCancelButton: false,
       confirmButtonColor: "#003CFF",
@@ -35,9 +35,9 @@ export default function FindPasswordForm() {
       title: "비밀번호 찾기 실패",
       text: `${message} 다시 시도해주세요!`,
 
-      imageUrl: "/fail.svg",
-      imageWidth: 180,
-      imageHeight: 180,
+      imageUrl: "/error.svg",
+      imageWidth: 120,
+      imageHeight: 120,
 
       showCancelButton: true,
       confirmButtonColor: "#003CFF",
@@ -117,7 +117,7 @@ export default function FindPasswordForm() {
 
       <button
         onClick={handleFindPassword}
-        className="w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10"
+        className="w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10 cursor-pointer"
       >
         비밀번호 찾기
       </button>

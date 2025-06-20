@@ -68,7 +68,7 @@ export default function StudyRecruitModal({
                     {userCount}
                   </span>
                   <span className="flex gap-1 items-center text-xs text-gray-500 break-words">
-                    <Eye size={11} className="relative bottom-[2px]" />
+                    <Eye size={11} />
                     {viewCount}
                   </span>
                 </div>
