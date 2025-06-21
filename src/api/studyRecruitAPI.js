@@ -41,6 +41,16 @@ class StudyRecruitApi extends BaseApi {
       isOpen,
     });
   }
+
+  async getStudyRecruitInStudyRoom(studyRoomId) {
+    const res = await this.fetcher.get(`/study-recruit/${studyRoomId}`);
+    return res.data;
+  }
+
+  // 모집글 조회수 증가
+  async increaseViewCount(recruitId) {
+    return this.fetcher.patch(`/study-recruit/${recruitId}/view`);
+  }
 }
 
 export default new StudyRecruitApi();

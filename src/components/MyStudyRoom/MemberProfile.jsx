@@ -1,6 +1,15 @@
 import { FaStar } from "react-icons/fa6";
+import { PiNotePencilLight, PiNoteFill } from "react-icons/pi";
 
-export default function MemberProfile({ leader, members, onRecruitWrite }) {
+export default function MemberProfile({
+  leader,
+  members,
+  studyRecruit,
+  recruitLoading,
+  onRecruitWrite,
+}) {
+  console.log(studyRecruit);
+
   return (
     <div className="flex flex-col gap-4 relative w-fit">
       {/* 방장 */}
@@ -20,18 +29,27 @@ export default function MemberProfile({ leader, members, onRecruitWrite }) {
           </div>
           <p className="font-bold text-lg">{leader?.nickname || "방장"}</p>
         </div>
-      </div>
-
-      {/* 멤버 + 구인 버튼 */}
-      <div className="relative w-[450px]">
-        {/* 구인 작성 버튼 - 오른쪽 상단 고정 */}
+        {/* 구인 작성 버튼 */}
         <button
           onClick={onRecruitWrite}
-          className="absolute right-4 top-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-2xl font-bold shadow transition"
+          className="absolute right-4 top-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl font-bold shadow transition flex items-center gap-2"
+          title={studyRecruit ? "구인 폼 수정" : "구인 폼 작성"}
+          disabled={recruitLoading}
         >
-          구인 작성
+          {studyRecruit ? (
+            <>
+              구인 <PiNoteFill size={20} />
+            </>
+          ) : (
+            <>
+              구인 <PiNotePencilLight size={20} />
+            </>
+          )}
         </button>
+      </div>
 
+      {/* 멤버 */}
+      <div className="relative w-[450px]">
         <div className="flex items-center justify-center gap-x-10 h-[120px] bg-gray-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
           {members && members.length > 0 ? (
             members.map((m) => (

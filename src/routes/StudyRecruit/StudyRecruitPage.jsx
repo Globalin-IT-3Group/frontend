@@ -1,6 +1,6 @@
 import RecruitBoxContainer from "../../components/StudyRecruit/RecruitBoxContainer";
 import StudyRecruitApi from "../../api/studyRecruitAPI";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import StudyRecruitModal from "../../components/StudyRecruit/StudyRecruitModal";
 import StudyRecruitBar from "../../components/StudyRecruit/StudyRecruitBar";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
@@ -10,7 +10,6 @@ export default function StudyRecruitPage() {
   const [showRecruitModal, setShowRecruitModal] = useState(false);
   const [selectedModal, setSelectedModal] = useState(null);
 
-  // 태그 state
   const [tags, setTags] = useState([]);
   const [sortBy, setSortBy] = useState("latest");
   const [search, setSearch] = useState("");
@@ -33,6 +32,16 @@ export default function StudyRecruitPage() {
       });
     }
   }, [sortBy, search, page, tags]);
+
+  const handleIncreaseViewCount = useCallback((recruitId) => {
+    setStudyRoomList((prev) =>
+      prev.map((item) =>
+        item.id === recruitId
+          ? { ...item, viewCount: item.viewCount + 1 }
+          : item
+      )
+    );
+  }, []);
 
   // 구인글 수정
   const handleUpdateRecruit = async (recruitId, updatedData) => {
@@ -60,8 +69,15 @@ export default function StudyRecruitPage() {
     }
   };
 
+  const handleCloseModal = () => {
+    setShowRecruitModal(false);
+    setSelectedModal(null);
+  };
+
   const handleOpenRecruitModal = (study) => {
-    setSelectedModal(study);
+    // 최신 studyRoomList에서 id로 찾아서 넣기 (props 값 보장)
+    const fresh = studyRoomList.find((s) => s.id === study.id) || study;
+    setSelectedModal(fresh);
     setShowRecruitModal(true);
   };
 
@@ -165,13 +181,15 @@ export default function StudyRecruitPage() {
           leader={selectedModal.leader.nickname}
           createdAt={selectedModal.createdAt}
           userCount={`${selectedModal.currentMemberCount}/${selectedModal.maxUserCount} 모집`}
+          recruitId={selectedModal.id}
           viewCount={selectedModal.viewCount}
           tags={selectedModal.tags}
-          onClose={() => setShowRecruitModal(false)}
+          onClose={handleCloseModal}
           onRequestFormOpen={handleOpenRequestFormModal}
           onUpdateRecruit={(updatedData) =>
             handleUpdateRecruit(selectedModal.id, updatedData)
           }
+          onIncreaseViewCount={handleIncreaseViewCount}
         />
       )}
     </div>

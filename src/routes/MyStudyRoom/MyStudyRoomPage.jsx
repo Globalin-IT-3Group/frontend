@@ -8,18 +8,20 @@ import KotsuKotsuLoader from "../../components/loadings/KotsuKotsuLoader";
 import StudyNote from "./StudyNote";
 import StudyChat from "./StudyChat";
 import StudyRecruitFormModal from "../../components/StudyRecruit/StudyRecruitFormModal";
+import StudyRecruitApi from "../../api/studyRecruitAPI";
 
 export default function MyStudyRoomPage() {
   const { studyRoomId } = useParams(); // 스터디방 id
   const [studyRoom, setStudyRoom] = useState(null);
+  const [studyRecruit, setStudyRecruit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("note");
+  const [recruitLoading, setRecruitLoading] = useState(false);
   const [showRecruitModal, setShowRecruitModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("아이디!!!: ", studyRoomId);
-
+    setLoading(true);
     StudyRoomApi.getStudyRoomDetail(studyRoomId)
       .then((result) => {
         console.log(result);
@@ -27,6 +29,28 @@ export default function MyStudyRoomPage() {
       })
       .finally(() => setLoading(false));
   }, [studyRoomId]);
+
+  // 구인글 정보
+  useEffect(() => {
+    if (!studyRoomId) return;
+    setRecruitLoading(true);
+    StudyRecruitApi.getStudyRecruitInStudyRoom(studyRoomId)
+      .then((res) => {
+        setStudyRecruit(res);
+        console.log("구인글 정보: ", res);
+      })
+      .catch(() => setStudyRecruit(null)) // 없으면 null
+      .finally(() => setRecruitLoading(false));
+  }, [studyRoomId]);
+
+  // 콜백
+  const handleRecruitSuccess = () => {
+    setShowRecruitModal(false);
+    // 저장 성공 시 구인글 다시 조회
+    StudyRecruitApi.getStudyRecruitInStudyRoom(studyRoomId).then(
+      setStudyRecruit
+    );
+  };
 
   if (loading) return <KotsuKotsuLoader />;
   if (!studyRoom) return <div>스터디룸 정보를 불러올 수 없습니다.</div>;
@@ -49,6 +73,8 @@ export default function MyStudyRoomPage() {
             <MemberProfile
               leader={leader}
               members={members}
+              studyRecruit={studyRecruit}
+              recruitLoading={recruitLoading}
               onRecruitWrite={() => setShowRecruitModal(true)}
             />
             <StudyRoomRule rule={studyRoom.rule} />
@@ -106,9 +132,8 @@ export default function MyStudyRoomPage() {
         open={showRecruitModal}
         onClose={() => setShowRecruitModal(false)}
         studyRoomId={studyRoom.id}
-        onSuccess={() => {
-          // 목록 새로고침 등 필요시
-        }}
+        studyRecruit={studyRecruit} // ★ 구인글 데이터 전달
+        onSuccess={handleRecruitSuccess}
       />
     </div>
   );

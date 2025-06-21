@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdClose } from "react-icons/md";
 import StudyRecruitApi from "../../api/studyRecruitAPI";
 
@@ -6,6 +6,7 @@ export default function StudyRequestFormModal({
   open,
   onClose,
   studyRoomId,
+  studyRecruit,
   onSuccess,
 }) {
   const [form, setForm] = useState({
@@ -15,6 +16,22 @@ export default function StudyRequestFormModal({
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (open && studyRecruit) {
+      setForm({
+        title: studyRecruit.title || "",
+        studyExplain: studyRecruit.studyExplain || "",
+        isOpen: studyRecruit.isOpen ?? true,
+      });
+    } else if (open && !studyRecruit) {
+      setForm({
+        title: "",
+        studyExplain: "",
+        isOpen: true,
+      });
+    }
+  }, [open, studyRecruit]);
 
   if (!open) return null;
 
@@ -26,6 +43,8 @@ export default function StudyRequestFormModal({
     }));
   };
 
+  const isEdit = !!(studyRecruit && studyRecruit.id);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -35,17 +54,33 @@ export default function StudyRequestFormModal({
 
     setLoading(true);
     try {
-      await StudyRecruitApi.createRecruit({
-        studyRoomId, // 스터디방 id로 등록 (필요하다면)
-        title: form.title,
-        studyExplain: form.studyExplain,
-        isOpen: form.isOpen,
-      });
+      if (isEdit) {
+        // 수정
+        await StudyRecruitApi.updateRecruit({
+          recruitId: studyRecruit.id, // 중요!
+          studyRoomId,
+          title: form.title,
+          studyExplain: form.studyExplain,
+          isOpen: form.isOpen,
+        });
+      } else {
+        // 신규 등록
+        await StudyRecruitApi.createRecruit({
+          studyRoomId,
+          title: form.title,
+          studyExplain: form.studyExplain,
+          isOpen: form.isOpen,
+        });
+      }
       onSuccess?.();
       setForm({ title: "", studyExplain: "", isOpen: true });
       onClose?.();
     } catch {
-      setError("구인 등록에 실패했습니다. 다시 시도해주세요.");
+      setError(
+        isEdit
+          ? "구인 수정에 실패했습니다. 다시 시도해주세요."
+          : "구인 등록에 실패했습니다. 다시 시도해주세요."
+      );
     } finally {
       setLoading(false);
     }
@@ -67,7 +102,7 @@ export default function StudyRequestFormModal({
         </button>
 
         <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-2 tracking-tight">
-          스터디 구인 작성
+          {isEdit ? "스터디 구인 수정" : "스터디 구인 작성"}
         </h2>
 
         <div className="flex flex-col gap-2">
@@ -99,7 +134,8 @@ export default function StudyRequestFormModal({
           />
         </div>
 
-        <div className="flex items-center gap-2 mt-1">
+        {/* 구인 공개 체크박스 + 상태 메시지 */}
+        <div className="flex flex-col gap-1 mt-1">
           <label
             htmlFor="isOpen"
             className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-300"
@@ -114,6 +150,15 @@ export default function StudyRequestFormModal({
             />
             구인 공개(모집 상태)
           </label>
+          {form.isOpen ? (
+            <span className="text-blue-500 text-xs pl-6">
+              구인 공고가 <b>게시 됩니다.</b>
+            </span>
+          ) : (
+            <span className="text-red-500 text-xs pl-6">
+              구인 공고가 <b>게시되지 않습니다.</b>
+            </span>
+          )}
         </div>
 
         {error && (
