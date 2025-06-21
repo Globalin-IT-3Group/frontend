@@ -1,49 +1,45 @@
-import { HashtagIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, HashtagIcon } from "@heroicons/react/24/outline";
 import { LuClock } from "react-icons/lu";
 import { HiTrendingUp } from "react-icons/hi";
-import { LuMailCheck } from "react-icons/lu";
-import { useState, useEffect, useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
-export default function StudydRecruitBar() {
-  const [showSearch, setShowSearch] = useState(false);
-  const [showHashtag, setShowHashtag] = useState(false);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [activeFilter, setActiveFilter] = useState("New");
-
+export default function StudyRecruitBar({
+  sortBy,
+  onChangeSort,
+  search,
+  onChangeSearch,
+  tags,
+  onChangeTags,
+}) {
   const hashtags = [
-    "#JLPT",
-    "#회화",
-    "#취업",
-    "#자격증",
-    "#토익",
-    "#스터디",
-    "#비즈니스일본어",
+    { label: "#JLPT", value: "JLPT" },
+    { label: "#스터디", value: "스터디" },
+    { label: "#회화", value: "회화" },
+    { label: "#취업", value: "취업" },
+    { label: "#자격증", value: "자격증" },
+    { label: "#토익", value: "토익" },
+    { label: "#비즈니스일본어", value: "비즈니스일본어" },
   ];
 
+  const toggleTag = (tagValue) => {
+    if (tags.includes(tagValue)) {
+      onChangeTags(tags.filter((t) => t !== tagValue));
+    } else {
+      onChangeTags([...tags, tagValue]);
+    }
+  };
+
+  const [showSearch, setShowSearch] = useState(false);
+  const [showHashtag, setShowHashtag] = useState(false);
   const searchBoxRef = useRef(null);
   const hashtagRef = useRef(null);
 
-  const toggleTag = (tag) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
-  };
-
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (searchBoxRef.current && !searchBoxRef.current.contains(e.target)) {
+      if (searchBoxRef.current && !searchBoxRef.current.contains(e.target))
         setShowSearch(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (hashtagRef.current && !hashtagRef.current.contains(e.target)) {
+      if (hashtagRef.current && !hashtagRef.current.contains(e.target))
         setShowHashtag(false);
-      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -52,23 +48,32 @@ export default function StudydRecruitBar() {
   return (
     <div className="bg-white w-full h-auto p-8 flex flex-col overflow-hidden">
       <div className="flex items-center justify-between">
+        {/* 정렬 탭 */}
         <div className="flex space-x-8 ml-4">
-          {["New", "Most View", "My Request"].map((label) => {
-            const isActive = activeFilter === label;
+          {[
+            {
+              key: "latest",
+              label: "New",
+              icon: <LuClock className="w-5 h-5" />,
+            },
+            {
+              key: "mostView",
+              label: "Most View",
+              icon: <HiTrendingUp className="w-5 h-5" />,
+            },
+          ].map(({ key, label, icon }) => {
+            const isActive = sortBy === key;
             return (
               <div
-                key={label}
-                onClick={() => setActiveFilter(label)}
+                key={key}
+                onClick={() => onChangeSort(key)}
                 className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
                   isActive
                     ? "text-black -translate-y-1"
                     : "text-gray-500 hover:text-black hover:-translate-y-1"
                 }`}
               >
-                {label === "New" && <LuClock className="w-5 h-5" />}
-                {label === "Most View" && <HiTrendingUp className="w-5 h-5" />}
-                {label === "My Request" && <LuMailCheck className="w-5 h-5" />}
-
+                {icon}
                 <span
                   className={`text-md relative whitespace-nowrap after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-[#003CFF] after:transition-all after:duration-300 ${
                     isActive
@@ -82,29 +87,30 @@ export default function StudydRecruitBar() {
             );
           })}
         </div>
-
-        <div
-          ref={searchBoxRef}
-          className="flex items-center justify-end gap-4 w-full max-w-3xl relative"
-        >
-          <input
-            type="text"
-            placeholder="스터디 그룹명을 검색하세요"
-            className={`h-[50px] rounded-2xl border border-gray-300 shadow pl-4 pr-4 bg-white transition-all duration-300 ease-in-out ${
-              showSearch
-                ? "w-[300px] opacity-100"
-                : "w-0 opacity-0 overflow-hidden"
-            }`}
-          />
-
-          <MagnifyingGlassIcon
-            className="w-6 h-6 text-gray-500 hover:text-black cursor-pointer transition-all duration-300"
-            onClick={() => {
-              setShowSearch((prev) => !prev);
-              setShowHashtag(false);
-            }}
-          />
-
+        {/* 검색/태그 */}
+        <div className="flex items-center justify-end gap-4 w-full max-w-3xl relative">
+          {/* 검색창 */}
+          <div ref={searchBoxRef} className="relative">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => onChangeSearch(e.target.value)}
+              placeholder="스터디 그룹명을 검색하세요"
+              className={`h-[50px] rounded-2xl border border-gray-300 shadow pl-4 pr-4 bg-white transition-all duration-300 ease-in-out ${
+                showSearch
+                  ? "w-[300px] opacity-100"
+                  : "w-0 opacity-0 overflow-hidden"
+              }`}
+            />
+            <MagnifyingGlassIcon
+              className="w-6 h-6 text-gray-500 hover:text-black cursor-pointer transition-all duration-300 absolute right-2 top-1/2 -translate-y-1/2"
+              onClick={() => {
+                setShowSearch((prev) => !prev);
+                setShowHashtag(false);
+              }}
+            />
+          </div>
+          {/* 태그 */}
           <div className="relative" ref={hashtagRef}>
             <HashtagIcon
               className="w-6 h-6 mr-4 text-gray-500 hover:text-black cursor-pointer transition-all duration-300"
@@ -113,7 +119,6 @@ export default function StudydRecruitBar() {
                 setShowSearch(false);
               }}
             />
-
             <div
               className={`absolute top-1/2 right-full -translate-y-1/2 mr-2
                 bg-white border border-gray-300 rounded-2xl shadow p-4 z-50
@@ -126,18 +131,18 @@ export default function StudydRecruitBar() {
             >
               <div className="inline-block whitespace-nowrap">
                 {hashtags.map((tag) => {
-                  const isSelected = selectedTags.includes(tag);
+                  const isSelected = tags.includes(tag.value);
                   return (
                     <button
-                      key={tag}
-                      onClick={() => toggleTag(tag)}
+                      key={tag.value}
+                      onClick={() => toggleTag(tag.value)}
                       className={`px-3 py-1 mr-2 mb-2 rounded-full transition border ${
                         isSelected
                           ? "bg-blue-500 text-white border-blue-500"
                           : "bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-300"
                       }`}
                     >
-                      {tag}
+                      {tag.label}
                     </button>
                   );
                 })}

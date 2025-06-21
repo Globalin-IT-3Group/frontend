@@ -1,8 +1,8 @@
 import { FaStar } from "react-icons/fa6";
 
-export default function MemberProfile({ leader, members }) {
+export default function MemberProfile({ leader, members, onRecruitWrite }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 relative w-fit">
       {/* 방장 */}
       <div className="flex w-[450px] h-[120px] bg-blue-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
         {/* 프로필+별 겹침 레이아웃 */}
@@ -21,22 +21,33 @@ export default function MemberProfile({ leader, members }) {
           <p className="font-bold text-lg">{leader?.nickname || "방장"}</p>
         </div>
       </div>
-      {/* 멤버들 */}
-      <div className="flex items-center justify-center gap-x-10 w-[450px] h-[120px] bg-gray-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
-        {members && members.length > 0 ? (
-          members.map((m) => (
-            <div key={m.userId} className="flex flex-col items-center">
-              <img
-                src={m.profileImageUrl || "/default.jpg"}
-                alt={m.nickname}
-                className="w-14 h-14 rounded-full shadow-[0_0_6px_rgba(0,0,0,0.1)] object-cover"
-              />
-              <p className="font-bold text-sm">{m.nickname}</p>
-            </div>
-          ))
-        ) : (
-          <span className="text-gray-400">아직 멤버가 없습니다</span>
-        )}
+
+      {/* 멤버 + 구인 버튼 */}
+      <div className="relative w-[450px]">
+        {/* 구인 작성 버튼 - 오른쪽 상단 고정 */}
+        <button
+          onClick={onRecruitWrite}
+          className="absolute right-4 top-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-2xl font-bold shadow transition"
+        >
+          구인 작성
+        </button>
+
+        <div className="flex items-center justify-center gap-x-10 h-[120px] bg-gray-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
+          {members && members.length > 0 ? (
+            members.map((m) => (
+              <div key={m.userId} className="flex flex-col items-center">
+                <img
+                  src={m.profileImageUrl || "/default.jpg"}
+                  alt={m.nickname}
+                  className="w-14 h-14 rounded-full shadow-[0_0_6px_rgba(0,0,0,0.1)] object-cover"
+                />
+                <p className="font-bold text-sm">{m.nickname}</p>
+              </div>
+            ))
+          ) : (
+            <span className="text-gray-400">아직 멤버가 없습니다</span>
+          )}
+        </div>
       </div>
     </div>
   );

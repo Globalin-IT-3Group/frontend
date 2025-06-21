@@ -1,4 +1,4 @@
-export default function StudyroomRule({ rule }) {
+export default function StudyRoomRule({ rule }) {
   // rule: 규칙 문자열 (줄바꿈, <br> 등 처리 원하면 별도 가공)
   return (
     <div className="w-[500px] h-[255px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">

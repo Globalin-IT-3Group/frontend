@@ -1,3 +1,5 @@
+import { LuEye } from "react-icons/lu";
+
 export default function RecruitBoxContainer({
   image,
   roomName,
@@ -7,11 +9,16 @@ export default function RecruitBoxContainer({
   createdAt,
   viewCount,
   userCount,
+  tags = [],
   className = "",
   onClick,
 }) {
   const formatDateToLocalString = (dateString) => {
-    const date = new Date(dateString);
+    if (!dateString) return "";
+    // 마이크로초(.) 이하를 제거 (ex: 2025-06-21T03:33:48)
+    const cleaned = dateString.split(".")[0];
+    const date = new Date(cleaned);
+    if (isNaN(date.getTime())) return ""; // 혹시라도 NaN일 때 빈 문자열 반환
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, "0");
     const dd = String(date.getDate()).padStart(2, "0");
@@ -32,6 +39,20 @@ export default function RecruitBoxContainer({
       )}
 
       <div className="flex flex-col justify-between h-full p-6">
+        {/* 💡 태그 영역 */}
+        {tags && tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-2">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded-full"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
         <div>
           <h2 className="text-xl font-bold mb-2 break-words">{roomName}</h2>
           <p className="text-md text-gray-600 break-words line-clamp-2">
@@ -55,12 +76,17 @@ export default function RecruitBoxContainer({
               </p>
             </div>
 
-            <div className="text-sm text-gray-600 space-x-2 min-w-0">
+            <div className="text-sm text-gray-600 space-x-2 min-w-0 flex items-center">
               <span className="break-words">
                 {formatDateToLocalString(createdAt)}
               </span>
               <span className="text-[#003CFF] font-semibold break-words">
                 {userCount}
+              </span>
+              {/* 👁️ 조회수 (LuEye) */}
+              <span className="flex items-center ml-2 text-gray-400">
+                <LuEye className="w-4 h-4 mr-1" />
+                {viewCount}
               </span>
             </div>
           </div>

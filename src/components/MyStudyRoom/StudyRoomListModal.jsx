@@ -150,7 +150,7 @@ export default function StudyRoomListModal({
         <button
           onClick={onClose}
           className="
-            mx-auto mt-8
+            mx-auto
             inline-flex items-center justify-center rounded-full
             w-10 h-10 text-white text-3xl font-bold
             bg-black/0 hover:bg-white/90
@@ -164,12 +164,6 @@ export default function StudyRoomListModal({
         >
           ✖
         </button>
-        {/* <button
-          onClick={onClose}
-          className="top-8 right-8 pt-14 text-white text-3xl font-bold z-50 hover:text-blue-400 hover:rotate-90 hover:scale-110 transition-all duration-200 cursor-pointer"
-        >
-          ✖
-        </button> */}
       </div>
 
       <StudyRoomCreateModal

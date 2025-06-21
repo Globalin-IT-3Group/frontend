@@ -19,6 +19,12 @@ export default function MainPage() {
 
   useEffect(() => {
     NewsApi.getNews().then(setNews);
+
+    // 이게 단어 가져오는 거 (api)
+    WordApi.getRandomVocab9().then((result) => {
+      console.log(result); // 개발자 도구 켜서 보면 데이터 확인 가능!!
+      // 이 result로 데이터를 다뤄볼 것!!
+    });
   }, []);
 
   const handleCardClick = (word) => setSelectedWord(word);
@@ -63,7 +69,7 @@ export default function MainPage() {
             />
           )}
 
-          <News />
+          <News news={news} />
         </div>
         {/* 우측 영역 */}
         <div className="flex flex-col gap-6">

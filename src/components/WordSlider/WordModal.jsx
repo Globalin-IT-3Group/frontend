@@ -34,14 +34,6 @@ export default function WordModal({ word, onClose }) {
       }}
     >
       <div className="flex flex-col justify-center max-w-[1000px] w-full px-20 relative">
-        {/* 닫기 버튼 - 오른쪽 상단 고정 */}
-        <button
-          onClick={onClose}
-          className="absolute top-0 right-0 text-white text-3xl font-bold hover:text-blue-400 transition-colors duration-200 cursor-pointer"
-        >
-          ✖
-        </button>
-
         {/* 중앙 정렬 텍스트 */}
         <div className="text-center mb-6 mt-2">
           <h2 className="text-white text-3xl font-bold">一日の単語！</h2>
@@ -68,6 +60,24 @@ export default function WordModal({ word, onClose }) {
             ))}
           </Swiper>
         </div>
+
+        <button
+          onClick={onClose}
+          className="
+            mx-auto
+            inline-flex items-center justify-center rounded-full
+            w-10 h-10 text-white text-3xl font-bold
+            bg-black/0 hover:bg-white/90
+            transition-all duration-300
+            scale-90 hover:scale-125
+            hover:text-gray-600
+            outline-none cursor-pointer
+            "
+          aria-label="닫기"
+          type="button"
+        >
+          ✖
+        </button>
       </div>
     </div>
   );

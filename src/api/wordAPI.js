@@ -22,6 +22,11 @@ class WordApi extends BaseApi {
     });
     return res.data;
   }
+
+  async getRandomVocab9() {
+    const res = await this.fetcher.get("/vocab-grammar/random9");
+    return res;
+  }
 }
 
 export default new WordApi();
