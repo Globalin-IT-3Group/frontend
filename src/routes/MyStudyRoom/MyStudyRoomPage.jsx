@@ -10,6 +10,8 @@ import StudyRecruitFormModal from "../../components/StudyRecruit/StudyRecruitFor
 import StudyRecruitApi from "../../api/studyRecruitAPI";
 import StudyRoomRule from "../../components/MyStudyRoom/StudyroomRule";
 import MemberProfileSkeleton from "../../components/skeleton/MyStudyRoom/MemberProfileSkeleton";
+import StudyRoomRuleSkeleton from "../../components/skeleton/MyStudyRoom/StudyRoomRuleSkeleton";
+import Skeleton from "react-loading-skeleton";
 
 export default function MyStudyRoomPage() {
   const { studyRoomId } = useParams(); // 스터디방 id
@@ -24,7 +26,7 @@ export default function MyStudyRoomPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => setShowSkeleton(false), 2000);
-    return () => clearTimeout(Timer);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -78,21 +80,30 @@ export default function MyStudyRoomPage() {
         <div className="flex flex-col justify-center mx-auto gap-4 w-full">
           <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-4 w-full">
             {showSkeleton ? (
-              <MemberProfileSkeleton />
+              <>
+                <MemberProfileSkeleton />
+                <StudyRoomRuleSkeleton />
+              </>
             ) : (
-              <MemberProfile
-                leader={leader}
-                members={members}
-                studyRecruit={studyRecruit}
-                recruitLoading={recruitLoading}
-                onRecruitWrite={() => setShowRecruitModal(true)}
-              />
+              <>
+                <MemberProfile
+                  leader={leader}
+                  members={members}
+                  studyRecruit={studyRecruit}
+                  recruitLoading={recruitLoading}
+                  onRecruitWrite={() => setShowRecruitModal(true)}
+                />
+                <StudyRoomRule rule={studyRoom.rule} />
+              </>
             )}
-
-            <StudyRoomRule rule={studyRoom.rule} />
           </div>
-          <div className="flex justify-center font-bold w-full max-w-[1000px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 mx-auto">
-            🔔 {studyRoom.notice || "오늘의 공지는 없습니다!"}
+          <div className="flex justify-center items-center font-bold w-full max-w-[1000px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 mx-auto">
+            🔔{" "}
+            {showSkeleton ? (
+              <Skeleton width={200} height={25} />
+            ) : (
+              studyRoom.notice || "오늘의 공지는 없습니다!"
+            )}
           </div>
         </div>
       </div>
