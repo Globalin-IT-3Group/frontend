@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import NewsApi from "../../api/newsAPI";
 import WordApi from "../../api/wordAPI";
 import News from "../../components/main/News";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function MainPage() {
   // context에서 스터디방 정보, 새로고침 함수 받기
