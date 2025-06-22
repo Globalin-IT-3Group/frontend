@@ -25,7 +25,7 @@ export default function StudyRoomListContainer({
   return (
     <div className="rounded-2xl flex flex-col items-center">
       <div
-        className={`w-[259px] h-[370px] p-3 flex flex-col items-center ${bgColor}`}
+        className={`w-[255px] h-[370px] p-3 flex flex-col items-center ${bgColor}`}
       >
         <div className="relative">
           {React.cloneElement(children, {

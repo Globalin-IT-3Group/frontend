@@ -72,7 +72,7 @@ export default function StudyRoomListModal({
             slidesPerView={
               studyRooms.length <= 1 ? 1 : studyRooms.length === 2 ? 2 : 3
             }
-            spaceBetween={32}
+            spaceBetween={33}
             coverflowEffect={{
               rotate: 20,
               stretch: 0,

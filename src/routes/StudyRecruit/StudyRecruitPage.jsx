@@ -29,7 +29,7 @@ export default function StudyRecruitPage() {
 
   // 데이터 불러오기
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
     const fetchList = search.trim()
       ? StudyRecruitApi.searchStudyRecruit({ title: search, page })
       : StudyRecruitApi.getStudyRecruit({ sortBy, tags, page });
