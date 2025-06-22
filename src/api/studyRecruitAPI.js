@@ -2,7 +2,7 @@ import BaseApi from "./axiosInstance";
 import qs from "qs";
 
 class StudyRecruitApi extends BaseApi {
-  async getStudyRecruit({ sortBy = "latest", tags = [], page = 0, size = 9 }) {
+  async getStudyRecruit({ sortBy = "latest", tags = [], page = 0, size = 6 }) {
     let sort = "createdAt,desc";
     if (sortBy === "mostView") sort = "viewCount,desc";
     const params = { page, size, sort, tags };
@@ -16,7 +16,7 @@ class StudyRecruitApi extends BaseApi {
   }
 
   // 검색 (페이지네이션, title 기준)
-  async searchStudyRecruit({ title = "", page = 0, size = 9 }) {
+  async searchStudyRecruit({ title = "", page = 0, size = 6 }) {
     const res = await this.fetcher.get("/study-recruit/search", {
       params: { title, page, size, sort: "createdAt,desc" },
     });
