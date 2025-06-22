@@ -1,8 +1,9 @@
+import { useState, useEffect, useCallback } from "react";
 import RecruitBoxContainer from "../../components/StudyRecruit/RecruitBoxContainer";
 import StudyRecruitApi from "../../api/studyRecruitAPI";
-import { useState, useEffect, useCallback } from "react";
 import StudyRecruitModal from "../../components/StudyRecruit/StudyRecruitModal";
 import StudyRecruitBar from "../../components/StudyRecruit/StudyRecruitBar";
+import StudyRequestFormModal from "../../components/StudyRecruit/StudyRequestFormModal";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 export default function StudyRecruitPage() {
@@ -10,6 +11,11 @@ export default function StudyRecruitPage() {
   const [showRecruitModal, setShowRecruitModal] = useState(false);
   const [selectedModal, setSelectedModal] = useState(null);
 
+  // 신청서 모달 상태
+  const [showRequestFormModal, setShowRequestFormModal] = useState(false);
+  const [requestRoomName, setRequestRoomName] = useState("");
+
+  // 필터 상태
   const [tags, setTags] = useState([]);
   const [sortBy, setSortBy] = useState("latest");
   const [search, setSearch] = useState("");
@@ -28,7 +34,6 @@ export default function StudyRecruitPage() {
       StudyRecruitApi.getStudyRecruit({ sortBy, tags, page }).then((res) => {
         setStudyRoomList(res.content || []);
         setTotalPages(res.totalPages || 1);
-        console.log(res);
       });
     }
   }, [sortBy, search, page, tags]);
@@ -43,51 +48,37 @@ export default function StudyRecruitPage() {
     );
   }, []);
 
-  // 구인글 수정
-  const handleUpdateRecruit = async (recruitId, updatedData) => {
-    try {
-      await StudyRecruitApi.updateRecruit({ recruitId, ...updatedData });
-      // 수정 후 다시 목록 리로드
-      if (search.trim()) {
-        const res = await StudyRecruitApi.searchStudyRecruit({
-          title: search,
-          page,
-        });
-        setStudyRoomList(res.content || []);
-      } else {
-        const res = await StudyRecruitApi.getStudyRecruit({
-          sortBy,
-          tags,
-          page,
-        });
-        setStudyRoomList(res.content || []);
-      }
-      setShowRecruitModal(false);
-    } catch (err) {
-      console.error(err);
-      alert("수정에 실패했습니다.");
-    }
-  };
-
-  const handleCloseModal = () => {
-    setShowRecruitModal(false);
-    setSelectedModal(null);
-  };
-
+  // 상세 모달 열기
   const handleOpenRecruitModal = (study) => {
-    // 최신 studyRoomList에서 id로 찾아서 넣기 (props 값 보장)
     const fresh = studyRoomList.find((s) => s.id === study.id) || study;
     setSelectedModal(fresh);
     setShowRecruitModal(true);
   };
 
-  const handleOpenRequestFormModal = () => {
+  // 상세 모달 닫기
+  const handleCloseModal = () => {
     setShowRecruitModal(false);
+    setSelectedModal(null);
   };
 
-  // 페이지 이동 핸들러
+  // 참여 신청 버튼(상세 모달 → 신청서 모달)
+  const handleOpenRequestFormModal = () => {
+    setShowRecruitModal(false);
+    setRequestRoomName(selectedModal?.title || "");
+    setShowRequestFormModal(true);
+  };
+
+  // 신청서 모달 닫기
+  const handleCloseRequestFormModal = () => {
+    setShowRequestFormModal(false);
+    setRequestRoomName("");
+  };
+
+  // 페이지 이동
   const handlePrevPage = () => setPage((p) => Math.max(0, p - 1));
   const handleNextPage = () => setPage((p) => Math.min(totalPages - 1, p + 1));
+
+  // (수정 등 기타 핸들러 필요시 추가...)
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -171,7 +162,7 @@ export default function StudyRecruitPage() {
         </div>
       </div>
 
-      {/* 모달들 (필요에 따라 수정/상세/작성 등) */}
+      {/* 상세 모달 */}
       {showRecruitModal && selectedModal && (
         <StudyRecruitModal
           image={selectedModal.imageUrl || "/6.jpg"}
@@ -186,10 +177,15 @@ export default function StudyRecruitPage() {
           tags={selectedModal.tags}
           onClose={handleCloseModal}
           onRequestFormOpen={handleOpenRequestFormModal}
-          onUpdateRecruit={(updatedData) =>
-            handleUpdateRecruit(selectedModal.id, updatedData)
-          }
           onIncreaseViewCount={handleIncreaseViewCount}
+        />
+      )}
+
+      {/* 신청서 모달 */}
+      {showRequestFormModal && (
+        <StudyRequestFormModal
+          roomName={requestRoomName}
+          onClose={handleCloseRequestFormModal}
         />
       )}
     </div>
