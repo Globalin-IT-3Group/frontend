@@ -32,7 +32,7 @@ export default function MemberProfile({
         {/* 구인 작성 버튼 */}
         <button
           onClick={onRecruitWrite}
-          className="absolute right-4 top-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl font-bold shadow transition flex items-center gap-2"
+          className="absolute right-4 top-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl font-bold shadow transition flex items-center gap-2 cursor-pointer"
           title={studyRecruit ? "구인 폼 수정" : "구인 폼 작성"}
           disabled={recruitLoading}
         >

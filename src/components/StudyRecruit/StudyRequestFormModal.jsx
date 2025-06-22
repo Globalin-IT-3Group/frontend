@@ -1,4 +1,31 @@
+import Swal from "sweetalert2";
+
 export default function StudyRequestFormModal({ roomName, onClose }) {
+  const RequestSuccessAlert = (handleCloseRequestFormModal) => {
+    Swal.fire({
+      title: "스터디 신청 성공!",
+      text: "승인 완료 전까지 기다려주세요!",
+
+      imageUrl: "/success.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+
+      showCancelButton: false,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "확인",
+      cancelButtonText: "메인 페이지",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleCloseRequestFormModal();
+      }
+    });
+  };
+
+  const handleSubmit = () => {
+    RequestSuccessAlert(onClose);
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="relative bg-gradient-to-b from-blue-100 to-white w-[700px] h-[530px] overflow-hidden rounded-4xl">
@@ -37,7 +64,10 @@ export default function StudyRequestFormModal({ roomName, onClose }) {
 
           {/* 버튼 영역 */}
           <div className="flex justify-center gap-x-4 mt-4">
-            <button className="bg-[#003CFF] px-8 py-2 rounded-3xl text-md text-white font-bold hover:bg-[#0536D7] transition-all duration-200 cursor-pointer">
+            <button
+              onClick={handleSubmit}
+              className="bg-[#003CFF] px-8 py-2 rounded-3xl text-md text-white font-bold hover:bg-[#0536D7] transition-all duration-200 cursor-pointer"
+            >
               제출
             </button>
             <button

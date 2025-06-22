@@ -26,7 +26,7 @@ export default function StudyNote({ studyRoomId }) {
       {/* 글쓰기 버튼 */}
       <div className="flex justify-end mb-4">
         <button
-          className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold border border-blue-600 bg-white text-blue-600 shadow-sm hover:bg-blue-600 hover:text-white hover:shadow transition"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold border border-blue-600 bg-white text-blue-600 shadow-sm hover:bg-blue-600 hover:text-white hover:shadow transition cursor-pointer"
           onClick={() =>
             navigate(`/study/mystudyroom/${studyRoomId}/notes/new`)
           }
