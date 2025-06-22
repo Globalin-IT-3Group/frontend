@@ -11,9 +11,9 @@ export default function MemberProfile({
   console.log(studyRecruit);
 
   return (
-    <div className="flex flex-col gap-4 relative w-fit">
+    <div className="flex w-full flex-col gap-4 relative w-fit">
       {/* 방장 */}
-      <div className="flex w-[450px] h-[120px] bg-blue-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
+      <div className="flex h-[120px] bg-blue-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
         {/* 프로필+별 겹침 레이아웃 */}
         <div className="w-1/2 flex items-center justify-center p-4 gap-4">
           <div className="relative">
@@ -27,7 +27,9 @@ export default function MemberProfile({
               className="w-18 h-18 rounded-full shadow-[0_0_6px_rgba(0,0,0,0.1)] object-cover"
             />
           </div>
-          <p className="font-bold text-lg">{leader?.nickname || "방장"}</p>
+          <p className="font-bold text-lg whitespace-nowrap">
+            {leader?.nickname || "방장"}
+          </p>
         </div>
         {/* 구인 작성 버튼 */}
         <button
@@ -49,7 +51,7 @@ export default function MemberProfile({
       </div>
 
       {/* 멤버 */}
-      <div className="relative w-[450px]">
+      <div className="relative w-full">
         <div className="flex items-center justify-center gap-x-10 h-[120px] bg-gray-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
           {members && members.length > 0 ? (
             members.map((m) => (

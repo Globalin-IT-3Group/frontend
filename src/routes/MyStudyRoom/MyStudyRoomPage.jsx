@@ -1,5 +1,4 @@
 import MemberProfile from "../../components/MyStudyRoom/MemberProfile";
-import StudyRoomRule from "../../components/MyStudyRoom/StudyRoomRule";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import StudyRoomApi from "../../api/studyRoomAPI";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,6 +8,8 @@ import StudyNote from "./StudyNote";
 import StudyChat from "./StudyChat";
 import StudyRecruitFormModal from "../../components/StudyRecruit/StudyRecruitFormModal";
 import StudyRecruitApi from "../../api/studyRecruitAPI";
+import StudyRoomRule from "../../components/MyStudyRoom/StudyroomRule";
+import MemberProfileSkeleton from "../../components/skeleton/MyStudyRoom/MemberProfileSkeleton";
 
 export default function MyStudyRoomPage() {
   const { studyRoomId } = useParams(); // 스터디방 id
@@ -19,6 +20,12 @@ export default function MyStudyRoomPage() {
   const [recruitLoading, setRecruitLoading] = useState(false);
   const [showRecruitModal, setShowRecruitModal] = useState(false);
   const navigate = useNavigate();
+  const [showSkeleton, setShowSkeleton] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowSkeleton(false), 2000);
+    return () => clearTimeout(Timer);
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -67,19 +74,24 @@ export default function MyStudyRoomPage() {
           {studyRoom.name}
         </h1>
       </div>
-      <div className="rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4">
+      <div className="w-full max-w-[1000px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4">
         <div className="flex flex-col justify-center mx-auto gap-4 w-full">
-          <div className="flex justify-center mx-auto gap-4">
-            <MemberProfile
-              leader={leader}
-              members={members}
-              studyRecruit={studyRecruit}
-              recruitLoading={recruitLoading}
-              onRecruitWrite={() => setShowRecruitModal(true)}
-            />
+          <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-4 w-full">
+            {showSkeleton ? (
+              <MemberProfileSkeleton />
+            ) : (
+              <MemberProfile
+                leader={leader}
+                members={members}
+                studyRecruit={studyRecruit}
+                recruitLoading={recruitLoading}
+                onRecruitWrite={() => setShowRecruitModal(true)}
+              />
+            )}
+
             <StudyRoomRule rule={studyRoom.rule} />
           </div>
-          <div className="flex justify-center font-bold w-full rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 mx-auto">
+          <div className="flex justify-center font-bold w-full max-w-[1000px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 mx-auto">
             🔔 {studyRoom.notice || "오늘의 공지는 없습니다!"}
           </div>
         </div>
