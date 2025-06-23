@@ -12,6 +12,7 @@ import StudyRoomRule from "../../components/MyStudyRoom/StudyroomRule";
 import MemberProfileSkeleton from "../../components/skeleton/MyStudyRoom/MemberProfileSkeleton";
 import StudyRoomRuleSkeleton from "../../components/skeleton/MyStudyRoom/StudyRoomRuleSkeleton";
 import Skeleton from "react-loading-skeleton";
+import StudyNoteSkeleteon from "../../components/skeleton/MyStudyRoom/StudyNoteSkeleteon";
 
 export default function MyStudyRoomPage() {
   const { studyRoomId } = useParams(); // 스터디방 id
@@ -146,8 +147,13 @@ export default function MyStudyRoomPage() {
       </div>
 
       {/* 아래 영역: 탭별로 컴포넌트 바꿔치기 */}
-      <div className="w-[1000px] flex flex-col rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 gap-4 mt-4">
-        {activeTab === "note" && <StudyNote studyRoomId={studyRoom.id} />}
+      <div className="w-full max-w-[1000px] flex flex-col rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 gap-4 mt-4">
+        {activeTab === "note" &&
+          (showSkeleton ? (
+            <StudyNoteSkeleteon />
+          ) : (
+            <StudyNote studyRoomId={studyRoom.id} />
+          ))}
         {activeTab === "chat" && <StudyChat />}
         {/* 🎦은 여기 X, 그냥 페이지 이동만 */}
       </div>
