@@ -1,14 +1,22 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useNavigate } from "react-router-dom";
 
 export default function StudyNoteSkeleteon() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col gap-3">
       {/* 글쓰기 버튼 */}
       <div className="flex justify-end mb-4">
-        <div className="flex items-center gap-2 px-4 py-2 rounded-lg">
-          <Skeleton width={85} height={40} />
-        </div>
+        <button
+          className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold border border-blue-600 bg-white text-blue-600 shadow-sm hover:bg-blue-600 hover:text-white hover:shadow transition cursor-pointer"
+          onClick={() =>
+            navigate(`/study/mystudyroom/${studyRoomId}/notes/new`)
+          }
+        >
+          ✏️ 글쓰기
+        </button>
       </div>
 
       {/* 노트 목록 컴포넌트 */}

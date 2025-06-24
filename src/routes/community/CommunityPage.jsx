@@ -8,6 +8,7 @@ import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import BoardList from "../../components/community/BoardList";
 import KotsuKotsuLoader from "../../components/loadings/KotsuKotsuLoader";
+import BoardSkeleton from "../../components/skeleton/community/BoardSkeleton";
 
 const TAB_LIST = [
   {
@@ -34,7 +35,16 @@ export default function CommunityPage() {
   const [size] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [fakeLoading, setFakeLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFakeLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -124,10 +134,14 @@ export default function CommunityPage() {
         </div>
 
         {/* 리스트 - BoardList 컴포넌트 사용 */}
-        <BoardList
-          boards={boards}
-          onItemClick={(board) => navigate(`/community/${board.id}`)}
-        />
+        {fakeLoading ? (
+          <BoardSkeleton />
+        ) : (
+          <BoardList
+            boards={boards}
+            onItemClick={(board) => navigate(`/community/${board.id}`)}
+          />
+        )}
 
         {/* 페이지네이션 */}
         <div className="flex justify-center gap-2 mt-8">
