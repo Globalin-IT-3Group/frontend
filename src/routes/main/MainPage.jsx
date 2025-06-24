@@ -8,16 +8,26 @@ import { useNavigate } from "react-router-dom";
 import NewsApi from "../../api/newsAPI";
 import WordApi from "../../api/wordAPI";
 import News from "../../components/main/News";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import MyStudySliderSkeleton from "../../components/skeleton/Main/MyStudySliderSkeleton";
+import NewsSkeleton from "../../components/skeleton/Main/NewsSkeleton";
 
 export default function MainPage() {
   // context에서 스터디방 정보, 새로고침 함수 받기
-  const { myStudyRooms, refreshStudyRooms, loading } = useOutletContext();
+  // const { myStudyRooms, refreshStudyRooms, loading } = useOutletContext();
+  const { myStudyRooms, refreshStudyRooms } = useOutletContext();
+  const [fakeLoading, setFakeLoading] = useState(true);
   const [selectedWord, setSelectedWord] = useState(null);
   const [news, setNews] = useState([]);
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFakeLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  });
 
   useEffect(() => {
     NewsApi.getNews().then(setNews);
@@ -53,15 +63,13 @@ export default function MainPage() {
             />
             <p className="font-bold text-lg">{user.nickname}👋</p>
             <p className="text-sm text-gray-500 dark:text-gray-300">
-              今日も頑張りましょう！
+              오늘도 파이팅！
             </p>
           </div>
 
           {/* 로딩 중/슬라이더 */}
-          {loading ? (
-            <div className="flex items-center justify-center h-36">
-              <span className="text-gray-400">스터디 목록 불러오는 중...</span>
-            </div>
+          {fakeLoading ? (
+            <MyStudySliderSkeleton />
           ) : (
             <MyStudySlider
               myStudyRooms={myStudyRooms}
@@ -71,7 +79,7 @@ export default function MainPage() {
             />
           )}
 
-          <News news={news} />
+          {fakeLoading ? <NewsSkeleton /> : <News news={news} />}
         </div>
         {/* 우측 영역 */}
         <div className="flex flex-col gap-6">
