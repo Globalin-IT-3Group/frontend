@@ -2,3 +2,7 @@
   width: 240px;
   height: 320px;
 }
+
+.skeletonSlide {
+  border-radius: 18px;
+}

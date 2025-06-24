@@ -27,7 +27,9 @@ export default function NewsSkeleton() {
 
   return (
     <div className="w-full max-w-5xl min-h-[330px] mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow p-8">
-      <p className="font-semibold text-center text-2xl mb-6">오늘의 뉴스🔥</p>
+      <p className="font-semibold text-center text-2xl mb-4 mt-1">
+        오늘의 뉴스🔥
+      </p>
       <Slider {...settings}>
         {fakeItems.map((_, idx) => (
           <div key={idx} className="px-4">

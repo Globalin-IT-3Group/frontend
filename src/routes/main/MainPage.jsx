@@ -10,6 +10,8 @@ import WordApi from "../../api/wordAPI";
 import News from "../../components/main/News";
 import MyStudySliderSkeleton from "../../components/skeleton/Main/MyStudySliderSkeleton";
 import NewsSkeleton from "../../components/skeleton/Main/NewsSkeleton";
+import Skeleton from "react-loading-skeleton";
+import WordSliderSkeleton from "../../components/skeleton/Main/WordSliderSkeleton";
 
 export default function MainPage() {
   // context에서 스터디방 정보, 새로고침 함수 받기
@@ -53,14 +55,21 @@ export default function MainPage() {
         {/* 좌측 영역 */}
         <div className="lg:col-span-3 flex flex-col gap-6">
           <div className="w-full h-60 aspect-[4/3] max-w-screen-sm mx-auto bg-white dark:bg-zinc-700 shadow rounded-4xl p-5 flex flex-col items-center justify-center">
-            <img
-              src={
-                user.profileImage ||
-                "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
-              }
-              alt="프로필"
-              className="w-20 h-20 rounded-full mb-4"
-            />
+            {fakeLoading ? (
+              <div className="w-20 h-20 mb-4">
+                <Skeleton circle width="100%" height="100%" />
+              </div>
+            ) : (
+              <img
+                src={
+                  user.profileImage ||
+                  "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
+                }
+                alt="프로필"
+                className="w-20 h-20 rounded-full mb-4"
+              />
+            )}
+
             <p className="font-bold text-lg">{user.nickname}👋</p>
             <p className="text-sm text-gray-500 dark:text-gray-300">
               오늘도 파이팅！
@@ -83,7 +92,11 @@ export default function MainPage() {
         </div>
         {/* 우측 영역 */}
         <div className="flex flex-col gap-6">
-          <WordSlider onCardClick={handleCardClick} />
+          {fakeLoading ? (
+            <WordSliderSkeleton />
+          ) : (
+            <WordSlider onCardClick={handleCardClick} />
+          )}
           <div className="w-full aspect-[7/6] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
           <div className="w-full aspect-[5/4] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
         </div>
