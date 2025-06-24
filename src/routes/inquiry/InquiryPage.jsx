@@ -5,11 +5,13 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import inquiryAPI from "../../api/inquiryAPI";
 import { useSelector } from "react-redux";
 import InquiryFormModal from "../../components/inquiry/inquiryFormModal";
+import InquiryBoardSkeleton from "../../components/skeleton/Inquiry/InquiryBoardSkeleton";
 
 export default function InquiryPage() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [inquiryList, setInquiryList] = useState([]);
+  const [fakeLoading, setFakeLoading] = useState(true);
   const [showInquiryFormModal, setShowInquiryFormModal] = useState(false);
 
   const PAGE_SIZE = 5;
@@ -24,6 +26,14 @@ export default function InquiryPage() {
       console.error("문의글 불러오기 실패", error);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFakeLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  });
 
   useEffect(() => {
     fetchInquiries();
@@ -62,12 +72,16 @@ export default function InquiryPage() {
         </div>
       </div>
 
-      <InquiryBoardList
-        inquiryList={inquiryList}
-        currentUserId={currentUserId}
-        onAdminReply={handleAdminReply}
-        onDelete={handleDelete}
-      />
+      {fakeLoading ? (
+        <InquiryBoardSkeleton />
+      ) : (
+        <InquiryBoardList
+          inquiryList={inquiryList}
+          currentUserId={currentUserId}
+          onAdminReply={handleAdminReply}
+          onDelete={handleDelete}
+        />
+      )}
 
       <div className="flex justify-center gap-2 mt-8 mb-6">
         <button
