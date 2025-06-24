@@ -23,9 +23,10 @@ export default function LoginModal({ onClose }) {
       imageUrl: "/success.svg",
       imageWidth: 120,
       imageHeight: 120,
-      showCancelButton: false,
       confirmButtonColor: "#003CFF",
       confirmButtonText: "메인 페이지",
+    }).then(() => {
+      navigate("/main");
     });
   };
 

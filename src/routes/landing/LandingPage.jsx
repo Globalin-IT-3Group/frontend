@@ -1,12 +1,10 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import LoginModal from "../../components/Login/LoginModal";
 import Reveal from "../../components/Reveal";
 
 export default function LandingPage() {
-  const navigate = useNavigate();
-  const clickHandle = () => {
-    navigate("/main");
-  };
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
     <div>
@@ -23,7 +21,7 @@ export default function LandingPage() {
         </div>
         <nav className="space-x-8 text-sm font-medium">
           <button
-            onClick={clickHandle}
+            onClick={() => setShowLoginModal(true)}
             className="bg-[#003CFF] text-white px-4 py-2 rounded-full text-sm cursor-pointer"
           >
             로그인
@@ -174,6 +172,10 @@ export default function LandingPage() {
           </a>
         </p>
       </footer>
+      {/* 로그인 모달 */}
+      {showLoginModal && (
+        <LoginModal onClose={() => setShowLoginModal(false)} />
+      )}
     </div>
   );
 }
