@@ -6,7 +6,7 @@ import styles from "./WordSlider.module.css";
 import "./WordSliderGlobal.css";
 
 // ❗ props에서 onCardClick을 받아야 함
-export default function WordSlider({ onCardClick }) {
+export default function WordSlider({ words, onCardClick }) {
   return (
     <div className="word-slider">
       <Swiper
@@ -15,13 +15,13 @@ export default function WordSlider({ onCardClick }) {
         modules={[EffectCards]}
         className={styles.mySwiper}
       >
-        {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((word, idx) => (
+        {words.map((word, idx) => (
           <SwiperSlide key={idx}>
             <div
               className="w-full h-full flex items-center justify-center cursor-pointer"
-              onClick={() => onCardClick(word)} // 이건 그대로 OK
+              onClick={() => onCardClick(word)}
             >
-              {word}
+              {word.jpWord}
             </div>
           </SwiperSlide>
         ))}

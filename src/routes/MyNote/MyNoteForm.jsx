@@ -77,10 +77,20 @@ export default function MyNoteForm({ mode = "create" }) {
             className={`
               flex items-center gap-2 px-4 py-2 rounded-lg font-semibold 
               border border-blue-500 text-blue-500 
-              ${saving ? "bg-gray-200 hover:bg-gray-200 text-gray-400" : "bg-white hover:bg-blue-600 hover:text-white"} transition shadow-sm
+              ${
+                saving
+                  ? "bg-gray-200 hover:bg-gray-200 text-gray-400"
+                  : "bg-white hover:bg-blue-600 hover:text-white"
+              } transition shadow-sm
             `}
           >
-            {saving ? (mode === "create" ? "저장 중..." : "수정 중...") : mode === "create" ? "저장" : "수정 저장"}
+            {saving
+              ? mode === "create"
+                ? "저장 중..."
+                : "수정 중..."
+              : mode === "create"
+              ? "저장"
+              : "수정 저장"}
           </button>
         </div>
 
@@ -109,14 +119,18 @@ export default function MyNoteForm({ mode = "create" }) {
         )}
 
         {/* 마크다운 에디터 */}
-        <MDEditor height={470} value={markdown} onChange={(v) => setMarkdown(v || "")} />
+        <MDEditor
+          height={470}
+          value={markdown}
+          onChange={(v) => setMarkdown(v || "")}
+        />
 
-        {/* 프리뷰 */}
+        {/* 프리뷰
         <div className="prose prose-lg max-w-none font-serif text-gray-800 dark:prose-invert whitespace-pre-wrap mt-8">
           <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
             {markdown}
           </ReactMarkdown>
-        </div>
+        </div> */}
 
         {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
