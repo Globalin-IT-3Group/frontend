@@ -89,27 +89,23 @@ export default function StudyRecruitPage() {
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-4xl font-bold mx-auto mt-10 mb-10">스터디 구인</h1>
-      {loading ? (
-        <StudyRecruitBarSkeleton />
-      ) : (
-        <StudyRecruitBar
-          sortBy={sortBy}
-          onChangeSort={(key) => {
-            setSortBy(key);
-            setPage(0);
-          }}
-          search={search}
-          onChangeSearch={(v) => {
-            setSearch(v);
-            setPage(0);
-          }}
-          tags={tags}
-          onChangeTags={(newTags) => {
-            setTags(newTags);
-            setPage(0);
-          }}
-        />
-      )}
+      <StudyRecruitBar
+        sortBy={sortBy}
+        onChangeSort={(key) => {
+          setSortBy(key);
+          setPage(0);
+        }}
+        search={search}
+        onChangeSearch={(v) => {
+          setSearch(v);
+          setPage(0);
+        }}
+        tags={tags}
+        onChangeTags={(newTags) => {
+          setTags(newTags);
+          setPage(0);
+        }}
+      />
 
       <div className="relative h-full w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 h-full pr-2">

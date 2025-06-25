@@ -1,5 +1,7 @@
-export default function StudyRoomRule({ rule }) {
-  // rule: 규칙 문자열 (줄바꿈, <br> 등 처리 원하면 별도 가공)
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
+export default function StudyRoomRuleSkeleton() {
   return (
     <div className="w-full h-[255px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
       <div className="flex flex-col p-6">
@@ -9,8 +11,10 @@ export default function StudyRoomRule({ rule }) {
           </span>
           <span className="text-xl font-bold">스터디방 규칙</span>
         </div>
-        <div className="ml-16 text-base text-gray-700 whitespace-pre-line">
-          {rule || "아직 규칙이 입력되지 않았어요."}
+        <div className="ml-16 gap-4">
+          <Skeleton width={200} height={25} />
+          <Skeleton width={200} height={25} />
+          <Skeleton width={200} height={25} />
         </div>
       </div>
     </div>

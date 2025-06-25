@@ -3,6 +3,7 @@ import NewsApi from "../../api/newsAPI";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import NewsSkeleton from "../skeleton/Main/NewsSkeleton";
 
 export default function News({ news = [] }) {
   const sliderRef = useRef(null);
@@ -32,13 +33,9 @@ export default function News({ news = [] }) {
 
   return (
     <div className="w-full max-w-5xl min-h-[330px] mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow p-8">
-      <p className="font-semibold text-center text-2xl mb-6">
-        今日のニュース🔥
-      </p>
+      <p className="font-semibold text-center text-2xl mb-6">오늘의 뉴스🔥</p>
       {news.length === 0 ? (
-        <div className="text-center py-32 text-xl text-gray-400">
-          뉴스 불러오는 중...
-        </div>
+        <NewsSkeleton />
       ) : (
         <Slider ref={sliderRef} {...settings}>
           {news.map((item, idx) => (
