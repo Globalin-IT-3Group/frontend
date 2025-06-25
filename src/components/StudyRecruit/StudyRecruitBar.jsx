@@ -2,6 +2,7 @@ import { MagnifyingGlassIcon, HashtagIcon } from "@heroicons/react/24/outline";
 import { LuClock } from "react-icons/lu";
 import { HiTrendingUp } from "react-icons/hi";
 import { useRef, useEffect, useState } from "react";
+import { RiMailSendLine } from "react-icons/ri";
 
 export default function StudyRecruitBar({
   sortBy,
@@ -60,6 +61,11 @@ export default function StudyRecruitBar({
               key: "mostView",
               label: "Most View",
               icon: <HiTrendingUp className="w-5 h-5" />,
+            },
+            {
+              key: "myRequest",
+              label: "My Request",
+              icon: <RiMailSendLine className="w-5 h-5" />,
             },
           ].map(({ key, label, icon }) => {
             const isActive = sortBy === key;

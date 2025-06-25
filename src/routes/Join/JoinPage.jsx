@@ -36,7 +36,7 @@ export default function JoinPage() {
       cancelButtonText: "메인 페이지",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate("/");
+        navigate("/main");
       }
     });
   };

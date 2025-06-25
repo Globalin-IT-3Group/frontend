@@ -2,9 +2,10 @@ import BaseApi from "./axiosInstance";
 
 class StudyRequestApi extends BaseApi {
   // 1. 스터디 신청하기
-  async create({ studyRecruitId, message }) {
+  async create({ studyRecruitId, title, message }) {
     const res = await this.fetcher.post("/study-request", {
       studyRecruitId,
+      title,
       message,
     });
     return res.data; // 신청 ID 반환 (number)

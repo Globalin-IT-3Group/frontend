@@ -7,6 +7,7 @@ import StudyRequestFormModal from "../../components/StudyRecruit/StudyRequestFor
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import StudyRecruitBarSkeleton from "../../components/skeleton/StudyRecruit/StudyRecruitBarSkeleton";
 import RecruitBoxContainerSkeleton from "../../components/skeleton/StudyRecruit/RecruitBoxContainerSkeleton";
+import StudyRequestApi from "../../api/studyRequestAPI";
 
 export default function StudyRecruitPage() {
   const [studyRoomList, setStudyRoomList] = useState([]);
@@ -32,12 +33,16 @@ export default function StudyRecruitPage() {
     setLoading(true);
     const fetchList = search.trim()
       ? StudyRecruitApi.searchStudyRecruit({ title: search, page })
+      : sortBy === "myRequest"
+      ? StudyRequestApi.getMyRequests()
       : StudyRecruitApi.getStudyRecruit({ sortBy, tags, page });
     fetchList.then((res) => {
       setStudyRoomList(res.content || []);
       setTotalPages(res.totalPages || 1);
       setLoading(false);
     });
+
+    console.log("StudyRecruitPage: ", fetchList);
   }, [sortBy, search, page, tags]);
 
   // 상세조회 클릭 시 viewCount 동기화
@@ -114,9 +119,27 @@ export default function StudyRecruitPage() {
             ))
           ) : studyRoomList.length === 0 ? (
             <div className="text-center text-gray-400 py-24 text-lg col-span-3">
-              현재 모집 중인 스터디가 없습니다.
+              {sortBy === "myRequest"
+                ? "신청한 스터디가 없습니다."
+                : "현재 모집 중인 스터디가 없습니다."}
             </div>
+          ) : sortBy === "myRequest" ? (
+            // 내가 신청한 내역일 때
+            studyRoomList.map((req) => (
+              <MyRequestBoxContainer
+                key={req.id}
+                studyTitle={req.studyTitle}
+                message={req.message}
+                status={req.status}
+                requestedAt={req.requestedAt}
+                studyRecruit={req.studyRecruit}
+                onClick={() => {
+                  // 원하는 상세보기 등 기능 연결
+                }}
+              />
+            ))
           ) : (
+            // 모집글 목록일 때
             studyRoomList.map((study) => (
               <RecruitBoxContainer
                 key={study.id}
@@ -195,6 +218,7 @@ export default function StudyRecruitPage() {
       {/* 신청서 모달 */}
       {showRequestFormModal && (
         <StudyRequestFormModal
+          studyRecruitId={selectedModal.id}
           roomName={requestRoomName}
           onClose={handleCloseRequestFormModal}
         />
