@@ -15,6 +15,7 @@ export default function MainPage() {
   // context에서 스터디방 정보, 새로고침 함수 받기
   const { myStudyRooms, refreshStudyRooms, loading } = useOutletContext();
   const [selectedWord, setSelectedWord] = useState(null);
+  const [vocabList, setVocabList] = useState([]);
   const [news, setNews] = useState([]);
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -24,12 +25,16 @@ export default function MainPage() {
 
     // 이게 단어 가져오는 거 (api)
     WordApi.getRandomVocab9().then((result) => {
+      setVocabList(result.data);
       console.log(result); // 개발자 도구 켜서 보면 데이터 확인 가능!!
       // 이 result로 데이터를 다뤄볼 것!!
     });
   }, []);
 
-  const handleCardClick = (word) => setSelectedWord(word);
+  const handleCardClick = (word) => {
+    setSelectedWord(word);
+  };
+
   const closeModal = () => setSelectedWord(null);
 
   const handleStudyRoomClick = (studyRoomId) => {
@@ -75,7 +80,15 @@ export default function MainPage() {
         </div>
         {/* 우측 영역 */}
         <div className="flex flex-col gap-6">
-          <WordSlider onCardClick={handleCardClick} />
+          <WordSlider words={vocabList} onCardClick={handleCardClick} />
+
+          {selectedWord && Array.isArray(vocabList) && vocabList.length > 0 && (
+            <WordModal
+              words={vocabList}
+              selectedWord={selectedWord}
+              onClose={closeModal}
+            />
+          )}
           <div className="w-full aspect-[7/6] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
           <div className="w-full aspect-[5/4] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
         </div>
