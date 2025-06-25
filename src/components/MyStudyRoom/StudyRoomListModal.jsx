@@ -142,7 +142,7 @@ export default function StudyRoomListModal({
             <span className="text-white text-2xl font-bold px-2">▶</span>
           </div>
           <div
-            className="custom-fraction absolute left-1/2 translate-x-[484px] bottom-[-40px] font-bold text-base z-50 pointer-events-none"
+            className="custom-fraction absolute left-1/2 translate-x-[484px] bottom-[-40px] font-bold text-base z-50 pointer-events-none mb-4"
             style={{ color: "white" }}
           />
         </div>

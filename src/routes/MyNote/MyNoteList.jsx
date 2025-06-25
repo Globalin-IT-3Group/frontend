@@ -3,13 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux"; // ← 추가
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import NoteApi from "../../api/noteAPI";
+import MyNoteListSkeleton from "../../components/skeleton/MyNote/MyNoteListSkeleton";
 
 export default function MyNoteList() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [fakeLoading, setFakeLoading] = useState(true);
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // ← 로그인 여부 확인
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFakeLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  });
 
   useEffect(() => {
     async function fetchNotes() {
@@ -57,37 +67,42 @@ export default function MyNoteList() {
       </div>
 
       {/* 노트 목록 */}
-      <ul className="divide-y divide-gray-200 dark:divide-zinc-600">
-        {notes.map((note) => (
-          <li
-            key={note.id}
-            className="flex items-center py-4 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
-          >
-            <img
-              src={
-                note.thumbnailUrl ||
-                "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
-              }
-              alt="썸네일"
-              className="w-24 h-24 object-cover rounded-md flex-shrink-0"
-            />
-            <div className="ml-4 flex-1">
-              <Link
-                to={`/note/${note.id}`}
-                className="text-lg font-medium text-gray-900 dark:text-white hover:underline"
-              >
-                {note.title}
-              </Link>
-              <p className="text-gray-500 dark:text-gray-300 text-sm truncate w-full">
-                {note.content}
-              </p>
-            </div>
-            <span className="text-sm text-gray-400 dark:text-gray-500">
-              {note.date}
-            </span>
-          </li>
-        ))}
-      </ul>
+
+      {fakeLoading ? (
+        <MyNoteListSkeleton />
+      ) : (
+        <ul className="divide-y divide-gray-200 dark:divide-zinc-600">
+          {notes.map((note) => (
+            <li
+              key={note.id}
+              className="flex items-center py-4 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors p-4 cursor-pointer"
+            >
+              <img
+                src={
+                  note.thumbnailUrl ||
+                  "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
+                }
+                alt="썸네일"
+                className="w-24 h-24 object-cover rounded-md flex-shrink-0"
+              />
+              <div className="ml-4 flex-1">
+                <Link
+                  to={`/note/${note.id}`}
+                  className="text-lg font-medium text-gray-900 dark:text-white hover:underline"
+                >
+                  {note.title}
+                </Link>
+                <p className="text-gray-500 dark:text-gray-300 text-sm truncate w-full">
+                  {note.content}
+                </p>
+              </div>
+              <span className="text-sm text-gray-400 dark:text-gray-500">
+                {note.date}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
