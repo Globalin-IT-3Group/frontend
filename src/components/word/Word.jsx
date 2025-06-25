@@ -46,6 +46,11 @@ export default function Word({ word }) {
     }
   };
 
+  const getEllipsisMessage = (msg) => {
+    if (!msg) return "";
+    return msg.length > 30 ? msg.slice(0, 30) + "......" : msg;
+  };
+
   return (
     <Accordion className="rounded-2xl mb-2 shadow border-2 border-gray-100">
       <AccordionSummary
@@ -61,7 +66,9 @@ export default function Word({ word }) {
         <div className="text-gray-400 w-32 min-w-0 truncate">
           {word.altForm}
         </div>
-        <div className="flex-1 min-w-0 truncate">{word.meaning}</div>
+        <div className="flex-1 min-w-0 truncate">
+          {getEllipsisMessage(word.meaning)}
+        </div>
       </AccordionSummary>
       <AccordionDetails className="bg-gray-50 rounded-b-2xl relative">
         {/* 예문 편집 버튼: 우측 하단, 절대 투명 (관리자만 존재) */}

@@ -114,14 +114,10 @@ export default function MainPage() {
                 )}
             </>
           )}
+          <div className="w-full aspect-[7/6] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
+          <div className="w-full aspect-[5/4] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
         </div>
-
-        <div className="w-full aspect-[7/6] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
-        <div className="w-full aspect-[5/4] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
       </div>
     </div>
-
-    // {selectedWord && <WordModal word={selectedWord} onClose={closeModal} />}
-    // </div>
   );
 }

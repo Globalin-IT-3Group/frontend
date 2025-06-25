@@ -58,9 +58,11 @@ export default function InquiryPage() {
   };
 
   return (
-    <div className="mt-8 mb-8 px-6 py-4 max-w-4xl mx-auto bg-white rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
+    <div className="mt-8 mb-8 px-6 py-4 max-w-4xl mx-auto bg-white dark:bg-zinc-600 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
       <div className="flex flex-col gap-2 relative mb-8">
-        <h1 className="text-3xl font-bold text-center p-4">문의</h1>
+        <h1 className="text-3xl font-bold text-center dark:text-white p-4">
+          문의
+        </h1>
         <div className="absolute right-2 top-4 ">
           <button
             onClick={() => setShowInquiryFormModal(true)}
@@ -96,7 +98,7 @@ export default function InquiryPage() {
         >
           <MdChevronLeft size={24} />
         </button>
-        <span className="flex items-center px-4 font-semibold">
+        <span className="flex items-center px-4 font-semibold dark:text-white">
           {page + 1} / {totalPages}
         </span>
         <button

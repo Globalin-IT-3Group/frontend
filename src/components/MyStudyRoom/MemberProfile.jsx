@@ -52,7 +52,7 @@ export default function MemberProfile({
 
       {/* 멤버 */}
       <div className="relative w-full">
-        <div className="flex items-center justify-center gap-x-10 h-[120px] bg-gray-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
+        <div className="flex items-center justify-center gap-x-10 h-[120px] bg-gray-100 dark:bg-zinc-400 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
           {members && members.length > 0 ? (
             members.map((m) => (
               <div key={m.userId} className="flex flex-col items-center">
@@ -65,7 +65,9 @@ export default function MemberProfile({
               </div>
             ))
           ) : (
-            <span className="text-gray-400">아직 멤버가 없습니다</span>
+            <span className="text-gray-400 dark:text-white">
+              아직 멤버가 없습니다
+            </span>
           )}
         </div>
       </div>
