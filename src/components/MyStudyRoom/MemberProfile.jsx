@@ -28,7 +28,7 @@ export default function MemberProfile({
             </p>
           </div>
         </div>
-        {/* 구인, 수정 버튼 */}
+        {/* 구인 버튼 */}
         <div className="absolute right-4 top-4 flex flex-col items-center space-y-2">
           <button
             onClick={onRecruitWrite}

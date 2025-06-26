@@ -16,7 +16,7 @@ export default function WordSliderSkeleton() {
               rotate(${idx * 3}deg)
               translateX(${idx * 10}px)
             `,
-            zIndex: 10 - idx,
+            // zIndex: 10 - idx,
             opacity: idx === 0 ? 1 : 0.5,
             transition: "all 0.3s ease",
           }}
