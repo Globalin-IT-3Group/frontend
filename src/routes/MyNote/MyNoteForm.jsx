@@ -12,7 +12,7 @@ export default function MyNoteForm({ mode = "create" }) {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [markdown, setMarkdown] = useState("");
   const [loading, setLoading] = useState(mode === "edit");
   const [saving, setSaving] = useState(false);
@@ -24,7 +24,7 @@ export default function MyNoteForm({ mode = "create" }) {
       NoteApi.getNote(id)
         .then((data) => {
           setTitle(data.title);
-          setThumbnail(data.thumbnailUrl || "");
+          setImageUrl(data.imageUrl || "");
           setMarkdown(data.content);
         })
         .catch(() => setError("노트를 불러오는 데 실패했습니다."))
@@ -40,7 +40,7 @@ export default function MyNoteForm({ mode = "create" }) {
     const payload = {
       title,
       content: markdown,
-      thumbnailUrl: thumbnail || "https://via.placeholder.com/120x80",
+      imageUrl: imageUrl || "https://via.placeholder.com/120x80",
     };
 
     try {
@@ -106,13 +106,13 @@ export default function MyNoteForm({ mode = "create" }) {
         {/* 썸네일 URL 입력 */}
         <input
           placeholder="이미지 URL 입력 (선택)"
-          value={thumbnail}
-          onChange={(e) => setThumbnail(e.target.value)}
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
           className="w-full border p-2 rounded mb-4"
         />
-        {thumbnail && (
+        {imageUrl && (
           <img
-            src={thumbnail}
+            src={imageUrl}
             alt="썸네일"
             className="w-full h-64 object-cover rounded mb-4"
           />

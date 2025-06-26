@@ -83,7 +83,7 @@ export default function MyNoteList() {
             >
               <img
                 src={
-                  note.thumbnailUrl ||
+                  note.imageUrl ||
                   "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
                 }
                 alt="썸네일"
