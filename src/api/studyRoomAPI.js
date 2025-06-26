@@ -16,40 +16,6 @@ class StudyRoomApi extends BaseApi {
   async getStudyRoomList() {
     const res = await this.fetcher.get("/study-room");
     return res.data; // Array<StudyRoomSummaryDto>
-
-    // 예시 더미 데이터
-    // return Promise.resolve([
-    //   {
-    //     id: 1,
-    //     name: "JLPT 합격 스터디",
-    //     imageUrl:
-    //       "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg",
-    //     tags: ["JLPT", "스터디"],
-    //     leaderId: 2,
-    //     currentMemberCount: 3,
-    //     maxUserCount: 4,
-    //   },
-    //   {
-    //     id: 2,
-    //     name: "회화 스터디",
-    //     imageUrl:
-    //       "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg",
-    //     tags: ["회화"],
-    //     leaderId: 99,
-    //     currentMemberCount: 2,
-    //     maxUserCount: 4,
-    //   },
-    //   {
-    //     id: 3,
-    //     name: "비즈니스 일본어",
-    //     imageUrl:
-    //       "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg",
-    //     tags: ["비즈니스일본어"],
-    //     leaderId: 10,
-    //     currentMemberCount: 1,
-    //     maxUserCount: 4,
-    //   },
-    // ]);
   }
 
   // 3. 스터디룸 상세 조회

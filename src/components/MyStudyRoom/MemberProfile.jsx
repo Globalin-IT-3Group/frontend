@@ -1,5 +1,6 @@
 import { FaStar } from "react-icons/fa6";
 import { PiNotePencilLight, PiNoteFill } from "react-icons/pi";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 
 export default function MemberProfile({
   leader,
@@ -12,7 +13,7 @@ export default function MemberProfile({
     <div className="flex w-full flex-col gap-4 relative w-fit">
       {/* 방장 */}
       <div className="flex h-[120px] bg-blue-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
-        <div className="flex w-1/2 items-center justify-center p-4 gap-4">
+        <div className="flex w-1/2 items-center justify-start px-7 gap-4">
           <img
             src={leader?.profileImageUrl || "/default.jpg"}
             alt="leader"
@@ -27,23 +28,25 @@ export default function MemberProfile({
             </p>
           </div>
         </div>
-        {/* 구인 작성 버튼 */}
-        <button
-          onClick={onRecruitWrite}
-          className="absolute right-4 top-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl font-bold shadow transition flex items-center gap-2 cursor-pointer"
-          title={studyRecruit ? "구인 폼 수정" : "구인 폼 작성"}
-          disabled={recruitLoading}
-        >
-          {studyRecruit ? (
-            <>
-              구인 <PiNoteFill size={20} />
-            </>
-          ) : (
-            <>
-              구인 <PiNotePencilLight size={20} />
-            </>
-          )}
-        </button>
+        {/* 구인, 수정 버튼 */}
+        <div className="absolute right-4 top-4 flex flex-col items-center space-y-2">
+          <button
+            onClick={onRecruitWrite}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl font-bold shadow transition flex items-center gap-2 cursor-pointer "
+            title={studyRecruit ? "구인 폼 수정" : "구인 폼 작성"}
+            disabled={recruitLoading}
+          >
+            {studyRecruit ? (
+              <>
+                <PiNoteFill size={20} /> 구인
+              </>
+            ) : (
+              <>
+                <PiNotePencilLight size={20} /> 구인
+              </>
+            )}
+          </button>
+        </div>
       </div>
       {/* 멤버 */}
       <div className="relative w-full">
