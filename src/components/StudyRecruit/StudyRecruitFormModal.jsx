@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
 import { MdClose, MdChevronLeft, MdChevronRight } from "react-icons/md";
 import StudyRecruitApi from "../../api/studyRecruitAPI";
+import StudyRequestApi from "../../api/studyRequestAPI";
+import RequesterDetailModal from "./RequesterDetailModal";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 export default function StudyRecruitFormModal({
+  leaderId,
   open,
   onClose,
   studyRoomId,
   studyRecruit,
   onSuccess,
-  applicantList = [],
-  applicantLoading = false,
-  onPageChange = () => {},
-  applicantPage = 0,
-  applicantTotalPages = 1,
+  onMemberChanged,
 }) {
   const [tab, setTab] = useState("form");
   const [form, setForm] = useState({
@@ -22,10 +23,23 @@ export default function StudyRecruitFormModal({
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  // 지원자 상태 관리
+  const [applicantList, setApplicantList] = useState([]);
+  const [applicantPage, setApplicantPage] = useState(0);
+  const [applicantTotalPages, setApplicantTotalPages] = useState(1);
+  const [applicantLoading, setApplicantLoading] = useState(false);
 
   // 지원자 상세 모달
   const [selectedApplicant, setSelectedApplicant] = useState(null);
 
+  // 상태 탭 (지원자 상태별 필터: 대기/승인)
+  const [statusTab, setStatusTab] = useState("PENDING"); // or "ACCEPTED"
+
+  // 리더 체크
+  const userId = useSelector((state) => state.auth.id);
+  const isLeader = leaderId === userId;
+
+  // 폼 세팅
   useEffect(() => {
     if (open && studyRecruit) {
       setForm({
@@ -33,6 +47,8 @@ export default function StudyRecruitFormModal({
         studyExplain: studyRecruit.studyExplain || "",
         isOpen: studyRecruit.isOpen ?? true,
       });
+      // 모집글이 열리면 지원자 목록 로드
+      reloadApplicantList(0, statusTab);
     } else if (open && !studyRecruit) {
       setForm({
         title: "",
@@ -40,7 +56,34 @@ export default function StudyRecruitFormModal({
         isOpen: true,
       });
     }
+    // eslint-disable-next-line
   }, [open, studyRecruit]);
+
+  // statusTab이나 페이지가 바뀌면 목록 다시 로딩
+  useEffect(() => {
+    if (open && studyRecruit?.id) {
+      reloadApplicantList(applicantPage, statusTab);
+    }
+    // eslint-disable-next-line
+  }, [statusTab, applicantPage, studyRecruit?.id, open]);
+
+  // 지원자 목록 불러오기
+  const reloadApplicantList = async (page = 0, status = statusTab) => {
+    if (!studyRecruit?.id) return;
+    setApplicantLoading(true);
+    try {
+      const res = await StudyRequestApi.getRequestsByRecruit({
+        studyRecruitId: studyRecruit.id,
+        page,
+        size: 4,
+        status, // status 필터도 API에서 받을 수 있도록 구현 (필요하다면 백엔드도 수정)
+      });
+      setApplicantList(res.content || []);
+      setApplicantTotalPages(res.totalPages || 1);
+    } finally {
+      setApplicantLoading(false);
+    }
+  };
 
   if (!open) return null;
 
@@ -95,6 +138,50 @@ export default function StudyRecruitFormModal({
   // 지원자 상세 모달 닫기
   const handleCloseApplicantModal = () => setSelectedApplicant(null);
 
+  // 상태 변경 (승인/거절)
+  const handleStatusChange = async (requestId, newStatus) => {
+    try {
+      await StudyRequestApi.updateRequestStatus(requestId, newStatus);
+      await reloadApplicantList(applicantPage, statusTab);
+      setSelectedApplicant(null);
+      // 승인 시에만 알림!
+      if (newStatus === "ACCEPTED") {
+        onMemberChanged?.();
+        Swal.fire({
+          title: "승인 완료!",
+          text: "해당 지원자가 스터디 멤버로 추가되었습니다.",
+
+          imageUrl: "/success.svg",
+          imageWidth: 120,
+          imageHeight: 120,
+
+          confirmButtonText: "확인",
+          timer: 1500,
+        });
+      } else if (newStatus === "REJECTED") {
+        Swal.fire({
+          title: "거절 완료",
+          text: "지원자가 거절 처리되었습니다.",
+
+          imageUrl: "/error.svg",
+          imageWidth: 120,
+          imageHeight: 120,
+
+          confirmButtonText: "확인",
+          timer: 1500,
+        });
+      }
+    } catch (e) {
+      Swal.fire({
+        imageUrl: "/error.svg",
+        imageWidth: 120,
+        imageHeight: 120,
+        title: "상태 변경 실패",
+        text: `상태 변경에 실패했습니다. ${e.response.data}`,
+      });
+    }
+  };
+
   // 날짜 포맷
   const formatDate = (date) => {
     if (!date) return "-";
@@ -107,7 +194,7 @@ export default function StudyRecruitFormModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[1.5px]">
-      <div className="relative bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl px-8 py-10 w-full max-w-xl flex flex-col gap-6 border border-zinc-200 dark:border-zinc-700">
+      <div className="relative bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl px-8 py-10 w-full max-w-xl flex flex-col gap-3 border border-zinc-200 dark:border-zinc-700">
         {/* 닫기 버튼 */}
         <button
           type="button"
@@ -118,7 +205,7 @@ export default function StudyRecruitFormModal({
           <MdClose size={24} />
         </button>
 
-        {/* --- 탭 버튼 --- */}
+        {/* 탭 버튼 */}
         <div className="flex gap-2">
           <button
             type="button"
@@ -219,16 +306,48 @@ export default function StudyRecruitFormModal({
           </form>
         ) : (
           <div className="w-full min-h-[475px] flex flex-col justify-between h-[475px]">
+            {/* 상태별 필터 탭 */}
+            <div className="flex gap-2 mb-3">
+              <button
+                onClick={() => {
+                  setStatusTab("PENDING");
+                  setApplicantPage(0);
+                }}
+                className={`px-[13px] py-1 rounded-xl font-bold text-sm transition-all ${
+                  statusTab === "PENDING"
+                    ? "bg-yellow-100 text-yellow-700 shadow"
+                    : "bg-zinc-100 text-zinc-500"
+                }`}
+              >
+                대기 지원자
+              </button>
+              <button
+                onClick={() => {
+                  setStatusTab("ACCEPTED");
+                  setApplicantPage(0);
+                }}
+                className={`px-4 py-1 rounded-xl font-bold text-sm transition-all ${
+                  statusTab === "ACCEPTED"
+                    ? "bg-blue-100 text-blue-700 shadow"
+                    : "bg-zinc-100 text-zinc-500"
+                }`}
+              >
+                승인된 지원자
+              </button>
+            </div>
+            {/* 지원자 리스트 */}
             {applicantLoading ? (
               <div className="text-gray-400 py-4">불러오는 중...</div>
             ) : applicantList.length === 0 ? (
-              <div className="text-gray-400 py-4">아직 지원자가 없습니다.</div>
+              <div className="text-gray-400 py-4 text-center">
+                아직 지원자가 없습니다.
+              </div>
             ) : (
               <ul className="flex flex-col gap-2 py-2">
                 {applicantList.map((req) => (
                   <li
                     key={req.id}
-                    className="bg-white dark:bg-zinc-900 rounded-2xl shadow hover:shadow-md cursor-pointer transition-all px-5 py-4 flex items-center min-h-[90px] justify-between"
+                    className="bg-white dark:bg-zinc-900 rounded-2xl shadow hover:shadow-md cursor-pointer transition-all px-5 py-4 flex items-center max-h-[70px] justify-between"
                     onClick={() => setSelectedApplicant(req)}
                   >
                     {/* 좌측: 이미지, 닉네임, 상태, 제목 */}
@@ -268,10 +387,10 @@ export default function StudyRecruitFormModal({
               </ul>
             )}
 
-            {/* 페이지네이션 (기존 스타일 따라감) */}
+            {/* 페이지네이션 */}
             <div className="flex justify-center gap-2 mt-8">
               <button
-                onClick={() => onPageChange(applicantPage - 1)}
+                onClick={() => setApplicantPage((p) => Math.max(0, p - 1))}
                 disabled={applicantPage === 0}
                 className={`w-10 h-10 flex items-center justify-center rounded-full
                   ${
@@ -287,7 +406,11 @@ export default function StudyRecruitFormModal({
                 {applicantPage + 1}/{applicantTotalPages}
               </span>
               <button
-                onClick={() => onPageChange(applicantPage + 1)}
+                onClick={() =>
+                  setApplicantPage((p) =>
+                    Math.min(applicantTotalPages - 1, p + 1)
+                  )
+                }
                 disabled={applicantPage + 1 >= applicantTotalPages}
                 className={`w-10 h-10 flex items-center justify-center rounded-full
                   ${
@@ -303,82 +426,13 @@ export default function StudyRecruitFormModal({
 
             {/* 지원자 상세 모달 */}
             {selectedApplicant && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-                <div className="relative bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl w-[95vw] max-w-md px-8 py-10 flex flex-col items-center gap-2 border border-zinc-100 dark:border-zinc-700">
-                  {/* 닫기 버튼 */}
-                  <button
-                    onClick={handleCloseApplicantModal}
-                    className="absolute right-6 top-6 text-2xl text-gray-400 hover:text-blue-600 transition"
-                    aria-label="닫기"
-                  >
-                    <MdClose size={28} />
-                  </button>
-
-                  {/* 프로필 */}
-                  <div className="flex flex-col items-center gap-2 w-full mb-4">
-                    <img
-                      src={
-                        selectedApplicant.requester?.profileImage ||
-                        "/pinga1.jpg"
-                      }
-                      alt={selectedApplicant.requester?.nickname}
-                      className="w-16 h-16 rounded-full object-cover shadow border-2 border-blue-100"
-                    />
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="font-bold text-lg text-zinc-700 dark:text-zinc-100">
-                        {selectedApplicant.requester?.nickname}
-                      </span>
-                      <span
-                        className={`
-                          text-xs font-semibold rounded px-2 py-1
-                          ${
-                            selectedApplicant.status === "PENDING"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : selectedApplicant.status === "ACCEPTED"
-                              ? "bg-blue-100 text-blue-700"
-                              : "bg-red-100 text-red-500"
-                          }
-                        `}
-                      >
-                        {selectedApplicant.status === "PENDING"
-                          ? "대기"
-                          : selectedApplicant.status === "ACCEPTED"
-                          ? "승인"
-                          : "거절"}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* 신청 제목 */}
-                  <div className="text-xl font-extrabold text-[#003CFF] text-center mb-2 break-words">
-                    {selectedApplicant.requestTitle}
-                  </div>
-
-                  {/* 날짜 */}
-                  <div className="mb-4 text-xs text-gray-400 font-semibold text-center w-full">
-                    신청 날짜:{" "}
-                    {selectedApplicant.requestedAt
-                      ? selectedApplicant.requestedAt
-                          .slice(0, 10)
-                          .replace(/-/g, "/")
-                      : "-"}
-                  </div>
-
-                  {/* 구분선 */}
-                  <div className="w-full h-[1.5px] bg-gradient-to-r from-blue-100 via-blue-200 to-gray-200 mb-4" />
-
-                  {/* 신청 메시지 */}
-                  <div className="whitespace-pre-line text-gray-800 dark:text-gray-100 text-base text-center break-words max-w-full px-1">
-                    {selectedApplicant.message?.trim() ? (
-                      selectedApplicant.message
-                    ) : (
-                      <span className="text-gray-400">
-                        신청 내용이 없습니다.
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <RequesterDetailModal
+                open={!!selectedApplicant}
+                applicant={selectedApplicant}
+                onClose={handleCloseApplicantModal}
+                onStatusChange={handleStatusChange}
+                isLeader={isLeader}
+              />
             )}
           </div>
         )}

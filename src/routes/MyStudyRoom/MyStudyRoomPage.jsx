@@ -13,10 +13,9 @@ import MemberProfileSkeleton from "../../components/skeleton/MyStudyRoom/MemberP
 import StudyRoomRuleSkeleton from "../../components/skeleton/MyStudyRoom/StudyRoomRuleSkeleton";
 import Skeleton from "react-loading-skeleton";
 import StudyNoteSkeleteon from "../../components/skeleton/MyStudyRoom/StudyNoteSkeleteon";
-import StudyRequestApi from "../../api/studyRequestAPI";
 
 export default function MyStudyRoomPage() {
-  const { studyRoomId } = useParams(); // 스터디방 id
+  const { studyRoomId } = useParams();
   const [studyRoom, setStudyRoom] = useState(null);
   const [studyRecruit, setStudyRecruit] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,12 +24,6 @@ export default function MyStudyRoomPage() {
   const [showRecruitModal, setShowRecruitModal] = useState(false);
   const navigate = useNavigate();
   const [showSkeleton, setShowSkeleton] = useState(true);
-
-  // 지원자 관리
-  const [requestList, setRequestList] = useState([]);
-  const [requestPage, setRequestPage] = useState(0);
-  const [requestTotalPages, setRequestTotalPages] = useState(1);
-  const [loadingRequest, setLoadingRequest] = useState(false);
 
   // 스켈레톤 로딩
   useEffect(() => {
@@ -42,9 +35,7 @@ export default function MyStudyRoomPage() {
   useEffect(() => {
     setLoading(true);
     StudyRoomApi.getStudyRoomDetail(studyRoomId)
-      .then((result) => {
-        setStudyRoom(result);
-      })
+      .then((result) => setStudyRoom(result))
       .finally(() => setLoading(false));
   }, [studyRoomId]);
 
@@ -54,25 +45,9 @@ export default function MyStudyRoomPage() {
     setRecruitLoading(true);
     StudyRecruitApi.getStudyRecruitInStudyRoom(studyRoomId)
       .then((res) => setStudyRecruit(res))
-      .catch(() => setStudyRecruit(null)) // 없으면 null
+      .catch(() => setStudyRecruit(null))
       .finally(() => setRecruitLoading(false));
   }, [studyRoomId]);
-
-  // 지원자 목록 조회(구인글이 있을 때만)
-  useEffect(() => {
-    if (!studyRecruit?.id) return;
-    setLoadingRequest(true);
-    StudyRequestApi.getRequestsByRecruit({
-      studyRecruitId: studyRecruit.id,
-      page: requestPage, // ← 이 부분!
-      size: 4,
-    })
-      .then((res) => {
-        setRequestList(res.content || []);
-        setRequestTotalPages(res.totalPages || 1);
-      })
-      .finally(() => setLoadingRequest(false));
-  }, [studyRecruit?.id, requestPage]);
 
   // 구인글 작성/수정 성공 후 재조회
   const handleRecruitSuccess = () => {
@@ -89,6 +64,13 @@ export default function MyStudyRoomPage() {
   const members = studyRoom.members.filter(
     (m) => m.userId !== studyRoom.leaderId
   );
+
+  const fetchStudyRoom = () => {
+    setLoading(true);
+    StudyRoomApi.getStudyRoomDetail(studyRoomId)
+      .then((result) => setStudyRoom(result))
+      .finally(() => setLoading(false));
+  };
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4 gap-8">
@@ -113,12 +95,6 @@ export default function MyStudyRoomPage() {
                   studyRecruit={studyRecruit}
                   recruitLoading={recruitLoading}
                   onRecruitWrite={() => setShowRecruitModal(true)}
-                  // 아래 지원자 정보는 필요 시 내려주고, MemberProfile에서 렌더링하거나 넘겨만 주세요!
-                  requestList={requestList}
-                  loadingRequest={loadingRequest}
-                  requestPage={requestPage}
-                  requestTotalPages={requestTotalPages}
-                  onRequestPageChange={setRequestPage}
                 />
                 <StudyRoomRule rule={studyRoom.rule} />
               </>
@@ -183,17 +159,15 @@ export default function MyStudyRoomPage() {
         {activeTab === "chat" && <StudyChat />}
       </div>
 
+      {/* === 구인글/지원자 모달 === */}
       <StudyRecruitFormModal
+        leaderId={leader.userId}
         open={showRecruitModal}
         onClose={() => setShowRecruitModal(false)}
         studyRoomId={studyRoom.id}
         studyRecruit={studyRecruit}
         onSuccess={handleRecruitSuccess}
-        applicantList={requestList}
-        applicantLoading={loadingRequest}
-        onPageChange={setRequestPage}
-        applicantPage={requestPage}
-        applicantTotalPages={requestTotalPages}
+        onMemberChanged={fetchStudyRoom}
       />
     </div>
   );

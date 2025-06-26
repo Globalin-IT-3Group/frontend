@@ -31,10 +31,12 @@ class StudyRequestApi extends BaseApi {
   }
 
   // 5. 특정 모집글의 모든 지원자 내역 (리더 권한 필요, 페이지네이션)
-  async getRequestsByRecruit({ studyRecruitId, page = 0, size = 4 }) {
+  async getRequestsByRecruit({ studyRecruitId, page = 0, size = 4, status }) {
+    const params = { page, size };
+    if (status) params.status = status;
     const res = await this.fetcher.get(
       `/study-request/recruit/${studyRecruitId}`,
-      { params: { page, size } }
+      { params }
     );
     return res.data; // Page<StudyRequestResponse>
   }
