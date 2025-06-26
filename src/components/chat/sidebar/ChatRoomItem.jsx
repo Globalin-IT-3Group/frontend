@@ -1,8 +1,25 @@
-import { useNavigate } from "react-router-dom";
 import chatRoomApi from "../../../api/chatRoomAPI"; // (import 추가)
 
-export default function ChatRoomItem({ room, refreshRooms }) {
-  const navigate = useNavigate();
+function formatLastMessageAt(isoString) {
+  if (!isoString) return "";
+  const date = new Date(isoString);
+
+  // 날짜
+  const year = String(date.getFullYear()).slice(2); // "25"
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // "06"
+  const day = String(date.getDate()).padStart(2, "0"); // "26"
+
+  // 시간
+  let hour = date.getHours();
+  const min = String(date.getMinutes()).padStart(2, "0");
+  const isAM = hour < 12;
+  const period = isAM ? "오전" : "오후";
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+
+  return `${year}.${month}.${day} ${period} ${hour12}:${min}`;
+}
+
+export default function ChatRoomItem({ room, refreshRooms, onClickRoom }) {
   const { roomId, unreadCount, lastMessage, lastMessageAt, otherUser } = room;
 
   const handleClick = async () => {
@@ -10,11 +27,7 @@ export default function ChatRoomItem({ room, refreshRooms }) {
     await chatRoomApi.markAsRead(roomId); // 이 메서드가 구현되어 있어야 함
     // ✅ 2. 리스트 새로고침
     refreshRooms && refreshRooms();
-
-    // ✅ 3. 채팅방 이동
-    navigate(`/chat?roomId=${roomId}`, {
-      state: { otherUser }, // 👈 같이 넘긴다!
-    });
+    onClickRoom && onClickRoom(room.roomId);
   };
 
   return (
@@ -40,8 +53,11 @@ export default function ChatRoomItem({ room, refreshRooms }) {
             </span>
           )}
         </div>
-        <div className="text-sm text-gray-500 truncate">
-          {lastMessage || "대화 없음"}
+        <div className="flex items-center justify-between text-sm text-gray-500 truncate">
+          <span className="truncate">{lastMessage || "대화 없음"}</span>
+          <span className="ml-2 text-xs text-gray-400 min-w-fit">
+            {formatLastMessageAt(lastMessageAt)}
+          </span>
         </div>
       </div>
     </li>

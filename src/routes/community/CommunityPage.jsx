@@ -83,8 +83,9 @@ export default function CommunityPage() {
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
       <div className="w-full max-w-4xl bg-white dark:bg-zinc-600 rounded-2xl shadow-xl p-8">
         {/* 상단 탭 필터 */}
-        <div className="flex items-center mb-8">
-          <div className="flex space-x-8 ml-4">
+        <div className="flex flex-wrap items-center mb-8 gap-y-2">
+          {/* 탭 리스트: 가로 스크롤 + flex-grow로 공간 차지 */}
+          <div className="flex space-x-8 ml-4 flex-1 min-w-0 overflow-x-auto">
             {TAB_LIST.map((tab) => {
               const isActive = activeTab.label === tab.label;
               return (
@@ -114,11 +115,11 @@ export default function CommunityPage() {
               );
             })}
           </div>
-          {/* 글쓰기 버튼 */}
-          <div className="ml-auto">
+          {/* 글쓰기 버튼: shrink-0으로 줄어들지 않게, flex-wrap시 아래로 떨어짐 */}
+          <div className="ml-auto shrink-0">
             <button
               className="
-                ml-auto flex items-center gap-2
+                flex items-center gap-2
                 px-4 py-2 rounded-lg font-semibold
                 border border-blue-600 bg-white text-blue-600
                 shadow-sm hover:bg-blue-600 hover:text-white hover:shadow
@@ -127,7 +128,6 @@ export default function CommunityPage() {
               onClick={() => navigate("/community/write")}
             >
               <HiOutlinePencilSquare className="w-5 h-5" />
-              {/* 글쓰기 텍스트는 md(768px) 이상에서만 노출 */}
               <span className="hidden md:inline">글쓰기</span>
             </button>
           </div>

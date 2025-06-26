@@ -6,12 +6,18 @@ export default function useChatSocket(roomId) {
   const [messages, setMessages] = useState([]);
   const userId = useSelector((state) => state.auth.id);
 
+  // ✅ 방이 바뀌면 메시지 초기화
+  useEffect(() => {
+    setMessages([]);
+  }, [roomId]);
+
+  // ✅ 실시간 메시지 수신
   useEffect(() => {
     if (!roomId || !userId) return;
 
     chatSocket.connect(roomId, userId, (msg) => {
+      // 읽음 이벤트
       if (msg.messageType === "READ" && msg.userId && msg.lastReadAt) {
-        // 읽음 이벤트라면: 내가 보낸 메시지 && 읽힌 시각 이전 메시지에 isRead를 true로!
         setMessages((prev) =>
           prev.map((m) =>
             m.senderId === userId &&
@@ -21,14 +27,17 @@ export default function useChatSocket(roomId) {
           )
         );
       } else {
-        // 일반 메시지는 중복 방지 후 추가
+        // ✅ 중복 메시지 방지 (id, 혹은 조합)
         setMessages((prev) => {
+          // id로 체크, 없으면 senderId+sentAt+message 조합
           if (
             prev.some(
               (m) =>
-                m.sentAt === msg.sentAt &&
-                m.senderId === msg.senderId &&
-                m.message === msg.message
+                (msg.id && m.id === msg.id) ||
+                (!msg.id &&
+                  m.senderId === msg.senderId &&
+                  m.message === msg.message &&
+                  m.sentAt === msg.sentAt)
             )
           ) {
             return prev;
@@ -43,18 +52,19 @@ export default function useChatSocket(roomId) {
     };
   }, [roomId, userId]);
 
+  // ✅ 메시지 보내기 (낙관적 업데이트)
   const sendMessage = (text) => {
+    const now = new Date().toISOString();
     const message = {
       chatRoomId: Number(roomId),
       senderId: userId,
       messageType: "TEXT",
       message: text,
-      sentAt: new Date().toISOString(),
+      sentAt: now,
       isRead: false,
+      // id: uuidv4(), // 선택: 프론트에서 임시 id 부여 (만약 서버도 이 id를 반환하게 하면 완벽히 중복 방지)
     };
     chatSocket.send(message);
-
-    // 낙관적 업데이트(중복 방지 코드가 있으니 그냥 두면 됨)
     setMessages((prev) => [...prev, message]);
   };
 

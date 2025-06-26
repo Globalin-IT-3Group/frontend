@@ -6,6 +6,7 @@ import chatMessageApi from "../../../api/chatMessageApi";
 import useChatSocket from "../../../hooks/useChatSocket";
 import { useSelector } from "react-redux";
 import KotsuKotsuLoader from "../../../components/loadings/KotsuKotsuLoader";
+import { useOutletContext } from "react-router-dom";
 
 export default function ChatRoom({ roomId, otherUser }) {
   const [initialMessages, setInitialMessages] = useState([]);
@@ -13,14 +14,15 @@ export default function ChatRoom({ roomId, otherUser }) {
   const userId = useSelector((state) => state.auth.id);
   const { messages, sendMessage } = useChatSocket(roomId);
   const [loading, setLoading] = useState(true);
+  const { refreshRooms } = useOutletContext();
 
   useEffect(() => {
     setLoading(true);
+    setInput("");
     chatMessageApi
       .getMessagesByRoomId(roomId)
       .then((res) => {
         setInitialMessages(res);
-        console.log("채팅 내역", res);
       })
       .finally(() => setLoading(false));
   }, [roomId]);
@@ -31,6 +33,7 @@ export default function ChatRoom({ roomId, otherUser }) {
     if (input.trim()) {
       sendMessage(input.trim());
       setInput("");
+      if (typeof refreshRooms === "function") refreshRooms();
     }
   };
 

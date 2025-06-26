@@ -41,16 +41,17 @@ export default function ChatMessageList({ messages, userId }) {
         overflow-y-auto px-4 py-4
         space-y-2 bg-gray-50 dark:bg-zinc-900
         min-h-[570px] max-h-[570px]
-        "
+      "
     >
       {messages.map((msg, idx) => {
+        const uniqueKey = msg.id ?? `${msg.senderId}_${msg.sentAt ?? idx}`;
         const isMe = msg.senderId === userId;
         const showDate =
           idx === 0 ||
           formatDate(messages[idx - 1].sentAt) !== formatDate(msg.sentAt);
 
         return (
-          <div key={msg.id || idx}>
+          <div key={uniqueKey}>
             {/* 날짜 라벨: 날짜가 달라지면 표시 */}
             {showDate && (
               <div className="flex justify-center mb-6">
@@ -60,9 +61,13 @@ export default function ChatMessageList({ messages, userId }) {
               </div>
             )}
 
-            {/* 기존 메시지 렌더링 */}
+            {/* 메시지 박스 */}
             <div className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
-              <div className="relative flex flex-col items-end">
+              <div
+                className={`relative flex flex-col ${
+                  isMe ? "items-end" : "items-start"
+                }`}
+              >
                 <div
                   className={`flex ${
                     isMe ? "justify-end" : "justify-start"
@@ -75,13 +80,13 @@ export default function ChatMessageList({ messages, userId }) {
                   )}
                   <div
                     className={`
-                max-w-xs px-3 py-2 rounded-lg text-sm
-                ${
-                  isMe
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 dark:bg-zinc-700 dark:text-white"
-                }
-              `}
+                      max-w-xs px-3 py-2 rounded-lg text-sm
+                      ${
+                        isMe
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200 dark:bg-zinc-700 dark:text-white"
+                      }
+                    `}
                   >
                     {msg.message}
                   </div>

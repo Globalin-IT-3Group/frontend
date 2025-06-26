@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ChatRoomList from "../chat/sidebar/ChatRoomList";
-import chatRoomApi from "../../api/chatRoomAPI";
 import { MdHome } from "react-icons/md";
 
-function ChatSidebar() {
-  const [rooms, setRooms] = useState([]);
+function ChatSidebar({ rooms, refreshRooms }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    chatRoomApi.getAllSummaries().then(setRooms);
-  }, []);
 
   const handleRoomClick = (roomId) => {
     navigate(`/chat?roomId=${roomId}`);
@@ -27,7 +20,11 @@ function ChatSidebar() {
           />
         </Link>
       </div>
-      <ChatRoomList rooms={rooms} onClickRoom={handleRoomClick} />
+      <ChatRoomList
+        rooms={rooms}
+        refreshRooms={refreshRooms}
+        onClickRoom={handleRoomClick}
+      />
     </div>
   );
 }
