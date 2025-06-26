@@ -15,12 +15,7 @@ import Skeleton from "react-loading-skeleton";
 import StudyNoteSkeleteon from "../../components/skeleton/MyStudyRoom/StudyNoteSkeleteon";
 import StudyRoomEditModal from "../../components/modals/StudyRoomEditModal";
 
-export default function MyStudyRoomPage(
-  myStudyRooms = [],
-  myUserId,
-  onRefresh,
-  onStudyRoomClick
-) {
+export default function MyStudyRoomPage() {
   const { studyRoomId } = useParams();
   const [studyRoom, setStudyRoom] = useState(null);
   const [studyRecruit, setStudyRecruit] = useState(null);
