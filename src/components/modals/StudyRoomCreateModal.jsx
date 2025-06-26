@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StudyRoomApi from "../../api/studyRoomAPI";
 
 // 고정 태그 목록
@@ -15,18 +15,28 @@ const TAGS = [
 const DEFAULT_IMAGE_URL =
   "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg";
 
+const DEFAULT_FORM = {
+  name: "",
+  rule: "",
+  notice: "",
+  imageUrl: "",
+  maxUserCount: 4,
+  tags: [],
+};
+
 export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
-  const [form, setForm] = useState({
-    name: "",
-    rule: "",
-    notice: "",
-    imageUrl: "",
-    maxUserCount: 4,
-    tags: [],
-  });
+  const [form, setForm] = useState(DEFAULT_FORM);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [maxUserError, setMaxUserError] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      setForm(DEFAULT_FORM);
+      setError("");
+      setMaxUserError(false);
+    }
+  }, [open]);
 
   if (!open) return null;
 

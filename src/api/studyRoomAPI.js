@@ -36,6 +36,12 @@ class StudyRoomApi extends BaseApi {
     const res = await this.fetcher.delete(`/study-room/${id}`);
     return res.data; // 없음 (204 No Content)
   }
+
+  // 6. 스터디룸 탈퇴 (멤버가 방 나가기)
+  async leaveStudyRoom(id) {
+    const res = await this.fetcher.delete(`/study-room/${id}/leave`);
+    return res.data; // 없음 (204 No Content)
+  }
 }
 
 export default new StudyRoomApi();
