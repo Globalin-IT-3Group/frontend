@@ -9,6 +9,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { GrUserManager } from "react-icons/gr";
 import { FaBell } from "react-icons/fa";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import AlarmSkeleton from "../../components/skeleton/alarms/AlarmSkeleton";
 
 const ALARM_TABS = [
   { label: "전체", type: null, icon: <PiMailbox /> },
@@ -24,6 +25,15 @@ export default function AlarmPage() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [fakeLoading, setFakeLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFakeLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -85,7 +95,7 @@ export default function AlarmPage() {
       </div>
 
       {/* 알림 리스트 */}
-      <AlarmList alarms={filtered} />
+      {fakeLoading ? <AlarmSkeleton /> : <AlarmList alarms={filtered} />}
 
       {/* 페이지네이션(옵션) */}
       <div className="flex justify-center gap-2 mt-8 mb-6">
