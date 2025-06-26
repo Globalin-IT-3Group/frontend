@@ -1,6 +1,7 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 
 export default function StudyNoteSkeleteon() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function StudyNoteSkeleteon() {
             navigate(`/study/mystudyroom/${studyRoomId}/notes/new`)
           }
         >
-          ✏️ 글쓰기
+          <HiOutlinePencilSquare className="w-5 h-5" /> 글쓰기
         </button>
       </div>
 

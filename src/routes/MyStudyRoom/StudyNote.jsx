@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StudyNoteApi from "../../api/studyNoteApi";
 import StudyNoteList from "../../components/studyNote/StudyNoteList";
-
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 export default function StudyNote({ studyRoomId }) {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ export default function StudyNote({ studyRoomId }) {
             navigate(`/study/mystudyroom/${studyRoomId}/notes/new`)
           }
         >
-          ✏️ 글쓰기
+          <HiOutlinePencilSquare className="w-5 h-5" /> 글쓰기
         </button>
       </div>
       {/* 노트 목록 컴포넌트 */}

@@ -41,11 +41,11 @@ export default function ChatRoom({ roomId, otherUser }) {
       className="
         flex flex-col
         min-w-[360px] max-w-[600px]  // 최소, 최대 너비
-        min-h-[850px] max-h-[850px]  // 최소, 최대 높이
+        min-h-[750px] max-h-[750px]  // 최소, 최대 높이
         w-full h-full                // 필요시 부모 기준 100%
         rounded-2xl shadow-lg
         bg-white
-        px-4 py-4
+        px-6 py-4 mt-7
         overflow-hidden              // 내부 컨텐츠 넘침 방지
       "
     >
