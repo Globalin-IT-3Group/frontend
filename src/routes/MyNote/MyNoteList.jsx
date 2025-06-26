@@ -47,6 +47,11 @@ export default function MyNoteList() {
     );
   if (error) return <p>{error}</p>;
 
+  const getEllipsisMessage = (msg) => {
+    if (!msg) return "";
+    return msg.length > 15 ? msg.slice(0, 15) + "..." : msg;
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       {/* 상단 글쓰기 버튼 */}
@@ -92,7 +97,7 @@ export default function MyNoteList() {
                   {note.title}
                 </Link>
                 <p className="text-gray-500 dark:text-gray-300 text-sm truncate w-full">
-                  {note.content}
+                  {getEllipsisMessage(note.content)}
                 </p>
               </div>
               <span className="text-sm text-gray-400 dark:text-white">

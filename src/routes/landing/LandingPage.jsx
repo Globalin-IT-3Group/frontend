@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import LoginModal from "../../components/Login/LoginModal";
 import Reveal from "../../components/Reveal";
 
 export default function LandingPage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const formSectionRef = useRef(null);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -65,19 +67,20 @@ export default function LandingPage() {
               <div className="space-y-8">
                 {/* 각각 내부도 감싸면 순차 애니메이션 가능 */}
                 <Reveal delay={0.1}>
-                  <div>기이이일게 늘어뜨리기기이이일게 늘어뜨리기</div>
+                  <div>스터디 룸을 만들고, 사람들과 함께 공부해보세요!</div>
                 </Reveal>
                 <Reveal delay={0.2}>
                   <div>
-                    기이이일게 늘어뜨리기기이이일게 늘어뜨리기기이이일게
-                    늘어뜨리기
+                    모르는 단어가 생긴다면, 단어장과 내 노트를 이용해요!
                   </div>
                 </Reveal>
                 <Reveal delay={0.3}>
                   <div>
-                    기이이일게 늘어뜨리기기이이일게 늘어뜨리기기이이일게
-                    늘어뜨리기기이이일게 늘어뜨리기
+                    오늘의 단어카드를 이용해 하루에 공부할 양을 정해봐요!
                   </div>
+                </Reveal>
+                <Reveal delay={0.4}>
+                  <div>오늘의 일본 뉴스도 스터디에서 읽어봐요!</div>
                 </Reveal>
               </div>
             </div>
@@ -99,11 +102,18 @@ export default function LandingPage() {
         <section className="bg-gradient-to-r from-[#7696FF] to-[#4E78FF] text-white py-32 px-6 text-center">
           <h2 className="text-3xl font-light">사람들과 함께하세요!</h2>
           <Reveal direction="up" delay={0.2}>
-            <p className="mt-6 max-w-xl mx-auto">뭐라 써야핢...</p>
+            <p className="mt-6 max-w-xl mx-auto">
+              코츠코츠에서 당신을 기다리고 있어요!
+            </p>
           </Reveal>
           <Reveal direction="up" delay={0.4}>
-            <button className="mt-6 px-6 py-2 border border-white rounded-full hover:bg-white hover:text-blue-500 transition">
-              함께하기 (아래로 스크롤링 시키기)
+            <button
+              className="mt-6 px-6 py-2 border border-white rounded-full hover:bg-white hover:text-blue-500 transition"
+              onClick={() => {
+                formSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              함께하기
             </button>
           </Reveal>
         </section>
@@ -142,14 +152,18 @@ export default function LandingPage() {
 
       {/* 섹션5 - 신청 폼 */}
       <Reveal direction="left">
-        <section className="py-24 px-6 bg-[#4E78FF] text-white py-20 px-6">
+        <section
+          ref={formSectionRef}
+          className="py-24 px-6 bg-[#4E78FF] text-white py-20 px-6"
+        >
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 className="text-3xl font-light">함께하기</h2>
             <p className="mt-4">コツコツ와 함께 일본어를 공부해보세요!</p>
           </div>
           <form className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <button
-              type="submit"
+              type="button" // ← 수정
+              onClick={() => navigate("/join")} // ← 회원가입 페이지로 이동
               className="col-span-2 mt-6 bg-white text-[#003CFF] py-3 rounded-full"
             >
               회원가입
