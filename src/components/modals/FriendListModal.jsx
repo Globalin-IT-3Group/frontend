@@ -74,7 +74,7 @@ export default function FriendListModal({ open, onClose }) {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg relative"
+        className="bg-white dark:bg-zinc-600 rounded-2xl shadow-2xl p-8 w-full max-w-lg relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -121,7 +121,7 @@ export default function FriendListModal({ open, onClose }) {
                   />
                   <div className="flex-1">
                     <div className="font-bold">{user.nickname}</div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500 dark:text-gray-100">
                       {user.profileMessage || "상태 메시지 없음"}
                     </div>
                   </div>

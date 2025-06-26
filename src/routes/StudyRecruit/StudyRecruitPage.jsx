@@ -97,7 +97,9 @@ export default function StudyRecruitPage() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mx-auto mt-10 mb-10">스터디 구인</h1>
+      <h1 className="text-4xl font-bold mx-auto mt-10 mb-10 dark:text-white">
+        스터디 구인
+      </h1>
       <StudyRecruitBar
         sortBy={sortBy}
         onChangeSort={(key) => {
@@ -183,7 +185,7 @@ export default function StudyRecruitPage() {
               <MdChevronLeft size={24} />
             </button>
 
-            <span className="flex items-center px-4 font-semibold">
+            <span className="flex items-center px-4 font-semibold dark:text-white">
               {page + 1}/{totalPages}
             </span>
 

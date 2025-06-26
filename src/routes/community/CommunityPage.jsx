@@ -14,17 +14,17 @@ const TAB_LIST = [
   {
     label: "New",
     sort: "createdAt,desc",
-    icon: <LuClock className="w-5 h-5" />,
+    icon: <LuClock className="w-5 h-5 dark:text-white" />,
   },
   {
     label: "Most View",
     sort: "viewCount,desc",
-    icon: <HiTrendingUp className="w-5 h-5" />,
+    icon: <HiTrendingUp className="w-5 h-5 dark:text-white" />,
   },
   {
     label: "My Post",
     sort: "my,desc",
-    icon: <BsPostcard className="w-5 h-5" />,
+    icon: <BsPostcard className="w-5 h-5 dark:text-white" />,
   },
 ];
 
@@ -81,7 +81,7 @@ export default function CommunityPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
-      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-8">
+      <div className="w-full max-w-4xl bg-white dark:bg-zinc-600 rounded-2xl shadow-xl p-8">
         {/* 상단 탭 필터 */}
         <div className="flex items-center mb-8">
           <div className="flex space-x-8 ml-4">
@@ -97,7 +97,7 @@ export default function CommunityPage() {
                   className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
                     isActive
                       ? "text-black -translate-y-1"
-                      : "text-gray-500 hover:text-black hover:-translate-y-1"
+                      : "text-gray-500 dark:text-white hover:text-black hover:-translate-y-1"
                   }`}
                 >
                   {tab.icon}
@@ -160,7 +160,7 @@ export default function CommunityPage() {
           >
             <MdChevronLeft size={24} />
           </button>
-          <span className="flex items-center px-4 font-semibold">
+          <span className="flex items-center px-4 font-semibold dark:text-white">
             {page + 1} / {totalPages}
           </span>
           <button

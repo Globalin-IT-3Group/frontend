@@ -47,10 +47,10 @@ export default function AlarmPage() {
   if (loading) return <KotsuKotsuLoader />;
 
   return (
-    <div className="mt-8 px-6 py-4 max-w-4xl mx-auto bg-white rounded-2xl shadow-xl">
+    <div className="mt-8 px-6 py-4 max-w-4xl mx-auto bg-white dark:bg-zinc-600 rounded-2xl shadow-xl">
       <div className="flex items-center gap-2 mb-12 text-3xl font-bold justify-center">
         <FaBell className="text-yellow-500 w-8 h-8" />
-        <span>알람 페이지</span>
+        <span className="dark:text-white">알람 페이지</span>
       </div>
       {/* 탭 */}
       <div className="flex space-x-8 ml-4 pb-4">
@@ -66,7 +66,7 @@ export default function AlarmPage() {
               className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
                 isActive
                   ? "text-black -translate-y-1"
-                  : "text-gray-500 hover:text-black hover:-translate-y-1"
+                  : "text-gray-500 dark:text-white hover:text-black hover:-translate-y-1"
               }`}
             >
               {tab.icon}
@@ -103,7 +103,7 @@ export default function AlarmPage() {
           <MdChevronLeft size={24} />
         </button>
 
-        <span className="flex items-center px-4 font-semibold">
+        <span className="flex items-center px-4 font-semibold dark:text-white">
           {page + 1}/{totalPages}
         </span>
 

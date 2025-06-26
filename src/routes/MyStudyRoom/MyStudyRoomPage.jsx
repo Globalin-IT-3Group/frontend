@@ -93,11 +93,11 @@ export default function MyStudyRoomPage() {
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4 gap-8">
       <div>
-        <h1 className="text-4xl font-bold mx-auto mt-6 mb-10">
+        <h1 className="text-4xl font-bold mx-auto mt-6 mb-10 dark:text-white">
           {studyRoom.name}
         </h1>
       </div>
-      <div className="w-full max-w-[1000px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4">
+      <div className="w-full max-w-[1000px] dark:bg-zinc-600 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4">
         <div className="flex flex-col justify-center mx-auto gap-4 w-full">
           <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-4 w-full">
             {showSkeleton ? (
@@ -124,7 +124,7 @@ export default function MyStudyRoomPage() {
               </>
             )}
           </div>
-          <div className="flex justify-center items-center font-bold w-full max-w-[1000px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 mx-auto">
+          <div className="flex justify-center items-center font-bold w-full max-w-[1000px] rounded-2xl dark:bg-zinc-500 dark:text-white shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 mx-auto">
             🔔{" "}
             {showSkeleton ? (
               <Skeleton width={200} height={25} />
@@ -173,7 +173,7 @@ export default function MyStudyRoomPage() {
       </div>
 
       {/* 아래 영역: 탭별로 컴포넌트 바꿔치기 */}
-      <div className="w-full max-w-[1000px] flex flex-col rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 gap-4 mt-4">
+      <div className="w-full max-w-[1000px] dark:bg-zinc-500 flex flex-col rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 gap-4 mt-4">
         {activeTab === "note" &&
           (showSkeleton ? (
             <StudyNoteSkeleteon />

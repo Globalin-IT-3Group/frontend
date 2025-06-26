@@ -72,10 +72,10 @@ export default function BoardForm() {
 
   return (
     <div className="w-full h-full flex flex-col items-center py-2">
-      <div className="w-full max-w-6xl bg-white rounded-2xl flex flex-col gap-8 p-0">
+      <div className="w-full max-w-6xl bg-white dark:bg-zinc-600 rounded-2xl flex flex-col gap-8 p-0">
         {/* 커뮤니티 글 작성 타이틀 */}
-        <div className="w-full flex justify-center items-center py-8 border-b">
-          <h1 className="text-3xl font-bold text-gray-800">
+        <div className="w-full flex justify-center items-center py-8 border-b dark:border-b-white">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             {editId ? "커뮤니티 글 수정" : "커뮤니티 글 작성"}
           </h1>
         </div>

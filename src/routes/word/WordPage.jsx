@@ -83,7 +83,7 @@ export default function WordPage() {
         </div>
 
         {/* 오른쪽: 상단 버튼 + 단어/문법 박스 */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col max-w-[1000px]">
           {/* 상단 버튼 */}
           <div className="flex gap-2 mb-6">
             {exams.map((exam) => (

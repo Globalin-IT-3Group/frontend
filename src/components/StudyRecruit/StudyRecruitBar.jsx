@@ -47,7 +47,7 @@ export default function StudyRecruitBar({
   }, []);
 
   return (
-    <div className="bg-white w-full h-auto p-8 flex flex-col overflow-hidden">
+    <div className="bg-white w-full h-auto p-8 flex flex-col overflow-hidden dark:bg-zinc-600">
       <div className="flex items-center justify-between">
         {/* 정렬 탭 */}
         <div className="flex space-x-8 ml-4">
@@ -55,12 +55,12 @@ export default function StudyRecruitBar({
             {
               key: "latest",
               label: "New",
-              icon: <LuClock className="w-5 h-5" />,
+              icon: <LuClock className="w-5 h-5 dark:text-white" />,
             },
             {
               key: "mostView",
               label: "Most View",
-              icon: <HiTrendingUp className="w-5 h-5" />,
+              icon: <HiTrendingUp className="w-5 h-5 dark:text-white" />,
             },
             {
               key: "myRequest",
@@ -76,7 +76,7 @@ export default function StudyRecruitBar({
                 className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
                   isActive
                     ? "text-black -translate-y-1"
-                    : "text-gray-500 hover:text-black hover:-translate-y-1"
+                    : "text-gray-500 dark:text-white hover:text-black hover:-translate-y-1"
                 }`}
               >
                 {icon}
@@ -109,7 +109,7 @@ export default function StudyRecruitBar({
               }`}
             />
             <MagnifyingGlassIcon
-              className="w-6 h-6 text-gray-500 hover:text-black cursor-pointer transition-all duration-300 absolute right-2 top-1/2 -translate-y-1/2"
+              className="w-6 h-6 text-gray-500 dark:text-white hover:text-black cursor-pointer transition-all duration-300 absolute right-2 top-1/2 -translate-y-1/2"
               onClick={() => {
                 setShowSearch((prev) => !prev);
                 setShowHashtag(false);
@@ -119,7 +119,7 @@ export default function StudyRecruitBar({
           {/* 태그 */}
           <div className="relative" ref={hashtagRef}>
             <HashtagIcon
-              className="w-6 h-6 mr-4 text-gray-500 hover:text-black cursor-pointer transition-all duration-300"
+              className="w-6 h-6 mr-4 text-gray-500 dark:text-white hover:text-black cursor-pointer transition-all duration-300"
               onClick={() => {
                 setShowHashtag((prev) => !prev);
                 setShowSearch(false);
@@ -128,7 +128,7 @@ export default function StudyRecruitBar({
             <div
               className={`absolute top-1/2 right-full -translate-y-1/2 mr-2
                 bg-white border border-gray-300 rounded-2xl shadow p-4 z-50
-                transition-all duration-300 ease-in-out transform origin-right
+                transition-all duration-300 ease-in-out transform origin-right dark:text-white
                 ${
                   showHashtag
                     ? "scale-x-100 opacity-100 visible"
