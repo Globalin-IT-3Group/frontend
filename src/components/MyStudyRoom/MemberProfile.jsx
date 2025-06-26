@@ -16,7 +16,7 @@ export default function MemberProfile({
           <img
             src={leader?.profileImageUrl || "/default.jpg"}
             alt="leader"
-            className="w-full max-w-[70px] h-auto rounded-full shadow-[0_0_6px_rgba(0,0,0,0.1)] object-cover"
+            className="w-full max-w-[70px] h-full max-h-[70px] rounded-full shadow-[0_0_6px_rgba(0,0,0,0.1)] object-cover"
           />
           <div className="flex items-center gap-2">
             <span className="bg-white/70 rounded-full p-1 text-yellow-400 text-xl">
