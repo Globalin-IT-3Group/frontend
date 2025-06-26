@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudyRoomApi from "../../api/studyRoomAPI";
+import Swal from "sweetalert2";
 
 // 고정 태그 목록
 const TAGS = [
@@ -21,17 +22,26 @@ export default function StudyRoomEditModal({
   onSuccess,
   roomId,
 }) {
-  const [form, setForm] = useState({
+  const initialForm = {
     name: "",
     rule: "",
     notice: "",
     imageUrl: "",
     maxUserCount: 4,
     tags: [],
-  });
+  };
+  const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [maxUserError, setMaxUserError] = useState(false);
+
+  useEffect(() => {
+    if (!open) {
+      setForm(initialForm);
+      setError("");
+      setMaxUserError(false);
+    }
+  }, [open]);
 
   useEffect(() => {
     if (open && roomId) {
@@ -100,6 +110,17 @@ export default function StudyRoomEditModal({
         maxUserCount: Math.min(form.maxUserCount, 4),
       };
       await StudyRoomApi.updateStudyRoom(roomId, payload);
+
+      Swal.fire({
+        title: "수정 완료!",
+        text: "스터디룸 정보가 성공적으로 변경되었습니다.",
+        imageUrl: "/success.svg",
+        imageWidth: 120,
+        imageHeight: 120,
+        confirmButtonText: "확인",
+        timer: 1500,
+      });
+
       if (onSuccess) onSuccess();
       onClose();
     } catch (err) {

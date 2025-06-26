@@ -176,8 +176,8 @@ export default function StudyRecruitFormModal({
         imageUrl: "/error.svg",
         imageWidth: 120,
         imageHeight: 120,
-        title: "상태 변경 실패",
-        text: `상태 변경에 실패했습니다. ${e.response.data}`,
+        title: "승인 실패",
+        text: `${e.response.data.message}`,
       });
     }
   };
