@@ -8,6 +8,8 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import StudyRecruitBarSkeleton from "../../components/skeleton/StudyRecruit/StudyRecruitBarSkeleton";
 import RecruitBoxContainerSkeleton from "../../components/skeleton/StudyRecruit/RecruitBoxContainerSkeleton";
 import StudyRequestApi from "../../api/studyRequestAPI";
+import RequestBoxContainer from "../../components/studyRequest/RequestBoxContainer";
+import RequestDetailModal from "../../components/studyRequest/RequestDetailModal";
 
 export default function StudyRecruitPage() {
   const [studyRoomList, setStudyRoomList] = useState([]);
@@ -17,6 +19,10 @@ export default function StudyRecruitPage() {
   // 신청서 모달 상태
   const [showRequestFormModal, setShowRequestFormModal] = useState(false);
   const [requestRoomName, setRequestRoomName] = useState("");
+
+  // 내 신청 내역 모달
+  const [showRequestModal, setShowRequestModal] = useState(false); // 모달 open/close
+  const [selectedRequestModal, setSelectedRequestModal] = useState(null); // 선택된 신청 내역 데이터
 
   // 필터/페이지 상태
   const [tags, setTags] = useState([]);
@@ -29,21 +35,24 @@ export default function StudyRecruitPage() {
   const [loading, setLoading] = useState(false);
 
   // 데이터 불러오기
-  useEffect(() => {
+  const fetchList = useCallback(() => {
     setLoading(true);
-    const fetchList = search.trim()
+    const fetcher = search.trim()
       ? StudyRecruitApi.searchStudyRecruit({ title: search, page })
       : sortBy === "myRequest"
       ? StudyRequestApi.getMyRequests()
       : StudyRecruitApi.getStudyRecruit({ sortBy, tags, page });
-    fetchList.then((res) => {
+
+    fetcher.then((res) => {
       setStudyRoomList(res.content || []);
       setTotalPages(res.totalPages || 1);
       setLoading(false);
     });
-
-    console.log("StudyRecruitPage: ", fetchList);
   }, [sortBy, search, page, tags]);
+
+  useEffect(() => {
+    fetchList();
+  }, [fetchList]);
 
   // 상세조회 클릭 시 viewCount 동기화
   const handleIncreaseViewCount = useCallback((recruitId) => {
@@ -122,15 +131,18 @@ export default function StudyRecruitPage() {
           ) : sortBy === "myRequest" ? (
             // 내가 신청한 내역일 때
             studyRoomList.map((req) => (
-              <MyRequestBoxContainer
+              <RequestBoxContainer
                 key={req.id}
-                studyTitle={req.studyTitle}
-                message={req.message}
+                recruitTitle={req.recruitTitle}
+                recruitImage={req.recruitImage}
+                requestTitle={req.requestTitle}
+                requestMessage={req.requestMessage}
                 status={req.status}
                 requestedAt={req.requestedAt}
-                studyRecruit={req.studyRecruit}
                 onClick={() => {
-                  // 원하는 상세보기 등 기능 연결
+                  // 상세 모달 등 원하는 기능 연결
+                  setSelectedRequestModal(req);
+                  setShowRequestModal(true);
                 }}
               />
             ))
@@ -217,6 +229,17 @@ export default function StudyRecruitPage() {
           studyRecruitId={selectedModal.id}
           roomName={requestRoomName}
           onClose={handleCloseRequestFormModal}
+        />
+      )}
+
+      {showRequestModal && selectedRequestModal && (
+        <RequestDetailModal
+          request={selectedRequestModal}
+          onClose={() => setShowRequestModal(false)}
+          onSuccess={() => {
+            setShowRequestModal(false);
+            fetchList(); // 취소 성공 시 목록 새로고침
+          }}
         />
       )}
     </div>

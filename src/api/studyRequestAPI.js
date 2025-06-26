@@ -16,13 +16,13 @@ class StudyRequestApi extends BaseApi {
     const res = await this.fetcher.get("/study-request/my", {
       params: { page, size },
     });
-    return res.data; // Page<StudyRequestResponse>
+    return res.data;
   }
 
   // 3. 내가 신청한 특정 모집글의 내 신청 내역(단건)
   async getMyRequestByRecruit(studyRecruitId) {
     const res = await this.fetcher.get(`/study-request/my/${studyRecruitId}`);
-    return res.data; // StudyRequestResponse
+    return res.data;
   }
 
   // 4. 내가 신청한 내역 취소
@@ -31,7 +31,7 @@ class StudyRequestApi extends BaseApi {
   }
 
   // 5. 특정 모집글의 모든 지원자 내역 (리더 권한 필요, 페이지네이션)
-  async getRequestsByRecruit({ studyRecruitId, page = 0, size = 5 }) {
+  async getRequestsByRecruit({ studyRecruitId, page = 0, size = 4 }) {
     const res = await this.fetcher.get(
       `/study-request/recruit/${studyRecruitId}`,
       { params: { page, size } }

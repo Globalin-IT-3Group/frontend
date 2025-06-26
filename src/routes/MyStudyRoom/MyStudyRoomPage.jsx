@@ -13,6 +13,7 @@ import MemberProfileSkeleton from "../../components/skeleton/MyStudyRoom/MemberP
 import StudyRoomRuleSkeleton from "../../components/skeleton/MyStudyRoom/StudyRoomRuleSkeleton";
 import Skeleton from "react-loading-skeleton";
 import StudyNoteSkeleteon from "../../components/skeleton/MyStudyRoom/StudyNoteSkeleteon";
+import StudyRequestApi from "../../api/studyRequestAPI";
 
 export default function MyStudyRoomPage() {
   const { studyRoomId } = useParams(); // 스터디방 id
@@ -25,38 +26,57 @@ export default function MyStudyRoomPage() {
   const navigate = useNavigate();
   const [showSkeleton, setShowSkeleton] = useState(true);
 
+  // 지원자 관리
+  const [requestList, setRequestList] = useState([]);
+  const [requestPage, setRequestPage] = useState(0);
+  const [requestTotalPages, setRequestTotalPages] = useState(1);
+  const [loadingRequest, setLoadingRequest] = useState(false);
+
+  // 스켈레톤 로딩
   useEffect(() => {
     const timer = setTimeout(() => setShowSkeleton(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
+  // 스터디룸 상세 조회
   useEffect(() => {
     setLoading(true);
     StudyRoomApi.getStudyRoomDetail(studyRoomId)
       .then((result) => {
-        console.log(result);
         setStudyRoom(result);
       })
       .finally(() => setLoading(false));
   }, [studyRoomId]);
 
-  // 구인글 정보
+  // 구인글 정보 조회
   useEffect(() => {
     if (!studyRoomId) return;
     setRecruitLoading(true);
     StudyRecruitApi.getStudyRecruitInStudyRoom(studyRoomId)
-      .then((res) => {
-        setStudyRecruit(res);
-        console.log("구인글 정보: ", res);
-      })
+      .then((res) => setStudyRecruit(res))
       .catch(() => setStudyRecruit(null)) // 없으면 null
       .finally(() => setRecruitLoading(false));
   }, [studyRoomId]);
 
-  // 콜백
+  // 지원자 목록 조회(구인글이 있을 때만)
+  useEffect(() => {
+    if (!studyRecruit?.id) return;
+    setLoadingRequest(true);
+    StudyRequestApi.getRequestsByRecruit({
+      studyRecruitId: studyRecruit.id,
+      page: requestPage, // ← 이 부분!
+      size: 4,
+    })
+      .then((res) => {
+        setRequestList(res.content || []);
+        setRequestTotalPages(res.totalPages || 1);
+      })
+      .finally(() => setLoadingRequest(false));
+  }, [studyRecruit?.id, requestPage]);
+
+  // 구인글 작성/수정 성공 후 재조회
   const handleRecruitSuccess = () => {
     setShowRecruitModal(false);
-    // 저장 성공 시 구인글 다시 조회
     StudyRecruitApi.getStudyRecruitInStudyRoom(studyRoomId).then(
       setStudyRecruit
     );
@@ -93,6 +113,12 @@ export default function MyStudyRoomPage() {
                   studyRecruit={studyRecruit}
                   recruitLoading={recruitLoading}
                   onRecruitWrite={() => setShowRecruitModal(true)}
+                  // 아래 지원자 정보는 필요 시 내려주고, MemberProfile에서 렌더링하거나 넘겨만 주세요!
+                  requestList={requestList}
+                  loadingRequest={loadingRequest}
+                  requestPage={requestPage}
+                  requestTotalPages={requestTotalPages}
+                  onRequestPageChange={setRequestPage}
                 />
                 <StudyRoomRule rule={studyRoom.rule} />
               </>
@@ -138,7 +164,7 @@ export default function MyStudyRoomPage() {
         </button>
         {/* 페이지 이동 버튼 */}
         <button
-          onClick={() => navigate("/video-room")} // 원하는 경로로 수정
+          onClick={() => navigate("/video-room")}
           className="flex flex-col items-center justify-center rounded-2xl p-4 shadow-sm transition-all duration-300 space-y-1 bg-pink-100 hover:bg-pink-200 hover:scale-105"
         >
           <div className="text-3xl">🎦</div>
@@ -155,14 +181,19 @@ export default function MyStudyRoomPage() {
             <StudyNote studyRoomId={studyRoom.id} />
           ))}
         {activeTab === "chat" && <StudyChat />}
-        {/* 🎦은 여기 X, 그냥 페이지 이동만 */}
       </div>
+
       <StudyRecruitFormModal
         open={showRecruitModal}
         onClose={() => setShowRecruitModal(false)}
         studyRoomId={studyRoom.id}
-        studyRecruit={studyRecruit} // ★ 구인글 데이터 전달
+        studyRecruit={studyRecruit}
         onSuccess={handleRecruitSuccess}
+        applicantList={requestList}
+        applicantLoading={loadingRequest}
+        onPageChange={setRequestPage}
+        applicantPage={requestPage}
+        applicantTotalPages={requestTotalPages}
       />
     </div>
   );

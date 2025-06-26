@@ -8,28 +8,24 @@ export default function MemberProfile({
   recruitLoading,
   onRecruitWrite,
 }) {
-  console.log(studyRecruit);
-
   return (
     <div className="flex w-full flex-col gap-4 relative w-fit">
       {/* 방장 */}
       <div className="flex h-[120px] bg-blue-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
-        {/* 프로필+별 겹침 레이아웃 */}
-        <div className="w-1/2 flex items-center justify-center p-4 gap-4">
-          <div className="relative">
-            {/* ⭐ 좌측 상단 별 */}
-            <span className="absolute -left-8 -top-3 bg-white/70 rounded-full p-1 text-yellow-400 text-xl shadow">
+        <div className="flex w-1/2 items-center justify-center p-4 gap-4">
+          <img
+            src={leader?.profileImageUrl || "/default.jpg"}
+            alt="leader"
+            className="w-full max-w-[70px] h-auto rounded-full shadow-[0_0_6px_rgba(0,0,0,0.1)] object-cover"
+          />
+          <div className="flex items-center gap-2">
+            <span className="bg-white/70 rounded-full p-1 text-yellow-400 text-xl">
               <FaStar />
             </span>
-            <img
-              src={leader?.profileImageUrl || "/default.jpg"}
-              alt="leader"
-              className="w-18 h-18 rounded-full shadow-[0_0_6px_rgba(0,0,0,0.1)] object-cover"
-            />
+            <p className="font-bold text-lg whitespace-nowrap">
+              {leader?.nickname || "방장"}
+            </p>
           </div>
-          <p className="font-bold text-lg whitespace-nowrap">
-            {leader?.nickname || "방장"}
-          </p>
         </div>
         {/* 구인 작성 버튼 */}
         <button
@@ -49,10 +45,9 @@ export default function MemberProfile({
           )}
         </button>
       </div>
-
       {/* 멤버 */}
       <div className="relative w-full">
-        <div className="flex items-center justify-center gap-x-10 h-[120px] bg-gray-100 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
+        <div className="flex items-center justify-center gap-x-10 h-[120px] bg-gray-100 dark:bg-zinc-400 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
           {members && members.length > 0 ? (
             members.map((m) => (
               <div key={m.userId} className="flex flex-col items-center">
@@ -65,7 +60,9 @@ export default function MemberProfile({
               </div>
             ))
           ) : (
-            <span className="text-gray-400">아직 멤버가 없습니다</span>
+            <span className="text-gray-400 dark:text-white">
+              아직 멤버가 없습니다
+            </span>
           )}
         </div>
       </div>
