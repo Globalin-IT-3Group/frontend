@@ -34,6 +34,14 @@ class NoteApi extends BaseApi {
     const res = await this.fetcher.delete(`/note/${noteId}`);
     return res.data;
   }
+
+  // 노트 제목으로 검색
+  async searchMyNotes(title) {
+    const res = await this.fetcher.get(`/note/search`, {
+      params: { title },
+    });
+    return res.data;
+  }
 }
 
 export default new NoteApi();
