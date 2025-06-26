@@ -105,7 +105,7 @@ export default function MyNoteForm({ mode = "create" }) {
 
         {/* 썸네일 URL 입력 */}
         <input
-          placeholder="이미지 URL 입력 (선택)"
+          placeholder="이미지 URL 입력 (기본값 : 핑구)"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           className="w-full border p-2 rounded mb-4"

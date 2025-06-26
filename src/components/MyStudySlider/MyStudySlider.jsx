@@ -103,15 +103,13 @@ export default function MyStudySlider({
             return (
               <div key="add" className="px-2">
                 <div
-                  className={`mx-auto md:aspect-[3/3] max-w-[200px] rounded-4xl overflow-hidden flex items-center justify-center transition-all duration-500
-                    ${
-                      isCenter ? "scale-100 opacity-100" : "scale-90 opacity-60"
-                    }
-                  `}
+                  className={`group relative mx-auto md:aspect-[3/3] max-w-[200px] rounded-4xl overflow-hidden flex items-center justify-center transition-all duration-500
+          ${isCenter ? "scale-100 opacity-100" : "scale-90 opacity-60"}
+        `}
                 >
                   <button
                     onClick={() => setModalOpen(true)}
-                    className="w-full h-full text-4xl bg-gray-100 dark:bg-zinc-600 text-gray-600 dark:text-white hover:bg-gray-300 dark:hover:bg-zinc-500 transition rounded-4xl"
+                    className="min-w-23 min-h-23 w-full h-full rounded-4xl bg-gray-200 dark:bg-zinc-600 text-3xl font-bold text-gray-600 dark:text-white hover:bg-gray-300 dark:hover:bg-zinc-500 transition-all"
                   >
                     +
                   </button>

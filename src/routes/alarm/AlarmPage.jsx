@@ -63,7 +63,7 @@ export default function AlarmPage() {
         <span className="dark:text-white">알람 페이지</span>
       </div>
       {/* 탭 */}
-      <div className="flex space-x-8 ml-4 pb-4">
+      <div className="flex overflow-x-auto scrollbar-none space-x-6 px-2 pb-4 -mx-2">
         {ALARM_TABS.map((tab) => {
           const isActive = activeTab.label === tab.label;
           return (
