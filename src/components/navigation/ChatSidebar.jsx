@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import chatRoomApi from "../../api/chatRoomApi";
+import { Link, useNavigate } from "react-router-dom";
 import ChatRoomList from "../chat/sidebar/ChatRoomList";
+import chatRoomApi from "../../api/chatRoomAPI";
+import { MdHome } from "react-icons/md";
 
 function ChatSidebar() {
   const [rooms, setRooms] = useState([]);
@@ -16,8 +17,16 @@ function ChatSidebar() {
   };
 
   return (
-    <div className="h-full p-4 dark:text-white overflow-y-auto border-r border-gray-300">
-      <h2 className="text-xl font-bold mb-4">💬 채팅방</h2>
+    <div className="h-full p-4 dark:text-white border-r border-gray-300">
+      <div className="flex gap-3 p-2 items-center justify-between">
+        <h2 className="text-xl font-bold mb-4">💬 채팅방</h2>
+        <Link to="/main">
+          <MdHome
+            size={20}
+            className="mb-4 text-gray-600 hover:scale-120 hover:text-gray-800 transition duration-300"
+          />
+        </Link>
+      </div>
       <ChatRoomList rooms={rooms} onClickRoom={handleRoomClick} />
     </div>
   );
