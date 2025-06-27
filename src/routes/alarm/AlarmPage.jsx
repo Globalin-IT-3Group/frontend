@@ -54,6 +54,13 @@ export default function AlarmPage() {
     ? alarms.filter((alarm) => alarm.type === activeTab.type)
     : alarms;
 
+  const handleRead = async (notificationId) => {
+    await NotificationApi.markAsRead(notificationId);
+    setAlarms((prev) =>
+      prev.map((a) => (a.id === notificationId ? { ...a, read: true } : a))
+    );
+  };
+
   if (loading) return <KotsuKotsuLoader />;
 
   return (
@@ -95,7 +102,11 @@ export default function AlarmPage() {
       </div>
 
       {/* 알림 리스트 */}
-      {fakeLoading ? <AlarmSkeleton /> : <AlarmList alarms={filtered} />}
+      {fakeLoading ? (
+        <AlarmSkeleton />
+      ) : (
+        <AlarmList alarms={filtered} onRead={handleRead} />
+      )}
 
       {/* 페이지네이션(옵션) */}
       <div className="flex justify-center gap-2 mt-8 mb-6">
