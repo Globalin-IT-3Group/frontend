@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import NewsApi from "../../api/newsAPI";
 import WordApi from "../../api/wordAPI";
 import noteAPI from "../../api/noteAPI";
+import boardAPI from "../../api/boardAPI";
 import { RiSearch2Line } from "react-icons/ri";
 import News from "../../components/main/News";
 import MyStudySliderSkeleton from "../../components/skeleton/Main/MyStudySliderSkeleton";
@@ -25,6 +26,7 @@ export default function MainPage() {
   const [news, setNews] = useState([]);
   const [myNotes, setMynotes] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
+  const [latestBoards, setLatestBoards] = useState([]);
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
@@ -45,6 +47,10 @@ export default function MainPage() {
       console.log(result); // 개발자 도구 켜서 보면 데이터 확인 가능!!
       // 이 result로 데이터를 다뤄볼 것!!
     });
+  }, []);
+
+  useEffect(() => {
+    boardAPI.getLatestBoards().then(setLatestBoards);
   }, []);
 
   const handleCardClick = (word) => {
@@ -151,7 +157,6 @@ export default function MainPage() {
                   노트가 없습니다.
                 </div>
               ) : (
-                // ✅ 여기부터 전체 노트 리스트
                 <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
                   {myNotes.map((note) => (
                     <div
@@ -168,11 +173,36 @@ export default function MainPage() {
                     </div>
                   ))}
                 </div>
-                // ✅ 여기까지
               )}
             </div>
           </div>
-          <div className="w-full aspect-[5/4] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
+          <div className="w-full aspect-[5/4] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow p-4">
+            <h2 className="text-md font-semibold mb-2">
+              📰 자유 게시판 최신 글
+            </h2>
+            <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700 overflow-y-auto max-h-full">
+              {latestBoards.length === 0 ? (
+                <div className="flex justify-center items-center h-full text-sm text-gray-400 dark:text-gray-300">
+                  게시글이 없습니다.
+                </div>
+              ) : (
+                latestBoards.map((board) => (
+                  <div
+                    key={board.id}
+                    className="px-2 py-3 hover:bg-blue-50 dark:hover:bg-zinc-600 cursor-pointer transition"
+                    onClick={() => navigate(`/community/${board.id}`)}
+                  >
+                    <p className="font-semibold text-sm truncate">
+                      {board.title}
+                    </p>
+                    <p className="text-xs text-gray-400 dark:text-gray-300 truncate">
+                      {board.content?.replace(/\n/g, " ").slice(0, 15)}...
+                    </p>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

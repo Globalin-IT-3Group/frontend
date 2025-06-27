@@ -44,6 +44,12 @@ class BoardApi extends BaseApi {
     });
     return res.data; // Page<Board>
   }
+
+  // 최신글 4개만 불러오기
+  async getLatestBoards() {
+    const res = await this.fetcher.get("/board/latest");
+    return res.data;
+  }
 }
 
 export default new BoardApi();
