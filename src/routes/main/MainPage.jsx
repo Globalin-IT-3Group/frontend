@@ -15,6 +15,8 @@ import MyStudySliderSkeleton from "../../components/skeleton/Main/MyStudySliderS
 import NewsSkeleton from "../../components/skeleton/Main/NewsSkeleton";
 import Skeleton from "react-loading-skeleton";
 import WordSliderSkeleton from "../../components/skeleton/Main/WordSliderSkeleton";
+import MyNoteListSkeleton from "../../components/skeleton/Main/MyNoteListSkeleton";
+import BoardListSkeleton from "../../components/skeleton/Main/BoardListSkeleton";
 
 export default function MainPage() {
   // context에서 스터디방 정보, 새로고침 함수 받기
@@ -151,57 +153,74 @@ export default function MainPage() {
             </div>
 
             {/* 📘 노트 리스트 */}
-            <div className="flex flex-col gap-2 overflow-y-auto max-h-[80%] h-full w-full pr-1">
-              {myNotes.length === 0 ? (
-                <div className="flex items-center justify-center h-full w-full text-gray-400 dark:text-gray-300 text-sm">
-                  노트가 없습니다.
-                </div>
-              ) : (
-                <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
-                  {myNotes.map((note) => (
-                    <div
-                      key={note.id}
-                      className="px-2 py-3 hover:bg-blue-50 dark:hover:bg-zinc-600 cursor-pointer transition"
-                      onClick={() => navigate(`/note/${note.id}`)}
-                    >
-                      <p className="font-semibold text-sm truncate">
-                        {note.title}
-                      </p>
-                      <p className="text-xs text-gray-400 dark:text-gray-300 truncate">
-                        {note.content?.replace(/\n/g, " ").slice(0, 15)}.....
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            {fakeLoading ? (
+              <MyNoteListSkeleton />
+            ) : (
+              <div className="flex flex-col gap-2 overflow-y-auto max-h-[80%] h-full w-full pr-1">
+                {myNotes.length === 0 ? (
+                  <div className="flex items-center justify-center h-full w-full text-gray-400 dark:text-gray-300 text-sm">
+                    노트가 없습니다.
+                  </div>
+                ) : (
+                  <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
+                    {myNotes.map((note) => (
+                      <div
+                        key={note.id}
+                        className="px-2 py-3 hover:bg-blue-50 dark:hover:bg-zinc-600 cursor-pointer transition"
+                        onClick={() => navigate(`/note/${note.id}`)}
+                      >
+                        <p className="font-semibold text-sm truncate">
+                          {note.title}
+                        </p>
+                        <p className="text-xs text-gray-400 dark:text-gray-300 truncate">
+                          {note.content?.replace(/\n/g, " ").length > 15
+                            ? `${note.content
+                                .replace(/\n/g, " ")
+                                .slice(0, 15)}...`
+                            : note.content?.replace(/\n/g, " ")}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-          <div className="w-full aspect-[5/4] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow p-4">
+
+          <div className="w-full aspect-[6/6] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow p-4">
             <h2 className="text-md font-semibold mb-2">
               📰 자유 게시판 최신 글
             </h2>
-            <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700 overflow-y-auto max-h-full">
-              {latestBoards.length === 0 ? (
-                <div className="flex justify-center items-center h-full text-sm text-gray-400 dark:text-gray-300">
-                  게시글이 없습니다.
-                </div>
-              ) : (
-                latestBoards.map((board) => (
-                  <div
-                    key={board.id}
-                    className="px-2 py-3 hover:bg-blue-50 dark:hover:bg-zinc-600 cursor-pointer transition"
-                    onClick={() => navigate(`/community/${board.id}`)}
-                  >
-                    <p className="font-semibold text-sm truncate">
-                      {board.title}
-                    </p>
-                    <p className="text-xs text-gray-400 dark:text-gray-300 truncate">
-                      {board.content?.replace(/\n/g, " ").slice(0, 15)}...
-                    </p>
+            {fakeLoading ? (
+              <BoardListSkeleton />
+            ) : (
+              <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700 overflow-y-auto max-h-full">
+                {latestBoards.length === 0 ? (
+                  <div className="flex justify-center items-center h-full text-sm text-gray-400 dark:text-gray-300">
+                    게시글이 없습니다.
                   </div>
-                ))
-              )}
-            </div>
+                ) : (
+                  latestBoards.map((board) => (
+                    <div
+                      key={board.id}
+                      className="px-2 py-3 hover:bg-blue-50 dark:hover:bg-zinc-600 cursor-pointer transition"
+                      onClick={() => navigate(`/community/${board.id}`)}
+                    >
+                      <p className="font-semibold text-sm truncate">
+                        {board.title}
+                      </p>
+                      <p className="text-xs text-gray-400 dark:text-gray-300 truncate">
+                        {board.content?.replace(/\n/g, " ").length > 15
+                          ? `${board.content
+                              .replace(/\n/g, " ")
+                              .slice(0, 15)}...`
+                          : board.content?.replace(/\n/g, " ")}
+                      </p>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
