@@ -43,45 +43,47 @@ export default function StudyNoteDetail() {
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
       <div className="w-full max-w-3xl bg-white rounded-2xl shadow-xl p-8">
-        {/* 상단 바: 뒤로가기/수정 */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-10 h-44 md:h-56 relative flex items-center rounded-t-xl justify-center overflow-hidden">
+          <img
+            src={thumbnail}
+            alt="썸네일"
+            className="h-full w-auto max-h-full object-contain "
+          />
+          <div className="absolute inset-0 bg-black/20" />
+          {/* 좌상단: 뒤로가기 */}
           <button
+            className="absolute top-4 left-4 bg-black/50 hover:shadow-xl hover:bg-black/90 rounded-full p-2 z-10
+      transition-colors duration-200 ease-in-out shadow"
             onClick={() => navigate(-1)}
-            className="text-gray-400 hover:text-gray-700 py-1 rounded transition flex items-center"
+            title="뒤로가기"
           >
-            <HiArrowLeft className="w-6 h-6" />
+            <HiArrowLeft className="w-6 h-6 text-white" />
           </button>
+          {/* 우상단: 수정 */}
           {userId === note.user?.id && (
             <button
-              className="
-                flex items-center gap-2
-                px-4 py-2 rounded-lg font-semibold
-                border border-blue-500 bg-white text-blue-500
-                shadow-sm hover:bg-blue-600 hover:text-white hover:shadow
-                transition
-              "
+              className="absolute top-4 right-4 bg-black/50 hover:shadow-xl hover:bg-black/90 rounded-xl p-2 z-10 border border-white/70
+        transition-colors duration-200 ease-in-out shadow"
               onClick={() =>
                 navigate(
                   `/study/mystudyroom/${studyRoomId}/notes/${note.id}/edit`
                 )
               }
+              title="수정"
             >
-              <HiOutlinePencilSquare className="w-4 h-6" />
+              <HiOutlinePencilSquare className="w-6 h-6 text-white" />
             </button>
           )}
         </div>
-        {/* 썸네일 */}
-        <img
-          src={thumbnail}
-          alt="썸네일"
-          className="w-full max-h-60 object-cover mb-4 rounded-xl shadow"
-        />
-        {/* 제목 */}
-        <div className="text-3xl font-bold mb-1">{note.title}</div>
-        {/* 날짜 */}
-        <div className="text-sm text-gray-400 mb-3">
-          {new Date(note.createdAt).toLocaleDateString("ko-KR")}
+
+        {/* 제목 + 날짜 */}
+        <div className="flex items-end justify-between mb-5">
+          <div className="text-4xl font-bold">{note.title}</div>
+          <div className="text-sm text-gray-400 pb-1">
+            {new Date(note.createdAt).toLocaleDateString("ko-KR")}
+          </div>
         </div>
+
         {/* 본문 (마크다운) */}
         <div className="prose prose-lg max-w-none font-serif text-gray-800 min-h-[200px] mb-8">
           <ReactMarkdown
@@ -137,7 +139,7 @@ export default function StudyNoteDetail() {
           </span>
         </div>
         {/* ===== 댓글 영역 ===== */}
-        <div className="border-t pt-7 mt-8">
+        <div className="border-t border-gray-400 pt-6 mt-7">
           <div className="font-bold text-lg mb-2 text-gray-400">댓글</div>
           <CommentInput
             boardId={note.id}
