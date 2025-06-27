@@ -4,6 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import ChatRoomApi from "../../api/chatRoomAPI";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const TAB_LIST = [
   { label: "친구 목록", key: "friend" },
@@ -18,6 +19,22 @@ export default function FriendListModal({ open, onClose }) {
 
   const userId = useSelector((state) => state.auth.id);
   const navigate = useNavigate();
+
+  const RejectConfirm = async () => {
+    const result = await Swal.fire({
+      title: "친구 요청을 거절하시겠습니까?",
+      text: "거절 후 취소는 불가능합니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "거절",
+      cancelButtonText: "취소",
+    });
+    return result.isConfirmed;
+  };
 
   // 탭에 따라 API 호출
   useEffect(() => {
@@ -60,8 +77,22 @@ export default function FriendListModal({ open, onClose }) {
 
   // 요청 취소
   const handleCancel = async (addresseeId) => {
-    await friendAPI.cancelRequest(addresseeId);
+    await friendAPI.requestOrCancelFriend(addresseeId);
     setList(list.filter((u) => u.id !== addresseeId));
+  };
+
+  //요청 거절
+  const handleRejectRequest = async (requesterId) => {
+    const confirmed = await RejectConfirm();
+    if (!confirmed) return;
+
+    try {
+      await friendAPI.rejectFriendRequest(requesterId);
+      setList(list.filter((u) => u.id !== requesterId));
+    } catch (err) {
+      console.error("요청 거절 에러:", err);
+      alert("요청을 거절하는 중 문제가 발생했습니다");
+    }
   };
 
   if (!open) return null;
@@ -140,12 +171,20 @@ export default function FriendListModal({ open, onClose }) {
                     </>
                   )}
                   {activeTab === "received" && (
-                    <button
-                      className="px-3 py-1 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
-                      onClick={() => handleAccept(user.id)}
-                    >
-                      수락
-                    </button>
+                    <>
+                      <button
+                        className="px-3 py-1 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+                        onClick={() => handleAccept(user.id)}
+                      >
+                        수락
+                      </button>
+                      <button
+                        className="px-3 py-1 bg-red-100 text-red-600 rounded-xl hover:bg-red-200"
+                        onClick={() => handleRejectRequest(user.id)}
+                      >
+                        거절
+                      </button>
+                    </>
                   )}
                   {activeTab === "pending" && (
                     <button
