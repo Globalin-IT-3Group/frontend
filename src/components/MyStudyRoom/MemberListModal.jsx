@@ -15,7 +15,7 @@ export default function MemberListModal({
   studyRoomId,
   onRefresh,
 }) {
-  const [friendStatus, setFriendStatus] = useState({});
+  const [friendRelation, setFriendRelation] = useState({});
   const [loadingId, setLoadingId] = useState(null);
 
   useEffect(() => {
@@ -24,26 +24,29 @@ export default function MemberListModal({
       members.forEach((m) => {
         if (m.userId !== myUserId) {
           friendAPI.getFriendRelation(m.userId).then((rel) => {
-            setFriendStatus((prev) => ({ ...prev, [m.userId]: rel?.status }));
+            setFriendRelation((prev) => ({ ...prev, [m.userId]: rel }));
           });
         }
       });
     }
-    if (!open) setFriendStatus({});
+    if (!open) setFriendRelation({});
   }, [open, members, myUserId]);
 
   const handleFriend = async (targetUserId) => {
     setLoadingId(targetUserId);
 
-    // optimistic UI
-    setFriendStatus((prev) => ({
-      ...prev,
-      [targetUserId]: prev[targetUserId] === "PENDING" ? null : "PENDING",
-    }));
-
     await friendAPI.requestOrCancelFriend(targetUserId);
     const rel = await friendAPI.getFriendRelation(targetUserId);
-    setFriendStatus((prev) => ({ ...prev, [targetUserId]: rel?.status }));
+    setFriendRelation((prev) => ({ ...prev, [targetUserId]: rel }));
+    setLoadingId(null);
+  };
+
+  // 친구 요청 수락
+  const handleAccept = async (targetUserId) => {
+    setLoadingId(targetUserId);
+    await friendAPI.acceptFriendRequest(targetUserId);
+    const rel = await friendAPI.getFriendRelation(targetUserId);
+    setFriendRelation((prev) => ({ ...prev, [targetUserId]: rel }));
     setLoadingId(null);
   };
 
@@ -122,7 +125,8 @@ export default function MemberListModal({
         <div className="flex flex-col gap-4">
           {members.map((m) => {
             const isMe = m.userId === myUserId;
-            const status = friendStatus[m.userId];
+            const rel = friendRelation[m.userId];
+            const status = rel?.status;
 
             // 버튼 분기
             let rightButton = null;
@@ -136,7 +140,10 @@ export default function MemberListModal({
                     <FaUserFriends className="inline-block" /> 친구
                   </button>
                 );
-              } else if (status === "PENDING") {
+              } else if (
+                status === "PENDING" &&
+                rel?.requesterId === myUserId
+              ) {
                 rightButton = (
                   <button
                     className="bg-gray-400 text-white text-xs px-2 py-2 rounded-xl shadow hover:bg-gray-500 transition"
@@ -144,6 +151,19 @@ export default function MemberListModal({
                     onClick={() => handleFriend(m.userId)}
                   >
                     친구 요청 중 (취소)
+                  </button>
+                );
+              } else if (
+                status === "PENDING" &&
+                rel?.addresseeId === myUserId
+              ) {
+                rightButton = (
+                  <button
+                    className="bg-blue-600 text-white text-xs px-2 py-2 rounded-xl shadow hover:bg-blue-700 transition flex items-center gap-1"
+                    disabled={loadingId === m.userId}
+                    onClick={() => handleAccept(m.userId)}
+                  >
+                    친구 요청 수락
                   </button>
                 );
               } else {

@@ -47,6 +47,15 @@ class FriendApi extends BaseApi {
     const res = await this.fetcher.post("/friend/accept", { requesterId });
     return res.data;
   }
+
+  // 친구 요청 거절 (받은 요청 삭제)
+  async rejectFriendRequest(requesterId) {
+    // DELETE /friend/reject  { requesterId }
+    const res = await this.fetcher.delete("/friend/reject", {
+      data: { requesterId },
+    });
+    return res.data;
+  }
 }
 
 export default new FriendApi();
