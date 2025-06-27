@@ -40,8 +40,6 @@ export default function FriendListModal({ open, onClose }) {
       targetId: otherUser.id, // 친구 ID
     });
 
-    console.log(res);
-
     navigate(`/chat?roomId=${res.id}`, {
       state: { otherUser },
     });

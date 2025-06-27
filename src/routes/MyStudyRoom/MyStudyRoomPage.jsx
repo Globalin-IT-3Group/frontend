@@ -92,11 +92,13 @@ export default function MyStudyRoomPage() {
             ) : (
               <>
                 <MemberProfile
+                  studyRoomId={studyRoomId}
                   leader={leader}
                   members={members}
                   studyRecruit={studyRecruit}
                   recruitLoading={recruitLoading}
                   onRecruitWrite={() => setShowRecruitModal(true)}
+                  onRefresh={fetchStudyRoom}
                 />
                 <StudyRoomRule rule={studyRoom.rule} />
               </>

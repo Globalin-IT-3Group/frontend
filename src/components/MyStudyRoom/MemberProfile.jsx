@@ -1,14 +1,23 @@
 import { FaStar } from "react-icons/fa6";
 import { PiNotePencilLight, PiNoteFill } from "react-icons/pi";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
+import { FaUserCog } from "react-icons/fa";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import MemberListModal from "./MemberListModal";
 
 export default function MemberProfile({
+  studyRoomId,
   leader,
   members,
   studyRecruit,
   recruitLoading,
   onRecruitWrite,
+  onRefresh,
 }) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const user = useSelector((state) => state.auth);
+
   return (
     <div className="flex w-full flex-col gap-4 relative w-fit">
       {/* 방장 */}
@@ -50,6 +59,15 @@ export default function MemberProfile({
       </div>
       {/* 멤버 */}
       <div className="relative w-full">
+        {/* 우측 상단 버튼 */}
+        <button
+          className="absolute right-4 top-4 text-2xl text-gray-400 hover:text-blue-600 transition z-10"
+          onClick={() => setModalOpen(true)}
+          aria-label="멤버 관리"
+        >
+          <FaUserCog />
+        </button>
+
         <div className="flex items-center justify-center gap-x-10 h-[120px] bg-gray-100 dark:bg-zinc-400 rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)]">
           {members && members.length > 0 ? (
             members.map((m) => (
@@ -68,6 +86,15 @@ export default function MemberProfile({
             </span>
           )}
         </div>
+        {/* 멤버 모달 */}
+        <MemberListModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          members={members}
+          myUserId={user.id}
+          studyRoomId={studyRoomId}
+          onRefresh={onRefresh}
+        />
       </div>
     </div>
   );
