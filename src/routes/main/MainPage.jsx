@@ -7,6 +7,8 @@ import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NewsApi from "../../api/newsAPI";
 import WordApi from "../../api/wordAPI";
+import noteAPI from "../../api/noteAPI";
+import { RiSearch2Line } from "react-icons/ri";
 import News from "../../components/main/News";
 import MyStudySliderSkeleton from "../../components/skeleton/Main/MyStudySliderSkeleton";
 import NewsSkeleton from "../../components/skeleton/Main/NewsSkeleton";
@@ -21,6 +23,8 @@ export default function MainPage() {
   const [selectedWord, setSelectedWord] = useState(null);
   const [vocabList, setVocabList] = useState([]);
   const [news, setNews] = useState([]);
+  const [myNotes, setMynotes] = useState([]);
+  const [searchTitle, setSearchTitle] = useState("");
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
@@ -46,6 +50,19 @@ export default function MainPage() {
   const handleCardClick = (word) => {
     setSelectedWord(word);
   };
+
+  // ✅ 전체 노트 목록 or 검색 결과 가져오기
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (searchTitle.trim() === "") {
+        noteAPI.getNotes().then(setMynotes); // 검색어 없으면 전체 목록
+      } else {
+        noteAPI.searchMyNotes(searchTitle).then(setMynotes); // 실시간 검색
+      }
+    }, 300); // debounce 효과 (0.3초 후 요청)
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchTitle]);
 
   const closeModal = () => setSelectedWord(null);
 
@@ -114,7 +131,43 @@ export default function MainPage() {
                 )}
             </>
           )}
-          <div className="w-full aspect-[7/6] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
+          <div className="w-full aspect-[7/6] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow p-4">
+            {/* 🔍 검색창 */}
+            <div className="flex items-center mb-4 gap-2">
+              <RiSearch2Line className="text-xl text-gray-500 dark:text-gray-300" />
+              <input
+                type="text"
+                value={searchTitle}
+                onChange={(e) => setSearchTitle(e.target.value)}
+                placeholder="노트 제목 검색"
+                className="flex-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:outline-none text-sm py-1 text-black dark:text-white placeholder-gray-400"
+              />
+            </div>
+
+            {/* 📘 노트 리스트 */}
+            <div className="flex flex-col gap-2 overflow-y-auto max-h-[80%] pr-1">
+              {myNotes.length === 0 ? (
+                <p className="text-gray-400 dark:text-gray-300 text-sm">
+                  노트가 없습니다.
+                </p>
+              ) : (
+                myNotes.map((note) => (
+                  <div
+                    key={note.id}
+                    className="p-3 bg-white dark:bg-zinc-800 rounded-xl shadow hover:bg-blue-50 dark:hover:bg-zinc-600 cursor-pointer transition"
+                    onClick={() => navigate(`/note/${note.id}`)}
+                  >
+                    <p className="font-semibold text-sm truncate">
+                      {note.title}
+                    </p>
+                    <p className="text-xs text-gray-400 dark:text-gray-300 truncate">
+                      {note.content?.replace(/\n/g, " ").slice(0, 50)}...
+                    </p>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
           <div className="w-full aspect-[5/4] max-w-md mx-auto bg-white dark:bg-zinc-700 rounded-4xl shadow" />
         </div>
       </div>
