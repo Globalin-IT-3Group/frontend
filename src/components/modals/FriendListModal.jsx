@@ -20,7 +20,7 @@ export default function FriendListModal({ open, onClose }) {
   const userId = useSelector((state) => state.auth.id);
   const navigate = useNavigate();
 
-  const RejectConfirm = async () => {
+  const rejectConfirm = async () => {
     const result = await Swal.fire({
       title: "친구 요청을 거절하시겠습니까?",
       text: "거절 후 취소는 불가능합니다.",
@@ -31,6 +31,22 @@ export default function FriendListModal({ open, onClose }) {
       confirmButtonColor: "#003CFF",
       cancelButtonColor: "#D9D9D9",
       confirmButtonText: "거절",
+      cancelButtonText: "취소",
+    });
+    return result.isConfirmed;
+  };
+
+  const deleteConfirm = async () => {
+    const result = await Swal.fire({
+      title: "친구를 삭제하시겠습니까?",
+      text: "삭제 후 취소는 불가능합니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "삭제",
       cancelButtonText: "취소",
     });
     return result.isConfirmed;
@@ -64,9 +80,16 @@ export default function FriendListModal({ open, onClose }) {
 
   // 친구 삭제
   const handleDelete = async (userId) => {
-    if (!window.confirm("정말 친구를 삭제하시겠습니까?")) return;
-    await friendAPI.deleteFriend(userId);
-    setList(list.filter((u) => u.id !== userId));
+    const confirmed = await deleteConfirm();
+    if (!confirmed) return;
+
+    try {
+      await friendAPI.deleteFriend(userId);
+      setList(list.filter((u) => u.id !== userId));
+    } catch (err) {
+      console.error("친구 삭제 에러:", err);
+      alert("친구를 삭제하는 중 문제가 발생했습니다");
+    }
   };
 
   // 요청 수락
@@ -83,7 +106,7 @@ export default function FriendListModal({ open, onClose }) {
 
   //요청 거절
   const handleRejectRequest = async (requesterId) => {
-    const confirmed = await RejectConfirm();
+    const confirmed = await rejectConfirm();
     if (!confirmed) return;
 
     try {
