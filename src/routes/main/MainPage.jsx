@@ -139,32 +139,36 @@ export default function MainPage() {
                 type="text"
                 value={searchTitle}
                 onChange={(e) => setSearchTitle(e.target.value)}
-                placeholder="노트 제목 검색"
+                placeholder="내 노트 검색"
                 className="flex-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:outline-none text-sm py-1 text-black dark:text-white placeholder-gray-400"
               />
             </div>
 
             {/* 📘 노트 리스트 */}
-            <div className="flex flex-col gap-2 overflow-y-auto max-h-[80%] pr-1">
+            <div className="flex flex-col gap-2 overflow-y-auto max-h-[80%] h-full w-full pr-1">
               {myNotes.length === 0 ? (
-                <p className="text-gray-400 dark:text-gray-300 text-sm">
+                <div className="flex items-center justify-center h-full w-full text-gray-400 dark:text-gray-300 text-sm">
                   노트가 없습니다.
-                </p>
+                </div>
               ) : (
-                myNotes.map((note) => (
-                  <div
-                    key={note.id}
-                    className="p-3 bg-white dark:bg-zinc-800 rounded-xl shadow hover:bg-blue-50 dark:hover:bg-zinc-600 cursor-pointer transition"
-                    onClick={() => navigate(`/note/${note.id}`)}
-                  >
-                    <p className="font-semibold text-sm truncate">
-                      {note.title}
-                    </p>
-                    <p className="text-xs text-gray-400 dark:text-gray-300 truncate">
-                      {note.content?.replace(/\n/g, " ").slice(0, 50)}...
-                    </p>
-                  </div>
-                ))
+                // ✅ 여기부터 전체 노트 리스트
+                <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
+                  {myNotes.map((note) => (
+                    <div
+                      key={note.id}
+                      className="px-2 py-3 hover:bg-blue-50 dark:hover:bg-zinc-600 cursor-pointer transition"
+                      onClick={() => navigate(`/note/${note.id}`)}
+                    >
+                      <p className="font-semibold text-sm truncate">
+                        {note.title}
+                      </p>
+                      <p className="text-xs text-gray-400 dark:text-gray-300 truncate">
+                        {note.content?.replace(/\n/g, " ").slice(0, 15)}.....
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                // ✅ 여기까지
               )}
             </div>
           </div>
