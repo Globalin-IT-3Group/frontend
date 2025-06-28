@@ -30,23 +30,25 @@ export default function Board({ board, onClick }) {
   return (
     <>
       <li
-        className="shadow-md px-4 py-4 hover:bg-blue-50 transition cursor-pointer bg-white rounded-xl mb-5"
+        className="shadow-md px-4 py-4 hover:bg-blue-50 dark:hover:bg-zinc-600
+             transition cursor-pointer bg-white dark:bg-zinc-700 
+             rounded-xl mb-5 text-black dark:text-white"
         onClick={onClick}
       >
-        {/* 상단: 제목, 날짜 */}
+        {/* 제목 */}
         <div className="flex items-center mb-2">
           <span className="text-3xl font-bold truncate max-w-[70%]">
             {board.title}
           </span>
-          <span className="text-xs text-gray-400 ml-4 whitespace-nowrap">
+          <span className="text-xs text-gray-400 dark:text-zinc-300 ml-4 whitespace-nowrap">
             {formatDate(board.createdAt)}
           </span>
         </div>
-        {/* 중간: 본문 요약 */}
-        <div className="text-xl text-gray-600 font-normal mb-3">
+        {/* 본문 요약 */}
+        <div className="text-xl text-gray-600 dark:text-zinc-200 font-normal mb-3">
           {shortContent}
         </div>
-        {/* 하단: 프로필, 닉네임, 조회수 */}
+        {/* 닉네임, 프로필 */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img
@@ -59,13 +61,13 @@ export default function Board({ board, onClick }) {
               onClick={handleProfileClick}
             />
             <span
-              className="text-sm text-gray-500 cursor-pointer hover:underline"
+              className="text-sm text-gray-500 dark:text-zinc-300 cursor-pointer hover:underline"
               onClick={handleProfileClick}
             >
               {user?.nickname || "알 수 없음"}
             </span>
           </div>
-          <div className="flex items-center gap-3 text-gray-500 text-xs">
+          <div className="flex items-center gap-3 text-gray-500 dark:text-zinc-300 text-xs">
             <div className="flex items-center gap-1">
               <LuEye className="w-4 h-4" />
               <span>{board.viewCount}</span>
@@ -77,6 +79,7 @@ export default function Board({ board, onClick }) {
           </div>
         </div>
       </li>
+
       <ProfileModal
         open={profileOpen}
         onClose={() => setProfileOpen(false)}

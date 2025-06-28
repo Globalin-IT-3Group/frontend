@@ -40,7 +40,7 @@ export default function Comment({ comment, myId, onReload }) {
 
   return (
     <>
-      <li className="bg-zinc-100 p-3 rounded">
+      <li className="bg-zinc-100 dark:bg-zinc-500 p-3 rounded text-black dark:text-white">
         <div className="flex items-center gap-2 mb-1">
           {/* 프로필 이미지 클릭 시 모달 */}
           <img
@@ -59,7 +59,7 @@ export default function Comment({ comment, myId, onReload }) {
             {comment.user.nickname}
           </span>
           {/* 날짜/수정됨 */}
-          <span className="text-xs text-gray-400 ml-2">
+          <span className="text-xs text-gray-400 dark:text-zinc-200 ml-2">
             {isEdited
               ? `(수정됨 ${new Date(comment.updatedAt).toLocaleString()})`
               : new Date(comment.createdAt).toLocaleString()}

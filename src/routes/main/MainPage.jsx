@@ -148,7 +148,7 @@ export default function MainPage() {
                 value={searchTitle}
                 onChange={(e) => setSearchTitle(e.target.value)}
                 placeholder="내 노트 검색"
-                className="flex-1 bg-transparent border-b border-gray-300 dark:border-gray-600 focus:outline-none text-sm py-1 text-black dark:text-white placeholder-gray-400"
+                className="w-full bg-transparent border-b border-gray-300 dark:border-gray-600 focus:outline-none text-sm py-1 text-black dark:text-white placeholder-gray-400"
               />
             </div>
 

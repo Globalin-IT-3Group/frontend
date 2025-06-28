@@ -15,15 +15,21 @@ export default function Alarm({ alarm, onRead }) {
     >
       <AccordionSummary
         expandIcon={<MdExpandMore size={28} />}
-        className="flex flex-wrap items-center min-h-16"
+        className="flex items-center min-h-16 overflow-hidden"
       >
-        <div className="flex items-center flex-1 gap-2">
+        <div className="flex items-center gap-2 flex-1 min-w-0 overflow-hidden">
           {isUnread && (
-            <span className="inline-block w-2 h-2 rounded-full bg-red-500 mb-4" />
+            <span className="inline-block w-2 h-2 rounded-full bg-red-500" />
           )}
-          <span className="font-semibold">{alarm.content}</span>
+
+          {/* 💡 텍스트 wrapper: max-w-0 -> 줄어들 수 있게, truncate 먹힘 */}
+          <div className="truncate whitespace-nowrap overflow-hidden min-w-0">
+            <span className="font-semibold">{alarm.content}</span>
+          </div>
         </div>
-        <span className="text-xs text-gray-400 ml-4">
+
+        {/* 날짜 */}
+        <span className="text-xs text-gray-400 ml-4 whitespace-nowrap">
           {new Date(alarm.createdAt).toLocaleString()}
         </span>
       </AccordionSummary>

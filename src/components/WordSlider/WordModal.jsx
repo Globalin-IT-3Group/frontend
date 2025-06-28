@@ -34,7 +34,7 @@ export default function WordModal({ words = [], selectedWord, onClose }) {
     >
       <div className="flex flex-col justify-center max-w-[1000px] w-full px-20 relative">
         <div className="text-center mb-6 mt-2">
-          <h2 className="text-white text-3xl font-bold">一日の単語！</h2>
+          <h2 className="text-white text-3xl font-bold">오늘의 단어!</h2>
         </div>
 
         <div className="w-full flex flex-col justify-center h-[498px]">

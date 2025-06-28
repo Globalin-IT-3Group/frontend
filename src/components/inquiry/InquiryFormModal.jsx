@@ -60,7 +60,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
           <MdClose size={24} />
         </button>
 
-        <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-2 tracking-tight">
+        <h2 className="text-2xl dark:text-white md:text-3xl font-extrabold text-center mb-2 tracking-tight">
           문의하기
         </h2>
 
@@ -72,7 +72,10 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
             name="title"
             value={form.title}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 
+             focus:outline-none focus:ring-2 focus:ring-indigo-400 
+             font-medium transition placeholder:text-zinc-400 
+             text-black dark:text-white"
             placeholder="제목을 입력하세요"
             required
             maxLength={50}
@@ -103,7 +106,10 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
             name="content"
             value={form.content}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[250px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 
+             min-h-[250px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 
+             font-medium transition placeholder:text-zinc-400 
+             text-black dark:text-white"
             placeholder="문의 내용을 입력하세요"
           />
         </div>
@@ -116,7 +122,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
 
         <button
           type="submit"
-          className="mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
+          className="mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 dark:bg-zinc-500 dark:hover:bg-zinc-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
           disabled={loading}
         >
           {loading ? "등록 중..." : "문의하기"}

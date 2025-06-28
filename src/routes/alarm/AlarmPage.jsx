@@ -66,8 +66,10 @@ export default function AlarmPage() {
   return (
     <div className="mt-8 px-6 py-4 max-w-4xl mx-auto bg-white dark:bg-zinc-600 rounded-2xl shadow-xl">
       <div className="flex items-center gap-2 mb-12 text-3xl font-bold justify-center">
-        <FaBell className="text-yellow-500 w-8 h-8" />
-        <span className="dark:text-white">알람 페이지</span>
+        <FaBell className="text-yellow-500 w-8 h-8 shrink-0" />
+        <span className="dark:text-white truncate whitespace-nowrap overflow-hidden max-w-full">
+          알람 페이지
+        </span>
       </div>
       {/* 탭 */}
       <div className="flex overflow-x-auto scrollbar-none space-x-6 px-2 pb-4 -mx-2">

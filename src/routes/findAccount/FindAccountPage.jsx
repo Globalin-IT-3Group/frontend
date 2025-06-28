@@ -7,13 +7,15 @@ export default function FindAccountPage() {
   const isEmail = location.pathname === "/find/email";
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white rounded-4xl w-[1400px] h-auto p-10 m-16 shadow-[0_0_6px_rgba(0,0,0,0.1)] overflow-y-auto flex flex-col">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-zinc-800 transition-all duration-300">
+      <div className="bg-white dark:bg-zinc-700 rounded-4xl w-[1400px] h-auto p-10 m-16 shadow-[0_0_6px_rgba(0,0,0,0.1)] overflow-y-auto flex flex-col text-black dark:text-white">
         <div className="flex justify-center mt-4 mx-auto p-4 gap-8">
           <Link to="/find/email">
             <h1
-              className={`text-3xl font-bold ml-4 mb-8 ${
-                isEmail ? "text-black" : "text-gray-400"
+              className={`text-3xl font-bold ml-4 mb-8 transition-colors duration-200 ${
+                isEmail
+                  ? "text-black dark:text-white"
+                  : "text-gray-400 dark:text-gray-400"
               }`}
             >
               이메일 찾기
@@ -21,8 +23,10 @@ export default function FindAccountPage() {
           </Link>
           <Link to="/find/password">
             <h1
-              className={`text-3xl font-bold ml-4 mb-8 ${
-                !isEmail ? "text-black" : "text-gray-400"
+              className={`text-3xl font-bold ml-4 mb-8 transition-colors duration-200 ${
+                !isEmail
+                  ? "text-black dark:text-white"
+                  : "text-gray-400 dark:text-gray-400"
               }`}
             >
               비밀번호 찾기

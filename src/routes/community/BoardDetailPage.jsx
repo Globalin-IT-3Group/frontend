@@ -36,7 +36,7 @@ export default function BoardDetailPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
-      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-xl p-8">
+      <div className="w-full max-w-3xl bg-white dark:bg-zinc-600 rounded-2xl shadow-xl p-8">
         {/* 상단 바: 뒤로가기(왼쪽), 수정(오른쪽) */}
         <div className="flex items-center justify-between mb-6">
           {/* 왼쪽: 뒤로가기 */}
@@ -63,42 +63,36 @@ export default function BoardDetailPage() {
           )}
         </div>
         {/* 제목 */}
-        <div className="text-3xl font-bold mb-1">{board.title}</div>
+        <div className="text-3xl font-bold mb-1 dark:text-white">
+          {board.title}
+        </div>
         {/* 날짜 */}
-        <div className="text-sm text-gray-400 mb-3">
+        <div className="text-sm text-gray-400 dark:text-gray-300 mb-3">
           {new Date(board.createdAt).toLocaleDateString("ko-KR")}
         </div>
         {/* 본문 (마크다운, 반드시 div에 className="prose ...") */}
-        <div className="prose prose-lg max-w-none font-serif text-gray-800 min-h-[200px] mb-8">
+        <div className="prose prose-lg max-w-none text-gray-800 dark:text-white min-h-[200px] mb-8">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks]}
             components={{
-              h1: (props) => (
-                <h1 className="text-3xl font-bold my-4" {...props} />
-              ),
-              h2: (props) => (
-                <h2 className="text-2xl font-semibold my-3" {...props} />
-              ),
-              ul: (props) => <ul className="list-disc ml-6 mb-2" {...props} />,
-              li: (props) => <li className="mb-1" {...props} />,
-              p: (props) => <p className="mb-2" {...props} />,
+              p: (props) => <p className="mb-2 dark:text-white" {...props} />,
               a: (props) => (
                 <a
                   {...props}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline"
+                  className="text-blue-600 dark:text-blue-400 underline"
                 />
               ),
               code: (props) => (
                 <code
-                  className="inline bg-zinc-200 text-pink-600 px-1 py-0.5 rounded font-mono text-base"
+                  className="inline bg-zinc-200 dark:bg-zinc-700 text-pink-600 px-1 py-0.5 rounded font-mono text-base"
                   {...props}
                 />
               ),
               pre: (props) => (
                 <pre
-                  className="bg-zinc-200 rounded p-5 my-5 font-mono text-base leading-relaxed overflow-x-auto"
+                  className="bg-zinc-200 dark:bg-zinc-700 rounded p-5 my-5 font-mono text-base leading-relaxed overflow-x-auto"
                   {...props}
                 />
               ),
@@ -110,28 +104,27 @@ export default function BoardDetailPage() {
         {/* 프로필/닉네임/조회수 */}
         <div className="flex items-center gap-2 pt-4">
           <img
-            src={
-              user?.profileImage ||
-              "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
-            }
+            src={user?.profileImage || "..."}
             alt="profile"
             className="w-8 h-8 rounded-full object-cover cursor-pointer"
             onClick={() => setProfileOpen(true)}
           />
           <span
-            className="text-sm text-gray-800 cursor-pointer hover:underline"
+            className="text-sm text-gray-800 dark:text-white cursor-pointer hover:underline"
             onClick={() => setProfileOpen(true)}
           >
             {user?.nickname || "알 수 없음"}
           </span>
-          <div className="flex items-center gap-1 text-gray-500 text-xs ml-auto">
+          <div className="flex items-center gap-1 text-gray-500 dark:text-gray-300 text-xs ml-auto">
             <LuEye className="w-4 h-4" />
             <span>{board.viewCount}</span>
           </div>
         </div>
         {/* ===== 댓글 영역 ===== */}
-        <div className="border-t pt-7 mt-8">
-          <div className="font-bold text-lg mb-2 text-gray-400">댓글</div>
+        <div className="border-t mt-8 pt-6 border-gray-300 dark:border-zinc-200">
+          <div className="font-bold text-lg mb-2 text-gray-400 dark:text-gray-300">
+            댓글
+          </div>
           <CommentInput
             boardId={board.id}
             userId={userId}
