@@ -40,7 +40,9 @@ export default function MyNoteForm({ mode = "create" }) {
     const payload = {
       title,
       content: markdown,
-      imageUrl: imageUrl || "https://via.placeholder.com/120x80",
+      imageUrl:
+        imageUrl ||
+        "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg",
     };
 
     try {
