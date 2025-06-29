@@ -61,7 +61,7 @@ export default function MemberProfile({
       <div className="relative w-full">
         {/* 우측 상단 버튼 */}
         <button
-          className="absolute right-4 top-4 text-2xl text-gray-400 hover:text-blue-600 transition z-10"
+          className="absolute right-4 top-4 text-2xl text-gray-400 hover:text-blue-600 transition z-1"
           onClick={() => setModalOpen(true)}
           aria-label="멤버 관리"
         >

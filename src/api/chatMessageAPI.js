@@ -11,20 +11,20 @@ class ChatMessageApi extends BaseApi {
       `/chat-message/rooms/${roomId}/messages`
     );
     return res.data;
+  }
 
-    // 백엔드 대신 더미 데이터 반환
-    // return Promise.resolve([
-    //   {
-    //     senderId: 1,
-    //     message: "이건 상대방 메시지입니다.",
-    //     sentAt: "2025-06-10T12:00:00Z",
-    //   },
-    //   {
-    //     senderId: 2,
-    //     message: "이건 내 메시지예요.",
-    //     sentAt: "2025-06-10T12:01:00Z",
-    //   },
-    // ]);
+  // ✅ 그룹(스터디방) 채팅 메시지 조회
+  async getGroupMessagesByRoomId(roomId) {
+    const res = await this.fetcher.get(
+      `/chat-message/rooms/${roomId}/group-messages`
+    );
+    return res.data;
+  }
+
+  async markAsRead(roomId, lastReadAt) {
+    await this.fetcher.post(`/chat-message/rooms/${roomId}/read`, {
+      lastReadAt,
+    });
   }
 }
 

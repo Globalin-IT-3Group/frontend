@@ -44,7 +44,9 @@ export default function ChatMessageList({ messages, userId }) {
       "
     >
       {messages.map((msg, idx) => {
-        const uniqueKey = msg.id ?? `${msg.senderId}_${msg.sentAt ?? idx}`;
+        const uniqueKey = msg.id
+          ? `msg_${msg.id}`
+          : `${msg.senderId}_${msg.sentAt}_${idx}`;
         const isMe = msg.senderId === userId;
         const showDate =
           idx === 0 ||
