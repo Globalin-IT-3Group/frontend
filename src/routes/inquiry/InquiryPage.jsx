@@ -4,7 +4,7 @@ import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import inquiryAPI from "../../api/inquiryAPI";
 import { useSelector } from "react-redux";
-import InquiryFormModal from "../../components/inquiry/inquiryFormModal";
+import InquiryFormModal from "../../components/inquiry/InquiryFormModal";
 import InquiryBoardSkeleton from "../../components/skeleton/Inquiry/InquiryBoardSkeleton";
 
 export default function InquiryPage() {

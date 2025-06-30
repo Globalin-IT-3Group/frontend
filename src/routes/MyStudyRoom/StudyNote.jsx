@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import StudyNoteApi from "../../api/studyNoteApi";
+import StudyNoteApi from "../../api/studyNoteAPI";
 import StudyNoteList from "../../components/studyNote/StudyNoteList";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 export default function StudyNote({ studyRoomId }) {

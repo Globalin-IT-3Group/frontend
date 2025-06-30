@@ -2,7 +2,7 @@ import ChatHeader from "./ChatHeader";
 import ChatMessageList from "./ChatMessageList";
 import ChatInput from "./ChatInput";
 import { useEffect, useState } from "react";
-import chatMessageApi from "../../../api/chatMessageApi";
+import chatMessageApi from "../../../api/chatMessageAPI";
 import useChatSocket from "../../../hooks/useChatSocket";
 import { useSelector } from "react-redux";
 import KotsuKotsuLoader from "../../../components/loadings/KotsuKotsuLoader";
