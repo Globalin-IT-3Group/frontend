@@ -15,7 +15,7 @@ export default function ChattingPage() {
   const otherUser = stateOtherUser || fallbackOtherUser;
 
   return (
-    <div className="flex items-center justify-center w-full h-full min-h-[600px] dark:bg-zinc-900">
+    <div className="flex items-center justify-center w-full h-full min-h-[800px] dark:bg-zinc-900 ">
       {roomId ? (
         <ChatRoom
           roomId={roomId}

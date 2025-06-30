@@ -45,7 +45,7 @@ export default function BaseLayout({ children, SidebarComponent }) {
               {(sidebarOpen || sidebarClosing) && (
                 <button
                   onClick={() => setSidebarOpen(false)}
-                  className="cursor-pointer absolute top-4 right-[-24px] z-1 bg-white dark:bg-zinc-800 px-1 py-2 shadow hover:bg-zinc-200 dark:hover:bg-zinc-600"
+                  className="cursor-pointer absolute top-4 right-[-24px] z-1 bg-white dark:bg-zinc-900 px-1 py-2 shadow hover:bg-zinc-200 dark:hover:bg-zinc-600"
                 >
                   <FiChevronsLeft className="text-xl dark:text-white" />
                 </button>

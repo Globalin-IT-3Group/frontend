@@ -10,16 +10,17 @@ function ChatSidebar({ rooms, refreshRooms }) {
   };
 
   return (
-    <div className="h-full p-4 dark:text-white border-r border-gray-300">
-      <div className="flex gap-3 p-2 items-center justify-between">
-        <h2 className="text-xl font-bold mb-4">💬 채팅방</h2>
+    <div className="h-full p-4 dark:text-white border-r border-gray-300 dark:bg-gradient-to-b from-zinc-700 to-zinc-800 ">
+      <div className="flex gap-3 p-1 items-center justify-between">
+        <h2 className="text-xl font-bold mb-4 dark:text-white">💬 채팅방</h2>
         <Link to="/main">
           <MdHome
             size={20}
-            className="mb-4 text-gray-600 hover:scale-120 hover:text-gray-800 transition duration-300"
+            className="mb-4 mr-1 text-gray-600 hover:scale-120 hover:text-gray-800 transition duration-300 dark:text-white"
           />
         </Link>
       </div>
+
       <ChatRoomList
         rooms={rooms}
         refreshRooms={refreshRooms}
