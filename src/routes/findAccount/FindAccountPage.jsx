@@ -1,10 +1,13 @@
 import { useLocation, Link } from "react-router-dom";
 import FindEmailForm from "../../components/findAccount/FindEmailForm";
 import FindPasswordForm from "../../components/findAccount/FindPasswordForm";
+import { useState } from "react";
+import LoginModal from "../../components/Login/LoginModal";
 
 export default function FindAccountPage() {
   const location = useLocation();
   const isEmail = location.pathname === "/find/email";
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white dark:bg-zinc-800 transition-all duration-300">
@@ -21,6 +24,7 @@ export default function FindAccountPage() {
               이메일 찾기
             </h1>
           </Link>
+
           <Link to="/find/password">
             <h1
               className={`text-3xl font-bold ml-4 mb-8 transition-colors duration-200 ${
@@ -34,7 +38,15 @@ export default function FindAccountPage() {
           </Link>
         </div>
 
-        {isEmail ? <FindEmailForm /> : <FindPasswordForm />}
+        {isEmail ? (
+          <FindEmailForm onLoginClick={() => setShowLoginModal(true)} />
+        ) : (
+          <FindPasswordForm onLoginClick={() => setShowLoginModal(true)} />
+        )}
+
+        {showLoginModal && (
+          <LoginModal onClose={() => setShowLoginModal(false)} />
+        )}
       </div>
     </div>
   );

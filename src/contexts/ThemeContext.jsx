@@ -3,9 +3,14 @@ import { createContext, useState, useEffect } from "react";
 export const ThemeContext = createContext();
 
 export default function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("theme") || "basic";
-  });
+  const [theme, setTheme] = useState("basic");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") {
+      setTheme("dark");
+    }
+  }, []);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -13,9 +18,6 @@ export default function ThemeProvider({ children }) {
     } else {
       document.documentElement.classList.remove("dark");
     }
-  }, [theme]);
-
-  useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 

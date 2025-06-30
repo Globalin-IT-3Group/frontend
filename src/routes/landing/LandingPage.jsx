@@ -18,7 +18,7 @@ export default function LandingPage() {
             style={{ fontFamily: '"Nico Moji", sans-serif' }}
             className="text-4xl text-[#003CFF] font-bold dark:text-white"
           >
-            コツコツ 키키키키
+            コツコツ
           </Link>
         </div>
         <nav className="space-x-8 text-sm font-medium">
