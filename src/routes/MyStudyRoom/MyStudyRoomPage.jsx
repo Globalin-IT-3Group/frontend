@@ -144,12 +144,13 @@ export default function MyStudyRoomPage() {
         </button>
         {/* 페이지 이동 버튼 */}
         <button
-          onClick={() => navigate("/video-room")}
+          onClick={() => navigate(`/video-room/preview/${studyRoomId}`)}
           className="flex flex-col items-center justify-center rounded-2xl px-4 py-4 shadow-sm transition-all duration-300 space-y-1 bg-pink-100 hover:bg-pink-200 hover:scale-105 cursor-pointer"
         >
           <div className="text-3xl">🎦</div>
           <p className="text-sm font-semibold">채팅방 생성</p>
         </button>
+
         <button
           onClick={() => setEditModalOpen(true)}
           className="flex flex-col items-center justify-center rounded-2xl w-[100px] h-[100px] shadow-sm transition-all duration-300 space-y-1 bg-pink-100 hover:bg-pink-200 hover:scale-105 cursor-pointer"

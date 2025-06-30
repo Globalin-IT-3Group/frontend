@@ -26,6 +26,8 @@ import StudyRoomListModal from "./components/MyStudyRoom/StudyRoomListModal";
 import LandingPage from "./routes/landing/LandingPage";
 import StudyNoteDetail from "./routes/MyStudyRoom/StudyNoteDetail";
 import StudyNoteForm from "./routes/MyStudyRoom/StudyNoteForm";
+import VideoRoomPreviewPage from "./routes/video/VideoRoomPreviewPage";
+import VideoRoomMeetingPage from "./routes/video/VideoRoomMeetingPage";
 
 const routers = [
   { path: "/", element: <LandingPage /> },
@@ -129,6 +131,14 @@ const routers = [
     path: "/alarm",
     element: <MainLayout />,
     children: [{ index: true, element: <AlarmPage /> }],
+  },
+  {
+    path: "/video-room/preview/:studyRoomId",
+    element: <VideoRoomPreviewPage />,
+  },
+  {
+    path: "/video-room/meeting/:studyRoomId",
+    element: <VideoRoomMeetingPage />,
   },
   {
     path: "*",

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import ChatMessageApi from "../api/chatMessageApi";
-import chatSocket from "../api/chatSocket";
+import studyChatSocket from "../api/studyChatSocket";
 import { useSelector } from "react-redux";
 
 export default function useGroupChatSocket(roomId) {
@@ -27,12 +27,12 @@ export default function useGroupChatSocket(roomId) {
   useEffect(() => {
     if (!roomId || !userId) return;
 
-    chatSocket.connect(roomId, userId, (msg) => {
+    studyChatSocket.connect(roomId, userId, (msg) => {
       // 그룹방: "READ" 메시지로 unreadCount 갱신
       if (msg.messageType === "READ" && msg.messageId) {
         setMessages((prev) =>
           prev.map((m) =>
-            m.id === msg.messageId ? { ...m, unreadCount: msg.unreadCount } : m
+            m.id <= msg.messageId ? { ...m, unreadCount: msg.unreadCount } : m
           )
         );
       }
@@ -47,7 +47,7 @@ export default function useGroupChatSocket(roomId) {
     });
 
     return () => {
-      chatSocket.disconnect();
+      studyChatSocket.disconnect();
     };
   }, [roomId, userId]);
 
@@ -62,7 +62,7 @@ export default function useGroupChatSocket(roomId) {
       message: text,
       sentAt: now,
     };
-    chatSocket.send(payload);
+    studyChatSocket.send(payload);
     // 브로드캐스트 받을 때만 배열에 추가 (optimistic UI가 필요하다면 여기에 추가)
   };
 
@@ -85,7 +85,7 @@ export default function useGroupChatSocket(roomId) {
       lastReadAt: lastMsg.sentAt,
       messageId: lastMsg.id,
     };
-    chatSocket.send(readPayload);
+    studyChatSocket.send(readPayload);
   };
 
   return { messages, sendMessage, markAsRead };
