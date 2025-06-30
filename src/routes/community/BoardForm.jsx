@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import BoardApi from "../../api/boardAPI";
 import { getCommands } from "@uiw/react-md-editor/commands-cn";
+import Swal from "sweetalert2";
 
 export default function BoardForm() {
   const [title, setTitle] = useState("");
@@ -15,6 +16,68 @@ export default function BoardForm() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const editId = searchParams.get("edit"); // boardId
+
+  const editConfirm = async () => {
+    const result = await Swal.fire({
+      title: "글을 수정하시겠습니까?",
+      text: "취소시 수정중인 글로 돌아갑니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "수정",
+      cancelButtonText: "취소",
+    });
+    return result.isConfirmed;
+  };
+
+  const registerConfirm = async () => {
+    const result = await Swal.fire({
+      title: "글을 등록하시겠습니까?",
+      text: "취소시 작성중인 글로 돌아갑니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "등록",
+      cancelButtonText: "취소",
+    });
+    return result.isConfirmed;
+  };
+
+  const editSuccess = async () => {
+    await Swal.fire({
+      title: "글 수정 완료!",
+      text: "글이 정상적으로 수정되었습니다.",
+      imageUrl: "/success.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      //showCancelButton: true,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "닫기",
+      //cancelButtonText: "취소",
+    });
+  };
+
+  const registerSuccess = async () => {
+    await Swal.fire({
+      title: "글 등록 완료!",
+      text: "글이 정상적으로 등록되었습니다.",
+      imageUrl: "/success.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      //showCancelButton: true,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "닫기",
+      //cancelButtonText: "취소",
+    });
+  };
 
   const commands = getCommands().filter((cmd) =>
     [
@@ -52,13 +115,21 @@ export default function BoardForm() {
 
     try {
       if (editId) {
-        // 수정 모드
+        const confirmed = await editConfirm();
+        if (!confirmed) {
+          setLoading(false);
+          return;
+        }
         await BoardApi.updateBoard(editId, { title, content });
-        alert("글 수정 완료!");
+        editSuccess();
       } else {
-        // 작성 모드
+        const confirmed = await registerConfirm();
+        if (!confirmed) {
+          setLoading(false);
+          return;
+        }
         await BoardApi.createBoard({ title, content });
-        alert("글 등록!");
+        registerSuccess();
       }
       navigate("/community");
     } catch (error) {

@@ -10,6 +10,8 @@ import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import CommentInput from "../../components/community/CommentInput";
 import CommentList from "../../components/community/CommentList";
+import { FaRegTrashCan } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 export default function BoardDetailPage() {
   const { boardId } = useParams();
@@ -21,6 +23,49 @@ export default function BoardDetailPage() {
   const [commentReload, setCommentReload] = useState(0);
 
   const userId = useSelector((state) => state.auth.id);
+
+  const deleteConfirm = async () => {
+    const result = await Swal.fire({
+      title: "게시글을 삭제하시겠습니까?",
+      text: "삭제된 글은 복구할 수 없습니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#0033CF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await BoardApi.deleteBoard(board.id);
+        Swal.fire({
+          title: "삭제 완료!",
+          text: "글이 정상적으로 삭제되었습니다.",
+          imageUrl: "/success.svg",
+          imageWidth: 120,
+          imageHeight: 120,
+          showCancelButton: false,
+          confirmButtonColor: "#0033CF",
+          confirmButtonText: "닫기",
+        });
+        navigate("/community");
+      } catch (err) {
+        console.error(err);
+        Swal.fire({
+          title: "삭제 실패",
+          text: "삭제에 실패했습니다. 다시 시도해주세요.",
+          imageUrl: "/error.svg",
+          imageWidth: 120,
+          imageHeight: 120,
+          confirmButtonColor: "#d33",
+          confirmButtonText: "닫기",
+        });
+      }
+    }
+  };
 
   useEffect(() => {
     BoardApi.getBoardDetail(boardId)
@@ -48,18 +93,32 @@ export default function BoardDetailPage() {
           </button>
           {/* 오른쪽: 수정 버튼 (본인 글일 때만) */}
           {userId === board.user?.id && (
-            <button
-              className="
+            <div className="flex gap-3">
+              <button
+                className="
                 flex items-center gap-2
                 px-4 py-2 rounded-lg font-semibold
                 border border-blue-500 bg-white text-blue-500
                 shadow-sm hover:bg-blue-600 hover:text-white hover:shadow
-                transition
+                transition cursor-pointer
               "
-              onClick={() => navigate(`/community/write?edit=${board.id}`)}
-            >
-              <HiOutlinePencilSquare className="w-4 h-6" />
-            </button>
+                onClick={() => navigate(`/community/write?edit=${board.id}`)}
+              >
+                <HiOutlinePencilSquare className="w-5 h-6" /> 수정
+              </button>
+              <button
+                className="
+                flex items-center gap-2
+                px-4 py-2 rounded-lg font-semibold
+                border border-blue-500 bg-white text-blue-500
+                shadow-sm hover:bg-blue-600 hover:text-white hover:shadow
+                transition cursor-pointer
+              "
+                onClick={() => deleteConfirm()}
+              >
+                <FaRegTrashCan className="w-4 h-6" /> 삭제
+              </button>
+            </div>
           )}
         </div>
         {/* 제목 */}
