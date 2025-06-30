@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import VideoRoomApi from "../../api/videoRoomApi";
+import VideoRoomApi from "../../api/videoRoomAPI";
 import { FaVideo, FaVideoSlash } from "react-icons/fa";
 import { BsMicFill, BsMicMuteFill } from "react-icons/bs";
 import { HiArrowLeft } from "react-icons/hi2";
