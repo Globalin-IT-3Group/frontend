@@ -60,7 +60,7 @@ export default function BoardDetailPage() {
           imageUrl: "/error.svg",
           imageWidth: 120,
           imageHeight: 120,
-          confirmButtonColor: "#d33",
+          confirmButtonColor: "#D9D9D9",
           confirmButtonText: "닫기",
         });
       }

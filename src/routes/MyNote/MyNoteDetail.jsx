@@ -4,6 +4,10 @@ import NoteApi from "../../api/noteAPI";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
+import { HiArrowLeft, HiOutlinePencilSquare } from "react-icons/hi2";
+import { FaRegTrashCan } from "react-icons/fa6";
+import Swal from "sweetalert2";
+import KotsuKotsuLoader from "../../components/loadings/KotsuKotsuLoader";
 
 export default function MyNoteDetail() {
   const { id } = useParams();
@@ -28,38 +32,77 @@ export default function MyNoteDetail() {
   }, [id]);
 
   const handleDelete = async () => {
-    if (!window.confirm("정말 이 노트를 삭제하시겠어요?")) return;
-    try {
-      await NoteApi.deleteNote(id);
-      navigate("/note");
-    } catch (err) {
-      console.error(err);
-      alert("삭제 중 오류가 발생했습니다.");
+    const result = await Swal.fire({
+      title: "게시글을 삭제하시겠습니까?",
+      text: "삭제된 글은 복구할 수 없습니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#0033CF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await NoteApi.deleteNote(id);
+        Swal.fire({
+          title: "삭제 완료!",
+          text: "글이 정상적으로 삭제되었습니다.",
+          imageUrl: "/success.svg",
+          imageWidth: 120,
+          imageHeight: 120,
+          showCancelButton: false,
+          confirmButtonColor: "#0033CF",
+          confirmButtonText: "닫기",
+        });
+        navigate("/note");
+      } catch (err) {
+        console.error(err);
+        alert("삭제 중 오류가 발생했습니다.");
+      }
     }
   };
 
-  if (loading) return <p>로딩 중...</p>;
+  if (loading) return <KotsuKotsuLoader />;
   if (error) return <p className="text-red-500">{error}</p>;
   if (!note) return <p>존재하지 않는 노트입니다.</p>;
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-zinc-800 rounded-4xl shadow space-y-4">
       <div className="flex items-center justify-between">
-        <Link to="/note" className="text-sm text-blue-500 hover:underline">
-          &larr; 뒤로
-        </Link>
-        <div className="space-x-2">
-          <Link
-            to={`/note/${id}/edit`}
-            className="text-sm text-green-500 hover:underline"
-          >
-            수정
-          </Link>
+        <button
+          onClick={() => navigate(-1)}
+          className="text-gray-400 hover:text-gray-700 py-1 rounded transition flex items-center cursor-pointer"
+        >
+          <HiArrowLeft className="w-6 h-6" />
+        </button>
+        <div className="flex gap-3">
           <button
-            onClick={handleDelete}
-            className="text-sm text-red-500 hover:underline"
+            className="
+                flex items-center gap-2
+                px-4 py-2 rounded-lg font-semibold
+                border border-blue-500 bg-white text-blue-500
+                shadow-sm hover:bg-blue-600 hover:text-white hover:shadow
+                transition cursor-pointer
+              "
+            onClick={() => navigate(`/note/${id}/edit`)}
           >
-            삭제
+            <HiOutlinePencilSquare className="w-5 h-6" /> 수정
+          </button>
+          <button
+            className="
+                flex items-center gap-2
+                px-4 py-2 rounded-lg font-semibold
+                border border-blue-500 bg-white text-blue-500
+                shadow-sm hover:bg-blue-600 hover:text-white hover:shadow
+                transition cursor-pointer
+              "
+            onClick={() => handleDelete()}
+          >
+            <FaRegTrashCan className="w-4 h-6" /> 삭제
           </button>
         </div>
       </div>
