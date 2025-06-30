@@ -40,12 +40,12 @@ export default function MyInfoPage() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white rounded-4xl w-[1200px] h-auto p-10 mt-6 mb-14 shadow-[0_0_6px_rgba(0,0,0,0.1)] overflow-y-auto flex flex-col dark:bg-zinc-700 dark:text-white">
         <div className="flex flex-col justify-center items-center">
-          <h1 className="text-4xl font-bold mt-10 mb-12">
+          <h1 className="font-bold mt-10 mb-12 text-[clamp(1.5rem,5vw,2.5rem)]">
             {nickname}님! 안녕하세요🖐️
           </h1>
           <ProfileImage src={userInfo.profileImage} />
           <StatusMessage initialMessage={userInfo.profileMessage} />
-          <div className="w-[1100px] h-px bg-gray-200 mt-20 flex items-center" />
+          <div className="w-full max-w-[1100px] h-px bg-gray-200 mt-20 flex items-center" />
 
           {!isKakao && (
             <form className="w-full max-w-[700px] mx-auto mt-10 p-8 space-y-10">

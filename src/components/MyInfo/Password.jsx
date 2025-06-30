@@ -73,14 +73,16 @@ export default function Password({ initPassword }) {
     <div className="flex flex-col gap-10">
       {/* 비밀번호 입력 */}
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-8 relative">
-          <label className="w-[180px] text-xl font-bold">비밀번호</label>
-          <div className="relative w-68">
+        <div className="flex items-center gap-8">
+          <label className="w-full sm:w-[180px] text-base sm:text-lg md:text-xl font-bold whitespace-nowrap">
+            비밀번호
+          </label>
+          <div className="relative flex-wrap sm:flex-nowrap">
             <input
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={handlePasswordChange}
-              className="w-68 px-4 py-2 text-lg border border-gray-300 rounded-xl"
+              className="w-full min-w-24 max-w-68 px-4 py-2 text-lg border border-gray-300 rounded-xl"
               placeholder="새 비밀번호"
             />
             <button
@@ -105,13 +107,15 @@ export default function Password({ initPassword }) {
       {/* 비밀번호 확인 */}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-8">
-          <label className="w-[180px] text-xl font-bold">비밀번호 확인</label>
-          <div className="relative w-68">
+          <label className="sm:w-[180px] text-base sm:text-lg md:text-xl font-bold whitespace-nowrap">
+            비밀번호 확인
+          </label>
+          <div className="relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
-              className="flex px-4 py-2 text-lg border border-gray-300 rounded-xl w-68"
+              className="w-full min-w-24 max-w-68 px-4 py-2 text-lg border border-gray-300 rounded-xl"
               placeholder="비밀번호 확인"
             />
             <button

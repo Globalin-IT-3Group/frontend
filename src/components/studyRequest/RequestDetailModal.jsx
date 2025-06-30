@@ -72,7 +72,7 @@ export default function RequestDetailModal({ request, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="relative bg-gradient-to-b from-blue-100 to-white w-[480px] min-h-[520px] rounded-3xl shadow-2xl flex flex-col items-center p-0 border border-blue-200">
+      <div className="relative bg-gradient-to-b from-blue-100 to-white dark:from-zinc-700 dark:to-zinc-800 w-[480px] min-h-[520px] rounded-3xl shadow-2xl flex flex-col items-center ">
         {/* 상단 타이틀 & 리더 */}
         <div className="w-full flex flex-col items-center pt-8 px-8 pb-2">
           <h2 className="text-[1.6rem] font-extrabold text-center text-[#003CFF] mb-2 tracking-tight leading-snug drop-shadow-sm">
@@ -86,7 +86,7 @@ export default function RequestDetailModal({ request, onClose }) {
                 className="rounded-full w-7 h-7 object-cover border-2 border-blue-100 shadow"
               />
             )}
-            <span className="text-[1rem] font-semibold text-gray-600">
+            <span className="text-[1rem] font-semibold text-gray-600 dark:text-gray-300">
               {request.leader?.nickname}
             </span>
             <span className="ml-2 px-2 py-0.5 rounded-full text-xs font-bold bg-[#003CFF] text-white">
@@ -95,10 +95,10 @@ export default function RequestDetailModal({ request, onClose }) {
           </div>
 
           <div className="flex gap-4 mt-1 items-center">
-            <span className="text-xs text-gray-400 font-semibold">
+            <span className="text-xs text-gray-400 font-semibold dark:text-gray-300">
               신청 날짜
             </span>
-            <span className="text-sm text-gray-700 font-semibold">
+            <span className="text-sm text-gray-700 font-semibold dark:text-gray-300">
               {formatDateToLocalString(request.requestedAt)}
             </span>
             <span className={`text-xs font-bold ml-2 ${statusColor}`}>
@@ -113,19 +113,19 @@ export default function RequestDetailModal({ request, onClose }) {
         <div className="w-full flex justify-start mt-3 mb-1 pl-8">
           <button
             onClick={() => setTab("explain")}
-            className={`px-6 py-2 rounded-t-2xl border-b-2 font-bold text-md transition-all duration-150 ${
+            className={`px-6 py-2 rounded-t-2xl border-b-2 font-bold text-md transition-all duration-150 cursor-pointer ${
               tab === "explain"
-                ? "bg-white text-[#003CFF] border-b-2 border-[#003CFF] shadow"
-                : "bg-transparent text-gray-400"
+                ? "bg-white dark:bg-zinc-900 text-[#003CFF] border-b-2 border-[#003CFF] shadow"
+                : "bg-transparent text-gray-400 "
             }`}
           >
             모집글 소개
           </button>
           <button
             onClick={() => setTab("request")}
-            className={`px-6 py-2 rounded-t-2xl border-b-2 font-bold text-md transition-all duration-150 ${
+            className={`px-6 py-2 rounded-t-2xl border-b-2 font-bold text-md transition-all duration-150 cursor-pointer  ${
               tab === "request"
-                ? "bg-white text-[#003CFF] border-b-2 border-[#003CFF] shadow"
+                ? "bg-white dark:bg-zinc-900  text-[#003CFF] border-b-2 border-[#003CFF] shadow"
                 : "bg-transparent text-gray-400"
             }`}
           >
@@ -136,16 +136,16 @@ export default function RequestDetailModal({ request, onClose }) {
         {/* 탭 내용 (카드와 탭의 왼쪽 정렬 일치, 높이 고정) */}
         <div className="flex-1 w-full flex flex-col items-start px-8 pb-2">
           <div
-            className="w-full bg-white rounded-2xl shadow border border-gray-100 px-6 py-6 flex flex-col gap-5 transition-all duration-200"
+            className="w-full bg-white rounded-2xl shadow  px-6 py-6 flex flex-col gap-5 transition-all duration-200 dark:bg-zinc-800 mt-2"
             style={{ minHeight: TAB_MIN_HEIGHT }}
           >
             {tab === "explain" ? (
               // 모집글 설명
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col h-full ">
                 <div className="text-sm font-bold text-[#003CFF] mb-1">
                   모집글 소개
                 </div>
-                <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words flex-1">
+                <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words flex-1 dark:text-gray-300">
                   {request.recruitExplain || "소개 정보가 없습니다."}
                 </div>
               </div>
@@ -156,7 +156,7 @@ export default function RequestDetailModal({ request, onClose }) {
                   <div className="text-sm font-bold text-[#003CFF] mb-1">
                     신청 제목
                   </div>
-                  <div className="text-gray-900 font-semibold text-[1.05rem] break-words">
+                  <div className="text-gray-900 font-semibold text-[1.05rem] break-words dark:text-gray-300">
                     {request.requestTitle}
                   </div>
                 </div>
@@ -165,7 +165,7 @@ export default function RequestDetailModal({ request, onClose }) {
                   <div className="text-sm font-bold text-[#003CFF] mb-1">
                     신청 내용
                   </div>
-                  <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words min-h-[70px]">
+                  <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words min-h-[70px] dark:text-gray-300">
                     {request.requestMessage}
                   </div>
                 </div>
@@ -178,7 +178,7 @@ export default function RequestDetailModal({ request, onClose }) {
         <div className="flex justify-center gap-3 w-full mb-6 mt-2">
           <button
             onClick={onClose}
-            className="px-8 py-2 rounded-3xl text-base font-bold bg-[#003CFF] text-white shadow hover:bg-[#1f4de3] active:scale-95 transition-all duration-150"
+            className="px-8 py-2 rounded-3xl text-base font-bold bg-[#003CFF] text-white shadow hover:bg-[#0536D7] active:scale-95 transition-all duration-150 cursor-pointer"
             disabled={loading}
           >
             닫기
@@ -187,7 +187,7 @@ export default function RequestDetailModal({ request, onClose }) {
           {request.status === "PENDING" && (
             <button
               onClick={handleCancelRequest}
-              className="px-8 py-2 rounded-3xl text-base font-bold bg-white text-[#003CFF] border border-[#003CFF] shadow hover:bg-blue-50 active:scale-95 transition-all duration-150"
+              className="px-8 py-2 rounded-3xl text-gray-400 font-bold bg-white dark:bg-zinc-800 text-[#003CFF] border border-gray-400 shadow hover:bg-blue-50 active:scale-95 transition-all duration-150 dark:hover:bg-zinc-700 cursor-pointer"
               disabled={loading}
             >
               신청 취소

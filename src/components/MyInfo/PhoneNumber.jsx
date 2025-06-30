@@ -27,24 +27,28 @@ export default function PhoneNumber({ phoneNumber }) {
   };
 
   return (
-    <div className="flex items-center gap-8">
-      <label className="w-[193px] text-xl font-bold">전화번호</label>
-      <div className="flex items-center gap-2 flex-1">
-        <span className="text-lg font-semibold">+82</span>
-        <input
-          type="text"
-          className="flex px-2 py-2 text-lg w-34"
-          value={getDisplayNumber()}
-          readOnly
-        />
-        <button
-          type="button"
-          className="ml-2 text-gray-500"
-          onClick={() => setShow((prev) => !prev)}
-          tabIndex={-1}
-        >
-          {show ? <EyeOff size={18} /> : <Eye size={18} />}
-        </button>
+    <div className="flex gap-4 items-center">
+      <div className="flex items-center gap-8 flex-wrap sm:flex-nowrap">
+        <label className="w-full sm:w-[180px] text-base sm:text-lg md:text-xl font-bold whitespace-nowrap">
+          전화번호
+        </label>
+        <div className="flex items-center gap-2 flex-1">
+          <span className="text-base sm:text-lg font-semibold">+82</span>
+          <input
+            type="text"
+            className="flex px-2 py-2 text-base sm:text-lg w-34"
+            value={getDisplayNumber()}
+            readOnly
+          />
+          <button
+            type="button"
+            className="ml-2 text-gray-500"
+            onClick={() => setShow((prev) => !prev)}
+            tabIndex={-1}
+          >
+            {show ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ export default function Board({ board, onClick }) {
   return (
     <>
       <li
-        className="shadow-md px-4 py-4 hover:bg-blue-50 dark:hover:bg-zinc-600
+        className="shadow-md px-4 py-4 hover:bg-blue-50 dark:hover:bg-zinc-500
              transition cursor-pointer bg-white dark:bg-zinc-700 
              rounded-xl mb-5 text-black dark:text-white"
         onClick={onClick}

@@ -25,7 +25,7 @@ export default function StatusMessage({ initialMessage }) {
   };
 
   return (
-    <div className="relative bg-white border border-gray-300 rounded-xl px-4 py-2 text-center shadow-[0_0_4px_rgba(0,0,0,0.1)] mt-6 flex items-center justify-center gap-2 w-[500px]">
+    <div className="relative bg-white border border-gray-300 rounded-xl px-4 py-2 text-center shadow-[0_0_4px_rgba(0,0,0,0.1)] mt-6 flex items-center justify-center gap-2 w-full max-w-[500px]">
       {isEditing ? (
         <>
           <input
