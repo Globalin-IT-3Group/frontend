@@ -9,7 +9,7 @@ function BasicSidebar({ myStudyRooms = [], loading, refreshStudyRooms }) {
   const [studyRoomModalOpen, setStudyRoomModalOpen] = useState(false);
 
   return (
-    <div className="h-full p-4 bg-white dark:bg-zinc-800 text-black dark:text-white transition-all duration-300">
+    <div className="h-full p-4 dark:bg-zinc-800 text-black dark:text-white transition-all duration-300">
       <ul className="grid grid-cols-2 gap-x-4 gap-y-8 p-4">
         <li className="flex flex-col items-center gap-3">
           <button

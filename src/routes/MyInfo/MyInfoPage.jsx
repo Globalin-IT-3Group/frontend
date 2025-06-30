@@ -38,7 +38,7 @@ export default function MyInfoPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white rounded-4xl w-[1200px] h-auto p-10 mt-6 mb-14 shadow-[0_0_6px_rgba(0,0,0,0.1)] overflow-y-auto flex flex-col">
+      <div className="bg-white rounded-4xl w-[1200px] h-auto p-10 mt-6 mb-14 shadow-[0_0_6px_rgba(0,0,0,0.1)] overflow-y-auto flex flex-col dark:bg-zinc-700 dark:text-white">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-4xl font-bold mt-10 mb-12">
             {nickname}님! 안녕하세요🖐️

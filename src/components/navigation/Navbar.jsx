@@ -1,7 +1,7 @@
 import ThemeButton from "../buttons/ThemeButton";
 import LoginButton from "../buttons/LoginButton";
 import AlarmButton from "../buttons/AlarmButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileAvatar from "./ProfileAvatar";
 import ProfileDropdown from "./ProfileDropdown";
@@ -11,6 +11,7 @@ export default function Navbar() {
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 로그아웃 함수
   const handleLogout = () => {
@@ -20,13 +21,19 @@ export default function Navbar() {
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 bg-white dark:bg-zinc-800 dark:shadow-[0_2px_4px_-1px_rgba(255,255,255,0.3)] shadow-md z-10 relative transition-all duration-300">
-      <Link
-        to="/main"
+      <button
+        onClick={() => {
+          if (location.pathname === "/main") {
+            navigate(0);
+          } else {
+            navigate("/main");
+          }
+        }}
         style={{ fontFamily: '"Nico Moji", sans-serif' }}
-        className="text-4xl text-[#003CFF] font-bold dark:text-white"
+        className="text-4xl text-[#003CFF] font-bold dark:text-white cursor-pointer"
       >
         コツコツ
-      </Link>
+      </button>
       <div className="flex gap-4">
         <AlarmButton />
         <ThemeButton />

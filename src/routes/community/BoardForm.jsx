@@ -225,7 +225,7 @@ export default function BoardForm() {
         {/* 버튼 영역 */}
         <div className="flex justify-end px-8 mb-8 gap-4">
           <button
-            className="bg-gray-300 text-gray-700 px-6 py-2 rounded-xl shadow hover:bg-gray-400 transition"
+            className="bg-gray-300 text-gray-700 px-6 py-2 rounded-xl shadow hover:bg-gray-400 transition cursor-pointer"
             onClick={handleBack}
             disabled={loading}
           >
@@ -233,7 +233,7 @@ export default function BoardForm() {
           </button>
           <button
             onClick={handleBoardSave}
-            className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition cursor-pointer"
             disabled={loading}
           >
             {editId ? "수정" : "게시"}

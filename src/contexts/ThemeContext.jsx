@@ -15,6 +15,10 @@ export default function ThemeProvider({ children }) {
     }
   }, [theme]);
 
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
