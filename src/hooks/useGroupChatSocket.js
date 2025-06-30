@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import ChatMessageApi from "../api/chatMessageApi";
+import ChatMessageApi from "../api/chatMessageAPI";
 import studyChatSocket from "../api/studyChatSocket";
 import { useSelector } from "react-redux";
 
