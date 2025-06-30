@@ -47,7 +47,7 @@ export default function WordPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-10">
-      <div className="text-4xl font-bold text-center mb-20 select-none">
+      <div className="text-4xl font-bold text-center mb-20 select-none text-black dark:text-white">
         📚 단어장
       </div>
       <div className="flex w-full max-w-[900px]">
@@ -170,7 +170,7 @@ export default function WordPage() {
             >
               <MdChevronLeft size={24} />
             </button>
-            <span className="flex items-center px-4 font-semibold">
+            <span className="flex items-center px-4 font-semibold text-gray-700 dark:text-white">
               {page + 1} / {totalPages}
             </span>
             <button

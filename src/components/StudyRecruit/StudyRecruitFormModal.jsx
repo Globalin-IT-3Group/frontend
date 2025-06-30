@@ -23,23 +23,15 @@ export default function StudyRecruitFormModal({
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // 지원자 상태 관리
   const [applicantList, setApplicantList] = useState([]);
   const [applicantPage, setApplicantPage] = useState(0);
   const [applicantTotalPages, setApplicantTotalPages] = useState(1);
   const [applicantLoading, setApplicantLoading] = useState(false);
-
-  // 지원자 상세 모달
   const [selectedApplicant, setSelectedApplicant] = useState(null);
-
-  // 상태 탭 (지원자 상태별 필터: 대기/승인)
-  const [statusTab, setStatusTab] = useState("PENDING"); // or "ACCEPTED"
-
-  // 리더 체크
+  const [statusTab, setStatusTab] = useState("PENDING");
   const userId = useSelector((state) => state.auth.id);
   const isLeader = leaderId === userId;
 
-  // 폼 세팅
   useEffect(() => {
     if (open && studyRecruit) {
       setForm({
@@ -47,27 +39,18 @@ export default function StudyRecruitFormModal({
         studyExplain: studyRecruit.studyExplain || "",
         isOpen: studyRecruit.isOpen ?? true,
       });
-      // 모집글이 열리면 지원자 목록 로드
       reloadApplicantList(0, statusTab);
     } else if (open && !studyRecruit) {
-      setForm({
-        title: "",
-        studyExplain: "",
-        isOpen: true,
-      });
+      setForm({ title: "", studyExplain: "", isOpen: true });
     }
-    // eslint-disable-next-line
   }, [open, studyRecruit]);
 
-  // statusTab이나 페이지가 바뀌면 목록 다시 로딩
   useEffect(() => {
     if (open && studyRecruit?.id) {
       reloadApplicantList(applicantPage, statusTab);
     }
-    // eslint-disable-next-line
   }, [statusTab, applicantPage, studyRecruit?.id, open]);
 
-  // 지원자 목록 불러오기
   const reloadApplicantList = async (page = 0, status = statusTab) => {
     if (!studyRecruit?.id) return;
     setApplicantLoading(true);
@@ -76,7 +59,7 @@ export default function StudyRecruitFormModal({
         studyRecruitId: studyRecruit.id,
         page,
         size: 4,
-        status, // status 필터도 API에서 받을 수 있도록 구현 (필요하다면 백엔드도 수정)
+        status,
       });
       setApplicantList(res.content || []);
       setApplicantTotalPages(res.totalPages || 1);
@@ -102,7 +85,6 @@ export default function StudyRecruitFormModal({
     setError("");
     if (!form.title.trim()) return setError("제목을 입력하세요.");
     if (!form.studyExplain.trim()) return setError("스터디 설명을 입력하세요.");
-
     setLoading(true);
     try {
       if (isEdit) {
@@ -135,26 +117,21 @@ export default function StudyRecruitFormModal({
     }
   };
 
-  // 지원자 상세 모달 닫기
   const handleCloseApplicantModal = () => setSelectedApplicant(null);
 
-  // 상태 변경 (승인/거절)
   const handleStatusChange = async (requestId, newStatus) => {
     try {
       await StudyRequestApi.updateRequestStatus(requestId, newStatus);
       await reloadApplicantList(applicantPage, statusTab);
       setSelectedApplicant(null);
-      // 승인 시에만 알림!
       if (newStatus === "ACCEPTED") {
         onMemberChanged?.();
         Swal.fire({
           title: "승인 완료!",
           text: "해당 지원자가 스터디 멤버로 추가되었습니다.",
-
           imageUrl: "/success.svg",
           imageWidth: 120,
           imageHeight: 120,
-
           confirmButtonText: "확인",
           timer: 1500,
         });
@@ -162,11 +139,9 @@ export default function StudyRecruitFormModal({
         Swal.fire({
           title: "거절 완료",
           text: "지원자가 거절 처리되었습니다.",
-
           imageUrl: "/error.svg",
           imageWidth: 120,
           imageHeight: 120,
-
           confirmButtonText: "확인",
           timer: 1500,
         });
@@ -182,7 +157,6 @@ export default function StudyRecruitFormModal({
     }
   };
 
-  // 날짜 포맷
   const formatDate = (date) => {
     if (!date) return "-";
     const d = new Date(date);
@@ -194,8 +168,7 @@ export default function StudyRecruitFormModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[1.5px]">
-      <div className="relative bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl px-8 py-10 w-full max-w-xl flex flex-col gap-3 border border-zinc-200 dark:border-zinc-700">
-        {/* 닫기 버튼 */}
+      <div className="relative bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl px-8 py-10 w-full max-w-xl flex flex-col gap-3 border border-zinc-200 dark:border-zinc-700 text-black dark:text-white">
         <button
           type="button"
           className="absolute right-7 top-6 text-3xl text-zinc-500 hover:text-zinc-800 dark:hover:text-white transition cursor-pointer"
@@ -212,8 +185,8 @@ export default function StudyRecruitFormModal({
             onClick={() => setTab("form")}
             className={`px-4 py-2 rounded-t-xl font-bold text-md transition-all duration-150 ${
               tab === "form"
-                ? "bg-white border-b-2 border-[#003CFF] text-[#003CFF] shadow"
-                : "bg-zinc-100 text-zinc-400"
+                ? "bg-white border-b-2 dark:bg-zinc-700 border-[#003CFF] text-[#003CFF] dark:text-white shadow"
+                : "bg-zinc-100 dark:bg-zinc-600 text-zinc-400 dark:text-zinc-100"
             }`}
           >
             {isEdit ? "구인 수정" : "구인 작성"}
@@ -224,8 +197,8 @@ export default function StudyRecruitFormModal({
               onClick={() => setTab("applicants")}
               className={`px-4 py-2 rounded-t-xl font-bold text-md transition-all duration-150 ${
                 tab === "applicants"
-                  ? "bg-white border-b-2 border-[#003CFF] text-[#003CFF] shadow"
-                  : "bg-zinc-100 text-zinc-400"
+                  ? "bg-white border-b-2 dark:bg-zinc-700 border-[#003CFF] text-[#003CFF] dark:text-white shadow"
+                  : "bg-zinc-100 dark:bg-zinc-600 text-zinc-400 dark:text-zinc-100"
               }`}
             >
               지원자 목록
