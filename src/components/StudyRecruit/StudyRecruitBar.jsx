@@ -75,8 +75,8 @@ export default function StudyRecruitBar({
                 onClick={() => onChangeSort(key)}
                 className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
                   isActive
-                    ? "text-black -translate-y-1"
-                    : "text-gray-500 dark:text-white hover:text-black hover:-translate-y-1"
+                    ? "text-black dark:text-white -translate-y-1"
+                    : "text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
                 }`}
               >
                 {icon}

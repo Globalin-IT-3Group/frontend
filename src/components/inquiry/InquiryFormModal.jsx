@@ -122,7 +122,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
 
         <button
           type="submit"
-          className="mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 dark:bg-zinc-500 dark:hover:bg-zinc-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
+          className="mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
           disabled={loading}
         >
           {loading ? "등록 중..." : "문의하기"}
