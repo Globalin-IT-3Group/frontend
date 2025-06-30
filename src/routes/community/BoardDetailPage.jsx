@@ -87,7 +87,7 @@ export default function BoardDetailPage() {
           {/* 왼쪽: 뒤로가기 */}
           <button
             onClick={() => navigate(-1)}
-            className="text-gray-400 hover:text-gray-700 py-1 rounded transition flex items-center"
+            className="text-gray-400 hover:text-gray-700 py-1 rounded transition flex items-center cursor-pointer"
           >
             <HiArrowLeft className="w-6 h-6" />
           </button>

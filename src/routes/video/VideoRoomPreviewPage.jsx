@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import VideoRoomApi from "../../api/videoRoomApi";
 import { FaVideo, FaVideoSlash } from "react-icons/fa";
 import { BsMicFill, BsMicMuteFill } from "react-icons/bs";
+import { HiArrowLeft } from "react-icons/hi2";
 
 export default function VideoRoomPreviewPage() {
   const { studyRoomId } = useParams();
@@ -138,13 +139,26 @@ export default function VideoRoomPreviewPage() {
 
   return (
     <div className="flex flex-col items-center gap-4 p-8">
-      <h2 className="text-2xl font-bold mb-4">화상 채팅방 미리보기</h2>
+      <div
+        className="w-full max-w-xm sm:max-w-md md:max-w-lg lg:max-w-2xl 
+             flex items-center mb-4 mx-auto"
+      >
+        <button
+          onClick={() => navigate(-1)}
+          className="text-gray-400 hover:text-gray-700 rounded-full"
+        >
+          <HiArrowLeft className="w-6 h-6" />
+        </button>
+
+        <h2 className="text-2xl font-bold mx-auto">화상 채팅방 미리보기</h2>
+      </div>
+
       {/* 비디오 미리보기 + 음성 감지 테두리 */}
       <div
         className={`
             w-full max-w-xm sm:max-w-md md:max-w-lg lg:max-w-2xl aspect-video 
-            bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden border-2
-            transition-all duration-200
+            bg-gray-200 rounded-xl flex items-center justify-center overflow-hidden border-2
+            transition-all duration-200 relative
             ${
               isSpeaking
                 ? "border-green-400 shadow-[0_0_0_4px_#22c55e]"
@@ -214,6 +228,7 @@ export default function VideoRoomPreviewPage() {
           {audioEnabled ? "마이크 OFF" : "마이크 ON"}
         </button>
       </div>
+
       <button
         className="bg-blue-500 text-white rounded px-6 py-2 mt-6"
         onClick={() =>

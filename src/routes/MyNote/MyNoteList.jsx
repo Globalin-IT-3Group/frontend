@@ -62,7 +62,7 @@ export default function MyNoteList() {
             px-4 py-2 rounded-lg font-semibold
             border border-blue-600 bg-white text-blue-600
             shadow-sm hover:bg-blue-600 hover:text-white hover:shadow
-            transition
+            transition cursor-pointer
           "
           onClick={() => navigate("/note/new")}
         >
