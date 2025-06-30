@@ -11,6 +11,7 @@ export default function StudyRecruitBar({
   onChangeSearch,
   tags,
   onChangeTags,
+  onSearchClick,
 }) {
   const hashtags = [
     { label: "#JLPT", value: "JLPT" },
@@ -18,7 +19,6 @@ export default function StudyRecruitBar({
     { label: "#회화", value: "회화" },
     { label: "#취업", value: "취업" },
     { label: "#자격증", value: "자격증" },
-    { label: "#토익", value: "토익" },
     { label: "#비즈니스일본어", value: "비즈니스일본어" },
   ];
 
@@ -111,7 +111,7 @@ export default function StudyRecruitBar({
             <MagnifyingGlassIcon
               className="w-6 h-6 text-gray-500 dark:text-white hover:text-black cursor-pointer transition-all duration-300 absolute right-2 top-1/2 -translate-y-1/2"
               onClick={() => {
-                setShowSearch((prev) => !prev);
+                onSearchClick();
                 setShowHashtag(false);
               }}
             />
