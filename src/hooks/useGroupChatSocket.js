@@ -28,14 +28,16 @@ export default function useGroupChatSocket(roomId) {
     if (!roomId || !userId) return;
 
     studyChatSocket.connect(roomId, userId, (msg) => {
-      // 그룹방: "READ" 메시지로 unreadCount 갱신
-      if (msg.messageType === "READ" && msg.messageId) {
+      if (msg.messageType === "READ" && msg.unreadCounts) {
         setMessages((prev) =>
           prev.map((m) =>
-            m.id <= msg.messageId ? { ...m, unreadCount: msg.unreadCount } : m
+            msg.unreadCounts[m.id] !== undefined
+              ? { ...m, unreadCount: msg.unreadCounts[m.id] }
+              : m
           )
         );
       }
+
       // 일반 메시지(중복방지)
       else if (msg.id) {
         setMessages((prev) => {

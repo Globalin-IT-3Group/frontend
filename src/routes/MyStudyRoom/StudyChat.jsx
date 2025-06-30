@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import useGroupChatSocket from "../../hooks/useGroupChatSocket";
 import StudyChatMessageList from "../../components/chat/StudyChat/StudyChatMessageList";
 import StudyChatInputForm from "../../components/chat/StudyChat/StudyChatInputForm";
@@ -14,6 +14,12 @@ export default function StudyChat({ isGroup = true }) {
     roomId,
     isGroup
   );
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      markAsRead();
+    }
+  }, [messages, markAsRead]);
 
   // 읽음 처리를 위한 콜백 (useCallback으로 메모이제이션)
   const handleReachBottom = useCallback(() => {
