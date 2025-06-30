@@ -47,7 +47,7 @@ export default function StudyRecruitBar({
   }, []);
 
   return (
-    <div className="bg-white w-full h-auto p-8 flex flex-col overflow-hidden dark:bg-zinc-600">
+    <div className="bg-white w-full h-auto p-8 flex flex-col overflow-hidden dark:bg-zinc-800">
       <div className="flex items-center justify-between">
         {/* 정렬 탭 */}
         <div className="flex space-x-8 ml-4">

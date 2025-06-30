@@ -16,11 +16,9 @@ export default function StudyRecruitModal({
   onIncreaseViewCount,
 }) {
   const [viewCount, setViewCount] = useState(initialViewCount);
-
   const scrollRef = useRef(null);
   const [scrollPercent, setScrollPercent] = useState(0);
 
-  // 💡 dependency에 onIncreaseViewCount도 추가
   useEffect(() => {
     if (recruitId) {
       setViewCount((prev) => prev + 1);
@@ -36,9 +34,7 @@ export default function StudyRecruitModal({
         (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
       setScrollPercent(percent);
     };
-    if (el) {
-      el.addEventListener("scroll", handleScroll);
-    }
+    if (el) el.addEventListener("scroll", handleScroll);
     return () => {
       if (el) el.removeEventListener("scroll", handleScroll);
     };
@@ -54,11 +50,11 @@ export default function StudyRecruitModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="relative bg-gradient-to-b from-blue-100 to-white w-[700px] h-[600px] overflow-hidden rounded-4xl">
+      <div className="relative bg-gradient-to-b from-blue-100 to-white dark:from-zinc-700 dark:to-zinc-800 w-[700px] h-[600px] overflow-hidden rounded-4xl shadow-xl">
         <div className="relative z-10 flex flex-col items-center mx-auto p-6">
           <div className="flex justify-center w-full">
             <div className="flex flex-col items-center w-full rounded-3xl p-4 space-y-3">
-              <h2 className="text-2xl font-bold break-words text-center text-[#0033CF]">
+              <h2 className="text-2xl font-bold break-words text-center text-[#0033CF] dark:text-blue-300">
                 {roomName}
               </h2>
               <div className="flex items-center space-x-2">
@@ -69,42 +65,49 @@ export default function StudyRecruitModal({
                     className="bg-black rounded-full w-6 h-6 object-cover"
                   />
                 )}
-                <p className="text-sm text-gray-500">{leader}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300">
+                  {leader}
+                </p>
               </div>
               <div className="flex items-center justify-between w-full">
                 <div className="flex space-x-4">
-                  <span className="text-xs text-gray-500 break-words">
+                  <span className="text-xs text-gray-500 dark:text-gray-300 break-words">
                     {formatDateToLocalString(createdAt)} 작성
                   </span>
-                  <span className="text-xs text-gray-500 font-semibold break-words">
+                  <span className="text-xs text-gray-500 dark:text-gray-300 font-semibold break-words">
                     {userCount}
                   </span>
-                  <span className="flex gap-1 items-center text-xs text-gray-500 break-words">
+                  <span className="flex gap-1 items-center text-xs text-gray-500 dark:text-gray-300 break-words">
                     <Eye size={11} />
                     {viewCount}
                   </span>
                 </div>
-                {/* ...태그 등은 실제 사용시만 */}
               </div>
             </div>
           </div>
-          <div className="w-[650px] h-[300px] bg-white flex flex-col mb-2 mt-1 rounded-2xl p-8 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+
+          {/* 설명 박스 */}
+          <div className="w-[650px] h-[300px] bg-white dark:bg-zinc-800 flex flex-col mb-2 mt-1 rounded-2xl p-8 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
             <div
               className="overflow-y-auto pr-2 scrollbar-hide"
               ref={scrollRef}
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              <p className="text-sm text-gray-600 break-words whitespace-pre-line">
+              <p className="text-sm text-gray-600 dark:text-gray-300 break-words whitespace-pre-line">
                 {studyExplain}
               </p>
             </div>
           </div>
-          <div className="relative w-[650px] h-2 bg-gray-200 rounded-full overflow-hidden">
+
+          {/* 스크롤 퍼센트 바 */}
+          <div className="relative w-[650px] h-2 bg-gray-200 dark:bg-zinc-600 rounded-full overflow-hidden">
             <div
               className="absolute top-0 left-0 h-2 bg-[#003CFF] transition-all duration-200"
               style={{ width: `${scrollPercent}%` }}
             ></div>
           </div>
+
+          {/* 버튼 영역 */}
           <div className="flex justify-center gap-x-4 mt-4">
             <button
               onClick={onRequestFormOpen}
@@ -114,7 +117,7 @@ export default function StudyRecruitModal({
             </button>
             <button
               onClick={onClose}
-              className="bg-white border border-gray-400 text-gray-400 px-8 py-2 rounded-3xl text-md font-bold hover:bg-gray-100 transition-all duration-200 cursor-pointer"
+              className="bg-white dark:bg-zinc-800 border border-gray-400 dark:border-zinc-500 text-gray-400 dark:text-gray-300 px-8 py-2 rounded-3xl text-md font-bold hover:bg-gray-100 dark:hover:bg-zinc-700 transition-all duration-200 cursor-pointer"
             >
               취소
             </button>
