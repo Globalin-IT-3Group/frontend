@@ -4,7 +4,7 @@ import MDEditor from "@uiw/react-md-editor";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
-import StudyNoteApi from "../../api/studyNoteApi";
+import StudyNoteApi from "../../api/studyNoteAPI";
 
 export default function StudyNoteForm() {
   const navigate = useNavigate();
