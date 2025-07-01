@@ -94,28 +94,30 @@ export default function StudyRecruitBar({
           })}
         </div>
         {/* 검색/태그 */}
-        <div className="flex items-center justify-end gap-4 w-full max-w-3xl relative">
+        <div className="h-[50px] flex items-center justify-end gap-4 w-full max-w-3xl">
           {/* 검색창 */}
-          <div ref={searchBoxRef} className="relative">
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => onChangeSearch(e.target.value)}
-              placeholder="스터디 그룹명을 검색하세요"
-              className={`h-[50px] rounded-2xl border border-gray-300 shadow pl-4 pr-4 bg-white transition-all duration-300 ease-in-out ${
-                showSearch
-                  ? "w-[300px] opacity-100"
-                  : "w-0 opacity-0 overflow-hidden"
-              }`}
-            />
-            <MagnifyingGlassIcon
-              className="w-6 h-6 text-gray-500 dark:text-gray-400 dark:hover:text-white hover:text-black cursor-pointer transition-all duration-300 absolute right-2 top-1/2 -translate-y-1/2"
-              onClick={() => {
-                setShowSearch((prev) => !prev);
-                setShowHashtag(false);
-              }}
-            />
-          </div>
+          {sortBy !== "myRequest" && (
+            <div ref={searchBoxRef} className="relative">
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => onChangeSearch(e.target.value)}
+                placeholder="스터디 그룹명을 검색하세요"
+                className={`h-[50px] rounded-2xl border border-gray-300 shadow pl-4 pr-4 bg-white transition-all duration-300 ease-in-out ${
+                  showSearch
+                    ? "w-[300px] opacity-100"
+                    : "w-0 opacity-0 overflow-hidden"
+                }`}
+              />
+              <MagnifyingGlassIcon
+                className="w-6 h-6 text-gray-500 dark:text-gray-400 dark:hover:text-white hover:text-black cursor-pointer transition-all duration-300 absolute right-2 top-1/2 -translate-y-1/2"
+                onClick={() => {
+                  setShowSearch((prev) => !prev);
+                  setShowHashtag(false);
+                }}
+              />
+            </div>
+          )}
           {/* 태그 */}
           <div className="relative" ref={hashtagRef}>
             <HashtagIcon

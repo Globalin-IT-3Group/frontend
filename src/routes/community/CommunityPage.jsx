@@ -85,7 +85,7 @@ export default function CommunityPage() {
         {/* 상단 탭 필터 */}
         <div className="flex flex-wrap items-center mb-8 gap-y-2 mt-2">
           {/* 탭 리스트: 가로 스크롤 + flex-grow로 공간 차지 */}
-          <div className="flex space-x-8 ml-4 flex-1 min-w-0 overflow-x-auto p-1">
+          <div className="flex space-x-8 ml-4 flex-1 min-w-0  p-1">
             {TAB_LIST.map((tab) => {
               const isActive = activeTab.label === tab.label;
               return (
@@ -95,19 +95,24 @@ export default function CommunityPage() {
                     setActiveTab(tab);
                     setPage(0);
                   }}
-                  className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
+                  className={`relative group flex items-center gap-x-1 cursor-pointer transition-all duration-300 min-w-0 transform ${
                     isActive
                       ? "text-black dark:text-white -translate-y-1"
                       : "text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
                   }`}
                 >
-                  {tab.icon}
+                  <div className="w-5 h-5 flex-shrink-0">{tab.icon}</div>
                   <span
-                    className={`text-md relative whitespace-nowrap after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-[#003CFF] after:transition-all after:duration-300 ${
-                      isActive
-                        ? "after:left-0 after:w-full"
-                        : "group-hover:after:left-0 group-hover:after:w-full after:w-0"
-                    }`}
+                    className={`
+          text-[clamp(0.8rem,1.5vw,1rem)] font-medium truncate
+          relative whitespace-nowrap
+          after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-[#003CFF] after:transition-all after:duration-300
+          ${
+            isActive
+              ? "after:left-0 after:w-full"
+              : "group-hover:after:left-0 group-hover:after:w-full after:w-0"
+          }
+        `}
                   >
                     {tab.label}
                   </span>
