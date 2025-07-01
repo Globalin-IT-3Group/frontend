@@ -7,7 +7,7 @@ const chatSocket = {
     if (socket) socket.close();
 
     socket = new WebSocket(
-      `ws://${backendURL}/ws/study?roomId=${roomId}&userId=${userId}`
+      `wss://${backendURL}/ws/study?roomId=${roomId}&userId=${userId}`
     );
 
     socket.onopen = () => {
