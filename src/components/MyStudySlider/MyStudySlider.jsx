@@ -112,7 +112,7 @@ export default function MyStudySlider({
                       onClick={() => setModalOpen(true)}
                       className="w-full h-full bg-gray-200 dark:bg-zinc-600 hover:bg-gray-300 dark:hover:bg-zinc-500 transition-all flex items-center justify-center rounded-4xl"
                     >
-                      <span className="text-5xl font-bold text-gray-600 dark:text-white">
+                      <span className="flex items-center p-4 text-5xl font-bold text-gray-600 dark:text-white">
                         +
                       </span>
                     </button>
