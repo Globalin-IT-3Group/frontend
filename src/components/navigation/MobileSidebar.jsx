@@ -66,7 +66,7 @@ function SidebarItem({ icon, label, onClick }) {
   return (
     <li className="flex flex-col items-center gap-2">
       <button onClick={onClick} className="flex flex-col items-center gap-2">
-        <div className="inline-flex items-center justify-center bg-white rounded-full p-2 text-2xl shadow-2xs hover:bg-gradient-to-bl from-blue-200 to-blue-400 hover:scale-110 transition-all duration-300">
+        <div className="inline-flex items-center justify-center bg-white rounded-full p-2 text-2xl shadow-2xs hover:bg-gradient-to-bl from-blue-200 to-blue-400 hover:scale-110 transition-all duration-300 cursor-pointer">
           {icon}
         </div>
         <p>{label}</p>
@@ -79,7 +79,7 @@ function SidebarLink({ to, icon, label }) {
   return (
     <li className="flex flex-col items-center gap-2">
       <Link to={to} className="flex flex-col items-center gap-2">
-        <label className="inline-flex items-center justify-center bg-white rounded-full p-2 text-2xl shadow-2xs hover:bg-gradient-to-bl from-blue-200 to-blue-400 hover:scale-110 transition-all duration-300">
+        <label className="inline-flex items-center justify-center bg-white rounded-full p-2 text-2xl shadow-2xs hover:bg-gradient-to-bl from-blue-200 to-blue-400 hover:scale-110 transition-all duration-300 cursor-pointer">
           {icon}
         </label>
         <p>{label}</p>
