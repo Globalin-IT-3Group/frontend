@@ -140,62 +140,62 @@ export default function StudyRoomEditModal({
         >
           &times;
         </button>
-        <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-2 tracking-tight dark:text-white">
+        <h2 className="text-2xl dark:text-white md:text-3xl font-extrabold text-center mb-2 tracking-tight">
           스터디룸 수정
         </h2>
 
         <div className="flex flex-col gap-2">
-          <label className="font-semibold text-zinc-700 dark:text-zinc-200">
+          <label className="font-semibold text-zinc-700 dark:text-white">
             방 이름 <span className="text-red-500">*</span>
           </label>
           <input
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400 dark:text-white"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 dark:text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
             placeholder="방 이름을 입력하세요"
             required
             maxLength={50}
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="font-semibold text-zinc-700 dark:text-zinc-200">
+          <label className="font-semibold text-zinc-700 dark:text-white ">
             규칙
           </label>
           <textarea
             name="rule"
             value={form.rule}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[56px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400 dark:text-white"
+            className="rounded-xl border dark:text-white border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[56px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
             placeholder="스터디 규칙을 입력하세요"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="font-semibold text-zinc-700 dark:text-zinc-200">
+          <label className="font-semibold text-zinc-700 dark:text-white">
             공지사항
           </label>
           <textarea
             name="notice"
             value={form.notice}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[48px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400 dark:text-white"
+            className="rounded-xl border border-zinc-200 dark:text-white dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[48px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
             placeholder="공지사항 (선택)"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="font-semibold text-zinc-700 dark:text-zinc-200">
+          <label className="font-semibold text-zinc-700 dark:text-white">
             대표 이미지 URL
           </label>
           <input
             name="imageUrl"
             value={form.imageUrl}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400 dark:text-white"
+            className="rounded-xl border border-zinc-200 dark:text-white dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
             placeholder="이미지 URL (기본값: 핑구)"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="font-semibold text-zinc-700 dark:text-zinc-200">
+          <label className="font-semibold text-zinc-700 dark:text-white">
             최대 인원수
           </label>
           <input
@@ -205,7 +205,7 @@ export default function StudyRoomEditModal({
             onChange={handleChange}
             min={2}
             max={4}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 w-32 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition dark:text-white"
+            className="rounded-xl border border-zinc-200 dark:text-white dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 w-32 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition"
           />
           {maxUserError && (
             <span className="text-xs text-red-500 mt-1">

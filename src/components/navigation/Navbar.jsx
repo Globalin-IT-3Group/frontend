@@ -7,7 +7,7 @@ import ProfileAvatar from "./ProfileAvatar";
 import ProfileDropdown from "./ProfileDropdown";
 import { logout } from "../../store/reducers/authSlice";
 
-export default function Navbar() {
+export default function Navbar({ rightElement = null }) {
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,6 +35,7 @@ export default function Navbar() {
         コツコツ
       </button>
       <div className="flex gap-4">
+        {rightElement}
         <AlarmButton />
         <ThemeButton />
         {user.isLoggedIn ? (

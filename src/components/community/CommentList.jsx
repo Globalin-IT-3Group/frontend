@@ -16,7 +16,7 @@ export default function CommentList({ boardId, userId, reloadKey, onReload }) {
   if (loading) return <div>댓글 불러오는 중...</div>;
   if (comments.length === 0)
     return (
-      <div className="text-gray-400 text-sm py-5 text-center">
+      <div className="text-gray-400 dark:text-gray-200 text-sm py-5 text-center">
         아직 댓글이 없습니다.
       </div>
     );

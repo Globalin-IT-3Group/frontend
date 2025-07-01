@@ -56,13 +56,13 @@ export default function RecruitBoxContainer({
           <h2 className="text-xl font-bold mb-2 break-words text-gray-900 dark:text-white">
             {roomName}
           </h2>
-          <p className="text-md text-gray-600 dark:text-gray-300 break-words line-clamp-2">
+          <p className="text-md text-gray-600 dark:text-white break-words line-clamp-2">
             {studyExplain}
           </p>
         </div>
 
         <div>
-          <div className="border-t border-gray-100 dark:border-zinc-600 my-4" />
+          <div className="border-t border-gray-100 dark:border-gray-400 my-4" />
           <div className="flex flex-wrap items-center justify-between gap-y-1">
             <div className="flex items-center">
               {profileImage && (
@@ -77,14 +77,14 @@ export default function RecruitBoxContainer({
               </p>
             </div>
 
-            <div className="text-sm text-gray-600 dark:text-gray-300 space-x-2 min-w-0 flex items-center">
+            <div className="text-sm text-gray-600 dark:text-gray-200 space-x-2 min-w-0 flex items-center">
               <span className="break-words">
                 {formatDateToLocalString(createdAt)}
               </span>
               <span className="text-[#003CFF] dark:text-blue-400 font-semibold break-words">
                 {userCount}
               </span>
-              <span className="flex items-center ml-2 text-gray-400 dark:text-gray-300">
+              <span className="flex items-center ml-2 text-gray-400 dark:text-gray-200">
                 <LuEye className="w-4 h-4 mr-1" />
                 {viewCount}
               </span>

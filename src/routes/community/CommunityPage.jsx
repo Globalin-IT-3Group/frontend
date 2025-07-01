@@ -95,12 +95,11 @@ export default function CommunityPage() {
                     setActiveTab(tab);
                     setPage(0);
                   }}
-                  className={`relative group flex items-center gap-x-1 cursor-pointer transition-all duration-300 transform min-w-0
-        ${
-          isActive
-            ? "text-black -translate-y-1"
-            : "text-gray-500 dark:text-white hover:text-black hover:-translate-y-1"
-        }`}
+                  className={`relative group flex items-center gap-x-1 cursor-pointer transition-all duration-300 min-w-0 transform ${
+                    isActive
+                      ? "text-black dark:text-white -translate-y-1"
+                      : "text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
+                  }`}
                 >
                   <div className="w-5 h-5 flex-shrink-0">{tab.icon}</div>
                   <span

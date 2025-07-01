@@ -76,7 +76,7 @@ export default function StudyRecruitBar({
                 className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
                   isActive
                     ? "text-black dark:text-white -translate-y-1"
-                    : "text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
+                    : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
                 }`}
               >
                 {icon}
@@ -110,7 +110,7 @@ export default function StudyRecruitBar({
                 }`}
               />
               <MagnifyingGlassIcon
-                className="w-6 h-6 text-gray-500 dark:text-white hover:text-black cursor-pointer transition-all duration-300 absolute right-2 top-1/2 -translate-y-1/2"
+                className="w-6 h-6 text-gray-500 dark:text-gray-400 dark:hover:text-white hover:text-black cursor-pointer transition-all duration-300 absolute right-2 top-1/2 -translate-y-1/2"
                 onClick={() => {
                   setShowSearch((prev) => !prev);
                   setShowHashtag(false);
@@ -121,7 +121,7 @@ export default function StudyRecruitBar({
           {/* 태그 */}
           <div className="relative" ref={hashtagRef}>
             <HashtagIcon
-              className="w-6 h-6 mr-4 text-gray-500 dark:text-white hover:text-black cursor-pointer transition-all duration-300"
+              className="w-6 h-6 mr-4 text-gray-500 dark:text-gray-400 dark:hover:text-white hover:text-black cursor-pointer transition-all duration-300"
               onClick={() => {
                 setShowHashtag((prev) => !prev);
                 setShowSearch(false);
