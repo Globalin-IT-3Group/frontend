@@ -94,7 +94,7 @@ export default function StudyRecruitBar({
           })}
         </div>
         {/* 검색/태그 */}
-        <div className="flex items-center justify-end gap-4 w-full max-w-3xl">
+        <div className="h-[50px] flex items-center justify-end gap-4 w-full max-w-3xl">
           {/* 검색창 */}
           {sortBy !== "myRequest" && (
             <div ref={searchBoxRef} className="relative">

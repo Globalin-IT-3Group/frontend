@@ -140,7 +140,7 @@ export default function StudyRoomEditModal({
         >
           &times;
         </button>
-        <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-2 tracking-tight">
+        <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-2 tracking-tight dark:text-white">
           스터디룸 수정
         </h2>
 
@@ -152,7 +152,7 @@ export default function StudyRoomEditModal({
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400 dark:text-white"
             placeholder="방 이름을 입력하세요"
             required
             maxLength={50}
@@ -166,7 +166,7 @@ export default function StudyRoomEditModal({
             name="rule"
             value={form.rule}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[56px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[56px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400 dark:text-white"
             placeholder="스터디 규칙을 입력하세요"
           />
         </div>
@@ -178,7 +178,7 @@ export default function StudyRoomEditModal({
             name="notice"
             value={form.notice}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[48px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[48px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400 dark:text-white"
             placeholder="공지사항 (선택)"
           />
         </div>
@@ -190,7 +190,7 @@ export default function StudyRoomEditModal({
             name="imageUrl"
             value={form.imageUrl}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400 dark:text-white"
             placeholder="이미지 URL (기본값: 핑구)"
           />
         </div>
@@ -205,7 +205,7 @@ export default function StudyRoomEditModal({
             onChange={handleChange}
             min={2}
             max={4}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 w-32 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 w-32 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition dark:text-white"
           />
           {maxUserError && (
             <span className="text-xs text-red-500 mt-1">
