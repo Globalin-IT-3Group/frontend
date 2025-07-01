@@ -81,7 +81,7 @@ export default function CommunityPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
-      <div className="w-full max-w-4xl bg-white dark:bg-zinc-600 rounded-2xl shadow-xl p-8">
+      <div className="w-full max-w-4xl bg-white dark:bg-zinc-700 rounded-2xl shadow-xl p-8">
         {/* 상단 탭 필터 */}
         <div className="flex flex-wrap items-center mb-8 gap-y-2 mt-2">
           {/* 탭 리스트: 가로 스크롤 + flex-grow로 공간 차지 */}
