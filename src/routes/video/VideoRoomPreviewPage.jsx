@@ -138,7 +138,7 @@ export default function VideoRoomPreviewPage() {
   if (loading) return <div>로딩 중...</div>;
 
   return (
-    <div className="flex flex-col items-center gap-4 p-8">
+    <div className="flex flex-col items-center gap-4 p-8 dark:bg-zinc-800">
       <div
         className="w-full max-w-xm sm:max-w-md md:max-w-lg lg:max-w-2xl 
              flex items-center mb-4 mx-auto"
@@ -150,7 +150,9 @@ export default function VideoRoomPreviewPage() {
           <HiArrowLeft className="w-6 h-6" />
         </button>
 
-        <h2 className="text-2xl font-bold mx-auto">화상 채팅방 미리보기</h2>
+        <h2 className="text-2xl font-bold mx-auto dark:text-white">
+          화상 채팅방 미리보기
+        </h2>
       </div>
 
       {/* 비디오 미리보기 + 음성 감지 테두리 */}
@@ -179,11 +181,11 @@ export default function VideoRoomPreviewPage() {
       {/* 카메라/마이크 선택, ON/OFF 등 아래 그대로 */}
       <div className="flex flex-col gap-2 w-full max-w-[440px]">
         <div className="flex items-center gap-2 w-full">
-          <FaVideo className="flex-shrink-0 w-6 h-6" />
+          <FaVideo className="flex-shrink-0 w-6 h-6 dark:text-white" />
           <select
             value={selectedVideo}
             onChange={(e) => setSelectedVideo(e.target.value)}
-            className="p-2 rounded border w-full"
+            className="p-2 rounded border w-full dark:text-white"
           >
             {videoDevices.map((device) => (
               <option key={device.deviceId} value={device.deviceId}>
@@ -192,12 +194,12 @@ export default function VideoRoomPreviewPage() {
             ))}
           </select>
         </div>
-        <div className="flex items-center gap-2 w-full">
+        <div className="flex items-center gap-2 w-full dark:text-white">
           <BsMicFill className="flex-shrink-0 w-6 h-6" />
           <select
             value={selectedAudio}
             onChange={(e) => setSelectedAudio(e.target.value)}
-            className="p-2 rounded border w-full"
+            className="p-2 rounded border w-full dark:text-white"
           >
             {audioDevices.map((device) => (
               <option key={device.deviceId} value={device.deviceId}>

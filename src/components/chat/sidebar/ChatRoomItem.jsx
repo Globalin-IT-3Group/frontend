@@ -53,7 +53,7 @@ export default function ChatRoomItem({ room, refreshRooms, onClickRoom }) {
             </span>
           )}
         </div>
-        <div className="flex items-center justify-between text-sm text-gray-500 truncate">
+        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-200 truncate">
           <span className="truncate">{lastMessage || "대화 없음"}</span>
           <span className="ml-2 text-xs text-gray-400 min-w-fit">
             {formatLastMessageAt(lastMessageAt)}

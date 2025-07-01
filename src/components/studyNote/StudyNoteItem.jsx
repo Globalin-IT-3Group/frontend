@@ -36,7 +36,7 @@ export default function StudyNoteItem({ note, studyRoomId }) {
   return (
     <>
       <li
-        className="shadow-md px-4 py-4 hover:bg-blue-50 transition cursor-pointer bg-white mb-5 flex flex-col"
+        className="shadow-md px-4 py-4 hover:bg-blue-50 transition rounded-xl cursor-pointer bg-white dark:bg-zinc-600 dark:hover:bg-zinc-500 mb-5 flex flex-col"
         onClick={() =>
           window.location.assign(
             `/study/mystudyroom/${studyRoomId}/notes/${note.id}`
@@ -56,15 +56,15 @@ export default function StudyNoteItem({ note, studyRoomId }) {
               <div className="flex items-start justify-between">
                 {/* 제목+미리보기 */}
                 <div>
-                  <span className="text-2xl font-bold truncate block max-w-[380px]">
+                  <span className="text-2xl font-bold dark:text-white truncate block max-w-[380px]">
                     {note.title}
                   </span>
-                  <div className="text-lg text-gray-600 font-normal">
+                  <div className="text-lg text-gray-600 dark:text-white font-normal">
                     {shortContent}
                   </div>
                 </div>
                 {/* 날짜 */}
-                <span className="text-xs text-gray-400 ml-4 whitespace-nowrap mt-1">
+                <span className="text-xs text-gray-400 dark:text-gray-200 ml-4 whitespace-nowrap mt-1">
                   {formatDate(note.createdAt)}
                 </span>
               </div>
@@ -82,14 +82,14 @@ export default function StudyNoteItem({ note, studyRoomId }) {
               onClick={handleProfileClick}
             />
             <span
-              className="text-sm text-gray-500 cursor-pointer hover:underline"
+              className="text-sm text-gray-500 dark:text-gray-200 cursor-pointer hover:underline"
               onClick={handleProfileClick}
             >
               {nickname}
             </span>
           </div>
           {/* 좋아요/댓글수 */}
-          <div className="flex items-center gap-3 text-gray-500 text-xs">
+          <div className="flex items-center gap-3 text-gray-500 dark:text-gray-200 text-xs">
             <span className="flex items-center gap-1">
               <FaRegHeart className="w-4 h-4" />
               {note.heartCount ?? 0}

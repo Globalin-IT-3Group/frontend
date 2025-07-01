@@ -63,7 +63,7 @@ export default function MyNoteForm({ mode = "create" }) {
 
   return (
     <div className="w-full min-h-full flex flex-col items-center px-4 py-4">
-      <div className="w-full max-w-5xl min-h-[80vh] bg-white rounded-2xl shadow-xl p-8">
+      <div className="w-full max-w-5xl min-h-[80vh] bg-white dark:bg-zinc-700 rounded-2xl shadow-xl p-8">
         {/* 상단 바 */}
         <div className="flex items-center justify-between mb-6">
           <button
@@ -102,7 +102,7 @@ export default function MyNoteForm({ mode = "create" }) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          className="w-full text-2xl font-bold border-b mb-4 p-2 focus:outline-none"
+          className="w-full text-2xl font-bold border-b dark:text-white dark:placeholder:text-white mb-4 p-2 focus:outline-none"
         />
 
         {/* 썸네일 URL 입력 */}
@@ -110,7 +110,7 @@ export default function MyNoteForm({ mode = "create" }) {
           placeholder="이미지 URL 입력 (기본값 : 핑구)"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          className="w-full border p-2 rounded mb-4"
+          className="w-full border p-2 rounded mb-4 dark:text-white dark:placeholder:text-white"
         />
         {imageUrl && (
           <img

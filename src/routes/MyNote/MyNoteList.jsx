@@ -100,7 +100,7 @@ export default function MyNoteList() {
                   {getEllipsisMessage(note.content)}
                 </p>
               </div>
-              <span className="text-sm text-gray-400 dark:text-white">
+              <span className="text-sm text-gray-400 dark:text-gray-200">
                 {note.createdAt
                   ? new Date(note.createdAt).toLocaleString()
                   : "날짜 없음"}

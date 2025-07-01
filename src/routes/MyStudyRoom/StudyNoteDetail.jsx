@@ -42,7 +42,7 @@ export default function StudyNoteDetail() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
-      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-xl p-8">
+      <div className="w-full max-w-3xl bg-white dark:bg-zinc-700 rounded-2xl shadow-xl p-8">
         <div className="mb-10 h-44 md:h-56 relative flex items-center rounded-t-xl justify-center overflow-hidden">
           <img
             src={thumbnail}
@@ -78,14 +78,14 @@ export default function StudyNoteDetail() {
 
         {/* 제목 + 날짜 */}
         <div className="flex items-end justify-between mb-5">
-          <div className="text-4xl font-bold">{note.title}</div>
-          <div className="text-sm text-gray-400 pb-1">
+          <div className="text-4xl font-bold dark:text-white">{note.title}</div>
+          <div className="text-sm text-gray-400 dark:text-gray-200 pb-1">
             {new Date(note.createdAt).toLocaleDateString("ko-KR")}
           </div>
         </div>
 
         {/* 본문 (마크다운) */}
-        <div className="prose prose-lg max-w-none font-serif text-gray-800 min-h-[200px] mb-8">
+        <div className="prose prose-lg max-w-none text-gray-800 dark:text-white min-h-[200px] mb-8">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks]}
             components={{
@@ -132,7 +132,7 @@ export default function StudyNoteDetail() {
             onClick={() => setProfileOpen(true)}
           />
           <span
-            className="text-sm text-gray-800 cursor-pointer hover:underline"
+            className="text-sm text-gray-800 dark:text-gray-200 cursor-pointer hover:underline"
             onClick={() => setProfileOpen(true)}
           >
             {nickname}
@@ -140,7 +140,9 @@ export default function StudyNoteDetail() {
         </div>
         {/* ===== 댓글 영역 ===== */}
         <div className="border-t border-gray-400 pt-6 mt-7">
-          <div className="font-bold text-lg mb-2 text-gray-400">댓글</div>
+          <div className="font-bold text-lg mb-2 text-gray-400 dark:text-white">
+            댓글
+          </div>
           <CommentInput
             boardId={note.id}
             userId={userId}

@@ -19,7 +19,7 @@ export default function CommentInput({ boardId, userId, onCommentPosted }) {
     <form className="flex gap-2 mb-4" onSubmit={handleSubmit}>
       <input
         className="
-    flex-1 border border-gray-300 dark:border-zinc-500
+    flex-1 border border-gray-300 dark:border-zinc-400
     px-3 py-2 rounded 
     bg-transparent
     text-black dark:text-white 

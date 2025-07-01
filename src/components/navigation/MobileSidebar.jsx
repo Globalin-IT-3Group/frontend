@@ -18,11 +18,11 @@ export default function MobileSidebar({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black bg-opacity-50 lg:hidden"
+      className="fixed inset-0 z-50 bg-black/50 bg-opacity-50 lg:hidden"
       onClick={onClose}
     >
       <div
-        className="absolute top-0 left-0 w-full bg-white dark:bg-zinc-800 shadow-lg p-4 pt-6 rounded-b-xl overflow-y-auto"
+        className="absolute top-0 w-full bg-white dark:bg-zinc-700 shadow-lg p-4 pt-6 rounded-b-xl overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <ul className="grid grid-cols-3 gap-x-4 gap-y-8 px-4 text-center text-sm font-bold transition-all duration-300 text-black dark:text-white">
