@@ -98,7 +98,7 @@ export default function CommunityPage() {
                   className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
                     isActive
                       ? "text-black dark:text-white -translate-y-1"
-                      : "text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
+                      : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
                   }`}
                 >
                   {tab.icon}
