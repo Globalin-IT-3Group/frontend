@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import BoardApi from "../../api/boardAPI";
 import { useNavigate } from "react-router-dom";
-import { LuClock } from "react-icons/lu";
+import { BiListPlus } from "react-icons/bi";
 import { HiTrendingUp } from "react-icons/hi";
 import { BsPostcard } from "react-icons/bs";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
@@ -14,7 +14,7 @@ const TAB_LIST = [
   {
     label: "New",
     sort: "createdAt,desc",
-    icon: <LuClock className="w-5 h-5 dark:text-white" />,
+    icon: <BiListPlus className="w-6 h-6 dark:text-white" />,
   },
   {
     label: "Most View",
@@ -81,11 +81,14 @@ export default function CommunityPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
+      <h1 className="text-4xl font-bold mx-auto mt-10 mb-10 dark:text-white">
+        자유 게시판
+      </h1>
       <div className="w-full max-w-4xl bg-white dark:bg-zinc-700 rounded-2xl shadow-xl p-8">
         {/* 상단 탭 필터 */}
         <div className="flex flex-wrap items-center mb-8 gap-y-2 mt-2">
           {/* 탭 리스트: 가로 스크롤 + flex-grow로 공간 차지 */}
-          <div className="flex space-x-8 ml-4 flex-1 min-w-0  p-1">
+          <div className="flex space-x-8 ml-4 flex-1 min-w-0 p-1">
             {TAB_LIST.map((tab) => {
               const isActive = activeTab.label === tab.label;
               return (
@@ -95,7 +98,7 @@ export default function CommunityPage() {
                     setActiveTab(tab);
                     setPage(0);
                   }}
-                  className={`relative group flex items-center gap-x-1 cursor-pointer transition-all duration-300 min-w-0 transform ${
+                  className={`relative group flex items-center gap-x-1 cursor-pointer transition-all duration-300 transform ${
                     isActive
                       ? "text-black dark:text-white -translate-y-1"
                       : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
@@ -104,7 +107,6 @@ export default function CommunityPage() {
                   <div className="w-5 h-5 flex-shrink-0">{tab.icon}</div>
                   <span
                     className={`
-          text-[clamp(0.8rem,1.5vw,1rem)] font-medium truncate
           relative whitespace-nowrap
           after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-[#003CFF] after:transition-all after:duration-300
           ${
@@ -112,6 +114,7 @@ export default function CommunityPage() {
               ? "after:left-0 after:w-full"
               : "group-hover:after:left-0 group-hover:after:w-full after:w-0"
           }
+          hidden md:inline
         `}
                   >
                     {tab.label}

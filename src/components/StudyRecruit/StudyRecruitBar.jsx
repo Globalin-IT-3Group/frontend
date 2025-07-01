@@ -1,8 +1,8 @@
 import { MagnifyingGlassIcon, HashtagIcon } from "@heroicons/react/24/outline";
-import { LuClock } from "react-icons/lu";
 import { HiTrendingUp } from "react-icons/hi";
 import { useRef, useEffect, useState } from "react";
-import { RiMailSendLine } from "react-icons/ri";
+import { BsBookmarkStarFill } from "react-icons/bs";
+import { BiListPlus } from "react-icons/bi";
 
 export default function StudyRecruitBar({
   sortBy,
@@ -55,7 +55,7 @@ export default function StudyRecruitBar({
             {
               key: "latest",
               label: "New",
-              icon: <LuClock className="w-5 h-5 dark:text-white" />,
+              icon: <BiListPlus className="w-6 h-6 dark:text-white" />,
             },
             {
               key: "mostView",
@@ -65,7 +65,7 @@ export default function StudyRecruitBar({
             {
               key: "myRequest",
               label: "My Request",
-              icon: <RiMailSendLine className="w-5 h-5" />,
+              icon: <BsBookmarkStarFill className="w-5 h-5 dark:text-white" />,
             },
           ].map(({ key, label, icon }) => {
             const isActive = sortBy === key;
@@ -85,7 +85,9 @@ export default function StudyRecruitBar({
                     isActive
                       ? "after:left-0 after:w-full"
                       : "group-hover:after:left-0 group-hover:after:w-full after:w-0"
-                  }`}
+                  }
+                  hidden md:inline
+                  `}
                 >
                   {label}
                 </span>
