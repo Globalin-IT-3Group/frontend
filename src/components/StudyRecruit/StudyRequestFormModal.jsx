@@ -49,7 +49,7 @@ export default function StudyRequestFormModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="relative bg-gradient-to-b from-blue-100 to-white w-[700px] h-[530px] overflow-hidden rounded-4xl">
+      <div className="relative bg-gradient-to-b from-blue-100 to-white w-[700px] h-[530px] overflow-hidden dark:bg-gradient-to-b dark:from-zinc-400 dark:to-zinc-600 rounded-4xl">
         <div className="relative z-10 flex flex-col items-center mx-auto p-8">
           <div className="flex w-[650px] h-[100px] gap-4">
             <div className="flex flex-col p-4 space-y-2 mx-auto">

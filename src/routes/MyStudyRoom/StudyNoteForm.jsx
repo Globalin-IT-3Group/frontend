@@ -65,10 +65,10 @@ export default function StudyNoteForm() {
 
   return (
     <div className="w-full h-full flex flex-col items-center py-2">
-      <div className="w-full max-w-6xl bg-white rounded-2xl flex flex-col gap-8 p-0">
+      <div className="w-full max-w-6xl bg-white dark:bg-zinc-700 rounded-2xl flex flex-col gap-8 p-0">
         {/* 작성/수정 타이틀 */}
-        <div className="w-full flex justify-center items-center py-8 border-b">
-          <h1 className="text-3xl font-bold text-gray-800">
+        <div className="w-full flex justify-center items-center py-8 border-b border-gray-500">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             {isEdit ? "노트 수정" : "노트 작성"}
           </h1>
         </div>
@@ -80,7 +80,7 @@ export default function StudyNoteForm() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="제목을 입력하세요"
-              className="w-full text-2xl font-bold border-none outline-none bg-transparent my-3 placeholder-gray-400"
+              className="w-full text-2xl font-bold border-none outline-none bg-transparent my-3 dark:text-white dark:placeholder-white placeholder-gray-400"
               disabled={loading}
             />
             <input
@@ -88,7 +88,7 @@ export default function StudyNoteForm() {
               value={thumbnail}
               onChange={(e) => setThumbnail(e.target.value)}
               placeholder="썸네일 이미지 URL (옵션)"
-              className="w-full border rounded-lg px-3 py-2 mb-3 placeholder-gray-400"
+              className="w-full border dark:border-white rounded-lg px-3 py-2 mb-3 dark:text-white placeholder-gray-400 dark:placeholder-white"
               disabled={loading}
             />
             <div className="flex-1 flex flex-col">

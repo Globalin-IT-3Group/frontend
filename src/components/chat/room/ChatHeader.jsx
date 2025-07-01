@@ -1,6 +1,6 @@
 export default function ChatHeader({ otherUser }) {
   return (
-    <div className="flex items-center gap-4 px-1 my-4 border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-800">
+    <div className="flex items-center gap-4 px-1 my-4 border-gray-300 rounded-xl dark:border-zinc-600 bg-white dark:bg-zinc-800">
       <img
         src={otherUser?.profileImage || "/default-profile.png"}
         alt="profile"

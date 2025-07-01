@@ -67,10 +67,10 @@ export default function RequestBoxContainer({
             </span>
             {/* 오른쪽: 날짜 + 상태 */}
             <div className="flex items-center gap-x-4 text-sm">
-              <span className="text-xs text-gray-600 dark:text-gray-300 space-x-2 min-w-0 flex items-center whitespace-nowrap">
+              <span className="text-xs text-gray-600 dark:text-gray-200 space-x-2 min-w-0 flex items-center whitespace-nowrap">
                 신청일
               </span>
-              <span className="break-words dark:text-gray-300">
+              <span className="break-words dark:text-gray-200">
                 {formatDateToLocalString(requestedAt)}
               </span>
               <span

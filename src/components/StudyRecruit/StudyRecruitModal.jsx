@@ -50,7 +50,7 @@ export default function StudyRecruitModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="relative bg-gradient-to-b from-blue-100 to-white dark:from-zinc-700 dark:to-zinc-800 w-[700px] h-[600px] overflow-hidden rounded-4xl shadow-xl">
+      <div className="relative bg-gradient-to-b from-blue-100 to-white dark:from-zinc-700 dark:to-zinc-700 w-[700px] h-[600px] overflow-hidden rounded-4xl shadow-xl">
         <div className="relative z-10 flex flex-col items-center mx-auto p-6">
           <div className="flex justify-center w-full">
             <div className="flex flex-col items-center w-full rounded-3xl p-4 space-y-3">
@@ -65,19 +65,19 @@ export default function StudyRecruitModal({
                     className="bg-black rounded-full w-6 h-6 object-cover"
                   />
                 )}
-                <p className="text-sm text-gray-500 dark:text-gray-300">
+                <p className="text-sm text-gray-500 dark:text-gray-200">
                   {leader}
                 </p>
               </div>
               <div className="flex items-center justify-between w-full">
                 <div className="flex space-x-4">
-                  <span className="text-xs text-gray-500 dark:text-gray-300 break-words">
+                  <span className="text-xs text-gray-500 dark:text-gray-200 break-words">
                     {formatDateToLocalString(createdAt)} 작성
                   </span>
-                  <span className="text-xs text-gray-500 dark:text-gray-300 font-semibold break-words">
+                  <span className="text-xs text-gray-500 dark:text-gray-200 font-semibold break-words">
                     {userCount}
                   </span>
-                  <span className="flex gap-1 items-center text-xs text-gray-500 dark:text-gray-300 break-words">
+                  <span className="flex gap-1 items-center text-xs text-gray-500 dark:text-gray-200 break-words">
                     <Eye size={11} />
                     {viewCount}
                   </span>
@@ -87,20 +87,20 @@ export default function StudyRecruitModal({
           </div>
 
           {/* 설명 박스 */}
-          <div className="w-[650px] h-[300px] bg-white dark:bg-zinc-800 flex flex-col mb-2 mt-1 rounded-2xl p-8 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+          <div className="w-[650px] h-[300px] bg-white dark:bg-zinc-600 flex flex-col mb-2 mt-1 rounded-2xl p-8 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
             <div
               className="overflow-y-auto pr-2 scrollbar-hide"
               ref={scrollRef}
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              <p className="text-sm text-gray-600 dark:text-gray-300 break-words whitespace-pre-line">
+              <p className="text-sm text-gray-600 dark:text-white break-words whitespace-pre-line">
                 {studyExplain}
               </p>
             </div>
           </div>
 
           {/* 스크롤 퍼센트 바 */}
-          <div className="relative w-[650px] h-2 bg-gray-200 dark:bg-zinc-600 rounded-full overflow-hidden">
+          <div className="relative w-[650px] h-2 bg-gray-200 dark:bg-zinc-500 rounded-full overflow-hidden">
             <div
               className="absolute top-0 left-0 h-2 bg-[#003CFF] transition-all duration-200"
               style={{ width: `${scrollPercent}%` }}

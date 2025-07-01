@@ -50,7 +50,7 @@ export default function ChatRoom({ roomId, otherUser }) {
         shadow-[0_0_6px_rgba(0,0,0,0.1)]
         bg-white
         px-6 py-4
-        dark:bg-zinc-800
+        dark:bg-zinc-700
         overflow-hidden              // 내부 컨텐츠 넘침 방지
       "
     >

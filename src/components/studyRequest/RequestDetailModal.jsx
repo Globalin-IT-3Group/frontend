@@ -72,10 +72,10 @@ export default function RequestDetailModal({ request, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="relative bg-gradient-to-b from-blue-100 to-white dark:from-zinc-700 dark:to-zinc-800 w-[480px] min-h-[520px] rounded-3xl shadow-2xl flex flex-col items-center ">
+      <div className="relative bg-gradient-to-b from-blue-100 to-white dark:from-zinc-600 dark:to-zinc-700 w-[480px] min-h-[520px] rounded-3xl shadow-2xl flex flex-col items-center ">
         {/* 상단 타이틀 & 리더 */}
         <div className="w-full flex flex-col items-center pt-8 px-8 pb-2">
-          <h2 className="text-[1.6rem] font-extrabold text-center text-[#003CFF] mb-2 tracking-tight leading-snug drop-shadow-sm">
+          <h2 className="text-[1.6rem] font-extrabold text-center text-[#003CFF] dark:text-white mb-2 tracking-tight leading-snug drop-shadow-sm">
             {request.recruitTitle}
           </h2>
           <div className="flex items-center gap-2 mb-2">
@@ -115,7 +115,7 @@ export default function RequestDetailModal({ request, onClose }) {
             onClick={() => setTab("explain")}
             className={`px-6 py-2 rounded-t-2xl border-b-2 font-bold text-md transition-all duration-150 cursor-pointer ${
               tab === "explain"
-                ? "bg-white dark:bg-zinc-900 text-[#003CFF] border-b-2 border-[#003CFF] shadow"
+                ? "bg-white dark:bg-zinc-800 text-[#003CFF] border-b-2 dark:text-white border-[#003CFF] shadow"
                 : "bg-transparent text-gray-400 "
             }`}
           >
@@ -125,7 +125,7 @@ export default function RequestDetailModal({ request, onClose }) {
             onClick={() => setTab("request")}
             className={`px-6 py-2 rounded-t-2xl border-b-2 font-bold text-md transition-all duration-150 cursor-pointer  ${
               tab === "request"
-                ? "bg-white dark:bg-zinc-900  text-[#003CFF] border-b-2 border-[#003CFF] shadow"
+                ? "bg-white dark:bg-zinc-800  text-[#003CFF] border-b-2 dark:text-white border-[#003CFF] shadow"
                 : "bg-transparent text-gray-400"
             }`}
           >
@@ -142,7 +142,7 @@ export default function RequestDetailModal({ request, onClose }) {
             {tab === "explain" ? (
               // 모집글 설명
               <div className="flex flex-col h-full ">
-                <div className="text-sm font-bold text-[#003CFF] mb-1">
+                <div className="text-sm font-bold text-[#003CFF] dark:text-blue-400 mb-1">
                   모집글 소개
                 </div>
                 <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words flex-1 dark:text-gray-300">
@@ -153,7 +153,7 @@ export default function RequestDetailModal({ request, onClose }) {
               // 내 신청서
               <>
                 <div>
-                  <div className="text-sm font-bold text-[#003CFF] mb-1">
+                  <div className="text-sm font-bold text-[#003CFF] dark:text-blue-400 mb-1">
                     신청 제목
                   </div>
                   <div className="text-gray-900 font-semibold text-[1.05rem] break-words dark:text-gray-300">
@@ -162,7 +162,7 @@ export default function RequestDetailModal({ request, onClose }) {
                 </div>
                 <div className="h-[1px] w-full bg-blue-100" />
                 <div>
-                  <div className="text-sm font-bold text-[#003CFF] mb-1">
+                  <div className="text-sm font-bold text-[#003CFF] dark:text-blue-400 mb-1">
                     신청 내용
                   </div>
                   <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words min-h-[70px] dark:text-gray-300">

@@ -16,7 +16,7 @@ function ChatSidebar({ rooms, refreshRooms }) {
         <Link to="/main">
           <MdHome
             size={20}
-            className="mb-4 mr-1 text-gray-600 hover:scale-120 hover:text-gray-800 transition duration-300 dark:text-white"
+            className="mb-4 mr-1 text-gray-600 hover:scale-120 hover:text-gray-800 dark:hover:text-gray-400 transition duration-300 dark:text-white"
           />
         </Link>
       </div>

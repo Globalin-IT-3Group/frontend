@@ -11,7 +11,7 @@ export default function ChatMessageList({ messages, userId }) {
 
   if (!messages || messages.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-gray-50 dark:bg-zinc-900 text-gray-400 text-lg select-none min-h-[570px] max-h-[570px] shadow-lg rounded-xl">
+      <div className="flex-1 flex items-center justify-center bg-gray-50 dark:bg-zinc-800 text-gray-400 text-lg select-none min-h-[570px] max-h-[570px] shadow-lg rounded-xl">
         채팅을 시작해주세요!
       </div>
     );
@@ -39,7 +39,7 @@ export default function ChatMessageList({ messages, userId }) {
       className="
         flex-1 rounded-xl shadow-lg
         overflow-y-auto px-4 py-4
-        space-y-2 bg-gray-50 dark:bg-zinc-900
+        space-y-2 bg-gray-50 dark:bg-zinc-800
         min-h-[570px] max-h-[570px]
       "
     >
@@ -86,7 +86,7 @@ export default function ChatMessageList({ messages, userId }) {
                       ${
                         isMe
                           ? "bg-blue-500 text-white"
-                          : "bg-gray-200 dark:bg-zinc-700 dark:text-white"
+                          : "bg-gray-200 dark:bg-zinc-600 dark:text-white"
                       }
                     `}
                   >

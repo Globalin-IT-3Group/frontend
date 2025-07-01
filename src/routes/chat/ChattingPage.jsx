@@ -15,7 +15,7 @@ export default function ChattingPage() {
   const otherUser = stateOtherUser || fallbackOtherUser;
 
   return (
-    <div className="flex items-center justify-center w-full h-full min-h-[800px] dark:bg-zinc-900 ">
+    <div className="flex items-center justify-center w-full h-full min-h-[800px] dark:bg-zinc-800 ">
       {roomId ? (
         <ChatRoom
           roomId={roomId}
@@ -23,7 +23,7 @@ export default function ChattingPage() {
           refreshRooms={refreshRooms}
         />
       ) : (
-        <div className="pt-10 flex justify-center items-center w-full h-full text-gray-500">
+        <div className="pt-10 flex justify-center items-center w-full h-full text-gray-500 dark:text-gray-400">
           <p className="font-bold">채팅방을 선택해주세요!</p>
         </div>
       )}
