@@ -53,9 +53,12 @@ export default function MyNoteList() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="flex flex-col max-w-4xl mx-auto">
+      <h1 className="text-4xl font-bold mx-auto mt-10 mb-10 dark:text-white">
+        노트
+      </h1>
       {/* 상단 글쓰기 버튼 */}
-      <div className="flex justify-end my-4">
+      <div className="flex justify-end my-4 p-2">
         <button
           className="
             flex items-center gap-2
@@ -74,6 +77,10 @@ export default function MyNoteList() {
       {/* 노트 목록 */}
       {fakeLoading ? (
         <MyNoteListSkeleton />
+      ) : notes.length === 0 ? (
+        <div className="text-gray-400 dark:text-gray-200 text-sm py-5 text-center">
+          아직 작성한 노트가 없습니다.
+        </div>
       ) : (
         <ul className="divide-y divide-gray-200 dark:divide-zinc-600">
           {notes.map((note) => (

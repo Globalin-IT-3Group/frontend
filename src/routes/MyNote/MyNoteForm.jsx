@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { HiArrowLeft } from "react-icons/hi2";
 import NoteApi from "../../api/noteAPI";
 import MDEditor from "@uiw/react-md-editor";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import remarkBreaks from "remark-breaks";
 
 export default function MyNoteForm({ mode = "create" }) {
   const { id } = useParams();
@@ -68,17 +65,20 @@ export default function MyNoteForm({ mode = "create" }) {
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => navigate(-1)}
-            className="text-gray-400 hover:text-gray-700 flex items-center py-1 transition"
+            className="text-gray-400 hover:text-gray-700 flex items-center py-1 transition cursor-pointer"
           >
             <HiArrowLeft className="w-6 h-6" />
           </button>
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+            {mode === "edit" ? "내 노트 수정" : "내 노트 작성"}
+          </h1>
           <button
             type="submit"
             onClick={handleSubmit}
             disabled={saving || !title}
             className={`
               flex items-center gap-2 px-4 py-2 rounded-lg font-semibold 
-              border border-blue-500 text-blue-500 
+              border border-blue-500 text-blue-500 cursor-pointer 
               ${
                 saving
                   ? "bg-gray-200 hover:bg-gray-200 text-gray-400"
