@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { HiArrowLeft } from "react-icons/hi2";
 import NoteApi from "../../api/noteAPI";
 import MDEditor from "@uiw/react-md-editor";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import remarkBreaks from "remark-breaks";
+import Swal from "sweetalert2";
 
 export default function MyNoteForm({ mode = "create" }) {
   const { id } = useParams();
@@ -17,6 +15,63 @@ export default function MyNoteForm({ mode = "create" }) {
   const [loading, setLoading] = useState(mode === "edit");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const handleBack = () => navigate(-1);
+
+  const editConfirm = async () => {
+    const result = await Swal.fire({
+      title: "글을 수정하시겠습니까?",
+      text: "취소시 수정중인 글로 돌아갑니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#0033CF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "수정",
+      cancelButtonText: "취소",
+    });
+    return result.isConfirmed;
+  };
+
+  const registerConfirm = async () => {
+    const result = await Swal.fire({
+      title: "글을 등록하시겠습니까?",
+      text: "취소시 작성중인 글로 돌아갑니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#0033CF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "등록",
+      cancelButtonText: "취소",
+    });
+    return result.isConfirmed;
+  };
+
+  const editSuccess = async () => {
+    await Swal.fire({
+      title: "글 수정 완료!",
+      text: "글이 정상적으로 수정되었습니다.",
+      imageUrl: "/success.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      confirmButtonColor: "#003CFF",
+      confirmButtonText: "닫기",
+    });
+  };
+
+  const registerSuccess = async () => {
+    await Swal.fire({
+      title: "글 등록 완료!",
+      text: "글이 정상적으로 등록되었습니다.",
+      imageUrl: "/success.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      confirmButtonColor: "#003CFF",
+      confirmButtonText: "닫기",
+    });
+  };
 
   // 수정 모드의 초기 데이터 로딩
   useEffect(() => {
@@ -34,6 +89,11 @@ export default function MyNoteForm({ mode = "create" }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!title.trim() || !markdown.trim()) {
+      alert("제목과 내용을 모두 입력하세요.");
+      return;
+    }
     setSaving(true);
     setError("");
 
@@ -46,10 +106,23 @@ export default function MyNoteForm({ mode = "create" }) {
     };
 
     try {
-      if (mode === "create") {
-        await NoteApi.createNote(payload);
-      } else {
+      if (mode === "edit") {
+        const confirmed = await editConfirm();
+        if (!confirmed) {
+          setSaving(false);
+          return;
+        }
+
         await NoteApi.updateNote(id, payload);
+        await editSuccess();
+      } else {
+        const confirmed = await registerConfirm();
+        if (!confirmed) {
+          setSaving(false);
+          return;
+        }
+        await NoteApi.createNote(payload);
+        await registerSuccess();
       }
       navigate("/note");
     } catch {
@@ -65,35 +138,16 @@ export default function MyNoteForm({ mode = "create" }) {
     <div className="w-full min-h-full flex flex-col items-center px-4 py-4">
       <div className="w-full max-w-5xl min-h-[80vh] bg-white dark:bg-zinc-700 rounded-2xl shadow-xl p-8">
         {/* 상단 바 */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center mb-6">
           <button
             onClick={() => navigate(-1)}
-            className="text-gray-400 hover:text-gray-700 flex items-center py-1 transition"
+            className="text-gray-400 hover:text-gray-700 flex items-center py-1 transition cursor-pointer"
           >
             <HiArrowLeft className="w-6 h-6" />
           </button>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            disabled={saving || !title}
-            className={`
-              flex items-center gap-2 px-4 py-2 rounded-lg font-semibold 
-              border border-blue-500 text-blue-500 
-              ${
-                saving
-                  ? "bg-gray-200 hover:bg-gray-200 text-gray-400"
-                  : "bg-white hover:bg-blue-600 hover:text-white"
-              } transition shadow-sm
-            `}
-          >
-            {saving
-              ? mode === "create"
-                ? "저장 중..."
-                : "수정 중..."
-              : mode === "create"
-              ? "저장"
-              : "수정 저장"}
-          </button>
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white mx-auto">
+            {mode === "edit" ? "내 노트 수정" : "내 노트 작성"}
+          </h1>
         </div>
 
         {/* 제목 입력 */}
@@ -127,14 +181,26 @@ export default function MyNoteForm({ mode = "create" }) {
           onChange={(v) => setMarkdown(v || "")}
         />
 
-        {/* 프리뷰
-        <div className="prose prose-lg max-w-none font-serif text-gray-800 dark:prose-invert whitespace-pre-wrap mt-8">
-          <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
-            {markdown}
-          </ReactMarkdown>
-        </div> */}
-
         {error && <p className="text-red-500 mt-4">{error}</p>}
+
+        <div className="flex px-8 mt-4 mb-8 gap-4 relative">
+          <div className="flex gap-4 absolute right-0">
+            <button
+              className="bg-gray-300 text-gray-700 px-6 py-2 rounded-xl shadow hover:bg-gray-400 transition cursor-pointer"
+              onClick={handleBack}
+              disabled={loading}
+            >
+              뒤로
+            </button>
+            <button
+              onClick={handleSubmit}
+              className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition cursor-pointer"
+              disabled={loading}
+            >
+              {mode === "edit" ? "수정" : "게시"}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

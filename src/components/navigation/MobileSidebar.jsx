@@ -22,7 +22,7 @@ export default function MobileSidebar({
       onClick={onClose}
     >
       <div
-        className="absolute top-0 w-full bg-white dark:bg-zinc-700 shadow-lg p-4 pt-6 rounded-b-xl overflow-y-auto"
+        className="absolute top-0 w-full bg-gradient-to-b from-white to-zinc-200 dark:from-zinc-700 dark:to-zinc-800 text-black dark:text-gray-300 shadow-lg pt-6 pb-6 rounded-b-xl overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <ul className="grid grid-cols-3 gap-x-4 gap-y-8 px-4 text-center text-sm font-bold transition-all duration-300 text-black dark:text-white">
