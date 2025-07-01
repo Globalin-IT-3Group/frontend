@@ -1,7 +1,6 @@
 import { MagnifyingGlassIcon, HashtagIcon } from "@heroicons/react/24/outline";
 import { HiTrendingUp } from "react-icons/hi";
 import { useRef, useEffect, useState } from "react";
-import { RiMenuAddLine } from "react-icons/ri";
 import { BsBookmarkStarFill } from "react-icons/bs";
 import { BiListPlus } from "react-icons/bi";
 
