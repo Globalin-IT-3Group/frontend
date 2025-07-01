@@ -5,6 +5,7 @@ import StudyRecruitModal from "../../components/StudyRecruit/StudyRecruitModal";
 import StudyRecruitBar from "../../components/StudyRecruit/StudyRecruitBar";
 import StudyRequestFormModal from "../../components/StudyRecruit/StudyRequestFormModal";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import StudyRecruitBarSkeleton from "../../components/skeleton/StudyRecruit/StudyRecruitBarSkeleton";
 import RecruitBoxContainerSkeleton from "../../components/skeleton/StudyRecruit/RecruitBoxContainerSkeleton";
 import StudyRequestApi from "../../api/studyRequestAPI";
 import RequestBoxContainer from "../../components/studyRequest/RequestBoxContainer";
@@ -14,7 +15,6 @@ export default function StudyRecruitPage() {
   const [studyRoomList, setStudyRoomList] = useState([]);
   const [showRecruitModal, setShowRecruitModal] = useState(false);
   const [selectedModal, setSelectedModal] = useState(null);
-  const [searchInput, setSearchInput] = useState("");
 
   // 신청서 모달 상태
   const [showRequestFormModal, setShowRequestFormModal] = useState(false);
@@ -106,10 +106,9 @@ export default function StudyRecruitPage() {
           setSortBy(key);
           setPage(0);
         }}
-        search={searchInput}
-        onChangeSearch={setSearchInput}
-        onSearchClick={() => {
-          setSearch(searchInput);
+        search={search}
+        onChangeSearch={(v) => {
+          setSearch(v);
           setPage(0);
         }}
         tags={tags}
@@ -120,7 +119,7 @@ export default function StudyRecruitPage() {
       />
 
       <div className="relative h-full w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-3 gap-8 h-full pr-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 h-full pr-2">
           {loading ? (
             Array.from({ length: 6 }).map((_, i) => (
               <RecruitBoxContainerSkeleton key={i} />

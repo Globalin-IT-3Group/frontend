@@ -18,7 +18,9 @@ export default function ThemeProvider({ children }) {
     } else {
       document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem("theme", theme);
+    if (theme !== "basic") {
+      localStorage.setItem("theme", theme);
+    }
   }, [theme]);
 
   return (
