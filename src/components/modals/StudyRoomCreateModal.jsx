@@ -2,15 +2,7 @@ import { useEffect, useState } from "react";
 import StudyRoomApi from "../../api/studyRoomAPI";
 
 // 고정 태그 목록
-const TAGS = [
-  "JLPT",
-  "회화",
-  "취업",
-  "자격증",
-  "토익",
-  "스터디",
-  "비즈니스일본어",
-];
+const TAGS = ["JLPT", "회화", "취업", "자격증", "스터디", "비즈니스일본어"];
 
 const DEFAULT_IMAGE_URL =
   "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg";

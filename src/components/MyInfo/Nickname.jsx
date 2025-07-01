@@ -35,13 +35,13 @@ export default function Nickname({ nickname }) {
 
   return (
     <div className="flex gap-4 items-center">
-      <div className="flex items-center gap-8">
-        <label className="w-full sm:w-[180px] text-base sm:text-lg md:text-xl font-bold whitespace-nowrap">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8">
+        <label className="sm:w-[180px] text-base sm:text-lg md:text-xl font-bold whitespace-nowrap">
           별명
         </label>
         <input
           type="text"
-          className="w-full min-w-24 max-w-68 px-4 py-2 text-base sm:text-lg border border-gray-300 rounded-xl"
+          className="min-w-24 max-w-68 px-4 py-2 text-base sm:text-lg border border-gray-300 rounded-xl"
           value={inputValue}
           onChange={(e) => {
             setInputValue(e.target.value);
@@ -49,23 +49,23 @@ export default function Nickname({ nickname }) {
             setIsSuccess(null);
           }}
         />
-      </div>
-      <button
-        className="min-w-[72px] px-4 py-3 bg-[#003CFF] text-white rounded-2xl font-bold hover:bg-[#0536D7] transition disabled:bg-gray-300 disabled:cursor-not-allowed cursor-pointer"
-        onClick={handleUpdate}
-        disabled={loading || inputValue.trim() === ""}
-      >
-        {loading ? "변경 중..." : "변경"}
-      </button>
-      {message && (
-        <div
-          className={`ml-4 whitespace-nowrap ${
-            isSuccess ? "text-green-500" : "text-red-500"
-          }`}
+        <button
+          className="min-w-[72px] px-4 py-3 bg-[#003CFF] text-white rounded-2xl font-bold hover:bg-[#0536D7] transition disabled:bg-gray-300 disabled:cursor-not-allowed cursor-pointer"
+          onClick={handleUpdate}
+          disabled={loading || inputValue.trim() === ""}
         >
-          {message}
-        </div>
-      )}
+          {loading ? "변경 중..." : "변경"}
+        </button>
+        {message && (
+          <div
+            className={`ml-4 whitespace-nowrap ${
+              isSuccess ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {message}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

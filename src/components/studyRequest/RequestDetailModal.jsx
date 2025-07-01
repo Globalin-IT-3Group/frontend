@@ -2,7 +2,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import StudyRequestApi from "../../api/studyRequestAPI";
 
-export default function RequestDetailModal({ request, onClose }) {
+export default function RequestDetailModal({ request, onClose, onSuccess }) {
   const [tab, setTab] = useState("explain"); // "explain" or "request"
   const [loading, setLoading] = useState(false);
 
@@ -50,6 +50,7 @@ export default function RequestDetailModal({ request, onClose }) {
         confirmButtonColor: "#003CFF",
         confirmButtonText: "확인",
       });
+      onSuccess();
       onClose(); // 성공시 모달 닫기
     } catch (e) {
       Swal.fire({

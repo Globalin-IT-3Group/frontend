@@ -33,7 +33,7 @@ export default function RecruitBoxContainer({
         <img
           src={image}
           alt={roomName}
-          className="rounded-t-4xl w-full h-[200px] object-cover object-top"
+          className="rounded-t-4xl w-full max-h-[200px] object-cover object-top"
         />
       )}
 

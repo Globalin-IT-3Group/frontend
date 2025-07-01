@@ -171,7 +171,7 @@ export default function StudyRoomListModal({
         onClose={() => setModalOpen(false)}
         onSuccess={() => {
           setModalOpen(false);
-          if (onRefresh) onRefresh();
+          onRefresh();
         }}
       />
     </div>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import userAPI from "../../api/userAPI";
 
-export default function FindEmailForm() {
+export default function FindEmailForm({ onLoginClick }) {
   const [phone1, setPhone1] = useState("010");
   const [phone2, setPhone2] = useState("");
   const [phone3, setPhone3] = useState("");
@@ -27,7 +27,7 @@ export default function FindEmailForm() {
       cancelButtonText: "메인 페이지",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate("/login");
+        onLoginClick();
       }
     });
   };
@@ -48,7 +48,7 @@ export default function FindEmailForm() {
       cancelButtonText: "메인 페이지",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate("/find/email");
+        onLoginClick();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         navigate("/");
       }
@@ -76,7 +76,7 @@ export default function FindEmailForm() {
   return (
     <div className="w-[600px] mt-10 mx-auto space-y-12">
       <div>
-        <label className="block text-md text-[#676767] font-bold mb-2">
+        <label className="block text-md text-[#676767] font-bold mb-2 dark:text-white">
           휴대폰 번호
         </label>
         <div className="flex gap-2 w-full">
@@ -85,12 +85,14 @@ export default function FindEmailForm() {
             onChange={(e) => setPhone1(e.target.value)}
             className="border border-gray-300 px-3 py-3 rounded-xl"
           >
-            <option>010</option>
-            <option>011</option>
-            <option>016</option>
-            <option>017</option>
-            <option>018</option>
-            <option>019</option>
+            <div className="dark:text-black">
+              <option>010</option>
+              <option>011</option>
+              <option>016</option>
+              <option>017</option>
+              <option>018</option>
+              <option>019</option>
+            </div>
           </select>
           <input
             value={phone2}
@@ -108,26 +110,29 @@ export default function FindEmailForm() {
       </div>
 
       <div>
-        <label className="block text-md text-[#676767] font-bold mb-2">
+        <label className="block text-md text-[#676767] font-bold mb-2 dark:text-white">
           계정 복구 질문
         </label>
+
         <select
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           className="border border-gray-300 px-3 py-3 rounded-xl w-full"
         >
-          <option>나의 보물 1호는?</option>
-          <option>나의 출신 초등학교는?</option>
-          <option>나의 출신 고향은?</option>
-          <option>어머니 성함은?</option>
-          <option>아버지 성함은?</option>
-          <option>가장 좋아하는 색깔은?</option>
-          <option>가장 좋아하는 음식은?</option>
+          <div className="dark:text-black">
+            <option>나의 보물 1호는?</option>
+            <option>나의 출신 초등학교는?</option>
+            <option>나의 출신 고향은?</option>
+            <option>어머니 성함은?</option>
+            <option>아버지 성함은?</option>
+            <option>가장 좋아하는 색깔은?</option>
+            <option>가장 좋아하는 음식은?</option>
+          </div>
         </select>
       </div>
 
       <div>
-        <label className="block text-md text-[#676767] font-bold mb-2">
+        <label className="block text-md text-[#676767] font-bold mb-2 dark:text-white">
           계정 복구 답변
         </label>
         <input

@@ -76,11 +76,11 @@ export default function LoginModal({ onClose }) {
 
         <h2
           style={{ fontFamily: '"Nico Moji", sans-serif' }}
-          className="text-md font-md ml-5 mt-6 mb-2"
+          className="text-md font-md ml-5 mt-6 mb-2 dark:text-black"
         >
           コツコツ
         </h2>
-        <h1 className="text-3xl font-bold ml-4 mb-6">로그인</h1>
+        <h1 className="text-3xl font-bold ml-4 mb-6 dark:text-black">로그인</h1>
 
         {/* ✅ 로그인 폼 시작 */}
         <form
@@ -99,7 +99,7 @@ export default function LoginModal({ onClose }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="이메일을 입력해 주세요"
-                className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl text-sm"
+                className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl text-sm dark:text-black"
                 required
               />
             </div>
@@ -112,7 +112,7 @@ export default function LoginModal({ onClose }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="비밀번호를 입력해 주세요"
-                className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl text-sm"
+                className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl text-sm dark:text-black"
                 required
               />
             </div>

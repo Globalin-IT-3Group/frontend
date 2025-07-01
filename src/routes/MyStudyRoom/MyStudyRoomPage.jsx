@@ -1,7 +1,7 @@
 import MemberProfile from "../../components/MyStudyRoom/MemberProfile";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import StudyRoomApi from "../../api/studyRoomAPI";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import KotsuKotsuLoader from "../../components/loadings/KotsuKotsuLoader";
 import StudyNote from "./StudyNote";
@@ -26,6 +26,7 @@ export default function MyStudyRoomPage() {
   const navigate = useNavigate();
   const [showSkeleton, setShowSkeleton] = useState(true);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const { refreshStudyRooms } = useOutletContext();
 
   // 스켈레톤 로딩
   useEffect(() => {
@@ -70,7 +71,10 @@ export default function MyStudyRoomPage() {
   const fetchStudyRoom = () => {
     setLoading(true);
     StudyRoomApi.getStudyRoomDetail(studyRoomId)
-      .then((result) => setStudyRoom(result))
+      .then((result) => {
+        setStudyRoom(result);
+      })
+
       .finally(() => setLoading(false));
   };
 
@@ -162,9 +166,12 @@ export default function MyStudyRoomPage() {
 
       <StudyRoomEditModal
         open={editModalOpen}
-        onClose={() => setEditModalOpen(false)}
-        onSuccess={fetchStudyRoom}
         roomId={studyRoom?.id}
+        onClose={() => setEditModalOpen(false)}
+        onSuccess={() => {
+          fetchStudyRoom();
+          refreshStudyRooms();
+        }}
       />
 
       {/* 아래 영역: 탭별로 컴포넌트 바꿔치기 */}

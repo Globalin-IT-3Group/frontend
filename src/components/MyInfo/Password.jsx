@@ -73,8 +73,8 @@ export default function Password({ initPassword }) {
     <div className="flex flex-col gap-10">
       {/* 비밀번호 입력 */}
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-8">
-          <label className="w-full sm:w-[180px] text-base sm:text-lg md:text-xl font-bold whitespace-nowrap">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8">
+          <label className="min-w-[85px] sm:w-[180px] text-base sm:text-lg md:text-xl font-bold whitespace-nowrap">
             비밀번호
           </label>
           <div className="relative flex-wrap sm:flex-nowrap">
@@ -82,7 +82,7 @@ export default function Password({ initPassword }) {
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={handlePasswordChange}
-              className="w-full min-w-24 max-w-68 px-4 py-2 text-lg border border-gray-300 rounded-xl"
+              className="min-w-48 max-w-68 px-4 py-2 text-lg border border-gray-300 rounded-xl"
               placeholder="새 비밀번호"
             />
             <button
@@ -94,20 +94,20 @@ export default function Password({ initPassword }) {
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
+          <button
+            className="min-w-[72px] px-4 py-3 bg-[#003CFF] text-white rounded-2xl font-bold hover:bg-[#0536D7] transition cursor-pointer"
+            onClick={handlePasswordUpdate}
+            disabled={!isPasswordMatch || loading}
+          >
+            {loading ? "변경 중..." : "변경"}
+          </button>
         </div>
-        <button
-          className="min-w-[72px] px-4 py-3 bg-[#003CFF] text-white rounded-2xl font-bold hover:bg-[#0536D7] transition cursor-pointer"
-          onClick={handlePasswordUpdate}
-          disabled={!isPasswordMatch || loading}
-        >
-          {loading ? "변경 중..." : "변경"}
-        </button>
       </div>
 
       {/* 비밀번호 확인 */}
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-8">
-          <label className="sm:w-[180px] text-base sm:text-lg md:text-xl font-bold whitespace-nowrap">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8">
+          <label className="min-w-[80px] sm:w-[180px] text-base sm:text-lg md:text-xl font-bold whitespace-nowrap">
             비밀번호 확인
           </label>
           <div className="relative">
@@ -115,7 +115,7 @@ export default function Password({ initPassword }) {
               type={showConfirmPassword ? "text" : "password"}
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
-              className="w-full min-w-24 max-w-68 px-4 py-2 text-lg border border-gray-300 rounded-xl"
+              className="min-w-48 max-w-68 px-4 py-2 text-lg border border-gray-300 rounded-xl"
               placeholder="비밀번호 확인"
             />
             <button

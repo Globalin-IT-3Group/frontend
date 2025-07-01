@@ -91,7 +91,10 @@ const routers = [
     element: <MainLayout />,
     children: [
       { path: "recruit", element: <StudyRecruitPage /> },
-      { path: "mystudyroom/:studyRoomId", element: <MyStudyRoomPage /> },
+      {
+        path: "mystudyroom/:studyRoomId",
+        element: <MyStudyRoomPage />,
+      },
       {
         path: "mystudyroom/:studyRoomId/notes/new",
         element: <StudyNoteForm />,
