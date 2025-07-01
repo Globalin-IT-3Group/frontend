@@ -40,7 +40,7 @@ export default function Comment({ comment, myId, onReload }) {
 
   return (
     <>
-      <li className="bg-zinc-100 dark:bg-zinc-500 p-3 rounded text-black dark:text-white">
+      <li className="bg-zinc-100 dark:bg-zinc-600 p-3 rounded text-black dark:text-white">
         <div className="flex items-center gap-2 mb-1">
           {/* 프로필 이미지 클릭 시 모달 */}
           <img

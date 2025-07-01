@@ -81,7 +81,7 @@ export default function CommunityPage() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center px-4 py-4">
-      <div className="w-full max-w-4xl bg-white dark:bg-zinc-600 rounded-2xl shadow-xl p-8">
+      <div className="w-full max-w-4xl bg-white dark:bg-zinc-700 rounded-2xl shadow-xl p-8">
         {/* 상단 탭 필터 */}
         <div className="flex flex-wrap items-center mb-8 gap-y-2 mt-2">
           {/* 탭 리스트: 가로 스크롤 + flex-grow로 공간 차지 */}
@@ -98,7 +98,7 @@ export default function CommunityPage() {
                   className={`relative group flex items-center gap-x-1 cursor-pointer transition-all duration-300 min-w-0 transform ${
                     isActive
                       ? "text-black dark:text-white -translate-y-1"
-                      : "text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
+                      : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
                   }`}
                 >
                   <div className="w-5 h-5 flex-shrink-0">{tab.icon}</div>

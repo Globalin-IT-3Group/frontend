@@ -39,19 +39,19 @@ export default function InquiryBoard({
         className="rounded-2xl mb-2 border border-gray-200 dark:border-zinc-600"
       >
         <AccordionSummary>
-          <div className="w-full px-4 py-4 bg-white dark:bg-zinc-800 hover:bg-blue-50 dark:hover:bg-zinc-700 transition cursor-pointer rounded-2xl">
+          <div className="w-full px-4 py-4 bg-gray-100 dark:bg-zinc-600 hover:bg-gray-200 dark:hover:bg-zinc-500 transition cursor-pointer rounded-2xl">
             <div className="flex flex-col w-full gap-3">
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-4">
                   <span className="text-xl font-bold flex items-center gap-1 text-gray-900 dark:text-white">
                     {isPrivate && (
-                      <span className="text-gray-500 dark:text-gray-300">
+                      <span className="text-gray-500 dark:text-gray-200">
                         <CiLock size={20} />
                       </span>
                     )}
                     {title}
                   </span>
-                  <span className="text-xs text-gray-400 dark:text-gray-300 whitespace-nowrap">
+                  <span className="text-xs text-gray-400 dark:text-gray-200 whitespace-nowrap">
                     {new Date(date).toLocaleDateString("ko-KR")}
                   </span>
                 </div>
@@ -59,7 +59,7 @@ export default function InquiryBoard({
                   <span
                     className={`text-sm font-medium ${
                       status === "미확인"
-                        ? "text-gray-400 dark:text-gray-300"
+                        ? "text-gray-400 dark:text-gray-200"
                         : "text-blue-600"
                     }`}
                   >
@@ -98,7 +98,7 @@ export default function InquiryBoard({
         </AccordionSummary>
 
         <AccordionDetails>
-          <div className="w-full px-4 py-4 bg-gray-100 dark:bg-zinc-700 rounded-b-2xl">
+          <div className="w-full px-4 py-4 bg-gray-100 dark:bg-zinc-500 rounded-b-2xl">
             {isHidden ? (
               <div className="text-gray-400 dark:text-gray-300 p-4 italic">
                 비밀글입니다.
