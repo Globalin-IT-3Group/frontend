@@ -2,8 +2,6 @@ let socket = null;
 
 const backendURL = import.meta.env.VITE_WS_URI;
 
-console.log("제바아아아알: ", backendURL);
-
 const chatSocket = {
   connect(roomId, userId, onMessage) {
     if (socket) socket.close();

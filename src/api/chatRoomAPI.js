@@ -20,20 +20,29 @@ class ChatRoomApi extends BaseApi {
   }
 
   // ✅ 모든 채팅방 요약 정보 가져오기 (더미 데이터 반환)
-  async getAllSummaries() {
+  async getAllSummaries(myUserId) {
     const res = await this.fetcher.get("/chat-room/summary/all");
 
     const DEFAULT_IMG = "/6.jpg";
 
-    const data = (res.data || []).map((room) => ({
-      ...room,
-      otherUser: {
-        ...room.otherUser,
-        profileImage: room.otherUser.profileImage || DEFAULT_IMG,
-      },
-    }));
+    const data = (res.data || []).map((room) => {
+      const isAlone =
+        room.roomType === "SINGLE" &&
+        room.otherUsers?.length === 1 &&
+        room.otherUsers[0]?.id === myUserId;
 
-    console.log(res);
+      const displayUser = isAlone ? null : room.otherUsers?.[0] || null;
+
+      return {
+        ...room,
+        otherUser: displayUser
+          ? {
+              ...displayUser,
+              profileImage: displayUser.profileImage || DEFAULT_IMG,
+            }
+          : null,
+      };
+    });
 
     return data;
   }
