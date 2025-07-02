@@ -176,7 +176,7 @@ export default function MyStudyRoomPage() {
       />
 
       {/* 아래 영역: 탭별로 컴포넌트 바꿔치기 */}
-      <div className="w-full max-w-[1000px] dark:bg-zinc-700 flex flex-col rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 gap-4 mt-4">
+      <div className="w-full dark:bg-zinc-700 flex flex-col rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-4 gap-4 mt-4">
         {activeTab === "note" &&
           (showSkeleton ? (
             <StudyNoteSkeleteon />

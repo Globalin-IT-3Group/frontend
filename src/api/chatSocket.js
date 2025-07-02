@@ -1,6 +1,6 @@
 let socket = null;
 
-const backendURL = import.meta.env.VITE_BASE_DOMAIN;
+const backendURL = import.meta.env.VITE_WS_URI;
 console.log("chatSocket.js - backendURL: ", backendURL);
 
 const chatSocket = {
@@ -8,7 +8,7 @@ const chatSocket = {
     if (socket) socket.close();
 
     socket = new WebSocket(
-      `wss://${backendURL}/ws/chat?roomId=${roomId}&userId=${userId}`
+      `${backendURL}/ws/chat?roomId=${roomId}&userId=${userId}`
     );
 
     socket.onopen = () => {

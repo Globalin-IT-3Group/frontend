@@ -155,7 +155,7 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
             value={form.imageUrl}
             onChange={handleChange}
             className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
-            placeholder="이미지 URL (기본값: 핑구)"
+            placeholder="이미지 URL (기본값: 핑가)"
           />
         </div>
         <div className="flex flex-col gap-2">

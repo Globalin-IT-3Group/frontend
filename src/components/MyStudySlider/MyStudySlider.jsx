@@ -70,7 +70,7 @@ export default function MyStudySlider({
             return (
               <div key={slide.id} className="px-2">
                 <div
-                  className={`group relative mx-auto md:aspect-[3/3] max-w-[200px] rounded-4xl overflow-hidden flex items-center justify-center transition-all duration-500
+                  className={`group  aspect-square relative mx-auto md:aspect-[3/3] max-w-[200px] rounded-4xl overflow-hidden flex items-center justify-center transition-all duration-500
                     ${
                       isCenter ? "scale-100 opacity-100" : "scale-90 opacity-60"
                     }
