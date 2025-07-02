@@ -22,9 +22,9 @@ jobs:
         run: |
           echo "VITE_REST_API_KEY=${{ secrets.VITE_REST_API_KEY }}" >> .env
           echo "VITE_REDIRECT_URI=${{ secrets.VITE_REDIRECT_URI }}" >> .env
-          echo "VITE_BASE_URI=${{ secrets.VITE_BASE_URI }}" >> .env
-          echo "VITE_BASE_DOMAIN=${{ secrets.VITE_BASE_DOMAIN }}" >> .env
-          echo "VITE_WS_URI=${{ secrets.VITE_WS_URI }}" >> .env
+          echo "VITE_BASE_URI=https://api.kotsu-kotsu.org" >> .env
+          echo "VITE_BASE_DOMAIN=api.kotsu-kotsu.org" >> .env
+          echo "VITE_WS_URI=wss://api.kotsu-kotsu.org" >> .env
 
       - name: Install dependencies
         run: npm ci
