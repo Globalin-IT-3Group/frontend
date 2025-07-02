@@ -16,23 +16,28 @@ export default function CommentInput({ boardId, userId, onCommentPosted }) {
   };
 
   return (
-    <form className="flex gap-2 mb-4" onSubmit={handleSubmit}>
+    <form className="flex gap-2 mb-4 w-full" onSubmit={handleSubmit}>
       <input
         className="
-    flex-1 border border-gray-300 dark:border-zinc-400
-    px-3 py-2 rounded 
-    bg-transparent
-    text-black dark:text-white 
-    placeholder:text-gray-400 dark:placeholder:text-zinc-400 
-    focus:outline-none focus:ring-2 focus:ring-blue-500
-  "
+      flex-1 border border-gray-300 dark:border-zinc-400
+      px-3 py-2 rounded 
+      bg-transparent
+      text-black dark:text-white 
+      placeholder:text-gray-400 dark:placeholder:text-zinc-400 
+      focus:outline-none focus:ring-2 focus:ring-blue-500
+      min-w-0
+    "
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="댓글을 입력하세요"
         disabled={loading}
       />
       <button
-        className="px-4 py-1 rounded bg-[#0033CF] text-white font-semibold disabled:opacity-50 cursor-pointer hover:bg-blue-500 whitespace-nowrap transition"
+        className="
+      px-4 py-1 rounded bg-blue-500 text-white font-semibold
+      disabled:opacity-50
+      shrink-0
+    "
         disabled={loading}
         type="submit"
       >

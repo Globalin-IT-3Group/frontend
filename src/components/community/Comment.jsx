@@ -61,8 +61,8 @@ export default function Comment({ comment, myId, onReload }) {
           {/* 날짜/수정됨 */}
           <span className="text-xs text-gray-400 dark:text-zinc-200 ml-2 whitespace-nowrap">
             {isEdited
-              ? `(수정됨 ${new Date(comment.updatedAt).toLocaleString()})`
-              : new Date(comment.createdAt).toLocaleString()}
+              ? `(수정됨 ${new Date(comment.updatedAt).toLocaleDateString()})`
+              : new Date(comment.createdAt).toLocaleDateString()}
           </span>
           {/* 수정/삭제 버튼 (본인 댓글일 때만) */}
           {myId === comment.user.id && (
