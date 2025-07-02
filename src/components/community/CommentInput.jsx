@@ -32,7 +32,7 @@ export default function CommentInput({ boardId, userId, onCommentPosted }) {
         disabled={loading}
       />
       <button
-        className="px-4 py-1 rounded bg-blue-500 text-white font-semibold disabled:opacity-50"
+        className="px-4 py-1 rounded bg-blue-500 text-white font-semibold disabled:opacity-50 cursor-pointer hover:bg-blue-500"
         disabled={loading}
         type="submit"
       >

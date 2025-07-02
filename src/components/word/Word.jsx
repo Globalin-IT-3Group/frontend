@@ -57,18 +57,18 @@ export default function Word({ word }) {
         expandIcon={<MdExpandMore size={24} className="dark:text-white " />}
         className="flex justify-center items-center min-h-16 overflow-hidden dark:!bg-zinc-700"
       >
-        <div className="font-bold text-[#0033CF] text-base flex-1 truncate text-center -ml-4 dark:text-blue-500">
+        <div className="flex-1 min-w-0 px-2 text-center truncate font-bold text-[#0033CF] dark:text-blue-500">
           {word.jpWord}
         </div>
-        <div className="text-gray-600 dark:text-white text-sm flex-1 text-center truncate -ml-4">
+        <div className="flex-1 min-w-0 px-2 text-center truncate text-gray-600 dark:text-white">
           {word.hiragana}
         </div>
-        <div className="text-gray-400 dark:text-white text-sm w-32 flex-shrink-0 text-center truncate hidden lg:block ml-4">
+        <div className="w-32 flex-shrink-0 px-2 text-center truncate text-gray-400 dark:text-white hidden lg:block">
           {word.altForm}
         </div>
         <div
-          className="text-sm  text-right dark:text-white  truncate ml-2 
-        max-w-[8ch] sm:max-w-full sm:flex-1 sm:min-w-0"
+          className="flex-1 min-w-0 px-2 text-right truncate text-sm dark:text-white
+                    max-w-[8ch] sm:max-w-full sm:flex-1 sm:min-w-0"
         >
           {getEllipsisMessage(word.meaning)}
         </div>

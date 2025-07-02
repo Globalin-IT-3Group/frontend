@@ -3,10 +3,10 @@ import Word from "./Word";
 export default function WordList({ words }) {
   // 헤더 라벨
   const header = [
-    { label: "일본어", className: "flex-1" },
-    { label: "히라가나", className: "flex-1" },
-    { label: "다른 표기", className: "flex-1 hidden lg:flex" },
-    { label: "뜻", className: "flex-1" },
+    { label: "일본어", className: "flex-1 min-w-0" },
+    { label: "히라가나", className: "flex-1 min-w-0" },
+    { label: "다른 표기", className: "w-32 flex-shrink-0 hidden lg:flex" },
+    { label: "뜻", className: "flex-1 min-w-0" },
   ];
 
   return (
@@ -14,10 +14,7 @@ export default function WordList({ words }) {
       {/* 헤더 */}
       <div className="flex items-center px-3 py-2 bg-gray-100 dark:bg-zinc-600 dark:text-white rounded-t-2xl font-semibold text-gray-600">
         {header.map((h, i) => (
-          <div
-            key={i}
-            className={`${h.className} flex justify-center grow shrink min-w-0 px-2 truncate whitespace-nowrap`}
-          >
+          <div key={i} className={`${h.className} px-2 truncate text-center`}>
             {h.label}
           </div>
         ))}
