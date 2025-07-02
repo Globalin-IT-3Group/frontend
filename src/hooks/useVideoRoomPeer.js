@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
 const WS_BASE = import.meta.env.VITE_WS_URI || "wss://api.kotsu-kotsu.org";
+console.log("WS_BASE: ", WS_BASE);
+
 const SIGNAL_URL = (roomId, userId) =>
   `${WS_BASE}/ws/signal?roomId=${roomId}&userId=${userId}`;
 
