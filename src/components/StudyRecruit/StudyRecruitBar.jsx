@@ -14,11 +14,10 @@ export default function StudyRecruitBar({
 }) {
   const hashtags = [
     { label: "#JLPT", value: "JLPT" },
-    { label: "#스터디", value: "스터디" },
     { label: "#회화", value: "회화" },
     { label: "#취업", value: "취업" },
     { label: "#자격증", value: "자격증" },
-    { label: "#토익", value: "토익" },
+    { label: "#스터디", value: "스터디" },
     { label: "#비즈니스일본어", value: "비즈니스일본어" },
   ];
 
@@ -47,7 +46,7 @@ export default function StudyRecruitBar({
   }, []);
 
   return (
-    <div className="bg-white w-full h-auto p-8 flex flex-col overflow-hidden dark:bg-zinc-800">
+    <div className="bg-white w-full h-auto p-8 flex flex-col overflow-visible dark:bg-zinc-800">
       <div className="flex items-center justify-between">
         {/* 정렬 탭 */}
         <div className="flex space-x-8 ml-4">
@@ -65,7 +64,7 @@ export default function StudyRecruitBar({
             {
               key: "myRequest",
               label: "My Request",
-              icon: <BsBookmarkStarFill className="w-5 h-5 dark:text-white" />,
+              icon: <BsBookmarkStarFill className="w-4 h-4 dark:text-white" />,
             },
           ].map(({ key, label, icon }) => {
             const isActive = sortBy === key;
@@ -99,20 +98,20 @@ export default function StudyRecruitBar({
         <div className="h-[50px] flex items-center justify-end gap-4 w-full max-w-3xl">
           {/* 검색창 */}
           {sortBy !== "myRequest" && (
-            <div ref={searchBoxRef} className="relative">
+            <div ref={searchBoxRef} className="relative flex items-center">
               <input
                 type="text"
                 value={search}
                 onChange={(e) => onChangeSearch(e.target.value)}
-                placeholder="스터디 그룹명을 검색하세요"
-                className={`h-[50px] rounded-2xl border border-gray-300 shadow pl-4 pr-4 bg-white transition-all duration-300 ease-in-out ${
+                placeholder="구인 제목 검색" // 스터디 그룹명으로 검색 X
+                className={`h-[50px] rounded-2xl border border-gray-300 shadow pl-4 pr-4 bg-white transition-all duration-300 ease-in-out absolute right-8 top-1/2 -translate-y-1/2 ${
                   showSearch
-                    ? "w-[300px] opacity-100"
+                    ? "w-[250px] sm:w-[300px] opacity-100"
                     : "w-0 opacity-0 overflow-hidden"
                 }`}
               />
               <MagnifyingGlassIcon
-                className="w-6 h-6 text-gray-500 dark:text-gray-400 dark:hover:text-white hover:text-black cursor-pointer transition-all duration-300 absolute right-2 top-1/2 -translate-y-1/2"
+                className="w-6 h-6 text-gray-500 dark:text-gray-400 dark:hover:text-white hover:text-black cursor-pointer transition-all duration-300"
                 onClick={() => {
                   setShowSearch((prev) => !prev);
                   setShowHashtag(false);
@@ -123,30 +122,32 @@ export default function StudyRecruitBar({
           {/* 태그 */}
           <div className="relative" ref={hashtagRef}>
             <HashtagIcon
-              className="w-6 h-6 mr-4 text-gray-500 dark:text-gray-400 dark:hover:text-white hover:text-black cursor-pointer transition-all duration-300"
+              className="w-6 h-6 mr-2 text-gray-500 dark:text-gray-400 dark:hover:text-white hover:text-black cursor-pointer transition-all duration-300"
               onClick={() => {
                 setShowHashtag((prev) => !prev);
                 setShowSearch(false);
               }}
             />
             <div
-              className={`absolute top-1/2 right-full -translate-y-1/2 mr-2
-                bg-white border border-gray-300 rounded-2xl shadow p-4 z-50
-                transition-all duration-300 ease-in-out transform origin-right dark:text-white
-                ${
-                  showHashtag
-                    ? "scale-x-100 opacity-100 visible"
-                    : "scale-x-0 opacity-0 invisible"
-                }`}
+              className={`absolute top-full right-0 mt-2
+      bg-white border border-gray-300 rounded-2xl shadow p-4 z-50
+      transition-all duration-300 ease-in-out transform origin-top-right dark:text-white
+      ${
+        showHashtag
+          ? "scale-100 opacity-100 visible"
+          : "scale-95 opacity-0 invisible"
+      }
+      max-w-[90vw] w-[300px]
+    `}
             >
-              <div className="inline-block whitespace-nowrap">
+              <div className="flex flex-wrap gap-2">
                 {hashtags.map((tag) => {
                   const isSelected = tags.includes(tag.value);
                   return (
                     <button
                       key={tag.value}
                       onClick={() => toggleTag(tag.value)}
-                      className={`px-3 py-1 mr-2 mb-2 rounded-full transition border ${
+                      className={`px-3 py-1 rounded-full transition border whitespace-nowrap ${
                         isSelected
                           ? "bg-blue-500 text-white border-blue-500"
                           : "bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-300"
