@@ -51,4 +51,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-northeast-2
           DISTRIBUTION: E21TQN3UOWZE4
-          PATHS: "/frontend/*"
+          PATHS: "/*"
