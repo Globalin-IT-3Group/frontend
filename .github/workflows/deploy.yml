@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Build project
-        run: npm run build
+        run: npm run build -- --mode production
 
       - name: Deploy to S3 under 'frontend/' prefix
         uses: jakejarvis/s3-sync-action@master
