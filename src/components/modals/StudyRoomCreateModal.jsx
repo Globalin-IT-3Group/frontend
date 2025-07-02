@@ -213,7 +213,7 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
         )}
         <button
           type="submit"
-          className="mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
+          className="rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
           disabled={loading}
         >
           {loading ? "생성 중..." : "방 생성하기"}

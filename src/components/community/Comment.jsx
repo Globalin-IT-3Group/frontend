@@ -53,13 +53,13 @@ export default function Comment({ comment, myId, onReload }) {
             onClick={() => setProfileOpen(true)}
           />
           <span
-            className="font-semibold cursor-pointer hover:underline"
+            className="font-semibold cursor-pointer hover:underline whitespace-nowrap"
             onClick={() => setProfileOpen(true)}
           >
             {comment.user.nickname}
           </span>
           {/* 날짜/수정됨 */}
-          <span className="text-xs text-gray-400 dark:text-zinc-200 ml-2">
+          <span className="text-xs text-gray-400 dark:text-zinc-200 ml-2 whitespace-nowrap">
             {isEdited
               ? `(수정됨 ${new Date(comment.updatedAt).toLocaleString()})`
               : new Date(comment.createdAt).toLocaleString()}
@@ -69,11 +69,14 @@ export default function Comment({ comment, myId, onReload }) {
             <div className="ml-auto flex gap-1">
               {editing ? (
                 <>
-                  <button className="text-blue-500" onClick={handleUpdate}>
+                  <button
+                    className="text-blue-500 text-xs"
+                    onClick={handleUpdate}
+                  >
                     저장
                   </button>
                   <button
-                    className="text-gray-400"
+                    className="text-gray-400 text-xs"
                     onClick={() => setEditing(false)}
                   >
                     취소
@@ -88,7 +91,7 @@ export default function Comment({ comment, myId, onReload }) {
                       px-2 py-1 rounded-lg font-semibold
                       border border-blue-600 bg-white text-blue-600
                       shadow-sm hover:bg-blue-600 hover:text-white hover:shadow
-                      transition
+                      transition cursor-pointer
                     "
                     onClick={handleEditClick}
                   >
@@ -101,7 +104,7 @@ export default function Comment({ comment, myId, onReload }) {
                       px-2 py-2 rounded-lg font-semibold
                       border border-red-500 bg-white text-red-500
                       shadow-sm hover:bg-red-500 hover:text-white hover:shadow
-                      transition
+                      transition cursor-pointer
                     "
                     onClick={handleDelete}
                     title="댓글 삭제"
@@ -120,7 +123,7 @@ export default function Comment({ comment, myId, onReload }) {
             onChange={(e) => setValue(e.target.value)}
           />
         ) : (
-          <div>{comment.content}</div>
+          <div className="px-8">{comment.content}</div>
         )}
       </li>
       {/* 프로필 모달 */}

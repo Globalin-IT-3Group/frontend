@@ -10,14 +10,14 @@ export default function StudyChatInputForm({ onSend }) {
   return (
     <div className="flex gap-2 mt-2">
       <input
-        className="flex-1 border rounded-xl px-3 py-2 dark:border-white dark:text-white"
+        className="flex-1 border border-gray-300 rounded-xl px-3 py-2 dark:border-white dark:text-white"
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSend()}
         placeholder="메시지 입력..."
       />
       <button
-        className="px-4 py-2 rounded-xl bg-blue-400 text-white"
+        className="px-4 py-2 rounded-xl bg-[#0033CF] text-white whitespace-nowrap hover:bg-blue-500 cursor-pointer"
         onClick={handleSend}
       >
         전송

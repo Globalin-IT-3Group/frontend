@@ -118,11 +118,12 @@ export default function MyStudyRoomPage() {
           </div>
         </div>
       </div>
-      <div className="flex gap-6">
+      <div className="flex gap-4">
         {/* 탭 버튼들 */}
+
         <button
           onClick={() => setActiveTab("note")}
-          className={`flex flex-col items-center justify-center rounded-2xl shadow-sm w-[100px] h-[100px] transition-all duration-300 space-y-1 cursor-pointer
+          className={`flex flex-col items-center justify-center rounded-2xl shadow-sm w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] transition-all duration-300 space-y-1 cursor-pointer
             ${
               activeTab === "note"
                 ? "bg-pink-300 text-white scale-105"
@@ -130,11 +131,11 @@ export default function MyStudyRoomPage() {
             }`}
         >
           <div className="text-3xl">📒</div>
-          <p className="text-sm font-semibold">스터디 노트</p>
+          <p className="text-xs sm:text-sm font-semibold">스터디 노트</p>
         </button>
         <button
           onClick={() => setActiveTab("chat")}
-          className={`flex flex-col items-center justify-center rounded-2xl w-[100px] h-[100px] shadow-sm transition-all duration-300 space-y-1 cursor-pointer
+          className={`flex flex-col items-center justify-center rounded-2xl w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] shadow-sm transition-all duration-300 space-y-1 cursor-pointer
             ${
               activeTab === "chat"
                 ? "bg-pink-300 text-white scale-105"
@@ -144,23 +145,23 @@ export default function MyStudyRoomPage() {
           <div className="text-3xl text-blue">
             <IoChatbubbleEllipses className="text-orange-500" />
           </div>
-          <p className="text-sm font-semibold">채팅 참여</p>
+          <p className="text-xs sm:text-sm  font-semibold">채팅 참여</p>
         </button>
         {/* 페이지 이동 버튼 */}
         <button
           onClick={() => navigate(`/video-room/preview/${studyRoomId}`)}
-          className="flex flex-col items-center justify-center rounded-2xl w-[100px] h-[100px] shadow-sm transition-all duration-300 space-y-1 bg-pink-100 hover:bg-pink-200 hover:scale-105 cursor-pointer"
+          className="flex flex-col items-center justify-center rounded-2xl w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] shadow-sm transition-all duration-300 space-y-1 bg-pink-100 hover:bg-pink-200 hover:scale-105 cursor-pointer"
         >
           <div className="text-3xl">🎦</div>
-          <p className="text-sm font-semibold">채팅방 생성</p>
+          <p className="text-xs sm:text-sm  font-semibold">채팅방 생성</p>
         </button>
 
         <button
           onClick={() => setEditModalOpen(true)}
-          className="flex flex-col items-center justify-center rounded-2xl w-[100px] h-[100px] shadow-sm transition-all duration-300 space-y-1 bg-pink-100 hover:bg-pink-200 hover:scale-105 cursor-pointer"
+          className="flex flex-col items-center justify-center rounded-2xl w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] shadow-sm transition-all duration-300 space-y-1 bg-pink-100 hover:bg-pink-200 hover:scale-105 cursor-pointer"
         >
           <div className="text-3xl">🛠️</div>
-          <p className="text-sm font-semibold">스터디방 수정</p>
+          <p className="text-xs sm:text-sm  font-semibold">스터디방 수정</p>
         </button>
       </div>
 

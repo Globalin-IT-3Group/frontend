@@ -66,7 +66,7 @@ export default function LoginModal({ onClose }) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-4xl w-[500px] h-[600px] p-6 shadow-md relative">
+      <div className="bg-white rounded-4xl w-[350px] h-[420px] sm:w-[500px] sm:h-[600px] p-6 shadow-md relative">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-[#676767] text-2xl text-gray-400 rounded-4xl px-2 hover:text-gray-500 transition-all duration-100 cursor-pointer"
@@ -76,11 +76,13 @@ export default function LoginModal({ onClose }) {
 
         <h2
           style={{ fontFamily: '"Nico Moji", sans-serif' }}
-          className="text-md font-md ml-5 mt-6 mb-2 dark:text-black"
+          className="text-xs sm:text-md font-md ml-5 mt-6 mb-2 dark:text-black"
         >
           コツコツ
         </h2>
-        <h1 className="text-3xl font-bold ml-4 mb-6 dark:text-black">로그인</h1>
+        <h1 className="text-lg sm:text-3xl font-bold ml-4 mb-6 dark:text-black">
+          로그인
+        </h1>
 
         {/* ✅ 로그인 폼 시작 */}
         <form
@@ -89,9 +91,9 @@ export default function LoginModal({ onClose }) {
             handleLogin();
           }}
         >
-          <div className="bg-white rounded-3xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-6 m-4 space-y-6">
+          <div className="w-[280px] h-[200px] sm:w-[400px] sm:h-[320px] mx-auto bg-white rounded-3xl shadow-[0_0_6px_rgba(0,0,0,0.1)] p-6 m-4 space-y-4">
             <div>
-              <label className="block text-sm text-[#676767] font-bold mb-2">
+              <label className="block text-xs sm:text-sm text-[#676767] font-bold mb-2">
                 이메일 아이디
               </label>
               <input
@@ -99,12 +101,12 @@ export default function LoginModal({ onClose }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="이메일을 입력해 주세요"
-                className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl text-sm dark:text-black"
+                className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl text-xs sm:text-sm dark:text-black"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm text-[#676767] font-bold mb-2">
+              <label className="block text-xs sm:text-sm text-[#676767] font-bold mb-2">
                 비밀번호
               </label>
               <input
@@ -112,16 +114,37 @@ export default function LoginModal({ onClose }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="비밀번호를 입력해 주세요"
-                className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl text-sm dark:text-black"
+                className="w-full px-4 py-2 border border-[#CBCBCB] placeholder-[#CBCBCB] rounded-xl text-xs sm:text-sm dark:text-black"
                 required
               />
             </div>
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="text-sm w-[190px] py-3 bg-[#003CFF] text-white font-bold rounded-3xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90 mt-1 cursor-pointer"
+                className="text-xs sm:text-sm w-[90px] sm:w-[190px] py-3 bg-[#003CFF] text-white font-bold rounded-3xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90 mt-1 cursor-pointer"
               >
                 로그인
+              </button>
+            </div>
+            <div className="text-center text-sm text-[#676767] mr-1">
+              <button
+                onClick={() => {
+                  onClose();
+                  navigate("/find/email");
+                }}
+                className="hover:text-black transition cursor-pointer text-xs sm:text-sm"
+              >
+                이메일 비밀번호 찾기
+              </button>
+              <span className="mx-2">|</span>
+              <button
+                onClick={() => {
+                  onClose();
+                  navigate("/join");
+                }}
+                className="hover:text-black transition cursor-pointer"
+              >
+                회원가입
               </button>
             </div>
           </div>
@@ -129,39 +152,15 @@ export default function LoginModal({ onClose }) {
         {/* ✅ 로그인 폼 끝 */}
 
         {/* 이메일/회원가입 */}
-        <div className="text-center text-sm text-[#676767] mr-1">
-          <button
-            onClick={() => {
-              onClose();
-              navigate("/find/email");
-            }}
-            className="hover:text-black transition cursor-pointer"
-          >
-            이메일 비밀번호 찾기
-          </button>
-          <span className="mx-2">|</span>
-          <button
-            onClick={() => {
-              onClose();
-              navigate("/join");
-            }}
-            className="hover:text-black transition cursor-pointer"
-          >
-            회원가입
-          </button>
-        </div>
 
         {/* 카카오 로그인 버튼 */}
-        <button
-          onClick={handleKakaoLogin}
-          className="bg-white w-[420px] rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] m-4 mt-6 p-4 text-center flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200"
-        >
+        <button onClick={handleKakaoLogin} className="flex mx-auto">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg"
             alt="Kakao"
             className="w-7 h-7 mr-2 rounded-xl"
           />
-          <span className="text-[#676767] text-sm">
+          <span className="text-[#676767] text-xs sm:text-sm">
             카카오로 회원가입 / 로그인
           </span>
         </button>
