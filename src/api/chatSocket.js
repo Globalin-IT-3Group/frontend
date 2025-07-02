@@ -1,6 +1,7 @@
 let socket = null;
 
 const backendURL = import.meta.env.VITE_BASE_DOMAIN;
+console.log("chatSocket.js - backendURL: ", backendURL);
 
 const chatSocket = {
   connect(roomId, userId, onMessage) {
