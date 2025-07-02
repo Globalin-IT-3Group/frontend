@@ -11,7 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // localStorage 사용
+import storage from "redux-persist/lib/storage";
 
 import { combineReducers } from "redux";
 
