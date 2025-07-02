@@ -50,7 +50,7 @@ export default function WordPage() {
       <div className="text-4xl font-bold text-center mb-20 select-none text-black dark:text-white">
         📚 단어장
       </div>
-      <div className="flex w-full max-w-[1000px]">
+      <div className="flex w-full max-w-[1000px] p-2">
         {/* 북마크 탭 */}
         <div className="flex flex-col gap-2 mr-6 mt-15">
           {levels.map((level) => (
@@ -58,7 +58,7 @@ export default function WordPage() {
               key={level}
               onClick={() => setSelectedLevel(level)}
               className={`
-                relative py-2 text-lg font-bold transition-all
+                relative py-2 text-md font-bold transition-all
                 text-left pl-6 mb-1 cursor-pointer
                 ${
                   selectedLevel === level
@@ -83,7 +83,7 @@ export default function WordPage() {
         </div>
 
         {/* 오른쪽: 상단 버튼 + 단어/문법 박스 */}
-        <div className="flex-1 flex flex-col min-w-[300px] max-w-[1000px]">
+        <div className="flex-1 flex flex-col  max-w-[1000px]">
           {/* 상단 버튼 */}
           <div className="flex gap-2 mb-6">
             {exams.map((exam) => (

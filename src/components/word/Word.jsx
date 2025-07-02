@@ -54,7 +54,7 @@ export default function Word({ word }) {
   return (
     <Accordion disableGutters className="rounded-2xl mb-2 shadow ">
       <AccordionSummary
-        expandIcon={<MdExpandMore size={24} className="dark:text-white ml-2" />}
+        expandIcon={<MdExpandMore size={24} className="dark:text-white " />}
         className="flex justify-center items-center min-h-16 overflow-hidden dark:!bg-zinc-700"
       >
         <div className="font-bold text-[#0033CF] text-base flex-1 truncate text-center -ml-4 dark:text-blue-500">
@@ -68,7 +68,7 @@ export default function Word({ word }) {
         </div>
         <div
           className="text-sm  text-right dark:text-white  truncate ml-2 
-        max-w-[4ch] sm:max-w-full sm:flex-1 sm:min-w-0"
+        max-w-[8ch] sm:max-w-full sm:flex-1 sm:min-w-0"
         >
           {getEllipsisMessage(word.meaning)}
         </div>
