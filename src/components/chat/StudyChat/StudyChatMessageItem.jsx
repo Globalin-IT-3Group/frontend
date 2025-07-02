@@ -33,7 +33,7 @@ export default function StudyChatMessageItem({ message, myUserId }) {
               {message.senderNickname}
             </div>
           )}
-          <div className="text-left dark:text-gray-200">
+          <div className="text-left break-words dark:text-gray-600">
             <span>{message.message}</span>
           </div>
           <span
