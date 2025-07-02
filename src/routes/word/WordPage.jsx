@@ -52,20 +52,20 @@ export default function WordPage() {
       </div>
       <div className="flex w-full max-w-[1000px] p-2 mr-6">
         {/* 북마크 탭 */}
-        <div className="flex flex-col gap-2 mr-6 mt-15">
+        <div className="flex flex-col gap-2 mr-8 mt-15">
           {levels.map((level) => (
             <button
               key={level}
               onClick={() => setSelectedLevel(level)}
               className={`
-                relative py-2 text-md font-bold transition-all
-                text-left pl-6 mb-1 cursor-pointer
+                relative py-1.5 text-md font-bold transition-all
+                text-left pl-4 mb-1 cursor-pointer
                 ${
                   selectedLevel === level
                     ? "bg-yellow-300 text-yellow-900 shadow-lg"
                     : "bg-white text-gray-600"
                 }
-                rounded-r-2xl
+                rounded-r-xl
                 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0
                 before:w-2 
                 ${
@@ -75,7 +75,7 @@ export default function WordPage() {
                 }
                 hover:bg-yellow-100
               `}
-              style={{ minWidth: "70px" }}
+              style={{ minWidth: "50px" }}
             >
               {level}
             </button>

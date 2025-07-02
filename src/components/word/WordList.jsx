@@ -10,7 +10,7 @@ export default function WordList({ words }) {
   ];
 
   return (
-    <div>
+    <div className="mx-auto w-[285px] sm:w-full">
       {/* 헤더 */}
       <div className="flex items-center px-3 py-2 bg-gray-100 dark:bg-zinc-600 dark:text-white rounded-t-2xl font-semibold text-gray-600">
         {header.map((h, i) => (
