@@ -109,7 +109,7 @@ export default function MyNoteList() {
               </div>
               <span className="text-sm text-gray-400 dark:text-gray-200">
                 {note.createdAt
-                  ? new Date(note.createdAt).toLocaleString()
+                  ? new Date(note.createdAt).toLocaleDateString()
                   : "날짜 없음"}
               </span>
             </li>

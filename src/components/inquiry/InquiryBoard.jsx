@@ -60,7 +60,7 @@ export default function InquiryBoard({
                     className={`text-sm font-medium ${
                       status === "미확인"
                         ? "text-gray-400 dark:text-gray-200"
-                        : "text-blue-600"
+                        : "text-blue-600 dark:text-blue-300"
                     }`}
                   >
                     {status}
@@ -111,7 +111,7 @@ export default function InquiryBoard({
 
                 {adminReply && (
                   <div className="border-t border-gray-300 dark:border-zinc-500 pt-4 mt-4 p-3">
-                    <div className="text-md text-blue-600 font-bold mb-2">
+                    <div className="text-md text-blue-600 dark:text-blue-300 font-bold mb-2">
                       코츠코츠
                     </div>
                     <div className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap">
