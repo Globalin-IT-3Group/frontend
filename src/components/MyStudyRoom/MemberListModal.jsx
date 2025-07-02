@@ -60,7 +60,7 @@ export default function MemberListModal({
       imageHeight: 150,
 
       showCancelButton: true,
-      confirmButtonColor: "#d33",
+      confirmButtonColor: "#0033CF",
       confirmButtonText: "탈퇴",
       cancelButtonText: "취소",
     });

@@ -50,7 +50,7 @@ export default function WordPage() {
       <div className="text-4xl font-bold text-center mb-20 select-none text-black dark:text-white">
         📚 단어장
       </div>
-      <div className="flex w-full max-w-[900px]">
+      <div className="flex w-full max-w-[1000px] p-2 mr-6">
         {/* 북마크 탭 */}
         <div className="flex flex-col gap-2 mr-8 mt-15">
           {levels.map((level) => (
@@ -58,16 +58,16 @@ export default function WordPage() {
               key={level}
               onClick={() => setSelectedLevel(level)}
               className={`
-                relative py-2 text-lg font-bold transition-all
-                text-left pl-6 mb-1
+                relative py-1.5 text-md font-bold transition-all
+                text-left pl-4 mb-1 cursor-pointer
                 ${
                   selectedLevel === level
                     ? "bg-yellow-300 text-yellow-900 shadow-lg"
                     : "bg-white text-gray-600"
                 }
-                rounded-r-2xl
+                rounded-r-xl
                 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0
-                before:w-2 before:rounded-l-2xl
+                before:w-2 
                 ${
                   selectedLevel === level
                     ? "before:bg-yellow-600"
@@ -75,7 +75,7 @@ export default function WordPage() {
                 }
                 hover:bg-yellow-100
               `}
-              style={{ minWidth: "70px" }}
+              style={{ minWidth: "50px" }}
             >
               {level}
             </button>
@@ -83,14 +83,14 @@ export default function WordPage() {
         </div>
 
         {/* 오른쪽: 상단 버튼 + 단어/문법 박스 */}
-        <div className="flex-1 flex flex-col max-w-[1000px]">
+        <div className="flex-1 flex flex-col  max-w-[1000px]">
           {/* 상단 버튼 */}
-          <div className="flex gap-2 mb-6">
+          <div className="flex gap-2 mb-6 ">
             {exams.map((exam) => (
               <button
                 key={exam}
                 onClick={() => setSelectedExam(exam)}
-                className={`px-4 py-1 rounded-full font-semibold shadow transition
+                className={`px-4 py-1 rounded-full font-semibold shadow transition cursor-pointer hover:bg-blue-200 hover:scale-105 whitespace-nowrap
                   ${
                     selectedExam === exam
                       ? "bg-blue-500 text-white"
@@ -104,7 +104,7 @@ export default function WordPage() {
               <button
                 key={type.value}
                 onClick={() => setSelectedType(type.value)}
-                className={`px-4 py-1 rounded-full font-semibold shadow transition
+                className={`px-4 py-1 rounded-full font-semibold shadow transition cursor-pointer hover:bg-pink-200 hover:scale-105 whitespace-nowrap
                   ${
                     selectedType === type.value
                       ? "bg-pink-500 text-white"
@@ -126,68 +126,70 @@ export default function WordPage() {
             />
           </div> */}
           {/* 필터 정보 */}
-          <div className="flex gap-4 items-center text-lg mb-8 justify-center">
-            <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded">
-              {selectedExam}
-            </span>
-            <span className="px-2 py-1 bg-pink-100 text-pink-700 rounded">
-              {selectedType === "WORD" ? "단어" : "문법"}
-            </span>
-            <span className="px-2 py-1 bg-yellow-200 text-yellow-800 rounded">
-              {selectedLevel}
-            </span>
-          </div>
-          {/* 단어 or 문법 리스트 */}
-          <div className="mt-4">
-            {words.length === 0 ? (
-              <div className="text-gray-400 py-10 text-center">
-                단어가 없습니다.
-              </div>
-            ) : (
-              <div className="flex flex-col">
-                {selectedType === "WORD" ? (
-                  <WordList words={words} />
-                ) : (
-                  <GrammarList grammars={words} />
-                )}
-              </div>
-            )}
-          </div>
-          {/* 페이지네이션 */}
-          <div className="flex justify-center gap-2 mt-8">
-            <button
-              onClick={() => setPage((p) => Math.max(0, p - 1))}
-              disabled={page === 0}
-              className={`
-                flex items-center justify-center w-10 h-10 rounded-full
+          <div className="w-full">
+            <div className="flex flex-wrap justify-center gap-4 items-center text-lg mb-8 text-center">
+              <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded">
+                {selectedExam}
+              </span>
+              <span className="px-2 py-1 bg-pink-100 text-pink-700 rounded">
+                {selectedType === "WORD" ? "단어" : "문법"}
+              </span>
+              <span className="px-2 py-1 bg-yellow-200 text-yellow-800 rounded">
+                {selectedLevel}
+              </span>
+            </div>
+            {/* 단어 or 문법 리스트 */}
+            <div className="mt-4">
+              {words.length === 0 ? (
+                <div className="text-gray-400 py-10 text-center">
+                  단어가 없습니다.
+                </div>
+              ) : (
+                <div className="flex flex-col">
+                  {selectedType === "WORD" ? (
+                    <WordList words={words} />
+                  ) : (
+                    <GrammarList grammars={words} />
+                  )}
+                </div>
+              )}
+            </div>
+            {/* 페이지네이션 */}
+            <div className="flex justify-center gap-2 mt-8">
+              <button
+                onClick={() => setPage((p) => Math.max(0, p - 1))}
+                disabled={page === 0}
+                className={`
+                flex items-center justify-center w-10 h-10 rounded-full cursor-pointer
                 ${
                   page === 0
                     ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                     : "bg-blue-100 text-blue-700 hover:bg-blue-200 transition"
                 }
               `}
-              aria-label="이전"
-            >
-              <MdChevronLeft size={24} />
-            </button>
-            <span className="flex items-center px-4 font-semibold text-gray-700 dark:text-white">
-              {page + 1} / {totalPages}
-            </span>
-            <button
-              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-              disabled={page + 1 >= totalPages}
-              className={`
-                flex items-center justify-center w-10 h-10 rounded-full
+                aria-label="이전"
+              >
+                <MdChevronLeft size={24} />
+              </button>
+              <span className="flex items-center px-4 font-semibold text-gray-700 dark:text-white">
+                {page + 1} / {totalPages}
+              </span>
+              <button
+                onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+                disabled={page + 1 >= totalPages}
+                className={`
+                flex items-center justify-center w-10 h-10 rounded-full cursor-pointer
                 ${
                   page + 1 >= totalPages
                     ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                     : "bg-blue-100 text-blue-700 hover:bg-blue-200 transition"
                 }
               `}
-              aria-label="다음"
-            >
-              <MdChevronRight size={24} />
-            </button>
+                aria-label="다음"
+              >
+                <MdChevronRight size={24} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

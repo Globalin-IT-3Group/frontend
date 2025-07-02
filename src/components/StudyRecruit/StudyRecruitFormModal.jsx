@@ -133,6 +133,7 @@ export default function StudyRecruitFormModal({
           imageWidth: 120,
           imageHeight: 120,
           confirmButtonText: "확인",
+          confirmButtonColor: "#0033CF",
           timer: 1500,
         });
       } else if (newStatus === "REJECTED") {
@@ -143,6 +144,7 @@ export default function StudyRecruitFormModal({
           imageWidth: 120,
           imageHeight: 120,
           confirmButtonText: "확인",
+          confirmButtonColor: "#0033CF",
           timer: 1500,
         });
       }
