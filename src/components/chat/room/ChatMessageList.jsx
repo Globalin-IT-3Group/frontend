@@ -82,7 +82,7 @@ export default function ChatMessageList({ messages, userId }) {
                   )}
                   <div
                     className={`
-                      max-w-xs px-3 py-2 rounded-lg text-sm
+                      max-w-xs break-words px-3 py-2 rounded-lg text-sm
                       ${
                         isMe
                           ? "bg-blue-500 text-white"

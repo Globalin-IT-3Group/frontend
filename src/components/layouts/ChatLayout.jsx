@@ -6,11 +6,14 @@ import chatRoomApi from "../../api/chatRoomAPI";
 import { IoMenu } from "react-icons/io5"; // 햄버거 아이콘
 import { useMediaQuery } from "react-responsive"; // 데스크탑 구분용
 import MobileChatSidebar from "../navigation/MobileChatSidebar";
+import { useSelector } from "react-redux";
 
 function ChatLayout() {
   const [rooms, setRooms] = useState([]);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const isDesktop = useMediaQuery({ minWidth: 1024 });
+
+  const userIdFromRedux = useSelector((state) => state.auth.id);
 
   // ✅ refreshRooms를 먼저 정의
   const refreshRooms = useCallback(
@@ -33,6 +36,7 @@ function ChatLayout() {
           rooms={rooms}
           setRooms={setRooms}
           refreshRooms={refreshRooms}
+          myUserId={userIdFromRedux}
           {...props}
         />
       )}

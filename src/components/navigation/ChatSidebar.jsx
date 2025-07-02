@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ChatRoomList from "../chat/sidebar/ChatRoomList";
 import { MdHome } from "react-icons/md";
 
-function ChatSidebar({ rooms, refreshRooms }) {
+function ChatSidebar({ rooms, refreshRooms, myUserId }) {
   const navigate = useNavigate();
 
   const handleRoomClick = (roomId) => {
@@ -23,6 +23,7 @@ function ChatSidebar({ rooms, refreshRooms }) {
 
       <ChatRoomList
         rooms={rooms}
+        myUserId={myUserId}
         refreshRooms={refreshRooms}
         onClickRoom={handleRoomClick}
       />
