@@ -130,7 +130,7 @@ export default function StudyRecruitBar({
             />
             <div
               className={`absolute top-full right-0 mt-2
-      bg-white border border-gray-300 rounded-2xl shadow p-4 z-[9999]
+      bg-white border border-gray-300 rounded-2xl shadow p-4 z-50
       transition-all duration-300 ease-in-out transform origin-top-right dark:text-white
       ${
         showHashtag
