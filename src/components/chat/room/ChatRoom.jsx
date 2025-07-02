@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import KotsuKotsuLoader from "../../../components/loadings/KotsuKotsuLoader";
 import { useOutletContext } from "react-router-dom";
 
-export default function ChatRoom({ roomId, otherUser }) {
+export default function ChatRoom({ roomId, matchedRoom }) {
   const [initialMessages, setInitialMessages] = useState([]);
   const [input, setInput] = useState("");
   const userId = useSelector((state) => state.auth.id);
@@ -54,7 +54,7 @@ export default function ChatRoom({ roomId, otherUser }) {
         overflow-hidden              // 내부 컨텐츠 넘침 방지
       "
     >
-      <ChatHeader otherUser={otherUser} />
+      <ChatHeader matchedRoom={matchedRoom} />
       <ChatMessageList messages={allMessages} userId={userId} />
       <ChatInput input={input} onChange={setInput} onSend={handleSend} />
     </div>

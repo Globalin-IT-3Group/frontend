@@ -6,20 +6,16 @@ export default function ChattingPage() {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const roomId = Number(query.get("roomId"));
-  const stateOtherUser = location.state?.otherUser;
 
   // rooms에서 해당 roomId에 맞는 room을 찾는다
   const matchedRoom = rooms?.find((room) => room.roomId === roomId);
-  const fallbackOtherUser = matchedRoom?.otherUser;
-
-  const otherUser = stateOtherUser || fallbackOtherUser;
 
   return (
     <div className="flex items-center justify-center w-full h-full min-h-[800px] dark:bg-zinc-800 ">
       {roomId ? (
         <ChatRoom
           roomId={roomId}
-          otherUser={otherUser}
+          matchedRoom={matchedRoom}
           refreshRooms={refreshRooms}
         />
       ) : (
