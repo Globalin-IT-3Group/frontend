@@ -143,7 +143,7 @@ export default function BoardForm() {
 
   return (
     <div className="w-full h-full flex flex-col items-center py-2">
-      <div className="w-full max-w-6xl bg-white dark:bg-zinc-600 rounded-2xl flex flex-col gap-8 p-0">
+      <div className="w-full max-w-6xl bg-white dark:bg-zinc-700 rounded-2xl flex flex-col gap-8 p-0">
         {/* 커뮤니티 글 작성 타이틀 */}
         <div className="w-full flex justify-center items-center py-8 border-b dark:border-b-white">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
@@ -158,7 +158,7 @@ export default function BoardForm() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="제목을 입력하세요"
-              className="w-full text-2xl font-bold border-none outline-none bg-transparent my-3 placeholder-gray-400"
+              className="w-full text-2xl font-bold border-none outline-none bg-transparent my-3 dark:text-white placeholder-gray-400"
               disabled={loading}
             />
             <div className="flex-1 flex flex-col">
