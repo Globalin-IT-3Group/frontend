@@ -25,24 +25,17 @@ export default function ProfileImage({ src }) {
     const file = e.target.files[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      const base64 = reader.result;
-      setImageSrc(base64); // 우선 미리보기
+    try {
+      setImageSrc(URL.createObjectURL(file)); // 미리보기용 (로컬 Blob URL)
 
-      // 실제 이미지가 선택된 경우에만 서버로 업로드
-      try {
-        const res = await ImageAPI.uploadPRofileImage(base64);
-        setImageSrc(res.image); // 서버에서 온(저장된) BASE64로 갱신
-        dispatch(updateProfileImage(res.image));
-      } catch (error) {
-        alert("이미지 업로드 실패!");
-        console.error(error);
-
-        setImageSrc(src ? src : defaultImage); // 실패 시 원래 이미지로 복원
-      }
-    };
-    reader.readAsDataURL(file);
+      const res = await ImageAPI.uploadProfileImage(file);
+      setImageSrc(res.imageUrl); // S3 URL로 교체
+      dispatch(updateProfileImage(res.imageUrl));
+    } catch (error) {
+      alert("이미지 업로드 실패!");
+      console.error(error);
+      setImageSrc(src ? src : defaultImage);
+    }
   };
 
   return (

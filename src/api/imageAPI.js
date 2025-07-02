@@ -5,10 +5,16 @@ class ImageAPI extends BaseApi {
     super();
   }
 
-  async uploadPRofileImage(base64) {
-    const res = await this.fetcher.put("/image/profile-image", {
-      image: base64,
+  async uploadProfileImage(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await this.fetcher.post("/image/profile-image", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
+
     return res.data;
   }
 }
