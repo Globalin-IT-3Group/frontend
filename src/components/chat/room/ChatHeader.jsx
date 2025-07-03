@@ -33,7 +33,7 @@ export default function ChatHeader({ matchedRoom }) {
       : otherUser?.nickname || "상대방";
 
   return (
-    <div className="flex items-center gap-4 px-1 my-4 border-gray-300 rounded-xl dark:border-zinc-600 bg-white dark:bg-zinc-800">
+    <div className="flex items-center gap-4 px-1 my-4 border-gray-300 rounded-xl dark:border-zinc-600 bg-white dark:bg-zinc-700">
       <img
         src={profileImage}
         alt="profile"

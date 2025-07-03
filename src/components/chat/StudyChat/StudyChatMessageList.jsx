@@ -1,6 +1,11 @@
 import { useEffect, useRef } from "react";
 import StudyChatMessageItem from "./StudyChatMessageItem";
 
+function formatDate(isoString) {
+  const date = new Date(isoString);
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+}
+
 export default function StudyChatMessageList({
   messages,
   userId,
@@ -38,15 +43,30 @@ export default function StudyChatMessageList({
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-y-auto mb-2 pr-2" ref={listRef}>
+    <div
+      className="flex-1 rounded-xl shadow-[0_0_6px_rgba(0,0,0,0.1)]
+        overflow-y-auto px-4 py-4
+        space-y-2 bg-gray-50 dark:bg-zinc-800
+        min-h-[570px] max-h-[570px]"
+      ref={listRef}
+    >
       {messages.map((msg, idx) => {
         const key =
           msg.messageType === "READ"
             ? `read_${msg.messageId}_${msg.lastReadAt || idx}`
             : msg.id ?? `${msg.senderId}_${msg.sentAt ?? idx}`;
 
+        const showDate =
+          idx === 0 ||
+          formatDate(messages[idx - 1].sentAt) !== formatDate(msg.sentAt);
+
         return (
-          <StudyChatMessageItem key={key} message={msg} myUserId={userId} />
+          <StudyChatMessageItem
+            key={key}
+            message={msg}
+            myUserId={userId}
+            showDate={showDate}
+          />
         );
       })}
       <div ref={endRef} />

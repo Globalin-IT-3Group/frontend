@@ -11,21 +11,21 @@ export default function ChatInput({ input, onChange, onSend }) {
   };
 
   return (
-    <div className="flex mt-4 border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-800">
+    <div className="flex gap-2 mt-2">
       <input
         type="text"
         value={input}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        className="flex-1 p-2 rounded-l border border-gray-300 dark:bg-zinc-700 dark:text-white"
+        className="flex-1 border border-gray-300 rounded-xl px-3 py-2 dark:border-white dark:text-white"
         placeholder="메시지를 입력하세요..."
       />
       <button
         onClick={onSend}
-        className="bg-blue-500 text-white px-4 rounded-r"
+        className="px-4 py-2 rounded-xl bg-[#0033CF] text-white whitespace-nowrap hover:bg-blue-500 cursor-pointer"
         tabIndex={-1}
       >
-        <LuSendHorizontal />
+        전송
       </button>
     </div>
   );

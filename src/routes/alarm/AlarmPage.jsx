@@ -61,6 +61,11 @@ export default function AlarmPage() {
     );
   };
 
+  // 알림 삭제 핸들러
+  const handleDeleteAlarm = (notificationId) => {
+    setAlarms((prev) => prev.filter((a) => a.id !== notificationId));
+  };
+
   if (loading) return <KotsuKotsuLoader />;
 
   return (
@@ -108,7 +113,11 @@ export default function AlarmPage() {
       {fakeLoading ? (
         <AlarmSkeleton />
       ) : (
-        <AlarmList alarms={filtered} onRead={handleRead} />
+        <AlarmList
+          alarms={filtered}
+          onRead={handleRead}
+          onDeleteAlarm={handleDeleteAlarm}
+        />
       )}
 
       {/* 페이지네이션(옵션) */}

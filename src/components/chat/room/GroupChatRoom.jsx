@@ -43,9 +43,21 @@ export default function GroupChatRoom({ roomId, matchedRoom, refreshRooms }) {
   };
 
   return (
-    <div className="flex flex-col min-h-[660px] max-h-[660px] w-full p-4 bg-white dark:bg-zinc-900 rounded-2xl shadow-lg">
+    <div
+      className="flex flex-col
+        min-w-[360px] max-w-[600px]  // 최소, 최대 너비
+        min-h-[750px] max-h-[750px]  // 최소, 최대 높이
+        w-full h-full                // 필요시 부모 기준 100%
+        rounded-2xl 
+        shadow-[0_0_6px_rgba(0,0,0,0.1)]
+        bg-white
+        px-6 py-4
+        dark:bg-zinc-700
+        overflow-hidden 
+        mt-8 sm:mt-6        "
+    >
       {/* 상단: 채팅방 정보 */}
-      <div className="flex items-center gap-4 px-1 my-4 border-gray-300 rounded-xl dark:border-zinc-600 bg-white dark:bg-zinc-800">
+      <div className="flex items-center gap-4 px-1 my-4 border-gray-300 rounded-xl dark:border-zinc-600 bg-white dark:bg-zinc-700">
         <img
           src={profileImage}
           alt="profile"

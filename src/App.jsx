@@ -12,7 +12,17 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         {/* ✅ 알림 수신 핸들러 */}
         <NotificationHandler />
-        <Toaster position="top-right" />
+        <Toaster
+          position="top-right"
+          containerStyle={{
+            marginTop: "70px",
+          }}
+          toastOptions={{
+            style: {
+              fontSize: "14px",
+            },
+          }}
+        />
         <RouterProvider router={MainRouter} />
       </PersistGate>
     </Provider>

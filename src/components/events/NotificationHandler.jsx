@@ -10,8 +10,6 @@ export default function NotificationHandler() {
         const data = JSON.parse(event.data);
         const eventName = event.type || event.name;
 
-        console.log("📨 알림 도착:", data, eventName);
-
         // ✅ 토스트 알림 표시
         toast.success(
           `🔔 [${eventName}] ${data.content || "새 알림이 도착했어요!"}`

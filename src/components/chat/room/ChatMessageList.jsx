@@ -17,7 +17,6 @@ export default function ChatMessageList({ messages, userId }) {
     );
   }
 
-  // 시간 포맷 함수
   function formatTime(isoString) {
     const date = new Date(isoString);
     const hours = date.getHours();
@@ -37,7 +36,7 @@ export default function ChatMessageList({ messages, userId }) {
   return (
     <div
       className="
-        flex-1 rounded-xl shadow-lg
+        flex-1 rounded-xl shadow-[0_0_6px_rgba(0,0,0,0.1)]
         overflow-y-auto px-4 py-4
         space-y-2 bg-gray-50 dark:bg-zinc-800
         min-h-[570px] max-h-[570px]
@@ -54,16 +53,15 @@ export default function ChatMessageList({ messages, userId }) {
 
         return (
           <div key={uniqueKey}>
-            {/* 날짜 라벨: 날짜가 달라지면 표시 */}
+            {/* 1️⃣ 날짜 라벨 */}
             {showDate && (
               <div className="flex justify-center mb-6">
-                <span className="bg-gray-200 text-gray-600 px-4 py-2 rounded-full text-xs">
+                <span className="bg-gray-200 text-gray-600 px-4 py-2 rounded-full text-xs mb-4">
                   {formatDate(msg.sentAt)}
                 </span>
               </div>
             )}
 
-            {/* 메시지 박스 */}
             <div className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
               <div
                 className={`relative flex flex-col ${
@@ -71,45 +69,51 @@ export default function ChatMessageList({ messages, userId }) {
                 }`}
               >
                 <div
-                  className={`flex ${
-                    isMe ? "justify-end" : "justify-start"
-                  } items-end`}
+                  className={`rounded-2xl px-4 py-2 max-w-[300px] text-sm ${
+                    isMe
+                      ? "bg-blue-100 text-right ml-1"
+                      : "bg-gray-200 dark:bg-zinc-600 text-left mr-1"
+                  }`}
                 >
-                  {isMe && msg.isRead === false && (
-                    <div className="flex flex-col justify-end mr-2 h-full">
-                      <span className="text-xs text-yellow-600 mb-0.5">1</span>
+                  {!isMe && (
+                    <div className="text-base font-bold text-gray-700 dark:text-white mb-1">
+                      {msg.senderNickname}
                     </div>
                   )}
+
                   <div
                     className={`
-                      max-w-xs break-words px-3 py-2 rounded-lg text-sm
-                      ${
-                        isMe
-                          ? "bg-blue-500 text-white"
-                          : "bg-gray-200 dark:bg-zinc-600 dark:text-white"
-                      }
-                    `}
+                    ${
+                      isMe
+                        ? "text-right dark:text-gray-600"
+                        : "text-left dark:text-white"
+                    }
+                    break-words `}
                   >
                     {msg.message}
                   </div>
-                </div>
 
-                {msg.message && msg.sentAt && (
-                  <div
-                    className={`text-xs text-gray-400 mt-1 w-full ${
+                  <span
+                    className={`text-[11px] text-gray-400 dark:text-gray-400 mt-1 ${
                       isMe ? "text-right" : "text-left"
                     }`}
                   >
                     {formatTime(msg.sentAt)}
+                  </span>
+                </div>
+
+                {isMe && msg.isRead === false && (
+                  <div className="absolute -left-4 bottom-0 flex flex-col justify-end mr-2 h-full">
+                    <span className="text-xs text-yellow-600 mb-0.5">1</span>
                   </div>
                 )}
               </div>
             </div>
+
+            <div ref={endRef} />
           </div>
         );
-      })}
-
-      <div ref={endRef} />
+      })}{" "}
     </div>
   );
 }
