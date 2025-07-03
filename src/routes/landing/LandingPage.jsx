@@ -174,15 +174,15 @@ export default function LandingPage() {
 
       {/* 푸터 */}
       <footer className="bg-white text-blue-400 text-center text-sm py-12">
-        <p className="mb-2">이메일: ~~@~~~~.COM</p>
+        <p className="mb-2">이메일: globalin01@naver.com</p>
         <p className="mb-2">전화: 02-701-1712</p>
         <p className="mb-2">
           주소: 서울특별시 영등포구 영중로 56 [신한빌딩 4층]
         </p>
         <p className="mt-4">
           ©2025 BY P3 Team.{" "}
-          <a href="https://wix.com" className="underline">
-            PROUDLY CREATED WITH WIX.COM
+          <a href="https://github.com/Globalin-IT-3Group" className="underline">
+            Created by kotsukotsu
           </a>
         </p>
       </footer>
