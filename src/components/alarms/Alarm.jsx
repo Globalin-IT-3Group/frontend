@@ -44,7 +44,7 @@ export default function Alarm({ alarm, onRead, onDelete }) {
             )}
             {alarm.type === "STUDY" && (
               <div className="flex items-center gap-2">
-                <b>{alarm.sender.nickname}</b>님이 스터디 참여를 승인했습니다!
+                <b>{alarm.sender.nickname}</b> | {alarm.content}
               </div>
             )}
             {alarm.type === "SYSTEM" && (
