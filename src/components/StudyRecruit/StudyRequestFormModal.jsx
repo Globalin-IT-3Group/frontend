@@ -94,7 +94,7 @@ export default function StudyRequestFormModal({
 
           <div className="flex justify-center gap-x-4 mt-2 sm:mt-4">
             <button
-              className="text-xs sm:text-sm bg-[#003CFF] px-8 py-2 rounded-3xl text-md text-white font-bold hover:bg-[#0536D7] transition-all duration-200 cursor-pointer"
+              className="text-sm sm:text-md bg-[#003CFF] px-8 py-2 rounded-3xl  text-white font-bold hover:bg-[#0536D7] transition-all duration-200 cursor-pointer"
               onClick={handleStudyRequest}
               disabled={loading}
             >
@@ -102,7 +102,7 @@ export default function StudyRequestFormModal({
             </button>
             <button
               onClick={onClose}
-              className="bg-white border border-gray-400 text-gray-400 px-8 py-2 rounded-3xl text-md font-bold hover:bg-gray-100 transition-all duration-200 cursor-pointer text-xs sm:text-sm"
+              className="bg-white border border-gray-400 text-gray-400 px-8 py-2 rounded-3xl font-bold hover:bg-gray-100 transition-all duration-200 cursor-pointer text-sm sm:text-md"
               disabled={loading}
             >
               취소
