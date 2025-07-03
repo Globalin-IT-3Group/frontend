@@ -37,7 +37,7 @@ export default function InquiryBoard({
         disableGutters
         expanded={expanded}
         onChange={() => setExpanded((prev) => !prev)}
-        className="rounded-2xl mb-2 border border-gray-200 dark:border-zinc-500"
+        className="rounded-2xl mb-2 border border-white dark:border-zinc-500"
         sx={{
           backgroundColor: "transparent",
           "&.Mui-expanded": {
@@ -56,7 +56,7 @@ export default function InquiryBoard({
           }
           sx={{ backgroundColor: "transparent" }}
         >
-          <div className="w-full px-4 py-4 bg-gray-100 dark:bg-zinc-700 hover:bg-gray-200 dark:hover:bg-zinc-500 transition cursor-pointer rounded-2xl">
+          <div className="w-full px-4 py-4 bg-white dark:bg-zinc-700 hover:bg-gray-200 dark:hover:bg-zinc-500 transition cursor-pointer rounded-2xl">
             <div className="flex flex-col w-full gap-3">
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-4">

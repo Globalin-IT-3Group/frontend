@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NotificationApi from "../../api/notificationAPI";
 import AlarmList from "../../components/alarms/AlarmList";
 import KotsuKotsuLoader from "../../components/loadings/KotsuKotsuLoader";
-import { PiMailbox } from "react-icons/pi";
+import { BsMailbox2Flag } from "react-icons/bs";
 import { FaUserFriends } from "react-icons/fa";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { SiGoogleclassroom } from "react-icons/si";
@@ -12,7 +12,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import AlarmSkeleton from "../../components/skeleton/alarms/AlarmSkeleton";
 
 const ALARM_TABS = [
-  { label: "전체", type: null, icon: <PiMailbox /> },
+  { label: "전체", type: null, icon: <BsMailbox2Flag /> },
   { label: "친구", type: "FRIEND", icon: <FaUserFriends /> },
   { label: "스터디", type: "STUDY", icon: <SiGoogleclassroom /> },
   { label: "시스템", type: "SYSTEM", icon: <GrUserManager /> },
@@ -72,7 +72,7 @@ export default function AlarmPage() {
         </span>
       </div>
       {/* 탭 */}
-      <div className="flex overflow-x-auto scrollbar-none space-x-6 px-2 pb-4 -mx-2">
+      <div className="flex overflow-x-auto scrollbar-none space-x-4 sm:space-x-6 px-2 pb-4 -mx-2">
         {ALARM_TABS.map((tab) => {
           const isActive = activeTab.label === tab.label;
           return (
@@ -80,17 +80,18 @@ export default function AlarmPage() {
               key={tab.label}
               onClick={() => {
                 setActiveTab(tab);
-                setPage(0); // 페이지도 초기화
+                setPage(0);
               }}
-              className={`relative group flex items-center gap-x-2 cursor-pointer transition-all duration-300 transform ${
-                isActive
-                  ? "text-black -translate-y-1 dark:text-white"
-                  : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:-translate-y-1"
-              }`}
+              className={`relative group flex items-center gap-x-1 sm:gap-x-2 px-1 sm:px-2 py-1 cursor-pointer transition-all duration-300 transform
+          ${
+            isActive
+              ? "text-black -translate-y-0.5 dark:text-white"
+              : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:-translate-y-0.5"
+          }`}
             >
-              {tab.icon}
+              <div className="w-4 h-4 sm:w-5 sm:h-5">{tab.icon}</div>
               <span
-                className={`text-md relative whitespace-nowrap after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-[#003CFF] after:transition-all after:duration-300 ${
+                className={`text-sm sm:text-lg relative whitespace-nowrap after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-[#003CFF] after:transition-all after:duration-300 ${
                   isActive
                     ? "after:left-0 after:w-full"
                     : "group-hover:after:left-0 group-hover:after:w-full after:w-0"
