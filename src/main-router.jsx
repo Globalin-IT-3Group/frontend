@@ -136,12 +136,18 @@ const routers = [
     children: [{ index: true, element: <AlarmPage /> }],
   },
   {
-    path: "/video-room/preview/:studyRoomId",
-    element: <VideoRoomPreviewPage />,
-  },
-  {
-    path: "/video-room/meeting/:studyRoomId",
-    element: <VideoRoomMeetingPage />,
+    path: "/video-room",
+    element: <NoSidebarLayout />,
+    children: [
+      {
+        path: "preview/:studyRoomId",
+        element: <VideoRoomPreviewPage />,
+      },
+      {
+        path: "meeting/:studyRoomId",
+        element: <VideoRoomMeetingPage />,
+      },
+    ],
   },
   {
     path: "*",

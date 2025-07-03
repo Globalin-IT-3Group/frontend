@@ -85,10 +85,10 @@ export default function VideoRoomMeetingPage() {
   };
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-zinc-900">
+    <div className="flex h-full w-full overflow-hidden bg-zinc-900">
       {/* 영상 그리드 */}
       <div className="flex-1 flex flex-col justify-center items-center relative">
-        <div className="grid grid-cols-2 gap-4 w-full h-full p-4">
+        <div className="grid grid-cols-2 gap-4 w-full h-[60%] p-4">
           {/* 본인 */}
           <div className="relative flex flex-col items-center bg-black rounded-lg overflow-hidden">
             <video
