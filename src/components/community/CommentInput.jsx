@@ -34,9 +34,9 @@ export default function CommentInput({ boardId, userId, onCommentPosted }) {
       />
       <button
         className="
-      px-4 py-1 rounded bg-blue-500 text-white font-semibold
+      px-4 py-1 rounded bg-[#0033CF] text-white font-semibold
       disabled:opacity-50
-      shrink-0
+      shrink-0 hover:bg-blue-500 cursor-pointer transition
     "
         disabled={loading}
         type="submit"
