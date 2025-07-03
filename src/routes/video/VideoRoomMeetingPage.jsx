@@ -217,7 +217,11 @@ export default function VideoRoomMeetingPage() {
         } bg-white dark:bg-zinc-800 border-l h-full flex flex-col`}
       >
         {showChat && (
-          <StudyChat studyRoomId={studyRoomId} maxHeightClass="max-h-[830px]" />
+          <StudyChat
+            studyRoomId={studyRoomId}
+            maxHeightClass="max-h-[830px]"
+            minHeightClass="min-h-[830px]"
+          />
         )}
       </div>
       {/* 참가자 목록 (모달/오버레이) */}
