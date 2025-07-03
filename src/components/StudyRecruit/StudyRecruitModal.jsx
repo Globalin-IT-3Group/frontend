@@ -111,13 +111,13 @@ export default function StudyRecruitModal({
           <div className="flex justify-center gap-x-4 mt-4">
             <button
               onClick={onRequestFormOpen}
-              className="bg-[#003CFF] px-6 py-2 rounded-3xl text-xs sm:text-md text-white font-bold hover:bg-[#0536D7] transition-all duration-200 cursor-pointer"
+              className="bg-[#003CFF] px-6 py-2 rounded-3xl text-sm sm:text-md text-white font-bold hover:bg-[#0536D7] transition-all duration-200 cursor-pointer"
             >
               참여 신청
             </button>
             <button
               onClick={onClose}
-              className="bg-white dark:bg-zinc-800 border border-gray-400 dark:border-zinc-500 text-gray-400 dark:text-gray-300 px-8 py-2 rounded-3xl text-xs sm:text-md font-bold hover:bg-gray-100 dark:hover:bg-zinc-700 transition-all duration-200 cursor-pointer"
+              className="bg-white dark:bg-zinc-800 border border-gray-400 dark:border-zinc-500 text-gray-400 dark:text-gray-300 px-8 py-2 rounded-3xl text-sm sm:text-md font-bold hover:bg-gray-100 dark:hover:bg-zinc-700 transition-all duration-200 cursor-pointer"
             >
               취소
             </button>

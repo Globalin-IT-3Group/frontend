@@ -73,7 +73,7 @@ export default function RequestDetailModal({ request, onClose, onSuccess }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="relative bg-gradient-to-b from-blue-100 to-white dark:from-zinc-600 dark:to-zinc-700 w-[480px] min-h-[520px] rounded-3xl shadow-2xl flex flex-col items-center ">
+      <div className="relative bg-gradient-to-b from-blue-100 to-white dark:from-zinc-600 dark:to-zinc-700 w-[400px] min-h-[520px] rounded-3xl shadow-2xl flex flex-col items-center">
         {/* 상단 타이틀 & 리더 */}
         <div className="w-full flex flex-col items-center pt-8 px-8 pb-2">
           <h2 className="text-[1.6rem] font-extrabold text-center text-[#003CFF] dark:text-white mb-2 tracking-tight leading-snug drop-shadow-sm">
