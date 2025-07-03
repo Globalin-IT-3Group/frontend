@@ -155,7 +155,7 @@ export default function LoginModal({ onClose }) {
 
         <button
           onClick={handleKakaoLogin}
-          className="flex mx-auto items-center justify-center w-[280px] sm:w-[400px] shadow-[0_0_6px_rgba(0,0,0,0.1)] p-2 sm:px-2 sm:py-3 rounded-xl sm:rounded-2xl"
+          className="flex mx-auto items-center justify-center w-[280px] sm:w-[400px] shadow-[0_0_6px_rgba(0,0,0,0.1)] p-2 sm:px-2 sm:py-3 rounded-xl sm:rounded-2xl hover:bg-gray-100 transition cursor-pointer"
         >
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg"
