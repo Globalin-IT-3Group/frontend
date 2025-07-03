@@ -1,7 +1,7 @@
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import { MdExpandMore } from "react-icons/md";
 
-export default function Alarm({ alarm, onRead }) {
+export default function Alarm({ alarm, onRead, onDelete }) {
   const isUnread = alarm.read === false;
 
   return (
@@ -21,51 +21,52 @@ export default function Alarm({ alarm, onRead }) {
           {isUnread && (
             <span className="inline-block w-2 h-2 rounded-full bg-red-500" />
           )}
-
-          {/* 💡 텍스트 wrapper: max-w-0 -> 줄어들 수 있게, truncate 먹힘 */}
           <div className="truncate whitespace-nowrap overflow-hidden min-w-0">
             <span className="font-semibold">{alarm.content.split(":")[0]}</span>
           </div>
         </div>
-
-        {/* 날짜 */}
         <span className="text-xs text-gray-400 ml-4 whitespace-nowrap">
-          {/* 모바일용 (sm 미만) → 날짜만 */}
           <span className="block sm:hidden">
             {new Date(alarm.createdAt).toLocaleDateString("ko-KR")}
           </span>
-
-          {/* 데스크탑용 (sm 이상) → 날짜 + 시간 */}
           <span className="hidden sm:block">
             {new Date(alarm.createdAt).toLocaleString("ko-KR")}
           </span>
         </span>
       </AccordionSummary>
       <AccordionDetails className="bg-gray-50 rounded-b-2xl">
-        {alarm.type === "FRIEND" && alarm.sender && (
-          <div className="flex items-center gap-2">
-            <b>{alarm.sender.nickname}</b>님이 친구 요청을 보냈습니다!
+        <div className="flex justify-between items-end w-full">
+          <div>
+            {alarm.type === "FRIEND" && alarm.sender && (
+              <div className="flex items-center gap-2">
+                <b>{alarm.sender.nickname}</b>님이 친구 요청을 보냈습니다!
+              </div>
+            )}
+            {alarm.type === "STUDY" && (
+              <div className="flex items-center gap-2">
+                <b>{alarm.sender.nickname}</b>님이 스터디 참여를 승인했습니다!
+              </div>
+            )}
+            {alarm.type === "SYSTEM" && (
+              <div className="flex items-center gap-2">
+                {alarm.content.split(":")[1]}
+              </div>
+            )}
+            {alarm.type === "CHAT" && alarm.sender && (
+              <div className="flex items-center gap-2">
+                <b>{alarm.sender.nickname}</b>님이 보낸 채팅 알림: <br />
+                {alarm.content}
+              </div>
+            )}
           </div>
-        )}
-
-        {alarm.type === "STUDY" && (
-          <div className="flex items-center gap-2">
-            <b>{alarm.sender.nickname}</b>님이 스터디 참여를 승인했습니다!
-          </div>
-        )}
-
-        {alarm.type === "SYSTEM" && (
-          <div className="flex items-center gap-2">
-            {alarm.content.split(":")[1]}
-          </div>
-        )}
-
-        {alarm.type === "CHAT" && alarm.sender && (
-          <div className="flex items-center gap-2">
-            <b>{alarm.sender.nickname}</b>님이 보낸 채팅 알림: <br />
-            {alarm.content}
-          </div>
-        )}
+          {/* 삭제 버튼 */}
+          <button
+            onClick={() => onDelete?.(alarm.id)}
+            className="bg-red-500 text-white text-xs px-2 py-1 rounded shadow hover:bg-red-600 transition-all ml-6"
+          >
+            삭제
+          </button>
+        </div>
       </AccordionDetails>
     </Accordion>
   );
