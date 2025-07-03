@@ -24,7 +24,7 @@ export default function CommentInput({ boardId, userId, onCommentPosted }) {
       bg-transparent
       text-black dark:text-white 
       placeholder:text-gray-400 dark:placeholder:text-zinc-400 
-      focus:outline-none focus:ring-2 focus:ring-blue-500
+      focus:outline-none focus:ring-2 focus:ring-[#0033cf]
       min-w-0
     "
         value={value}

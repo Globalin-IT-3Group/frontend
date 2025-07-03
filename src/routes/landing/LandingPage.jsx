@@ -24,7 +24,7 @@ export default function LandingPage() {
         <nav className="space-x-8 text-sm font-medium">
           <button
             onClick={() => setShowLoginModal(true)}
-            className="bg-[#003CFF] text-white px-4 py-2 rounded-full text-sm cursor-pointer"
+            className="bg-[#003CFF] text-white px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-blue-500 transition duration-300"
           >
             로그인
           </button>
@@ -37,7 +37,7 @@ export default function LandingPage() {
           <div className="ml-14">
             <h1
               style={{ fontFamily: '"Nico Moji", sans-serif' }}
-              className="text-4xl md:text-9xl font-bolds leading-snug whitespace-pre-line"
+              className="text-5xl md:text-8xl font-bolds leading-snug whitespace-pre-line"
             >
               コツコツ
             </h1>

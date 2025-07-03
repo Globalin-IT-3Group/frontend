@@ -94,11 +94,11 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[1.5px]">
       <form
         onSubmit={handleSubmit}
-        className="relative bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl px-8 py-10 w-full max-w-xl flex flex-col gap-6 border border-zinc-200 dark:border-zinc-700"
+        className="relative bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl px-8 py-10 w-full max-w-xl flex flex-col gap-6 border border-zinc-200 dark:border-zinc-700 scale-[0.8]"
       >
         <button
           type="button"
-          className="absolute right-7 top-6 text-3xl text-zinc-500 hover:text-zinc-800 dark:hover:text-white transition"
+          className="absolute right-7 top-6 text-3xl text-zinc-500 hover:text-zinc-800 dark:hover:text-white transition cursor-pointer"
           onClick={onClose}
           aria-label="닫기"
         >
@@ -116,7 +116,7 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition placeholder:text-zinc-400"
             placeholder="방 이름을 입력하세요"
             required
             maxLength={50}
@@ -130,7 +130,7 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
             name="rule"
             value={form.rule}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[56px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[56px] resize-none focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition placeholder:text-zinc-400"
             placeholder="스터디 규칙을 입력하세요"
           />
         </div>
@@ -142,7 +142,7 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
             name="notice"
             value={form.notice}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[48px] resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[48px] resize-none focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition placeholder:text-zinc-400"
             placeholder="공지사항 (선택)"
           />
         </div>
@@ -154,7 +154,7 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
             name="imageUrl"
             value={form.imageUrl}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition placeholder:text-zinc-400"
             placeholder="이미지 URL (기본값: 핑가)"
           />
         </div>
@@ -169,7 +169,7 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
             onChange={handleChange}
             min={2}
             max={4}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 w-32 focus:outline-none focus:ring-2 focus:ring-indigo-400 font-medium transition"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 w-32 focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition"
           />
           {maxUserError && (
             <span className="text-xs text-red-500 mt-1">
@@ -188,7 +188,7 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
                 className={`flex items-center gap-1 cursor-pointer select-none rounded-full px-3 py-1.5 text-sm font-semibold
                   ${
                     form.tags.includes(tag)
-                      ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-700/30 dark:text-indigo-200 ring-2 ring-indigo-400"
+                      ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-700/30 dark:text-indigo-200 ring-2 ring-[#0033cf]"
                       : "bg-zinc-100 dark:bg-zinc-900/40 text-zinc-400"
                   }
                   transition
@@ -213,7 +213,7 @@ export default function StudyRoomCreateModal({ open, onClose, onSuccess }) {
         )}
         <button
           type="submit"
-          className="rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
+          className="rounded-xl bg-[#0033cf] hover:bg-blue-500 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
           disabled={loading}
         >
           {loading ? "생성 중..." : "방 생성하기"}
