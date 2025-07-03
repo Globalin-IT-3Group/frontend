@@ -12,12 +12,10 @@ export default function FindPasswordForm({ onLoginClick }) {
   const FindPassSuccessAlert = (password) => {
     Swal.fire({
       title: "비밀번호 찾기 성공!",
-      text: `회원님의 비밀번호는는 ${password}입니다`,
-
+      text: `회원님의 비밀번호는 ${password}입니다`,
       imageUrl: "/success.svg",
       imageWidth: 120,
       imageHeight: 120,
-
       showCancelButton: false,
       confirmButtonColor: "#003CFF",
       cancelButtonColor: "#D9D9D9",
@@ -34,11 +32,9 @@ export default function FindPasswordForm({ onLoginClick }) {
     Swal.fire({
       title: "비밀번호 찾기 실패",
       text: `${message} 다시 시도해주세요!`,
-
       imageUrl: "/error.svg",
       imageWidth: 120,
       imageHeight: 120,
-
       showCancelButton: true,
       confirmButtonColor: "#003CFF",
       cancelButtonColor: "#D9D9D9",
@@ -70,7 +66,7 @@ export default function FindPasswordForm({ onLoginClick }) {
   };
 
   return (
-    <div className="w-[600px] mt-10 mx-auto space-y-12">
+    <div className="w-full max-w-[600px] mt-10 mx-auto space-y-12 px-4">
       <div>
         <label className="block text-md text-[#676767] font-bold mb-2 dark:text-white">
           이메일
@@ -91,7 +87,7 @@ export default function FindPasswordForm({ onLoginClick }) {
         <select
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          className="border border-gray-300 px-3 py-3 rounded-xl w-full"
+          className="border border-gray-300 px-3 py-3 rounded-xl w-full dark:text-white"
         >
           <div className="dark:text-black">
             <option>나의 보물 1호는?</option>
@@ -119,7 +115,7 @@ export default function FindPasswordForm({ onLoginClick }) {
 
       <button
         onClick={handleFindPassword}
-        className="w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10 cursor-pointer"
+        className="w-full sm:w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10 cursor-pointer"
       >
         비밀번호 찾기
       </button>
