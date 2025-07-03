@@ -54,6 +54,13 @@ class ChatRoomApi extends BaseApi {
     });
     return res.data;
   }
+
+  async getGroupChatRoomIdByStudyRoomId(studyRoomId) {
+    const res = await this.fetcher.get(
+      `/chat-room/study/${studyRoomId}/group-id`
+    );
+    return res.data; // 그냥 id 숫자 하나 반환
+  }
 }
 
 export default new ChatRoomApi();
