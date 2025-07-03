@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import StudyNoteApi from "../../api/studyNoteAPI";
+import Swal from "sweetalert2";
 
 export default function StudyNoteForm() {
   const navigate = useNavigate();
@@ -15,6 +16,62 @@ export default function StudyNoteForm() {
   const [content, setContent] = useState("");
   const [thumbnail, setThumbnail] = useState(""); // 썸네일 url 추가
   const [loading, setLoading] = useState(false);
+
+  const registerConfirm = async () => {
+    const result = await Swal.fire({
+      title: "글을 등록하시겠습니까?",
+      text: "취소시 작성중인 글로 돌아갑니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#0033CF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "등록",
+      cancelButtonText: "취소",
+    });
+    return result.isConfirmed;
+  };
+
+  const registerSuccess = async () => {
+    await Swal.fire({
+      title: "글 등록 완료!",
+      text: "글이 정상적으로 등록되었습니다.",
+      imageUrl: "/success.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      confirmButtonColor: "#003CFF",
+      confirmButtonText: "닫기",
+    });
+  };
+
+  const editConfirm = async () => {
+    const result = await Swal.fire({
+      title: "글을 수정하시겠습니까?",
+      text: "취소시 수정중인 글로 돌아갑니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#0033CF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "수정",
+      cancelButtonText: "취소",
+    });
+    return result.isConfirmed;
+  };
+
+  const editSuccess = async () => {
+    await Swal.fire({
+      title: "글 수정 완료!",
+      text: "글이 정상적으로 수정되었습니다.",
+      imageUrl: "/success.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      confirmButtonColor: "#003CFF",
+      confirmButtonText: "닫기",
+    });
+  };
 
   useEffect(() => {
     if (isEdit) {
@@ -44,11 +101,19 @@ export default function StudyNoteForm() {
       };
 
       if (isEdit) {
+        const confirmed = await editConfirm();
+        if (!confirmed) {
+          return;
+        }
         await StudyNoteApi.updateNote(noteId, noteData);
-        alert("수정 완료!");
+        await editSuccess();
       } else {
+        const confirmed = await registerConfirm();
+        if (!confirmed) {
+          return;
+        }
         await StudyNoteApi.createNote(noteData);
-        alert("등록 완료!");
+        await registerSuccess();
       }
       navigate(`/study/mystudyroom/${studyRoomId}`);
     } catch {
@@ -159,7 +224,7 @@ export default function StudyNoteForm() {
         {/* 버튼 영역 */}
         <div className="flex justify-end px-8 mb-8 gap-4">
           <button
-            className="bg-gray-300 text-gray-700 px-6 py-2 rounded-xl shadow hover:bg-gray-400 transition"
+            className="bg-gray-300 text-gray-700 px-6 py-2 rounded-xl shadow hover:bg-gray-400 transition cursor-pointer"
             onClick={handleBack}
             disabled={loading}
           >
@@ -167,7 +232,7 @@ export default function StudyNoteForm() {
           </button>
           <button
             onClick={handleSave}
-            className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition cursor-pointer"
             disabled={loading}
           >
             {isEdit ? "수정" : "게시"}

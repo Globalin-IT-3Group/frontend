@@ -3,6 +3,7 @@ import ThemeProvider from "../../contexts/ThemeContext";
 import Navbar from "../navigation/Navbar";
 import { useState } from "react";
 import MobileSidebar from "../navigation/MobileSidebar"; // ✅ 추가
+import { IoMenu } from "react-icons/io5";
 
 export default function NoSidebarLayout({
   myStudyRooms = [],
@@ -19,21 +20,15 @@ export default function NoSidebarLayout({
           rightElement={
             <button
               onClick={() => setMobileSidebarOpen(true)}
-              className="lg:hidden p-2 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg text-gray-800 dark:text-white"
+              className="lg:hidden p-1 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg text-gray-800 dark:text-white transition cursor-pointer"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              <IoMenu size={24} />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </button>
           }
         />
