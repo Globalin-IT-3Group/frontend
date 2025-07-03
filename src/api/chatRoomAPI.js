@@ -61,6 +61,11 @@ class ChatRoomApi extends BaseApi {
     );
     return res.data; // 그냥 id 숫자 하나 반환
   }
+
+  async getStudyRoomIdByChatRoomId(chatRoomId) {
+    const res = await this.fetcher.get(`/chat-room/${chatRoomId}/study-id`);
+    return res.data;
+  }
 }
 
 export default new ChatRoomApi();

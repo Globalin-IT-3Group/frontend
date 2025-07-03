@@ -8,12 +8,10 @@ import { useSelector } from "react-redux";
 // isGroup prop으로 그룹방 여부 명확히 구분!
 export default function StudyChat({ isGroup = true }) {
   const { studyRoomId } = useParams();
-  console.log("?? ", studyRoomId);
 
   const userId = useSelector((state) => state.auth.id);
-  const roomId = studyRoomId;
   const { messages, sendMessage, markAsRead } = useGroupChatSocket(
-    roomId,
+    studyRoomId,
     isGroup
   );
 

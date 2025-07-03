@@ -1,17 +1,29 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import StudyChatInputForm from "../../chat/StudyChat/StudyChatInputForm";
 import StudyChatMessageList from "../../chat/StudyChat/StudyChatMessageList";
 import { useSelector } from "react-redux";
 import useGroupChatSocket from "../../../hooks/useGroupChatSocket";
+import ChatRoomApi from "../../../api/chatRoomAPI";
 
 export default function GroupChatRoom({ roomId, matchedRoom, refreshRooms }) {
   const userId = useSelector((state) => state.auth.id);
+
+  // 1. studyRoomId State 추가
+  const [studyRoomId, setStudyRoomId] = useState(null);
+
+  // 2. chatRoomId → studyRoomId 변환 (roomId가 바뀔 때마다)
+  useEffect(() => {
+    if (!roomId) return;
+    ChatRoomApi.getStudyRoomIdByChatRoomId(roomId).then(setStudyRoomId);
+  }, [roomId]);
+
+  // 3. studyRoomId 준비되면 훅 사용
   const { messages, sendMessage, markAsRead } = useGroupChatSocket(
-    roomId,
+    studyRoomId,
     true
   );
 
-  // 프로필 이미지
+  // ...이하 기존 코드 동일...
   const profileImage = matchedRoom.studyRoomImageUrl;
 
   const getMemberCount = () => {
@@ -19,7 +31,6 @@ export default function GroupChatRoom({ roomId, matchedRoom, refreshRooms }) {
     if (others.length === 1) {
       return others[0]?.id === userId ? 1 : 2;
     }
-
     return others.length + 1;
   };
 
@@ -39,23 +50,18 @@ export default function GroupChatRoom({ roomId, matchedRoom, refreshRooms }) {
 
   const handleSend = (text) => {
     sendMessage(text);
-    refreshRooms(); // 이거!
+    refreshRooms();
   };
 
+  // studyRoomId가 준비되기 전엔 아무것도 보여주지 않음(로딩 처리 등)
+  if (!studyRoomId) {
+    return (
+      <div className="flex-1 flex justify-center items-center">로딩 중...</div>
+    );
+  }
+
   return (
-    <div
-      className="flex flex-col
-        min-w-[360px] max-w-[600px]  // 최소, 최대 너비
-        min-h-[750px] max-h-[750px]  // 최소, 최대 높이
-        w-full h-full                // 필요시 부모 기준 100%
-        rounded-2xl 
-        shadow-[0_0_6px_rgba(0,0,0,0.1)]
-        bg-white
-        px-6 py-4
-        dark:bg-zinc-700
-        overflow-hidden 
-        mt-8 sm:mt-6        "
-    >
+    <div className="flex flex-col min-w-[360px] max-w-[600px] min-h-[750px] max-h-[750px] w-full h-full rounded-2xl shadow-[0_0_6px_rgba(0,0,0,0.1)] bg-white px-6 py-4 dark:bg-zinc-700 overflow-hidden mt-8 sm:mt-6">
       {/* 상단: 채팅방 정보 */}
       <div className="flex items-center gap-4 px-1 my-4 border-gray-300 rounded-xl dark:border-zinc-600 bg-white dark:bg-zinc-700">
         <img
