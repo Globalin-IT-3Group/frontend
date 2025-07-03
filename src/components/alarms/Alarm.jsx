@@ -24,7 +24,7 @@ export default function Alarm({ alarm, onRead }) {
 
           {/* 💡 텍스트 wrapper: max-w-0 -> 줄어들 수 있게, truncate 먹힘 */}
           <div className="truncate whitespace-nowrap overflow-hidden min-w-0">
-            <span className="font-semibold">{alarm.content}</span>
+            <span className="font-semibold">{alarm.content.split(":")[0]}</span>
           </div>
         </div>
 
@@ -37,6 +37,25 @@ export default function Alarm({ alarm, onRead }) {
         {alarm.type === "FRIEND" && alarm.sender && (
           <div className="flex items-center gap-2">
             <b>{alarm.sender.nickname}</b>님이 친구 요청을 보냈습니다!
+          </div>
+        )}
+
+        {alarm.type === "STUDY" && (
+          <div className="flex items-center gap-2">
+            <b>{alarm.sender.nickname}</b>님이 스터디 참여를 승인했습니다!
+          </div>
+        )}
+
+        {alarm.type === "SYSTEM" && (
+          <div className="flex items-center gap-2">
+            {alarm.content.split(":")[1]}
+          </div>
+        )}
+
+        {alarm.type === "CHAT" && alarm.sender && (
+          <div className="flex items-center gap-2">
+            <b>{alarm.sender.nickname}</b>님이 보낸 채팅 알림: <br />
+            {alarm.content}
           </div>
         )}
       </AccordionDetails>

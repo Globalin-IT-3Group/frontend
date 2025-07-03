@@ -1,13 +1,11 @@
 class SseApi {
   constructor() {
     this.eventSource = null;
+    this.retryDelay = 3000; // 3초 후 재연결
+    this.reconnectTimeout = null;
+    this.listenerNames = ["friend", "study", "system", "chat"];
   }
 
-  /**
-   * SSE 연결을 시작하고, 알림 이벤트를 처리합니다.
-   * @param {function} onMessage 콜백: 이벤트 수신 시 실행
-   * @param {function} onError 콜백: 오류 발생 시 실행
-   */
   subscribe(onMessage, onError) {
     if (this.eventSource) {
       this.eventSource.close();
@@ -15,21 +13,29 @@ class SseApi {
 
     this.eventSource = new EventSource("/sse/subscribe");
 
-    this.eventSource.onmessage = (event) => {
-      console.log("[SSE - message]", event);
-      onMessage?.(event);
-    };
+    this.listenerNames.forEach((eventName) => {
+      this.eventSource.addEventListener(eventName, (event) => {
+        onMessage?.(event);
+      });
+    });
 
     this.eventSource.onerror = (error) => {
-      console.error("[SSE - error]", error);
       onError?.(error);
+      // SSE가 끊어졌을 때 자동 재연결 로직
+      if (this.reconnectTimeout == null) {
+        this.reconnectTimeout = setTimeout(() => {
+          this.reconnectTimeout = null;
+          this.subscribe(onMessage, onError);
+        }, this.retryDelay);
+      }
     };
   }
 
-  /**
-   * SSE 연결을 닫습니다.
-   */
   disconnect() {
+    if (this.reconnectTimeout) {
+      clearTimeout(this.reconnectTimeout);
+      this.reconnectTimeout = null;
+    }
     if (this.eventSource) {
       this.eventSource.close();
       this.eventSource = null;
