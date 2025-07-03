@@ -27,7 +27,7 @@ export default function StudyChat({ isGroup = true }) {
   }, [markAsRead]);
 
   return (
-    <div className="w-full max-h-110 flex flex-col bg-white dark:bg-zinc-700 rounded-2xl shadow p-4">
+    <div className="w-full max-h-[650px] flex flex-col bg-white dark:bg-zinc-700 rounded-2xl shadow p-4">
       <StudyChatMessageList
         messages={messages}
         userId={userId}
