@@ -51,7 +51,8 @@ export default function ChatRoom({ roomId, matchedRoom }) {
         bg-white
         px-6 py-4
         dark:bg-zinc-700
-        overflow-hidden              // 내부 컨텐츠 넘침 방지
+        overflow-hidden   
+        mt-8 sm:mt-6           // 내부 컨텐츠 넘침 방지
       "
     >
       <ChatHeader matchedRoom={matchedRoom} />

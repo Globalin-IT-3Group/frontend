@@ -44,7 +44,7 @@ function ChatLayout() {
         !isDesktop && (
           <button
             onClick={() => setMobileSidebarOpen(true)}
-            className="lg:hidden text-2xl text-gray-800 dark:text-white"
+            className="lg:hidden text-2xl text-gray-800 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700 transition cursor-pointer rounded-lg px-1"
           >
             <IoMenu />
           </button>
