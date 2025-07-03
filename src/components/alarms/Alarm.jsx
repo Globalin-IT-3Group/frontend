@@ -30,7 +30,15 @@ export default function Alarm({ alarm, onRead }) {
 
         {/* 날짜 */}
         <span className="text-xs text-gray-400 ml-4 whitespace-nowrap">
-          {new Date(alarm.createdAt).toLocaleString()}
+          {/* 모바일용 (sm 미만) → 날짜만 */}
+          <span className="block sm:hidden">
+            {new Date(alarm.createdAt).toLocaleDateString("ko-KR")}
+          </span>
+
+          {/* 데스크탑용 (sm 이상) → 날짜 + 시간 */}
+          <span className="hidden sm:block">
+            {new Date(alarm.createdAt).toLocaleString("ko-KR")}
+          </span>
         </span>
       </AccordionSummary>
       <AccordionDetails className="bg-gray-50 rounded-b-2xl">

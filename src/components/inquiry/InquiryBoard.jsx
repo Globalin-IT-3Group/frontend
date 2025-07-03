@@ -34,12 +34,29 @@ export default function InquiryBoard({
     <div className="w-full">
       <Accordion
         elevation={0}
+        disableGutters
         expanded={expanded}
         onChange={() => setExpanded((prev) => !prev)}
-        className="rounded-2xl mb-2 border border-gray-200 dark:border-zinc-600"
+        className="rounded-2xl mb-2 border border-white dark:border-zinc-500"
+        sx={{
+          backgroundColor: "transparent",
+          "&.Mui-expanded": {
+            margin: 0,
+          },
+        }}
       >
-        <AccordionSummary>
-          <div className="w-full px-4 py-4 bg-gray-100 dark:bg-zinc-600 hover:bg-gray-200 dark:hover:bg-zinc-500 transition cursor-pointer rounded-2xl">
+        <AccordionSummary
+          expandIcon={
+            <MdExpandMore
+              className={`transition-transform duration-300 ${
+                expanded ? "rotate-180" : ""
+              } text-gray-500 dark:text-gray-200`}
+              size={20}
+            />
+          }
+          sx={{ backgroundColor: "transparent" }}
+        >
+          <div className="w-full px-4 py-4 bg-white dark:bg-zinc-700 hover:bg-gray-200 dark:hover:bg-zinc-500 transition cursor-pointer rounded-2xl">
             <div className="flex flex-col w-full gap-3">
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-4">
@@ -55,34 +72,16 @@ export default function InquiryBoard({
                     {new Date(date).toLocaleDateString("ko-KR")}
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`text-sm font-medium ${
-                      status === "미확인"
-                        ? "text-gray-400 dark:text-gray-200"
-                        : "text-blue-600 dark:text-blue-300"
-                    }`}
-                  >
-                    {status}
-                  </span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setExpanded((prev) => !prev);
-                    }}
-                    className="text-gray-500 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition cursor-pointer"
-                    aria-label="토글"
-                  >
-                    <MdExpandMore
-                      className={`transition-transform duration-300 ${
-                        expanded ? "rotate-180" : ""
-                      }`}
-                      size={20}
-                    />
-                  </button>
-                </div>
+                <span
+                  className={`text-sm font-medium ${
+                    status === "미확인"
+                      ? "text-gray-400 dark:text-gray-200"
+                      : "text-blue-600 dark:text-blue-300"
+                  }`}
+                >
+                  {status}
+                </span>
               </div>
-
               <div className="flex items-center gap-2">
                 <img
                   src={profileImage}
@@ -97,8 +96,8 @@ export default function InquiryBoard({
           </div>
         </AccordionSummary>
 
-        <AccordionDetails>
-          <div className="w-full px-4 py-4 bg-gray-100 dark:bg-zinc-500 rounded-b-2xl">
+        <AccordionDetails sx={{ backgroundColor: "transparent" }}>
+          <div className="w-full px-4 py-4 bg-gray-100 dark:bg-zinc-700 rounded-b-2xl">
             {isHidden ? (
               <div className="text-gray-400 dark:text-gray-300 p-4 italic">
                 비밀글입니다.

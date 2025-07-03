@@ -115,7 +115,7 @@ export default function JoinPage() {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-auto">
+    <div className="min-h-screen w-full overflow-auto px-4">
       <div className="flex flex-col items-center justify-start">
         <div className="bg-white dark:bg-zinc-700 rounded-4xl w-full max-w-[1400px] p-10 my-16 shadow-[0_0_6px_rgba(0,0,0,0.1)] flex flex-col">
           <h2 className="text-3xl font-bold flex justify-center mt-14">
