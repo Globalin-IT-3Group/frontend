@@ -34,12 +34,14 @@ export default function useVideoRoomPeer({
           video: selectedVideo ? { deviceId: { exact: selectedVideo } } : false,
           audio: selectedAudio ? { deviceId: { exact: selectedAudio } } : false,
         });
+        console.log("[WebRTC] localStream 생성됨:", stream);
         // ON/OFF 반영
         stream.getVideoTracks().forEach((t) => (t.enabled = videoEnabled));
         stream.getAudioTracks().forEach((t) => (t.enabled = audioEnabled));
         if (mounted) setLocalStream(stream);
       } catch (e) {
         // 권한 오류 등
+        console.error("[WebRTC] localStream 생성 실패:", e);
         setLocalStream(null);
       }
     };
@@ -57,11 +59,13 @@ export default function useVideoRoomPeer({
 
     wsRef.current.onopen = () => {
       // 입장 시 신호
+      console.log("[WebRTC] WebSocket 연결됨");
       sendSignal({ messageType: "ENTER", senderId: userId });
     };
 
     wsRef.current.onmessage = async (event) => {
       const msg = JSON.parse(event.data);
+      console.log("[WebRTC] 신호 수신:", msg);
       if (!msg || msg.senderId === userId) return;
 
       switch (msg.messageType) {
@@ -87,12 +91,12 @@ export default function useVideoRoomPeer({
     };
 
     wsRef.current.onerror = (err) => {
-      // 에러 로깅 (실전에서는 reconnect/retry 등 처리)
-      // console.error("WebSocket 에러", err);
+      console.error("[WebRTC] WebSocket 에러", err);
     };
 
     wsRef.current.onclose = () => {
       // 연결 해제시 정리
+      console.log("[WebRTC] WebSocket 연결 종료");
       Object.values(pcMap.current).forEach((pc) => pc.close());
       pcMap.current = {};
       setPeerStreams({});
@@ -133,6 +137,8 @@ export default function useVideoRoomPeer({
       const pc = new RTCPeerConnection({ iceServers: ICE_SERVERS });
       pcMap.current[otherId] = pc;
 
+      console.log(`[WebRTC] Peer 생성: ${otherId}, initiator: ${initiator}`);
+
       // 내 localStream을 트랙으로 추가
       if (localStream) {
         localStream
@@ -142,6 +148,7 @@ export default function useVideoRoomPeer({
 
       // 상대방의 stream 받기
       pc.ontrack = (e) => {
+        console.log(`[WebRTC] ontrack 수신 (상대: ${otherId})`, e.streams[0]);
         setPeerStreams((prev) => ({
           ...prev,
           [otherId]: e.streams[0],
@@ -151,6 +158,10 @@ export default function useVideoRoomPeer({
       // ICE candidate 교환
       pc.onicecandidate = (e) => {
         if (e.candidate) {
+          console.log(
+            `[WebRTC] ICE candidate 생성 (상대: ${otherId})`,
+            e.candidate
+          );
           sendSignal({
             messageType: "CANDIDATE",
             senderId: userId,
@@ -162,6 +173,7 @@ export default function useVideoRoomPeer({
 
       // 연결 상태 변화 감지
       pc.onconnectionstatechange = () => {
+        console.log(`[WebRTC] Peer(${otherId}) 연결 상태:`, pc.connectionState);
         if (["disconnected", "failed", "closed"].includes(pc.connectionState)) {
           closePeer(otherId);
         }
@@ -172,6 +184,7 @@ export default function useVideoRoomPeer({
         pc.createOffer()
           .then((offer) => pc.setLocalDescription(offer))
           .then(() => {
+            console.log(`[WebRTC] OFFER 생성 및 전송 (상대: ${otherId})`);
             sendSignal({
               messageType: "OFFER",
               senderId: userId,
@@ -190,10 +203,12 @@ export default function useVideoRoomPeer({
   const handleOffer = useCallback(
     async (msg) => {
       const { senderId, sdp } = msg;
+      console.log(`[WebRTC] OFFER 수신 (상대: ${senderId})`);
       const pc = createPeer(senderId, false);
       await pc.setRemoteDescription(new RTCSessionDescription(sdp));
       const answer = await pc.createAnswer();
       await pc.setLocalDescription(answer);
+      console.log(`[WebRTC] ANSWER 생성 및 전송 (상대: ${senderId})`);
       sendSignal({
         messageType: "ANSWER",
         senderId: userId,
@@ -206,6 +221,7 @@ export default function useVideoRoomPeer({
 
   const handleAnswer = useCallback(async (msg) => {
     const { senderId, sdp } = msg;
+    console.log(`[WebRTC] ANSWER 수신 (상대: ${senderId})`);
     const pc = pcMap.current[senderId];
     if (!pc) return;
     await pc.setRemoteDescription(new RTCSessionDescription(sdp));
@@ -213,10 +229,16 @@ export default function useVideoRoomPeer({
 
   const handleCandidate = useCallback(async (msg) => {
     const { senderId, candidate } = msg;
+    console.log(`[WebRTC] ICE CANDIDATE 수신 (상대: ${senderId})`, candidate);
     const pc = pcMap.current[senderId];
     if (!pc) return;
     await pc.addIceCandidate(new RTCIceCandidate(candidate));
   }, []);
+
+  // peerStreams 변할 때마다 전체 로그
+  useEffect(() => {
+    console.log("[WebRTC] peerStreams 변화:", peerStreams);
+  }, [peerStreams]);
 
   // ============ 화면공유 ===============
   const startScreenShare = useCallback(async () => {
@@ -259,6 +281,7 @@ export default function useVideoRoomPeer({
         setIsScreenSharing(false);
       };
     } catch (e) {
+      console.error("[WebRTC] 에러 ㅜㅜ: ", e);
       setIsScreenSharing(false);
     }
   }, [localStream, selectedVideo]);

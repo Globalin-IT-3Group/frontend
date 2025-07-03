@@ -52,6 +52,7 @@ export default function VideoRoomMeetingPage() {
   const localVideoRef = useRef(null);
   useEffect(() => {
     if (localVideoRef.current && localStream) {
+      console.log("[WebRTC] 내 비디오 엘리먼트에 localStream 연결");
       localVideoRef.current.srcObject = localStream;
     }
   }, [localStream]);
@@ -61,6 +62,11 @@ export default function VideoRoomMeetingPage() {
   useEffect(() => {
     Object.entries(peerStreams).forEach(([userId, stream]) => {
       if (peerVideoRefs.current[userId] && stream) {
+        console.log(
+          `[WebRTC] Peer 비디오 엘리먼트 연결 (userId: ${userId})`,
+          stream
+        );
+
         peerVideoRefs.current[userId].srcObject = stream;
       }
     });
