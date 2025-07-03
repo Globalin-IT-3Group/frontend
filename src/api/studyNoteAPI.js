@@ -17,14 +17,48 @@ class StudyNoteApi extends BaseApi {
     return res.data;
   }
 
-  // 3. 노트 생성
-  async createNote(data) {
-    await this.fetcher.post("/study-note", data);
+  // 생성
+  async createNote({ studyRoomId, title, content, thumbnail }) {
+    const formData = new FormData();
+
+    // noteObj에 thumbnail까지 넣음 (S3 업로드 전 URL, 또는 기본값 등)
+    const noteObj = { studyRoomId, title, content, thumbnail };
+
+    formData.append(
+      "note",
+      new Blob([JSON.stringify(noteObj)], { type: "application/json" })
+    );
+
+    // 만약 thumbnail이 File 타입(=이미지 파일 업로드)이면 image에 넣기
+    if (thumbnail instanceof File) {
+      formData.append("image", thumbnail);
+    }
+
+    await this.fetcher.post("/study-note", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 
-  // 4. 노트 수정
-  async updateNote(noteId, data) {
-    await this.fetcher.put(`/study-note/${noteId}`, data);
+  // 수정
+  async updateNote(noteId, { title, content, thumbnail }) {
+    const formData = new FormData();
+    const noteObj = { title, content, thumbnail };
+
+    formData.append(
+      "note",
+      new Blob([JSON.stringify(noteObj)], { type: "application/json" })
+    );
+    if (thumbnail instanceof File) {
+      formData.append("image", thumbnail);
+    }
+
+    await this.fetcher.put(`/study-note/${noteId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 
   // 5. 노트 삭제

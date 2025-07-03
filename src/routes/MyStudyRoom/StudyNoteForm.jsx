@@ -29,9 +29,6 @@ export default function StudyNoteForm() {
     }
   }, [isEdit, noteId]);
 
-  const DEFAULT_THUMBNAIL =
-    "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg";
-
   const handleSave = async () => {
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 모두 입력하세요.");
@@ -43,7 +40,7 @@ export default function StudyNoteForm() {
         studyRoomId,
         title,
         content,
-        thumbnail: thumbnail?.trim() || DEFAULT_THUMBNAIL, // ★ 여기!
+        thumbnail: thumbnail?.trim(),
       };
 
       if (isEdit) {
