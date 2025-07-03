@@ -137,16 +137,16 @@ export default function RequestDetailModal({ request, onClose, onSuccess }) {
         {/* 탭 내용 (카드와 탭의 왼쪽 정렬 일치, 높이 고정) */}
         <div className="flex-1 w-full flex flex-col items-start px-8 pb-2">
           <div
-            className="w-full bg-white rounded-2xl shadow  px-6 py-6 flex flex-col gap-5 transition-all duration-200 dark:bg-zinc-800 mt-2"
+            className="w-full bg-white rounded-2xl shadow  px-6 py-6 flex flex-col gap-5 transition-all duration-200 mt-2"
             style={{ minHeight: TAB_MIN_HEIGHT }}
           >
             {tab === "explain" ? (
               // 모집글 설명
               <div className="flex flex-col h-full ">
-                <div className="text-sm font-bold text-[#003CFF] dark:text-blue-400 mb-1">
+                <div className="text-sm font-bold text-[#003CFF]  mb-1">
                   모집글 소개
                 </div>
-                <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words flex-1 dark:text-gray-300">
+                <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words flex-1 overflow-y-auto">
                   {request.recruitExplain || "소개 정보가 없습니다."}
                 </div>
               </div>
@@ -154,19 +154,19 @@ export default function RequestDetailModal({ request, onClose, onSuccess }) {
               // 내 신청서
               <>
                 <div>
-                  <div className="text-sm font-bold text-[#003CFF] dark:text-blue-400 mb-1">
+                  <div className="text-sm font-bold text-[#003CFF] mb-1">
                     신청 제목
                   </div>
-                  <div className="text-gray-900 font-semibold text-[1.05rem] break-words dark:text-gray-300">
+                  <div className="text-gray-700  font-semibold text-[1.05rem] break-words">
                     {request.requestTitle}
                   </div>
                 </div>
                 <div className="h-[1px] w-full bg-blue-100" />
                 <div>
-                  <div className="text-sm font-bold text-[#003CFF] dark:text-blue-400 mb-1">
+                  <div className="text-sm font-bold text-[#003CFF] mb-1">
                     신청 내용
                   </div>
-                  <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words min-h-[70px] dark:text-gray-300">
+                  <div className="text-gray-700 text-[1rem] whitespace-pre-line break-words min-h-[70px] ">
                     {request.requestMessage}
                   </div>
                 </div>
@@ -188,7 +188,7 @@ export default function RequestDetailModal({ request, onClose, onSuccess }) {
           {request.status === "PENDING" && (
             <button
               onClick={handleCancelRequest}
-              className="px-8 py-2 rounded-3xl text-gray-400 font-bold bg-white dark:bg-zinc-800 text-[#003CFF] border border-gray-400 shadow hover:bg-blue-50 active:scale-95 transition-all duration-150 dark:hover:bg-zinc-700 cursor-pointer"
+              className="px-8 py-2 rounded-3xl text-gray-400 font-bold bg-white  text-[#003CFF] border border-gray-400 shadow hover:bg-blue-50 active:scale-95 transition-all duration-150 cursor-pointer"
               disabled={loading}
             >
               신청 취소

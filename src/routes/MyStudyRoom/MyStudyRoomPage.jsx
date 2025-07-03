@@ -183,7 +183,7 @@ export default function MyStudyRoomPage() {
           ) : (
             <StudyNote studyRoomId={studyRoom.id} />
           ))}
-        {activeTab === "chat" && <StudyChat />}
+        {activeTab === "chat" && <StudyChat maxHeightClass="max-h-[570px]" />}
       </div>
 
       {/* === 구인글/지원자 모달 === */}

@@ -12,7 +12,8 @@ export default function StudyChatMessageItem({ message, myUserId, showDate }) {
   }
 
   function formatDate(isoString) {
-    const date = new Date(isoString);
+    const clean = isoString.replace(/Z$/, "");
+    const date = new Date(clean);
     return `${date.getFullYear()}년 ${
       date.getMonth() + 1
     }월 ${date.getDate()}일`;
@@ -22,7 +23,7 @@ export default function StudyChatMessageItem({ message, myUserId, showDate }) {
     <>
       {showDate && (
         <div className="flex justify-center mb-2">
-          <span className="bg-gray-200 text-gray-600 px-4 py-2 rounded-full text-xs mb-6">
+          <span className="bg-gray-300 text-gray-600 px-4 py-2 rounded-full text-xs mb-6">
             {formatDate(message.sentAt)}
           </span>
         </div>

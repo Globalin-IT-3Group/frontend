@@ -8,7 +8,7 @@ export default function StudyChatInputForm({ onSend }) {
     }
   };
   return (
-    <div className="flex gap-2 mt-2">
+    <div className="flex gap-2 mt-4">
       <input
         className="flex-1 border border-gray-300 rounded-xl px-3 py-2 dark:border-white dark:text-white"
         value={text}
