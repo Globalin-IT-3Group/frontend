@@ -179,6 +179,10 @@ export default function useVideoRoomPeer({
         }
       };
 
+      pc.oniceconnectionstatechange = () => {
+        console.log(`[ICE 상태][${otherId}]:`, pc.iceConnectionState);
+      };
+
       // 최초 OFFER (initiator)
       if (initiator) {
         pc.createOffer()
