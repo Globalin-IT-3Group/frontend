@@ -48,7 +48,7 @@ export default function FindEmailForm({ onLoginClick }) {
       cancelButtonText: "메인 페이지",
     }).then((result) => {
       if (result.isConfirmed) {
-        onLoginClick();
+        navigate();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         navigate("/");
       }
@@ -74,12 +74,12 @@ export default function FindEmailForm({ onLoginClick }) {
   };
 
   return (
-    <div className="w-[600px] mt-10 mx-auto space-y-12">
+    <div className="w-full max-w-[600px] mt-10 mx-auto space-y-12 px-4">
       <div>
         <label className="block text-md text-[#676767] font-bold mb-2 dark:text-white">
           휴대폰 번호
         </label>
-        <div className="flex gap-2 w-full">
+        <div className="flex felx-col sm:flex-row gap-2 w-full">
           <select
             value={phone1}
             onChange={(e) => setPhone1(e.target.value)}
@@ -98,13 +98,13 @@ export default function FindEmailForm({ onLoginClick }) {
             value={phone2}
             onChange={(e) => setPhone2(e.target.value)}
             maxLength={4}
-            className="border border-gray-300 px-2 py-3 rounded-xl w-64"
+            className="border border-gray-300 px-2 py-3 rounded-xl w-full"
           />
           <input
             value={phone3}
             onChange={(e) => setPhone3(e.target.value)}
             maxLength={4}
-            className="border border-gray-300 px-2 py-3 rounded-xl w-64"
+            className="border border-gray-300 px-2 py-3 rounded-xl w-full"
           />
         </div>
       </div>
@@ -145,7 +145,7 @@ export default function FindEmailForm({ onLoginClick }) {
 
       <button
         onClick={handleFindEmail}
-        className="w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10 cursor-pointer"
+        className="w-full sm:w-[240px] bg-[#003CFF] flex justify-center mx-auto px-6 py-3 rounded-3xl text-lg text-white font-bold hover:bg-[#0536D7] transition-all duration-90 mt-20 mb-10 cursor-pointer"
       >
         이메일 찾기
       </button>
