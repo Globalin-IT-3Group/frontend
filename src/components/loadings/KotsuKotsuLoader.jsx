@@ -4,7 +4,7 @@ export default function KotsuKotsuLoader() {
       <div
         className="loader"
         style={{
-          fontSize: "clamp(5rem, 8vw, 6rem)", // 최소 1.5rem, 최대 3rem, 뷰포트 기준 커짐
+          fontSize: "clamp(4rem, 8vw, 6rem)", // 최소 1.5rem, 최대 3rem, 뷰포트 기준 커짐
           width: "100%",
           maxWidth: "500px",
           textAlign: "center",

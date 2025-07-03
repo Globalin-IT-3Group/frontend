@@ -17,7 +17,7 @@ export default function StudyChatInputForm({ onSend }) {
         placeholder="메시지 입력..."
       />
       <button
-        className="px-4 py-2 rounded-xl bg-[#0033CF] text-white whitespace-nowrap hover:bg-blue-500 cursor-pointer"
+        className="px-4 py-2 rounded-xl bg-[#003CFF] text-white whitespace-nowrap hover:bg-blue-500 cursor-pointer"
         onClick={handleSend}
       >
         전송

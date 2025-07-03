@@ -126,7 +126,7 @@ export default function FriendListModal({ open, onClose }) {
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-zinc-700 rounded-2xl shadow-2xl p-8 w-full max-w-lg relative"
+        className="bg-white dark:bg-zinc-700 rounded-2xl shadow-2xl p-8 w-full max-w-lg relative transform transform scale-[0.8] sm:scale-100"
         onClick={(e) => e.stopPropagation()}
       >
         <button

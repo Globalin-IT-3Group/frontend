@@ -39,7 +39,7 @@ export default function Comment({ comment, myId, onReload }) {
       imageWidth: 120,
       imageHeight: 120,
       showCancelButton: true,
-      confirmButtonColor: "#0033CF",
+      confirmButtonColor: "#003CFF",
       cancelButtonColor: "#D9D9D9",
       confirmButtonText: "삭제",
       cancelButtonText: "취소",
@@ -58,7 +58,7 @@ export default function Comment({ comment, myId, onReload }) {
           imageWidth: 120,
           imageHeight: 120,
           showCancelButton: false,
-          confirmButtonColor: "#0033CF",
+          confirmButtonColor: "#003CFF",
           confirmButtonText: "닫기",
         });
         onReload?.();

@@ -25,7 +25,7 @@ export default function MyNoteForm({ mode = "create" }) {
       imageWidth: 120,
       imageHeight: 120,
       showCancelButton: true,
-      confirmButtonColor: "#0033CF",
+      confirmButtonColor: "#003CFF",
       cancelButtonColor: "#D9D9D9",
       confirmButtonText: "수정",
       cancelButtonText: "취소",
@@ -41,7 +41,7 @@ export default function MyNoteForm({ mode = "create" }) {
       imageWidth: 120,
       imageHeight: 120,
       showCancelButton: true,
-      confirmButtonColor: "#0033CF",
+      confirmButtonColor: "#003CFF",
       cancelButtonColor: "#D9D9D9",
       confirmButtonText: "등록",
       cancelButtonText: "취소",
@@ -194,7 +194,7 @@ export default function MyNoteForm({ mode = "create" }) {
             </button>
             <button
               onClick={handleSubmit}
-              className="bg-blue-600 text-white px-6 py-2 rounded-xl shadow hover:bg-blue-700 transition cursor-pointer"
+              className="bg-[#003CFF] text-white px-6 py-2 rounded-xl shadow hover:bg-blue-500 transition cursor-pointer"
               disabled={loading}
             >
               {mode === "edit" ? "수정" : "게시"}

@@ -62,13 +62,13 @@ export default function StudyRequestFormModal({
           <div>
             <div className="flex justify-center gap-x-8 mb-2 sm:mb-4">
               <div className="space-x-4 whitespace-nowrap">
-                <span className="text-xs sm:text-sm ml-4 font-bold mb-2 text-[#0033CF]">
+                <span className="text-xs sm:text-sm ml-4 font-bold mb-2 text-[#003CFF]">
                   스터디명{" "}
                 </span>
                 <span className="text-xs sm:text-sm">{roomName}</span>
               </div>
               <div className="space-x-4 mr-4">
-                <span className="ml-4 font-bold mb-2 text-[#0033CF] text-xs sm:text-sm">
+                <span className="ml-4 font-bold mb-2 text-[#003CFF] text-xs sm:text-sm">
                   제목{" "}
                 </span>
                 <input

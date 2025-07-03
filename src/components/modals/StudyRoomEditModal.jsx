@@ -152,7 +152,7 @@ export default function StudyRoomEditModal({
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 dark:text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 dark:text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#003CFF] font-medium transition placeholder:text-zinc-400"
             placeholder="방 이름을 입력하세요"
             required
             maxLength={50}
@@ -166,7 +166,7 @@ export default function StudyRoomEditModal({
             name="rule"
             value={form.rule}
             onChange={handleChange}
-            className="rounded-xl border dark:text-white border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[56px] resize-none focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border dark:text-white border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[56px] resize-none focus:outline-none focus:ring-2 focus:ring-[#003CFF] font-medium transition placeholder:text-zinc-400"
             placeholder="스터디 규칙을 입력하세요"
           />
         </div>
@@ -178,7 +178,7 @@ export default function StudyRoomEditModal({
             name="notice"
             value={form.notice}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:text-white dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[48px] resize-none focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:text-white dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[48px] resize-none focus:outline-none focus:ring-2 focus:ring-[#003CFF] font-medium transition placeholder:text-zinc-400"
             placeholder="공지사항 (선택)"
           />
         </div>
@@ -190,7 +190,7 @@ export default function StudyRoomEditModal({
             name="imageUrl"
             value={form.imageUrl}
             onChange={handleChange}
-            className="rounded-xl border border-zinc-200 dark:text-white dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition placeholder:text-zinc-400"
+            className="rounded-xl border border-zinc-200 dark:text-white dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#003CFF] font-medium transition placeholder:text-zinc-400"
             placeholder="이미지 URL (기본값: 핑구)"
           />
         </div>
@@ -205,7 +205,7 @@ export default function StudyRoomEditModal({
             onChange={handleChange}
             min={2}
             max={4}
-            className="rounded-xl border border-zinc-200 dark:text-white dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 w-32 focus:outline-none focus:ring-2 focus:ring-[#0033cf] font-medium transition"
+            className="rounded-xl border border-zinc-200 dark:text-white dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 w-32 focus:outline-none focus:ring-2 focus:ring-[#003CFF] font-medium transition"
           />
           {maxUserError && (
             <span className="text-xs text-red-500 mt-1">
@@ -224,7 +224,7 @@ export default function StudyRoomEditModal({
                 className={`flex items-center gap-1 cursor-pointer select-none rounded-full px-3 py-1.5 text-sm font-semibold
                   ${
                     form.tags.includes(tag)
-                      ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-700/30 dark:text-indigo-200 ring-2 ring-[#0033cf]"
+                      ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-700/30 dark:text-indigo-200 ring-2 ring-[#003CFF]"
                       : "bg-zinc-100 dark:bg-zinc-900/40 text-zinc-400"
                   }
                   transition
@@ -249,7 +249,7 @@ export default function StudyRoomEditModal({
         )}
         <button
           type="submit"
-          className="mt-3 rounded-xl bg-[#0033cf] hover:bg-blue-500 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
+          className="mt-3 rounded-xl bg-[#003CFF] hover:bg-blue-500 text-white font-bold text-lg py-3 shadow-lg transition disabled:bg-zinc-400 disabled:cursor-not-allowed cursor-pointer"
           disabled={loading}
         >
           {loading ? "수정 중..." : "방 수정하기"}

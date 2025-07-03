@@ -156,7 +156,7 @@ export default function InquiryBoard({
                                 }
                               }
                             }}
-                            className="w-[60px] bg-[#0033CF] text-white px-4 py-1 rounded-xl text-sm hover:bg-blue-700 cursor-pointer transition-all duration-200"
+                            className="w-[60px] bg-[#003CFF] text-white px-4 py-1 rounded-xl text-sm hover:bg-blue-700 cursor-pointer transition-all duration-200"
                           >
                             등록
                           </button>

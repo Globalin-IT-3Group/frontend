@@ -24,7 +24,7 @@ export default function CommentInput({ boardId, userId, onCommentPosted }) {
       bg-transparent
       text-black dark:text-white 
       placeholder:text-gray-400 dark:placeholder:text-zinc-400 
-      focus:outline-none focus:ring-2 focus:ring-[#0033cf]
+      focus:outline-none focus:ring-2 focus:ring-[#003CFF]
       min-w-0
     "
         value={value}
@@ -34,7 +34,7 @@ export default function CommentInput({ boardId, userId, onCommentPosted }) {
       />
       <button
         className="
-      px-4 py-1 rounded bg-[#0033CF] text-white font-semibold
+      px-4 py-1 rounded bg-[#003CFF] text-white font-semibold
       disabled:opacity-50
       shrink-0 hover:bg-blue-500 cursor-pointer transition
     "

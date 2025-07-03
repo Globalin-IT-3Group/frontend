@@ -8,8 +8,8 @@ export default function AlarmSkeleton() {
       {fakeAlarms.map((_, idx) => (
         <div key={idx}>
           <div className="w-full mb-2 flex items-center justify-between shadow border-2 border-gray-100 p-3">
-            <Skeleton width={200} height={20} />
-            <Skeleton width={150} height={15} />
+            <Skeleton width="clamp(150px, 30vw, 200px)" height={20} />{" "}
+            <Skeleton width="clamp(120px, 25vw, 180px)" height={15} />{" "}
           </div>
         </div>
       ))}

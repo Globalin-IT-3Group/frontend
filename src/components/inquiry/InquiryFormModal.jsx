@@ -73,7 +73,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
             value={form.title}
             onChange={handleChange}
             className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 
-             focus:outline-none focus:ring-2 focus:ring-[#0033cf]
+             focus:outline-none focus:ring-2 focus:ring-[#003CFF]
              font-medium transition placeholder:text-zinc-400 
              text-black dark:text-white"
             placeholder="제목을 입력하세요"
@@ -107,7 +107,7 @@ export default function InquiryFormModal({ open, onClose, onSuccess }) {
             value={form.content}
             onChange={handleChange}
             className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 
-             min-h-[250px] resize-none focus:outline-none focus:2 focus:ring-[#0033cf] 
+             min-h-[250px] resize-none focus:outline-none focus:2 focus:ring-[#003CFF] 
              font-medium transition placeholder:text-zinc-400 
              text-black dark:text-white"
             placeholder="문의 내용을 입력하세요"

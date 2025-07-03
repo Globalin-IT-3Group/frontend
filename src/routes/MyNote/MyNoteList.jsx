@@ -70,7 +70,7 @@ export default function MyNoteList() {
           onClick={() => navigate("/note/new")}
         >
           <HiOutlinePencilSquare className="w-5 h-5" />
-          <span className="hidden md:inline">글쓰기</span>
+          <span>글쓰기</span>
         </button>
       </div>
 
@@ -86,7 +86,7 @@ export default function MyNoteList() {
           {notes.map((note) => (
             <li
               key={note.id}
-              className="flex items-center py-4 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
+              className="flex items-center p-4 hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors"
             >
               <img
                 src={
