@@ -50,11 +50,11 @@ export default function StudyRecruitModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="relative bg-gradient-to-b from-blue-100 to-white dark:from-zinc-700 dark:to-zinc-700 w-[400px] sm:w-[700px] h-[500px] sm:h-[600px] overflow-hidden rounded-4xl shadow-xl">
+      <div className="relative bg-gradient-to-b from-blue-100 dark:from-zinc-400 to-white  dark:to-zinc-600 w-[400px] sm:w-[700px] h-[500px] sm:h-[600px] overflow-hidden rounded-4xl shadow-xl">
         <div className="relativez-10 flex flex-col items-center mx-auto p-4 sm:p-6">
           <div className="flex justify-center w-full">
             <div className="flex flex-col items-center w-full rounded-3xl p-4 space-y-3">
-              <h2 className="text-2xl font-bold break-words text-center text-[#0033CF] dark:text-blue-300">
+              <h2 className="text-2xl font-bold break-words text-center text-[#0033CF] ">
                 {roomName}
               </h2>
               <div className="flex items-center space-x-2">
@@ -87,13 +87,13 @@ export default function StudyRecruitModal({
           </div>
 
           {/* 설명 박스 */}
-          <div className="w-[350px] sm:w-[650px] h-[250px] sm:h-[300px] bg-white dark:bg-zinc-600 flex flex-col mb-2 mt-1 rounded-2xl p-6 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
+          <div className="w-[350px] sm:w-[650px] h-[250px] sm:h-[300px] bg-white  flex flex-col mb-2 mt-1 rounded-2xl p-6 shadow-[0_0_4px_rgba(0,0,0,0.1)]">
             <div
               className="overflow-y-auto scrollbar-hide"
               ref={scrollRef}
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              <p className="text-sm text-gray-600 dark:text-white break-words whitespace-pre-line text-center">
+              <p className="text-sm text-gray-600 break-words whitespace-pre-line text-center">
                 {studyExplain}
               </p>
             </div>
@@ -117,7 +117,7 @@ export default function StudyRecruitModal({
             </button>
             <button
               onClick={onClose}
-              className="bg-white dark:bg-zinc-800 border border-gray-400 dark:border-zinc-500 text-gray-400 dark:text-gray-300 px-8 py-2 rounded-3xl text-sm sm:text-md font-bold hover:bg-gray-100 dark:hover:bg-zinc-700 transition-all duration-200 cursor-pointer"
+              className="bg-white border border-gray-400 text-gray-400  px-8 py-2 rounded-3xl text-sm sm:text-md font-bold hover:bg-gray-100  transition-all duration-200 cursor-pointer"
             >
               취소
             </button>

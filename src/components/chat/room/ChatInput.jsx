@@ -11,7 +11,7 @@ export default function ChatInput({ input, onChange, onSend }) {
   };
 
   return (
-    <div className="flex gap-2 mt-2">
+    <div className="flex gap-2 mt-4">
       <input
         type="text"
         value={input}

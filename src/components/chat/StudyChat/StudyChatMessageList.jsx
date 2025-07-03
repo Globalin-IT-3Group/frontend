@@ -47,7 +47,7 @@ export default function StudyChatMessageList({
       className="flex-1 rounded-xl shadow-[0_0_6px_rgba(0,0,0,0.1)]
         overflow-y-auto px-4 py-4
         space-y-2 bg-gray-50 dark:bg-zinc-800
-        min-h-[570px] max-h-[570px]"
+        "
       ref={listRef}
     >
       {messages.map((msg, idx) => {

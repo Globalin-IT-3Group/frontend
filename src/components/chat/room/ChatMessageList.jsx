@@ -56,7 +56,7 @@ export default function ChatMessageList({ messages, userId }) {
             {/* 1️⃣ 날짜 라벨 */}
             {showDate && (
               <div className="flex justify-center mb-6">
-                <span className="bg-gray-200 text-gray-600 px-4 py-2 rounded-full text-xs mb-4">
+                <span className="bg-gray-300 text-gray-600 px-4 py-2 rounded-full text-xs mb-4">
                   {formatDate(msg.sentAt)}
                 </span>
               </div>

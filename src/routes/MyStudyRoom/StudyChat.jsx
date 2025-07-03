@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // isGroup prop으로 그룹방 여부 명확히 구분!
-export default function StudyChat({ isGroup = true }) {
+export default function StudyChat({ isGroup = true, maxHeightClass }) {
   const { studyRoomId } = useParams();
 
   const userId = useSelector((state) => state.auth.id);
@@ -27,7 +27,9 @@ export default function StudyChat({ isGroup = true }) {
   }, [markAsRead]);
 
   return (
-    <div className="w-full max-h-110 flex flex-col bg-white dark:bg-zinc-700 rounded-2xl shadow p-4">
+    <div
+      className={`w-full flex flex-col bg-white dark:bg-zinc-700 rounded-2xl shadow p-4 ${maxHeightClass}`}
+    >
       <StudyChatMessageList
         messages={messages}
         userId={userId}
