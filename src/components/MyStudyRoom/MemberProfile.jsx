@@ -41,17 +41,17 @@ export default function MemberProfile({
         <div className="absolute right-4 top-4 flex flex-col items-center space-y-2">
           <button
             onClick={onRecruitWrite}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl font-bold shadow transition flex items-center gap-2 cursor-pointer "
+            className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl font-bold shadow transition flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base"
             title={studyRecruit ? "구인 폼 수정" : "구인 폼 작성"}
             disabled={recruitLoading}
           >
             {studyRecruit ? (
               <>
-                <PiNoteFill size={20} /> 구인
+                <PiNoteFill size={16} className="sm:w-5 sm:h-5" /> 구인
               </>
             ) : (
               <>
-                <PiNotePencilLight size={20} /> 구인
+                <PiNotePencilLight size={16} className="sm:w-5 sm:h-5" /> 구인
               </>
             )}
           </button>
