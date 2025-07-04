@@ -37,7 +37,7 @@ export default function Board({ board, onClick }) {
       >
         {/* 제목 */}
         <div className="flex items-center mb-2">
-          <span className="text-3xl font-bold truncate max-w-[70%]">
+          <span className="text-2xl font-bold truncate max-w-[70%]">
             {board.title}
           </span>
           <span className="text-xs text-gray-400 dark:text-zinc-300 ml-4 whitespace-nowrap">
