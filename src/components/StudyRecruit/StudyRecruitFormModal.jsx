@@ -133,7 +133,7 @@ export default function StudyRecruitFormModal({
           imageWidth: 120,
           imageHeight: 120,
           confirmButtonText: "확인",
-          confirmButtonColor: "#0033CF",
+          confirmButtonColor: "#003CFF",
           timer: 1500,
         });
       } else if (newStatus === "REJECTED") {
@@ -144,7 +144,7 @@ export default function StudyRecruitFormModal({
           imageWidth: 120,
           imageHeight: 120,
           confirmButtonText: "확인",
-          confirmButtonColor: "#0033CF",
+          confirmButtonColor: "#003CFF",
           timer: 1500,
         });
       }
@@ -220,7 +220,7 @@ export default function StudyRecruitFormModal({
                 name="title"
                 value={form.title}
                 onChange={handleChange}
-                className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium transition placeholder:text-zinc-400"
+                className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#003CFF] font-medium transition placeholder:text-zinc-400"
                 placeholder="제목을 입력하세요"
                 required
                 maxLength={50}
@@ -235,7 +235,7 @@ export default function StudyRecruitFormModal({
                 name="studyExplain"
                 value={form.studyExplain}
                 onChange={handleChange}
-                className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[180px] resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium transition placeholder:text-zinc-400"
+                className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 min-h-[180px] resize-none focus:outline-none focus:ring-2 focus:ring-[#003CFF] font-medium transition placeholder:text-zinc-400"
                 placeholder="스터디를 소개해 주세요!"
                 required
               />

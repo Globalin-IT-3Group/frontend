@@ -58,7 +58,7 @@ export default function Word({ word }) {
           expandIcon={<MdExpandMore size={24} className="dark:text-white " />}
           className="flex justify-center items-center min-h-16 overflow-hidden dark:!bg-zinc-700"
         >
-          <div className="flex-1 min-w-0 px-2 text-center truncate font-bold text-[#0033CF] dark:text-blue-500">
+          <div className="flex-1 min-w-0 px-2 text-center truncate font-bold text-[#003CFF] dark:text-blue-500">
             {word.jpWord}
           </div>
           <div className="flex-1 min-w-0 px-2 text-center truncate text-gray-600 dark:text-white">
@@ -110,7 +110,7 @@ export default function Word({ word }) {
                 <div className="flex gap-2">
                   <button
                     onClick={handleSave}
-                    className="px-3 py-1 rounded bg-[#0033CF] text-white hover:bg-blue-800 cursor-pointer"
+                    className="px-3 py-1 rounded bg-[#003CFF] text-white hover:bg-blue-800 cursor-pointer"
                   >
                     저장
                   </button>

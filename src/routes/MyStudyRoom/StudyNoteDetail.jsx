@@ -63,7 +63,7 @@ export default function StudyNoteDetail() {
           {userId === note.user?.id && (
             <button
               className="absolute top-4 right-4 bg-black/50 hover:shadow-xl hover:bg-black/90 rounded-xl p-2 z-10 border border-white/70
-        transition-colors duration-200 ease-in-out shadow"
+        transition-colors duration-200 ease-in-out shadow cursor-pointer"
               onClick={() =>
                 navigate(
                   `/study/mystudyroom/${studyRoomId}/notes/${note.id}/edit`

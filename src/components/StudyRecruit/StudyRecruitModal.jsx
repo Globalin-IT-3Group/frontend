@@ -54,7 +54,7 @@ export default function StudyRecruitModal({
         <div className="relativez-10 flex flex-col items-center mx-auto p-4 sm:p-6">
           <div className="flex justify-center w-full">
             <div className="flex flex-col items-center w-full rounded-3xl p-4 space-y-3">
-              <h2 className="text-2xl font-bold break-words text-center text-[#0033CF] ">
+              <h2 className="text-2xl font-bold break-words text-center text-[#003CFF] ">
                 {roomName}
               </h2>
               <div className="flex items-center space-x-2">

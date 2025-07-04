@@ -24,7 +24,7 @@ export default function LandingPage() {
         <nav className="space-x-8 text-sm font-medium">
           <button
             onClick={() => setShowLoginModal(true)}
-            className="bg-[#003CFF] text-white px-4 py-2 rounded-full text-sm cursor-pointer"
+            className="bg-[#003CFF] text-white px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-blue-500 transition duration-300"
           >
             로그인
           </button>
@@ -34,10 +34,10 @@ export default function LandingPage() {
       {/* 섹션1 */}
       <section className="bg-gradient-to-r from-blue-400 to-indigo-500 text-white py-32 px-6 relative">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-          <div>
+          <div className="ml-14">
             <h1
               style={{ fontFamily: '"Nico Moji", sans-serif' }}
-              className="text-4xl md:text-9xl font-bolds leading-snug whitespace-pre-line"
+              className="text-5xl md:text-8xl font-bolds leading-snug whitespace-pre-line"
             >
               コツコツ
             </h1>
@@ -49,7 +49,7 @@ export default function LandingPage() {
             <img
               src="https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg"
               alt="데이터 시각화"
-              className="rounded-xl shadow-xl"
+              className="rounded-full shadow-xl"
             />
           </div>
         </div>
@@ -58,10 +58,17 @@ export default function LandingPage() {
       {/* 섹션2 */}
       <section className="bg-white py-24 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 items-center gap-12">
+          <div className="flex justify-center">
+            <img
+              src="https://www.trizstudio.com/assets/uploads/pingu-001.jpg" // ← 여기에 실제 이미지 경로 삽입
+              alt="서비스 가이드 이미지"
+              className="w-full max-w-md rounded-xl "
+            />
+          </div>
           {/* 왼쪽 텍스트 영역 */}
           <Reveal direction="left">
             <div>
-              <h2 className="text-3xl text-blue-600 font-light mb-8">
+              <h2 className="text-3xl text-blue-600 font-bold mb-8">
                 서비스 이용 방법 가이드
               </h2>
               <div className="space-y-8">
@@ -85,22 +92,13 @@ export default function LandingPage() {
               </div>
             </div>
           </Reveal>
-
-          {/* 오른쪽 이미지 영역 */}
-          <div className="flex justify-center">
-            <img
-              src="https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg" // ← 여기에 실제 이미지 경로 삽입
-              alt="서비스 가이드 이미지"
-              className="w-full max-w-md rounded-xl shadow-md"
-            />
-          </div>
         </div>
       </section>
 
       {/* 섹션3 - CTA */}
       <Reveal direction="up">
         <section className="bg-gradient-to-r from-[#7696FF] to-[#4E78FF] text-white py-32 px-6 text-center">
-          <h2 className="text-3xl font-light">사람들과 함께하세요!</h2>
+          <h2 className="text-3xl font-bold">사람들과 함께하세요!</h2>
           <Reveal direction="up" delay={0.2}>
             <p className="mt-6 max-w-xl mx-auto">
               코츠코츠에서 당신을 기다리고 있어요!
@@ -108,7 +106,7 @@ export default function LandingPage() {
           </Reveal>
           <Reveal direction="up" delay={0.4}>
             <button
-              className="mt-6 px-6 py-2 border border-white rounded-full hover:bg-white hover:text-blue-500 transition"
+              className="mt-6 px-6 py-2 border border-white rounded-full hover:bg-white hover:text-blue-500 transition cursor-pointer"
               onClick={() => {
                 formSectionRef.current?.scrollIntoView({ behavior: "smooth" });
               }}
@@ -123,28 +121,29 @@ export default function LandingPage() {
       <Reveal direction="left">
         <section className="py-24 px-6 bg-white">
           <div className="max-w-6xl mx-auto text-center mb-16">
-            <h2 className="text-3xl text-blue-600 font-light">기획 배경</h2>
+            <h2 className="text-3xl text-blue-600 font-bold ">기획 배경</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto text-center">
             <div>
-              <h3 className="font-semibold text-lg">스터디 모임</h3>
-              <p className="text-sm text-gray-700">
-                일본어 공부의 필요성을 느껴, 스터디를 만들어 사람들과 함께
-                공부하고싶어요!
-              </p>
+              <h3 className="font-semibold text-lg mb-2">스터디 모임</h3>
+              <div className="text-sm text-gray-700">
+                <p>일본어 공부의 필요성을 느껴,</p>
+                <p> 스터디를 만들어 사람들과 함께 공부하고싶어요!</p>
+              </div>
             </div>
             <div>
-              <h3 className="font-semibold text-lg">공간적 제약</h3>
-              <p className="text-sm text-gray-700">
-                스터디는 만들었는데...공부할 공간도 마땅치 않고, 각자 사는곳이
-                너무 멀어요!
-              </p>
+              <h3 className="font-semibold text-lg mb-2">공간적 제약</h3>
+              <div className="text-sm text-gray-700">
+                <p>스터디는 만들었는데...</p>
+                <p>공부할 공간도 마땅치 않고, 각자 사는곳이 너무 멀어요!</p>
+              </div>
             </div>
             <div>
-              <h3 className="font-semibold text-lg">시간적 제약</h3>
-              <p className="text-sm text-gray-700">
-                사는곳이 멀다보니 시간에도 제약이 생겨 만나기 더 힘들어요!{" "}
-              </p>
+              <h3 className="font-semibold text-lg mb-2 ">시간적 제약</h3>
+              <div className="text-sm text-gray-700">
+                <p>사는곳이 멀다보니 시간에도 제약이 생겨</p>{" "}
+                <p>만나기 더 힘들어요!</p>
+              </div>
             </div>
           </div>
         </section>
@@ -157,14 +156,14 @@ export default function LandingPage() {
           className="py-24 px-6 bg-[#4E78FF] text-white py-20 px-6"
         >
           <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-light">함께하기</h2>
+            <h2 className="text-3xl font-bold">함께하기</h2>
             <p className="mt-4">コツコツ와 함께 일본어를 공부해보세요!</p>
           </div>
           <form className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <button
               type="button" // ← 수정
               onClick={() => navigate("/join")} // ← 회원가입 페이지로 이동
-              className="col-span-2 mt-6 bg-white text-[#003CFF] py-3 rounded-full"
+              className="col-span-2 mt-6 bg-white text-[#003CFF] py-3 rounded-full cursor-pointer hover:scale-105 hover:bg-blue-100 transition duration-200 hover:font-bold"
             >
               회원가입
             </button>

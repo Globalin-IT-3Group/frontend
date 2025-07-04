@@ -3,6 +3,7 @@ import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { FaRegTrashCan } from "react-icons/fa6";
 import CommentApi from "../../api/commentAPI";
 import ProfileModal from "../../components/common/ProfileModal";
+import Swal from "sweetalert2";
 
 export default function Comment({ comment, myId, onReload }) {
   const [editing, setEditing] = useState(false);
@@ -30,12 +31,50 @@ export default function Comment({ comment, myId, onReload }) {
 
   // 삭제
   const handleDelete = async () => {
-    if (!window.confirm("정말 삭제할까요?")) return;
-    await CommentApi.deleteComment({
-      commentId: comment.id,
-      userId: myId,
+    // if (!window.confirm("정말 삭제할까요?")) return;
+    const result = await Swal.fire({
+      title: "댓글을 삭제하시겠습니까?",
+      text: "삭제된 댓글은 복구할 수 없습니다.",
+      imageUrl: "/question.svg",
+      imageWidth: 120,
+      imageHeight: 120,
+      showCancelButton: true,
+      confirmButtonColor: "#003CFF",
+      cancelButtonColor: "#D9D9D9",
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
     });
-    onReload?.();
+
+    if (result.isConfirmed) {
+      try {
+        await CommentApi.deleteComment({
+          commentId: comment.id,
+          userId: myId,
+        });
+        Swal.fire({
+          title: "삭제 완료!",
+          text: "댓글이 정상적으로 삭제되었습니다.",
+          imageUrl: "/success.svg",
+          imageWidth: 120,
+          imageHeight: 120,
+          showCancelButton: false,
+          confirmButtonColor: "#003CFF",
+          confirmButtonText: "닫기",
+        });
+        onReload?.();
+      } catch (err) {
+        console.error(err);
+        Swal.fire({
+          title: "삭제 실패",
+          text: "삭제에 실패했습니다. 다시 시도해주세요.",
+          imageUrl: "/error.svg",
+          imageWidth: 120,
+          imageHeight: 120,
+          confirmButtonColor: "#D9D9D9",
+          confirmButtonText: "닫기",
+        });
+      }
+    }
   };
 
   return (

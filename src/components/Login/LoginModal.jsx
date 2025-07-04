@@ -122,7 +122,7 @@ export default function LoginModal({ onClose }) {
               <div className="flex flex-col mx-auto justify-center mt-1">
                 <button
                   type="submit"
-                  className="text-xs sm:text-sm w-[150px] sm:w-[190px] py-3 bg-[#003CFF] text-white font-bold rounded-3xl hover:bg-[#0536D7] active:scale-95 transition-all duration-90 cursor-pointer"
+                  className="text-xs sm:text-sm w-[150px] sm:w-[190px] py-3 bg-[#003CFF] text-white font-bold rounded-3xl hover:bg-blue-500 active:scale-95 transition-all duration-90 cursor-pointer"
                 >
                   로그인
                 </button>
