@@ -1,5 +1,15 @@
 import BaseApi from "./axiosInstance";
 
+function base64ToFile(base64Data, fileName) {
+  const arr = base64Data.split(",");
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) u8arr[n] = bstr.charCodeAt(n);
+  return new File([u8arr], fileName, { type: mime });
+}
+
 class StudyNoteApi extends BaseApi {
   // 1. 스터디방 노트 목록 조회
   async getNotesByRoom(roomId, { page = 0, size = 10, sort } = {}) {
@@ -20,44 +30,54 @@ class StudyNoteApi extends BaseApi {
   // 생성
   async createNote({ studyRoomId, title, content, thumbnail }) {
     const formData = new FormData();
+    const noteObj = { studyRoomId, title, content };
 
-    // noteObj에 thumbnail까지 넣음 (S3 업로드 전 URL, 또는 기본값 등)
-    const noteObj = { studyRoomId, title, content, thumbnail };
+    // 썸네일 처리
+    if (typeof thumbnail === "string") {
+      if (thumbnail.startsWith("data:image")) {
+        const file = base64ToFile(thumbnail, "study-note.jpg");
+        formData.append("image", file);
+      } else if (thumbnail.startsWith("http")) {
+        noteObj.thumbnail = thumbnail;
+      }
+    } else if (thumbnail instanceof File) {
+      formData.append("image", thumbnail);
+    }
 
+    // 항상 마지막에 note 객체 추가
     formData.append(
       "note",
       new Blob([JSON.stringify(noteObj)], { type: "application/json" })
     );
 
-    // 만약 thumbnail이 File 타입(=이미지 파일 업로드)이면 image에 넣기
-    if (thumbnail instanceof File) {
-      formData.append("image", thumbnail);
-    }
-
     await this.fetcher.post("/study-note", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: { "Content-Type": "multipart/form-data" },
     });
   }
 
   // 수정
   async updateNote(noteId, { title, content, thumbnail }) {
     const formData = new FormData();
-    const noteObj = { title, content, thumbnail };
+    const noteObj = { title, content };
+
+    if (typeof thumbnail === "string") {
+      if (thumbnail.startsWith("data:image")) {
+        const file = base64ToFile(thumbnail, "study-note.jpg");
+        formData.append("image", file);
+      } else if (thumbnail.startsWith("http")) {
+        noteObj.thumbnail = thumbnail;
+      }
+    } else if (thumbnail instanceof File) {
+      formData.append("image", thumbnail);
+    }
 
     formData.append(
       "note",
       new Blob([JSON.stringify(noteObj)], { type: "application/json" })
     );
-    if (thumbnail instanceof File) {
-      formData.append("image", thumbnail);
-    }
 
     await this.fetcher.put(`/study-note/${noteId}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: { "Content-Type": "multipart/form-data" },
     });
   }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { HiArrowLeft } from "react-icons/hi2";
 import NoteApi from "../../api/noteAPI";
 import MDEditor from "@uiw/react-md-editor";
@@ -100,9 +100,7 @@ export default function MyNoteForm({ mode = "create" }) {
     const payload = {
       title,
       content: markdown,
-      imageUrl:
-        imageUrl ||
-        "https://dh.aks.ac.kr/Edu/wiki/images/b/b7/%ED%95%91%EA%B5%AC.jpg",
+      imageUrl: imageUrl,
     };
 
     try {

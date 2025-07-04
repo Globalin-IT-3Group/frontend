@@ -1,5 +1,24 @@
 import BaseApi from "./axiosInstance";
 
+function base64ToFile(base64Data, fileName = "image.jpg") {
+  const arr = base64Data.split(",");
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) u8arr[n] = bstr.charCodeAt(n);
+  return new File([u8arr], fileName, { type: mime });
+}
+
+function shouldUploadImage(imageUrl) {
+  return (
+    imageUrl &&
+    (imageUrl.startsWith("data:image") ||
+      imageUrl.startsWith("blob:") ||
+      imageUrl.startsWith("http")) // 외부 이미지 직접 업로드
+  );
+}
+
 class StudyRoomApi extends BaseApi {
   constructor() {
     super();
@@ -9,34 +28,41 @@ class StudyRoomApi extends BaseApi {
   async createStudyRoom(data) {
     const formData = new FormData();
 
-    // JSON 데이터를 Blob으로 만들어 "data" 필드로 추가
-    const jsonBlob = new Blob(
-      [
-        JSON.stringify({
-          name: data.name,
-          rule: data.rule,
-          notice: data.notice,
-          maxUserCount: data.maxUserCount,
-          tags: data.tags,
-        }),
-      ],
-      { type: "application/json" }
+    // JSON에 들어갈 데이터
+    const jsonData = {
+      name: data.name,
+      rule: data.rule,
+      notice: data.notice,
+      maxUserCount: data.maxUserCount,
+      tags: data.tags,
+    };
+
+    // 업로드가 아닌 URL일 경우 → 그대로 JSON에 포함
+    if (!shouldUploadImage(data.imageUrl) && data.imageUrl?.trim()) {
+      jsonData.imageUrl = data.imageUrl;
+    }
+
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(jsonData)], { type: "application/json" })
     );
 
-    formData.append("data", jsonBlob);
-
-    // imageUrl이 존재한다면 이미지 URL을 fetch하여 Blob → File 변환 후 "image"로 추가
-    if (data.imageUrl?.trim()) {
+    // 이미지 업로드가 필요한 경우 → fetch → File 변환
+    if (shouldUploadImage(data.imageUrl)) {
       try {
-        const response = await fetch(data.imageUrl);
-        const blob = await response.blob();
-        const filename = "image.jpg"; // 적당한 이름 (실제 저장은 서버에서 처리)
+        let file;
 
-        const file = new File([blob], filename, { type: blob.type });
+        if (data.imageUrl.startsWith("data:image")) {
+          file = base64ToFile(data.imageUrl, "studyroom.jpg");
+        } else {
+          const response = await fetch(data.imageUrl);
+          const blob = await response.blob();
+          file = new File([blob], "studyroom.jpg", { type: blob.type });
+        }
+
         formData.append("image", file);
       } catch (error) {
         console.warn("이미지 fetch 실패:", error);
-        // 이미지 없이 진행 (imageFile 생략)
       }
     }
 
@@ -46,7 +72,7 @@ class StudyRoomApi extends BaseApi {
       },
     });
 
-    return res.data; // StudyRoomDto
+    return res.data;
   }
 
   // 2. 스터디룸 목록 조회
@@ -65,31 +91,39 @@ class StudyRoomApi extends BaseApi {
   async updateStudyRoom(id, data) {
     const formData = new FormData();
 
-    // JSON 데이터를 Blob으로 감싸서 "data" 파트로 보냄
-    const jsonBlob = new Blob(
-      [
-        JSON.stringify({
-          name: data.name,
-          rule: data.rule,
-          notice: data.notice,
-          maxUserCount: data.maxUserCount,
-          tags: data.tags,
-        }),
-      ],
-      { type: "application/json" }
+    const jsonData = {
+      name: data.name,
+      rule: data.rule,
+      notice: data.notice,
+      maxUserCount: data.maxUserCount,
+      tags: data.tags,
+    };
+
+    if (!shouldUploadImage(data.imageUrl) && data.imageUrl?.trim()) {
+      jsonData.imageUrl = data.imageUrl;
+    }
+
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(jsonData)], { type: "application/json" })
     );
 
-    formData.append("data", jsonBlob);
+    if (shouldUploadImage(data.imageUrl)) {
+      try {
+        let file;
 
-    // imageUrl이 존재할 경우: fetch로 이미지 불러와서 Blob → File 변환 후 추가
-    if (data.imageUrl?.trim()) {
-      const response = await fetch(data.imageUrl);
-      const blob = await response.blob();
+        if (data.imageUrl.startsWith("data:image")) {
+          file = base64ToFile(data.imageUrl, "studyroom.jpg");
+        } else {
+          const response = await fetch(data.imageUrl);
+          const blob = await response.blob();
+          file = new File([blob], "studyroom.jpg", { type: blob.type });
+        }
 
-      const filename = "image.jpg"; // 파일명은 임의로 설정 (서버에서 UUID 등으로 처리해줄 수 있음)
-      const file = new File([blob], filename, { type: blob.type });
-
-      formData.append("image", file);
+        formData.append("image", file);
+      } catch (error) {
+        console.warn("이미지 fetch 실패:", error);
+      }
     }
 
     const res = await this.fetcher.put(`/study-room/${id}`, formData, {
